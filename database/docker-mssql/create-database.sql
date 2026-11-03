@@ -73,3 +73,47 @@ BEGIN
     );
 END
 GO
+
+-- 5. Bảng LoaiSanPham (Bảng cha - Phân loại danh mục sản phẩm)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'LoaiSanPham')
+BEGIN
+    CREATE TABLE LoaiSanPham (
+        lsp_ma INT IDENTITY(1,1) PRIMARY KEY,
+        lsp_code NVARCHAR(50) NULL,
+        lsp_ten NVARCHAR(100) NOT NULL,
+        lsp_mo_ta NVARCHAR(255) NULL,
+        lsp_xoa BIT DEFAULT 0
+    );
+END
+GO
+
+-- 6. Bảng SanPham (Bảng con - Tham chiếu khóa ngoại tới LoaiSanPham)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'SanPham')
+BEGIN
+    CREATE TABLE SanPham (
+        sp_ma INT IDENTITY(1,1) PRIMARY KEY,
+        sp_code NVARCHAR(50) NULL,
+        sp_ten NVARCHAR(150) NOT NULL,
+        sp_mo_ta NVARCHAR(500) NULL,
+        sp_loai INT NOT NULL,
+        sp_gia DECIMAL(18, 2) DEFAULT 0, -- Chuyển sang dạng số thực để dễ tính toán
+        sp_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_SanPham_LoaiSanPham FOREIGN KEY (sp_loai) REFERENCES LoaiSanPham(lsp_ma)
+    );
+END
+GO
+
+-- 7. Bảng NhaCungCap (Quản lý thông tin nhà cung cấp)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'NhaCungCap')
+BEGIN
+    CREATE TABLE NhaCungCap (
+        ncc_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ncc_code NVARCHAR(50) NULL,
+        ncc_ten NVARCHAR(150) NOT NULL,
+        ncc_dia_chi NVARCHAR(255) NULL,
+        ncc_dien_thoai NVARCHAR(20) NULL,
+        ncc_ghi_chu NVARCHAR(500) NULL,
+        ncc_xoa BIT DEFAULT 0
+    );
+END
+GO
