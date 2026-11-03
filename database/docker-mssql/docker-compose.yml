@@ -7,4 +7,9 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=password123!
+    volumes:
+      - mssql_data:/var/opt/mssql/data
     restart: unless-stopped
+
+volumes:
+  mssql_data:
