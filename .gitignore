@@ -11,3 +11,5 @@
 *.zip
 *.tmp
 *.log
+.DS_Store
+*/.DS_Store
