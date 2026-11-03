@@ -204,3 +204,46 @@ BEGIN
     );
 END
 GO
+
+-- 13. Bảng TonKho (Quản lý số lượng tồn kho theo sản phẩm và khu vực)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'TonKho')
+BEGIN
+    CREATE TABLE TonKho (
+        tk_ma INT IDENTITY(1,1) PRIMARY KEY,
+        tk_san_pham INT NOT NULL,
+        tk_khu_vuc INT NOT NULL,
+        tk_so_luong_ton INT NOT NULL DEFAULT 0,
+        tk_ngay_cap_nhat DATETIME DEFAULT GETDATE(),
+        CONSTRAINT FK_TonKho_SanPham FOREIGN KEY (tk_san_pham) REFERENCES SanPham(sp_ma),
+        CONSTRAINT FK_TonKho_KhuVuc FOREIGN KEY (tk_khu_vuc) REFERENCES KhuVuc(kv_ma)
+    );
+END
+GO
+
+-- 14. Bảng PhanQuyen (Quản lý các nhóm vai trò/quyền hạn hệ thống)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PhanQuyen')
+BEGIN
+    CREATE TABLE PhanQuyen (
+        pq_ma INT IDENTITY(1,1) PRIMARY KEY,
+        pq_ten NVARCHAR(100) NOT NULL,
+        pq_mo_ta NVARCHAR(255) NULL
+    );
+END
+GO
+
+-- 15. Bảng ChiTietPhanQuyen (Phân quyền chi tiết cho từng tài khoản)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhanQuyen')
+BEGIN
+    CREATE TABLE ChiTietPhanQuyen (
+        ctpq_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ctpq_phan_quyen INT NOT NULL,
+        ctpq_tai_khoan INT NOT NULL,
+        ctpq_xem BIT DEFAULT 0,
+        ctpq_them BIT DEFAULT 0,
+        ctpq_sua BIT DEFAULT 0,
+        ctpq_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_ChiTietPhanQuyen_PhanQuyen FOREIGN KEY (ctpq_phan_quyen) REFERENCES PhanQuyen(pq_ma),
+        CONSTRAINT FK_ChiTietPhanQuyen_TaiKhoan FOREIGN KEY (ctpq_tai_khoan) REFERENCES TaiKhoan(tk_ma)
+    );
+END
+GO
