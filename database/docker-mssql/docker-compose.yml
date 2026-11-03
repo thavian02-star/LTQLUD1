@@ -10,6 +10,7 @@ services:
       - MSSQL_SA_PASSWORD=password123!
     volumes:
       - mssql_data:/var/opt/mssql/data
+      - ./create-database.sql:/usr/src/app/create-database.sql:ro
     restart: unless-stopped
 
 volumes:

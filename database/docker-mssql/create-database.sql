@@ -74,31 +74,60 @@ BEGIN
 END
 GO
 
--- 5. Bảng LoaiSanPham (Bảng cha - Phân loại danh mục sản phẩm)
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'LoaiSanPham')
+-- ==============================================================
+-- DỌN DẸP BẢNG CŨ (MIGRATION / CLEANUP):
+-- Nếu hệ thống từng tạo bảng SanPham hoặc LoaiSanPham, xóa an toàn
+-- bằng cách gỡ các khóa ngoại trước, sau đó xóa bảng con SanPham rồi đến LoaiSanPham.
+-- ==============================================================
+IF OBJECT_ID('FK_ChiTietPhieuNhap_SanPham', 'F') IS NOT NULL
+    ALTER TABLE ChiTietPhieuNhap DROP CONSTRAINT FK_ChiTietPhieuNhap_SanPham;
+GO
+
+IF OBJECT_ID('FK_ChiTietPhieuXuat_SanPham', 'F') IS NOT NULL
+    ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_SanPham;
+GO
+
+IF OBJECT_ID('FK_TonKho_SanPham', 'F') IS NOT NULL
+    ALTER TABLE TonKho DROP CONSTRAINT FK_TonKho_SanPham;
+GO
+
+IF OBJECT_ID('FK_SanPham_LoaiSanPham', 'F') IS NOT NULL
+    ALTER TABLE SanPham DROP CONSTRAINT FK_SanPham_LoaiSanPham;
+GO
+
+IF OBJECT_ID('SanPham', 'U') IS NOT NULL
+    DROP TABLE SanPham;
+GO
+
+IF OBJECT_ID('LoaiSanPham', 'U') IS NOT NULL
+    DROP TABLE LoaiSanPham;
+GO
+
+-- 5. Bảng DanhMuc (Bảng cha - Phân loại danh mục món ăn)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DanhMuc')
 BEGIN
-    CREATE TABLE LoaiSanPham (
-        lsp_ma INT IDENTITY(1,1) PRIMARY KEY,
-        lsp_code NVARCHAR(50) NULL,
-        lsp_ten NVARCHAR(100) NOT NULL,
-        lsp_mo_ta NVARCHAR(255) NULL,
-        lsp_xoa BIT DEFAULT 0
+    CREATE TABLE DanhMuc (
+        dm_ma INT IDENTITY(1,1) PRIMARY KEY,
+        dm_code NVARCHAR(50) NULL,
+        dm_ten NVARCHAR(100) NOT NULL,
+        dm_mo_ta NVARCHAR(255) NULL,
+        dm_xoa BIT DEFAULT 0
     );
 END
 GO
 
--- 6. Bảng SanPham (Bảng con - Tham chiếu khóa ngoại tới LoaiSanPham)
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'SanPham')
+-- 6. Bảng MonAn (Bảng con - Tham chiếu khóa ngoại tới DanhMuc)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'MonAn')
 BEGIN
-    CREATE TABLE SanPham (
-        sp_ma INT IDENTITY(1,1) PRIMARY KEY,
-        sp_code NVARCHAR(50) NULL,
-        sp_ten NVARCHAR(150) NOT NULL,
-        sp_mo_ta NVARCHAR(500) NULL,
-        sp_loai INT NOT NULL,
-        sp_gia DECIMAL(18, 2) DEFAULT 0, -- Chuyển sang dạng số thực để dễ tính toán
-        sp_xoa BIT DEFAULT 0,
-        CONSTRAINT FK_SanPham_LoaiSanPham FOREIGN KEY (sp_loai) REFERENCES LoaiSanPham(lsp_ma)
+    CREATE TABLE MonAn (
+        ma_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ma_code NVARCHAR(50) NULL,
+        ma_ten NVARCHAR(150) NOT NULL,
+        ma_mo_ta NVARCHAR(500) NULL,
+        ma_loai INT NOT NULL,
+        ma_gia DECIMAL(18, 2) DEFAULT 0, -- Chuyển sang dạng số thực để dễ tính toán
+        ma_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_MonAn_DanhMuc FOREIGN KEY (ma_loai) REFERENCES DanhMuc(dm_ma)
     );
 END
 GO
@@ -152,19 +181,19 @@ BEGIN
 END
 GO
 
--- 10. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết sản phẩm trong phiếu nhập)
+-- 10. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết món ăn/sản phẩm trong phiếu nhập)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuNhap')
 BEGIN
     CREATE TABLE ChiTietPhieuNhap (
         ctpn_ma INT IDENTITY(1,1) PRIMARY KEY,
         ctpn_phieu_nhap INT NOT NULL,
-        ctpn_san_pham INT NOT NULL,
+        ctpn_mon_an INT NOT NULL,
         ctpn_so_luong INT NOT NULL DEFAULT 0,
         ctpn_gia_nhap DECIMAL(18, 2) DEFAULT 0,
         ctpn_thanh_tien DECIMAL(18, 2) DEFAULT 0,
         ctpn_xoa BIT DEFAULT 0,
         CONSTRAINT FK_ChiTietPhieuNhap_PhieuNhap FOREIGN KEY (ctpn_phieu_nhap) REFERENCES PhieuNhap(pn_ma),
-        CONSTRAINT FK_ChiTietPhieuNhap_SanPham FOREIGN KEY (ctpn_san_pham) REFERENCES SanPham(sp_ma)
+        CONSTRAINT FK_ChiTietPhieuNhap_MonAn FOREIGN KEY (ctpn_mon_an) REFERENCES MonAn(ma_ma)
     );
 END
 GO
@@ -188,33 +217,33 @@ BEGIN
 END
 GO
 
--- 12. Bảng ChiTietPhieuXuat (Bảng con - Chi tiết sản phẩm trong phiếu xuất)
+-- 12. Bảng ChiTietPhieuXuat (Bảng con - Chi tiết món ăn trong phiếu xuất)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuXuat')
 BEGIN
     CREATE TABLE ChiTietPhieuXuat (
         ctpx_ma INT IDENTITY(1,1) PRIMARY KEY,
         ctpx_phieu_xuat INT NOT NULL,
-        ctpx_san_pham INT NOT NULL,
+        ctpx_mon_an INT NOT NULL,
         ctpx_so_luong INT NOT NULL DEFAULT 0,
         ctpx_gia_xuat DECIMAL(18, 2) DEFAULT 0,
         ctpx_thanh_tien DECIMAL(18, 2) DEFAULT 0,
         ctpx_xoa BIT DEFAULT 0,
         CONSTRAINT FK_ChiTietPhieuXuat_PhieuXuat FOREIGN KEY (ctpx_phieu_xuat) REFERENCES PhieuXuat(px_ma),
-        CONSTRAINT FK_ChiTietPhieuXuat_SanPham FOREIGN KEY (ctpx_san_pham) REFERENCES SanPham(sp_ma)
+        CONSTRAINT FK_ChiTietPhieuXuat_MonAn FOREIGN KEY (ctpx_mon_an) REFERENCES MonAn(ma_ma)
     );
 END
 GO
 
--- 13. Bảng TonKho (Quản lý số lượng tồn kho theo sản phẩm và khu vực)
+-- 13. Bảng TonKho (Quản lý số lượng tồn kho theo món ăn và khu vực)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'TonKho')
 BEGIN
     CREATE TABLE TonKho (
         tk_ma INT IDENTITY(1,1) PRIMARY KEY,
-        tk_san_pham INT NOT NULL,
+        tk_mon_an INT NOT NULL,
         tk_khu_vuc INT NOT NULL,
         tk_so_luong_ton INT NOT NULL DEFAULT 0,
         tk_ngay_cap_nhat DATETIME DEFAULT GETDATE(),
-        CONSTRAINT FK_TonKho_SanPham FOREIGN KEY (tk_san_pham) REFERENCES SanPham(sp_ma),
+        CONSTRAINT FK_TonKho_MonAn FOREIGN KEY (tk_mon_an) REFERENCES MonAn(ma_ma),
         CONSTRAINT FK_TonKho_KhuVuc FOREIGN KEY (tk_khu_vuc) REFERENCES KhuVuc(kv_ma)
     );
 END
