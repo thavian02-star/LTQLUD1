@@ -1,6 +1,6 @@
 # CHECKLIST HOÀN THÀNH ĐỒ ÁN: HỆ THỐNG QUẢN LÝ QUÁN ĂN
 **Môn học:** Lập trình ứng dụng quản lý 1  
-**Công nghệ:** Visual Basic .NET (WinForms) + Microsoft SQL Server 2022 (Docker)  
+**Công nghệ:** Visual Basic .NET (WinForms) + Microsoft Access (.mdb / Jet OLEDB)  
 **Tài liệu gốc:** `Đồ án - Quan ly quan an 3.pdf`
 
 ---
@@ -24,25 +24,28 @@
 
 ---
 
-## GIAI ĐOẠN 2: THIẾT KẾ & KHỞI TẠO CƠ SỞ DỮ LIỆU (Database & Docker)
+## GIAI ĐOẠN 2: THIẾT KẾ & KHỞI TẠO CƠ SỞ DỮ LIỆU (Microsoft Access)
 
-### 2.1. Thiết kế bảng trong `docker-data-server/create-database.sql`
-> Quy ước chung: Sử dụng cờ xóa mềm (`_Xoa BIT DEFAULT 0`) và hỗ trợ tiếng Việt (`COLLATE Latin1_General_100_CI_AS_SC_UTF8`).
+### 2.1. Cấu trúc bảng trong `database/QuanLyQuanAn.mdb`
+> Quy ước chung: Sử dụng file Access `.mdb` tương thích trực tiếp Jet OLEDB 4.0 không cần cài đặt SQL Server.
 
-- [ ] **Nhóm bảng Tài khoản & Phân quyền (RBAC):**
-  - [x] `TaiKhoan` (`TK_Ma`, `TK_TenDangNhap`, `TK_MatKhau` mã hóa MD5, `TK_Xoa`)
-  - [x] `VaiTro` (`VT_Ma`, `VT_Ten`, `VT_Xoa`) -> Cập nhật 4 vai trò: *Phục vụ, Nhà bếp, Quản lý, Chủ quán*.
-  - [x] `Quyen` (`Q_Ma`, `Q_Ten`, `Q_Tag`, `Q_Xoa`) -> Cập nhật `Q_Tag` khớp với các màn hình quán ăn.
-  - [x] `TaiKhoan_VaiTro` & `VaiTro_Quyen`
-- [ ] **Nhóm bảng Nhân sự & Tuyển dụng:**
-  - [ ] Mở rộng bảng `NguoiDung` / `NhanVien` (`ND_Ma`, `ND_Ten`, `ND_GioiTinh`, `ND_NgaySinh`, `ND_ViTriDuTuyen`, `ND_DienThoai`, `ND_DiaChi`, `ND_CMND`, `ND_NgayBatDauLam`, `ND_TrangThai` [Đang làm/Nghỉ việc], `ND_MaTaiKhoan`, `ND_Xoa`).
-  - [ ] `TrinhDoViTinh` (`TDVT_Ma`, `TDVT_Ten`, `TDVT_Xoa`) — Dữ liệu mặc định: *Word, Excel, Cài phần mềm, Khác* (cho phép thay đổi).
-  - [ ] `NhanVien_ViTinh` (Bảng trung gian lưu các kỹ năng vi tính của nhân viên).
-  - [ ] `DungCuTrangPhuc` (`DC_Ma`, `DC_Ten`, `DC_MoTa`, `DC_Xoa`) & `NhanVien_DungCu` (Lưu ngày nhận, số lượng, trạng thái đã trả khi nghỉ việc).
-- [ ] **Nhóm bảng Ca làm việc, Lịch làm việc & Chấm công:**
-  - [ ] `CaLamViec` (`CA_Ma`, `CA_Ten`, `CA_GioBatDau`, `CA_GioKetThuc`, `CA_MucLuongCa`, `CA_Xoa`) — Hỗ trợ cấu hình linh hoạt (3 ca: `8g-13g`, `12g-17g`, `17g-22g` hoặc 2 ca cố định: `9h-16h`, `16h-22h`).
-  - [ ] `LichLamViec` (`LLV_Ma`, `LLV_NhanVien`, `LLV_Ca`, `LLV_NgayLam`, `LLV_Thang`, `LLV_Nam`, `LLV_TrangThai`, `LLV_Xoa`).
-  - [ ] `ChamCong` (`CC_Ma`, `CC_LichLamViec`, `CC_NhanVien`, `CC_GioBatDau`, `CC_GioKetThuc`, `CC_DaDuyet`, `CC_NguoiDuyet`, `CC_Xoa`).
+- [x] **Nhóm bảng Nhân sự & Tuyển dụng:**
+  - [x] `NhanVien` (`MaNV`, `HoTen`, `GioiTinh`, `NgaySinh`, `ViTri`, `DienThoai`, `DiaChi`, `CMND`, `NgayBatDauLam`, `TenDangNhap`, `MatKhau`, `TrangThai`, `DaXoa`).
+  - [x] `TrinhDoViTinh` (`MaTD`, `TenTrinhDo`, `DaXoa`) — Mặc định: *Word, Excel, Cài phần mềm, Khác* (danh sách có thể thay đổi).
+  - [x] `NhanVien_ViTinh` (Bảng trung gian lưu nhiều kỹ năng vi tính của nhân viên).
+  - [x] `DungCuTrangPhuc` (`MaDC`, `TenDungCu`, `SoLuongTong`, `GhiChu`, `DaXoa`) & `NhanVien_DungCu` (Quản lý cấp phát và thu hồi trang phục khi nghỉ việc).
+- [x] **Nhóm bảng Ca làm việc & Lương:**
+  - [x] `CaLamViec` (`MaCa`, `TenCa`, `GioBatDau`, `GioKetThuc`, `LuongMoiCa`, `DaXoa`) — Cấu hình linh hoạt các ca trong ngày và mức lương mỗi ca.
+- [ ] **Nhóm bảng Bàn & Thực đơn (sẽ mở rộng tiếp theo):**
+  - [ ] `Ban` (`MaBan`, `SoThuTu`, `SoNguoiToiDa`, `TrangThai` [Trống, Có khách, Đang đợi món, Món đã xong], `DaXoa`).
+  - [ ] `DanhMuc` (`MaDM`, `TenDanhMuc`, `DaXoa`).
+  - [ ] `MonAn` (`MaMon`, `TenMon`, `MaDM`, `DonGia`, `HetMon`, `DaXoa`).
+- [ ] **Nhóm bảng Lịch làm việc & Chấm công:**
+  - [ ] `LichLamViec` (`MaLich`, `MaNV`, `MaCa`, `NgayLam`, `TrangThai`, `DaXoa`).
+  - [ ] `ChamCong` (`MaCC`, `MaLich`, `MaNV`, `GioBatDau`, `GioKetThuc`, `DaDuyet`, `DaXoa`).
+- [ ] **Nhóm bảng Phục vụ, Gọi món & Hóa đơn:**
+  - [ ] `HoaDon` (`MaHD`, `MaBan`, `MaNVPhucVu`, `SoLuongKhach`, `GioVao`, `GioRa`, `TongTien`, `TrangThai`, `DaXoa`).
+  - [ ] `ChiTietHoaDon` (`MaCTHD`, `MaHD`, `MaMon`, `SoLuong`, `DonGia`, `GhiChu`, `ThoiGianGoi`, `TrangThaiMon` [Chờ thực hiện, Đã nấu xong, Đã mang ra, Đã hủy], `DaXoa`).
 - [ ] **Nhóm bảng Bàn & Thực đơn (Món ăn / Nước uống):**
   - [ ] `Ban` (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_SoNguoiToiDa`, `B_TrangThai` [0: Trống, 1: Có khách, 2: Đang đợi món, 3: Món đã xong], `B_Xoa`).
   - [ ] `DanhMuc` (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa`) — *Món ăn, Nước uống...*

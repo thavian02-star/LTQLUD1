@@ -1,7 +1,7 @@
 # ĐỒ ÁN: HỆ THỐNG QUẢN LÝ QUÁN ĂN
 
 **Môn học:** Lập trình ứng dụng quản lý 1  
-**Công nghệ:** Visual Basic .NET (Windows Forms) + Microsoft Access (`.mdb`) / Microsoft SQL Server  
+**Công nghệ:** Visual Basic .NET (Windows Forms) + Microsoft Access (`.mdb` / Jet OLEDB 4.0)  
 **Kho lưu trữ (Repository):** [https://github.com/thavian02-star/LTQLUD1.git](https://github.com/thavian02-star/LTQLUD1.git)
 
 ---
@@ -11,20 +11,15 @@
 ```text
 DAQLUD1/
 │
-├── database/                    # Toàn bộ tài nguyên Cơ sở dữ liệu
+├── database/                    # Toàn bộ tài nguyên Cơ sở dữ liệu Microsoft Access
 │   ├── QuanLyQuanAn.mdb         # File CSDL Microsoft Access chính (chứa bảng Nhân Viên, Ca Làm, ...)
-│   ├── scripts/                 # Kịch bản sinh và bảo trì CSDL
-│   │   └── create_access_db.ps1 # Script tự động khởi tạo database Access sạch kèm dữ liệu mẫu
-│   └── docker-mssql/            # Cấu hình Docker Microsoft SQL Server 2022 (tùy chọn mở rộng)
-│       ├── Dockerfile
-│       ├── create-database.sql
-│       ├── entrypoint.sh
-│       └── run-initialization.sh
+│   └── scripts/                 # Kịch bản bảo trì & tự động tạo CSDL
+│       └── create_access_db.ps1 # Script tự động sinh database Access sạch kèm dữ liệu mẫu
 │
 ├── docs/                        # Tài liệu phân tích và thiết kế phần mềm
 │   ├── Đồ án - Quan ly quan an 3.pdf  # Đề bài yêu cầu của giảng viên
-│   ├── CHECKLIST_DO_AN.md       # Bảng kế hoạch chi tiết 5 giai đoạn hoàn thành đồ án
-│   └── DATABASE_SCHEMA.md       # Đặc tả chi tiết cấu trúc các bảng CSDL
+│   ├── CHECKLIST_DO_AN.md       # Kế hoạch chi tiết các giai đoạn hoàn thành đồ án
+│   └── DATABASE_SCHEMA.md       # Đặc tả chi tiết cấu trúc các bảng CSDL Access
 │
 ├── src/                         # Mã nguồn ứng dụng Visual Basic .NET Windows Forms
 │   └── .gitkeep
@@ -54,13 +49,13 @@ DAQLUD1/
 
 ## 🔑 KẾT NỐI DATABASE TRONG VB.NET
 
-Sử dụng thư viện `System.Data.OleDb`:
+Sử dụng thư viện chuẩn `System.Data.OleDb`:
 
 ```vbnet
 Imports System.Data.OleDb
 
 Public Module DatabaseHelper
-    ' Kết nối với file database/QuanLyQuanAn.mdb
+    ' Kết nối trực tiếp với file database/QuanLyQuanAn.mdb không cần cài đặt SQL Server
     Public ReadOnly ConnectionString As String =
         "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\..\..\..\database\QuanLyQuanAn.mdb;"
 
