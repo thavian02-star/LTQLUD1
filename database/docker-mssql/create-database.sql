@@ -225,8 +225,8 @@ BEGIN
     CREATE TABLE CaLamViec (
         CA_Ma INT IDENTITY(1,1) PRIMARY KEY,
         CA_Ten NVARCHAR(50) NOT NULL,        -- VD: Ca 1 (Ca Sáng), Ca 2 (Ca Chiều/Tối)
-        CA_GioBatDau NVARCHAR(10) NOT NULL,  -- VD: 08:00, 15:00
-        CA_GioKetThuc NVARCHAR(10) NOT NULL, -- VD: 15:00, 22:00
+        CA_GioBatDau TIME(0) NOT NULL,       -- VD: '08:00:00', '15:00:00'
+        CA_GioKetThuc TIME(0) NOT NULL,      -- VD: '15:00:00', '22:00:00'
         CA_LuongMoiCa DECIMAL(18, 2) DEFAULT 0,
         CA_Xoa BIT DEFAULT 0,
         CONSTRAINT CK_CaLamViec_Luong CHECK (CA_LuongMoiCa >= 0)
@@ -337,6 +337,7 @@ BEGIN
         HD_SoLuongKhach INT NOT NULL DEFAULT 1,
         HD_ThoiGianVao DATETIME DEFAULT GETDATE(),
         HD_ThoiGianThanhToan DATETIME NULL,
+        HD_PhuongThucThanhToan NVARCHAR(30) DEFAULT N'Tiền mặt', -- Tiền mặt / Chuyển khoản / QR Code
         HD_TongTien DECIMAL(18, 2) DEFAULT 0,
         HD_TrangThai INT DEFAULT 0,                 -- 0: Đang phục vụ, 1: Đã thanh toán, 2: Đã gộp, 3: Đã hủy
         HD_Xoa BIT DEFAULT 0,
