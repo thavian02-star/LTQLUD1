@@ -60,3 +60,16 @@ BEGIN
     );
 END
 GO
+
+-- 4. Bảng KhuVuc (An toàn: Không xóa bảng cũ nếu đã tồn tại)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'KhuVuc')
+BEGIN
+    CREATE TABLE KhuVuc (
+        kv_ma INT IDENTITY(1,1) PRIMARY KEY,
+        kv_code NVARCHAR(50) NULL,
+        kv_ten NVARCHAR(100) NOT NULL,
+        kv_mo_ta NVARCHAR(255) NULL,
+        kv_xoa BIT DEFAULT 0 -- Sử dụng kiểu BIT đại diện cho Yes/No (0 hoặc 1)
+    );
+END
+GO
