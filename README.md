@@ -1,7 +1,7 @@
 # ĐỒ ÁN: HỆ THỐNG QUẢN LÝ QUÁN ĂN
 
 **Môn học:** Lập trình ứng dụng quản lý 1  
-**Công nghệ:** Visual Basic .NET (Windows Forms) + Microsoft Access (`.mdb` / Jet OLEDB 4.0)  
+**Công nghệ:** Visual Basic .NET (Windows Forms) + Microsoft SQL Server 2022 (Docker)  
 **Kho lưu trữ (Repository):** [https://github.com/thavian02-star/LTQLUD1.git](https://github.com/thavian02-star/LTQLUD1.git)
 
 ---
@@ -11,15 +11,19 @@
 ```text
 DAQLUD1/
 │
-├── database/                    # Toàn bộ tài nguyên Cơ sở dữ liệu Microsoft Access
-│   ├── QuanLyQuanAn.mdb         # File CSDL Microsoft Access chính (chứa bảng Nhân Viên, Ca Làm, ...)
-│   └── scripts/                 # Kịch bản bảo trì & tự động tạo CSDL
-│       └── create_access_db.ps1 # Script tự động sinh database Access sạch kèm dữ liệu mẫu
+├── database/                    # Toàn bộ tài nguyên Cơ sở dữ liệu SQL Server
+│   └── docker-mssql/            # Cấu hình Docker Microsoft SQL Server 2022
+│       ├── Dockerfile           # Khởi tạo image SQL Server Express
+│       ├── docker-compose.yml   # Cấu hình chạy dịch vụ 1 lệnh
+│       ├── start-db.bat         # File click chạy nhanh SQL Server
+│       ├── create-database.sql  # Script tạo toàn bộ bảng & nạp dữ liệu mẫu
+│       ├── entrypoint.sh        # Khởi động dịch vụ SQL Server
+│       └── run-initialization.sh# Tự động nạp CSDL khi container khởi động
 │
 ├── docs/                        # Tài liệu phân tích và thiết kế phần mềm
 │   ├── Đồ án - Quan ly quan an 3.pdf  # Đề bài yêu cầu của giảng viên
 │   ├── CHECKLIST_DO_AN.md       # Kế hoạch chi tiết các giai đoạn hoàn thành đồ án
-│   └── DATABASE_SCHEMA.md       # Đặc tả chi tiết cấu trúc các bảng CSDL Access
+│   └── DATABASE_SCHEMA.md       # Đặc tả chi tiết cấu trúc các bảng CSDL SQL Server
 │
 ├── src/                         # Mã nguồn ứng dụng Visual Basic .NET Windows Forms
 │   └── .gitkeep
@@ -30,45 +34,47 @@ DAQLUD1/
 
 ---
 
-## 🎯 CÁC QUY TRÌNH NGHIỆP VỤ CHÍNH
+## 🚀 HƯỚNG DẪN KHỞI CHẠY SQL SERVER (DOCKER)
 
-1. **Quy trình Phục vụ Khách hàng:**
-   - Chọn bàn $\rightarrow$ Đặt món / Nước uống $\rightarrow$ Báo bếp chế biến $\rightarrow$ Bếp báo hoàn thành $\rightarrow$ Mang ra cho khách $\rightarrow$ Hỗ trợ Đổi món / Hủy món / Chuyển bàn / Gộp bàn $\rightarrow$ Tính tiền và in hóa đơn.
-2. **Quy trình Quản lý Nhân sự & Lương:**
-   - Tiếp nhận hồ sơ: Thông tin cá nhân, vị trí tuyển dụng, nhiều trình độ vi tính (*Word, Excel, Cài phần mềm...*).
-   - Cấp phát đồng phục / trang phục quán.
-   - Xếp lịch làm việc theo ca/tuần/tháng $\rightarrow$ Chấm công & Quản lý duyệt công $\rightarrow$ Tính lương theo tổng số ca làm.
-   - Nghiệp vụ nghỉ việc: Đổi trạng thái, xóa lịch tương lai, xác nhận thu hồi dụng cụ/trang phục.
-3. **Báo cáo & Thống kê dành cho Chủ quán:**
-   - Doanh thu theo Tháng / Quý / Năm.
-   - Thống kê lượng khách theo ca, theo nhân viên phục vụ, theo từng bàn.
-   - Thống kê món ăn/nước uống bán chạy.
-   - Thống kê số ca và bảng lương nhân viên.
+1. Đảm bảo máy tính đã bật **Docker Desktop**.
+2. Chạy file `database/docker-mssql/start-db.bat`  
+   *(Hoặc gõ lệnh trong terminal)*:
+   ```powershell
+   cd database/docker-mssql
+   docker-compose up -d --build
+   ```
+3. Đợi khoảng 10–15 giây để SQL Server hoàn tất nạp database mẫu.
+
+### Thông tin kết nối:
+- **Server:** `localhost,1433`
+- **Database:** `QuanLyQuanAnDB`
+- **User:** `sa`
+- **Password:** `password123!`
+- **Công cụ xem & quản trị khuyên dùng:** DBeaver, Azure Data Studio hoặc SSMS.
 
 ---
 
 ## 🔑 KẾT NỐI DATABASE TRONG VB.NET
 
-Sử dụng thư viện chuẩn `System.Data.OleDb`:
+Sử dụng thư viện `System.Data.SqlClient`:
 
 ```vbnet
-Imports System.Data.OleDb
+Imports System.Data.SqlClient
 
 Public Module DatabaseHelper
-    ' Kết nối trực tiếp với file database/QuanLyQuanAn.mdb không cần cài đặt SQL Server
     Public ReadOnly ConnectionString As String =
-        "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\..\..\..\database\QuanLyQuanAn.mdb;"
+        "Server=localhost,1433;Database=QuanLyQuanAnDB;User Id=sa;Password=password123!;TrustServerCertificate=True;"
 
-    Public Function GetConnection() As OleDbConnection
-        Return New OleDbConnection(ConnectionString)
+    Public Function GetConnection() As SqlConnection
+        Return New SqlConnection(ConnectionString)
     End Function
 End Module
 ```
 
-### Tài khoản đăng nhập thử nghiệm:
-| Tài khoản | Mật khẩu | Vị trí / Vai trò |
+### Tài khoản đăng nhập thử nghiệm (Mật khẩu: `123456`):
+| Tài khoản | Vai trò | Chức năng chính |
 | :--- | :--- | :--- |
-| `chuquan` | `123456` | Chủ quán |
-| `quanly` | `123456` | Nhân viên quản lý |
-| `phucvu` | `123456` | Nhân viên phục vụ |
-| `nhabep` | `123456` | Nhân viên pha chế / bếp |
+| `chuquan` | Chủ quán | Full quyền hệ thống, xem tất cả báo cáo |
+| `quanly` | Quản lý | Xếp lịch, duyệt chấm công, hỗ trợ phục vụ |
+| `phucvu` | Nhân viên phục vụ | Xem bàn, đặt/đổi/hủy món, chuyển/gộp bàn, tính tiền |
+| `nhabep` | Nhà bếp / Pha chế | Xem hàng đợi món, cập nhật nấu xong |
