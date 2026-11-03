@@ -189,7 +189,7 @@ BEGIN
         pn_ma INT IDENTITY(1,1) PRIMARY KEY,
         pn_code NVARCHAR(50) NULL,
         pn_ngay DATETIME DEFAULT GETDATE(),
-        pn_tong_san_pham INT DEFAULT 0,
+        pn_tong_so_luong INT DEFAULT 0,
         pn_tong_tien DECIMAL(18, 2) DEFAULT 0,
         pn_ghi_chu NVARCHAR(500) NULL,
         pn_nha_cung_cap INT NOT NULL,
@@ -201,19 +201,19 @@ BEGIN
 END
 GO
 
--- 12. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết món ăn/nguyên liệu trong phiếu nhập)
+-- 12. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết nguyên liệu trong phiếu nhập)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuNhap')
 BEGIN
     CREATE TABLE ChiTietPhieuNhap (
         ctpn_ma INT IDENTITY(1,1) PRIMARY KEY,
         ctpn_phieu_nhap INT NOT NULL,
-        ctpn_mon_an INT NOT NULL,
+        ctpn_nguyen_lieu INT NOT NULL,
         ctpn_so_luong INT NOT NULL DEFAULT 0,
         ctpn_gia_nhap DECIMAL(18, 2) DEFAULT 0,
         ctpn_thanh_tien DECIMAL(18, 2) DEFAULT 0,
         ctpn_xoa BIT DEFAULT 0,
         CONSTRAINT FK_ChiTietPhieuNhap_PhieuNhap FOREIGN KEY (ctpn_phieu_nhap) REFERENCES PhieuNhap(pn_ma),
-        CONSTRAINT FK_ChiTietPhieuNhap_MonAn FOREIGN KEY (ctpn_mon_an) REFERENCES MonAn(ma_ma)
+        CONSTRAINT FK_ChiTietPhieuNhap_NguyenLieu FOREIGN KEY (ctpn_nguyen_lieu) REFERENCES NguyenLieu(nl_ma)
     );
 END
 GO
@@ -254,16 +254,16 @@ BEGIN
 END
 GO
 
--- 15. Bảng TonKho (Quản lý số lượng tồn kho theo món ăn và khu vực)
+-- 15. Bảng TonKho (Quản lý số lượng tồn kho theo nguyên liệu và khu vực)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'TonKho')
 BEGIN
     CREATE TABLE TonKho (
         tk_ma INT IDENTITY(1,1) PRIMARY KEY,
-        tk_mon_an INT NOT NULL,
+        tk_nguyen_lieu INT NOT NULL,
         tk_khu_vuc INT NOT NULL,
         tk_so_luong_ton INT NOT NULL DEFAULT 0,
         tk_ngay_cap_nhat DATETIME DEFAULT GETDATE(),
-        CONSTRAINT FK_TonKho_MonAn FOREIGN KEY (tk_mon_an) REFERENCES MonAn(ma_ma),
+        CONSTRAINT FK_TonKho_NguyenLieu FOREIGN KEY (tk_nguyen_lieu) REFERENCES NguyenLieu(nl_ma),
         CONSTRAINT FK_TonKho_KhuVuc FOREIGN KEY (tk_khu_vuc) REFERENCES KhuVuc(kv_ma)
     );
 END
