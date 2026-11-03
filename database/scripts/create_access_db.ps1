@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$dbPath = "C:\Users\wmwar\OneDrive\Desktop\DAQLUD1\QuanLyQuanAn.mdb"
+$dbPath = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot "..\QuanLyQuanAn.mdb"))
 if (Test-Path $dbPath) { Remove-Item $dbPath -Force }
 
 # 1. Khoi tao Access (.mdb)
