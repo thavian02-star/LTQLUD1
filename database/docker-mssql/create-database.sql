@@ -124,7 +124,38 @@ BEGIN
 END
 GO
 
--- 7. Bảng LoaiNguyenLieu (Bảng cha - Phân loại danh mục nguyên liệu)
+-- 7. Bảng Menu (Quản lý các thực đơn theo thời gian hoặc sự kiện)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Menu')
+BEGIN
+    CREATE TABLE Menu (
+        mn_ma INT IDENTITY(1,1) PRIMARY KEY,
+        mn_code NVARCHAR(50) NULL,
+        mn_ngay_bat_dau DATETIME NULL,
+        mn_ngay_ket_thu DATETIME NULL,
+        mn_ten NVARCHAR(150) NOT NULL,
+        mn_mo_ta NVARCHAR(500) NULL,
+        mn_xoa BIT DEFAULT 0
+    );
+END
+GO
+
+-- 8. Bảng ChiTietMenu (Bảng con - Chi tiết món ăn trong từng Menu và giá bán)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietMenu')
+BEGIN
+    CREATE TABLE ChiTietMenu (
+        ctmn_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ctmn_ma_menu INT NOT NULL,
+        ctmn_ma_mon_an INT NOT NULL,
+        ctmn_gia DECIMAL(18, 2) DEFAULT 0,
+        ctmn_mo_ta NVARCHAR(500) NULL,
+        ctmn_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_ChiTietMenu_Menu FOREIGN KEY (ctmn_ma_menu) REFERENCES Menu(mn_ma),
+        CONSTRAINT FK_ChiTietMenu_MonAn FOREIGN KEY (ctmn_ma_mon_an) REFERENCES MonAn(ma_ma)
+    );
+END
+GO
+
+-- 9. Bảng LoaiNguyenLieu (Bảng cha - Phân loại danh mục nguyên liệu)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'LoaiNguyenLieu')
 BEGIN
     CREATE TABLE LoaiNguyenLieu (
@@ -137,7 +168,7 @@ BEGIN
 END
 GO
 
--- 8. Bảng NguyenLieu (Bảng con - Tham chiếu khóa ngoại tới LoaiNguyenLieu)
+-- 10. Bảng NguyenLieu (Bảng con - Tham chiếu khóa ngoại tới LoaiNguyenLieu)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'NguyenLieu')
 BEGIN
     CREATE TABLE NguyenLieu (
@@ -152,7 +183,7 @@ BEGIN
 END
 GO
 
--- 9. Bảng NguyenLieuMonAn (Bảng trung gian - Định mức nguyên liệu cho từng món ăn)
+-- 11. Bảng NguyenLieuMonAn (Bảng trung gian - Định mức nguyên liệu cho từng món ăn)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'NguyenLieuMonAn')
 BEGIN
     CREATE TABLE NguyenLieuMonAn (
@@ -167,7 +198,7 @@ BEGIN
 END
 GO
 
--- 10. Bảng NhaCungCap (Quản lý thông tin nhà cung cấp)
+-- 12. Bảng NhaCungCap (Quản lý thông tin nhà cung cấp)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'NhaCungCap')
 BEGIN
     CREATE TABLE NhaCungCap (
@@ -182,7 +213,7 @@ BEGIN
 END
 GO
 
--- 11. Bảng KhachHang (Quản lý khách hàng mua hàng)
+-- 13. Bảng KhachHang (Quản lý khách hàng mua hàng)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'KhachHang')
 BEGIN
     CREATE TABLE KhachHang (
@@ -197,7 +228,7 @@ BEGIN
 END
 GO
 
--- 12. Bảng PhieuNhap (Bảng cha - Quản lý thông tin chung các đợt nhập hàng)
+-- 14. Bảng PhieuNhap (Bảng cha - Quản lý thông tin chung các đợt nhập hàng)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PhieuNhap')
 BEGIN
     CREATE TABLE PhieuNhap (
@@ -216,7 +247,7 @@ BEGIN
 END
 GO
 
--- 13. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết nguyên liệu trong phiếu nhập)
+-- 15. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết nguyên liệu trong phiếu nhập)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuNhap')
 BEGIN
     CREATE TABLE ChiTietPhieuNhap (
@@ -233,7 +264,7 @@ BEGIN
 END
 GO
 
--- 14. Bảng DonHang (Bảng cha - Quản lý đơn hàng / hóa đơn bán hàng cho khách)
+-- 16. Bảng DonHang (Bảng cha - Quản lý đơn hàng / hóa đơn bán hàng cho khách)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DonHang')
 BEGIN
     CREATE TABLE DonHang (
@@ -252,7 +283,7 @@ BEGIN
 END
 GO
 
--- 15. Bảng ChiTietDonHang (Bảng con - Chi tiết từng món ăn trong đơn hàng)
+-- 17. Bảng ChiTietDonHang (Bảng con - Chi tiết từng món ăn trong đơn hàng)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietDonHang')
 BEGIN
     CREATE TABLE ChiTietDonHang (
@@ -269,7 +300,7 @@ BEGIN
 END
 GO
 
--- 16. Bảng TonKho (Quản lý số lượng tồn kho theo nguyên liệu và khu vực)
+-- 18. Bảng TonKho (Quản lý số lượng tồn kho theo nguyên liệu và khu vực)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'TonKho')
 BEGIN
     CREATE TABLE TonKho (
@@ -284,7 +315,7 @@ BEGIN
 END
 GO
 
--- 17. Bảng PhanQuyen (Quản lý các nhóm vai trò/quyền hạn hệ thống)
+-- 19. Bảng PhanQuyen (Quản lý các nhóm vai trò/quyền hạn hệ thống)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PhanQuyen')
 BEGIN
     CREATE TABLE PhanQuyen (
@@ -295,7 +326,7 @@ BEGIN
 END
 GO
 
--- 18. Bảng ChiTietPhanQuyen (Phân quyền chi tiết cho từng tài khoản)
+-- 20. Bảng ChiTietPhanQuyen (Phân quyền chi tiết cho từng tài khoản)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhanQuyen')
 BEGIN
     CREATE TABLE ChiTietPhanQuyen (
