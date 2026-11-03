@@ -36,6 +36,27 @@ GO
 USE [QuanLyQuanAnDB];
 GO
 
+-- ==============================================================
+-- [CHẾ ĐỘ THIẾT KẾ / DEVELOPMENT RESET]
+-- Tự động gỡ bỏ toàn bộ khóa ngoại và xóa sạch tất cả các bảng hiện có
+-- để khởi tạo lại cấu trúc mới nhất mà không cần viết script migrate thủ công.
+-- >>> LƯU Ý: XÓA HOẶC COMMENT KHỐI NÀY KHI ĐÃ THIẾT KẾ ỔN ĐỊNH <<<
+-- ==============================================================
+DECLARE @dropConstraintsSql NVARCHAR(MAX) = N'';
+SELECT @dropConstraintsSql += N'ALTER TABLE ' + QUOTENAME(OBJECT_SCHEMA_NAME(parent_object_id)) + '.' + QUOTENAME(OBJECT_NAME(parent_object_id)) + 
+                              N' DROP CONSTRAINT ' + QUOTENAME(name) + ';' + CHAR(13)
+FROM sys.foreign_keys;
+IF LEN(@dropConstraintsSql) > 0
+    EXEC sp_executesql @dropConstraintsSql;
+
+DECLARE @dropTablesSql NVARCHAR(MAX) = N'';
+SELECT @dropTablesSql += N'DROP TABLE ' + QUOTENAME(SCHEMA_NAME(schema_id)) + '.' + QUOTENAME(name) + ';' + CHAR(13)
+FROM sys.tables
+WHERE is_ms_shipped = 0;
+IF LEN(@dropTablesSql) > 0
+    EXEC sp_executesql @dropTablesSql;
+GO
+
 -- 2. Bảng NhanVien (An toàn: Không xóa bảng cũ nếu đã tồn tại)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'NhanVien')
 BEGIN
@@ -72,59 +93,6 @@ BEGIN
         kv_xoa BIT DEFAULT 0 -- Sử dụng kiểu BIT đại diện cho Yes/No (0 hoặc 1)
     );
 END
-GO
-
--- ==============================================================
--- DỌN DẸP BẢNG CŨ (MIGRATION / CLEANUP):
--- Xóa an toàn các bảng cũ (SanPham, LoaiSanPham, PhieuXuat, ChiTietPhieuXuat)
--- bằng cách gỡ các khóa ngoại trước, sau đó xóa bảng con rồi đến bảng cha.
--- ==============================================================
-IF OBJECT_ID('FK_ChiTietPhieuNhap_SanPham', 'F') IS NOT NULL
-    ALTER TABLE ChiTietPhieuNhap DROP CONSTRAINT FK_ChiTietPhieuNhap_SanPham;
-GO
-
-IF OBJECT_ID('FK_ChiTietPhieuXuat_SanPham', 'F') IS NOT NULL
-    ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_SanPham;
-GO
-
-IF OBJECT_ID('FK_ChiTietPhieuXuat_MonAn', 'F') IS NOT NULL
-    ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_MonAn;
-GO
-
-IF OBJECT_ID('FK_ChiTietPhieuXuat_PhieuXuat', 'F') IS NOT NULL
-    ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_PhieuXuat;
-GO
-
-IF OBJECT_ID('FK_PhieuXuat_KhachHang', 'F') IS NOT NULL
-    ALTER TABLE PhieuXuat DROP CONSTRAINT FK_PhieuXuat_KhachHang;
-GO
-
-IF OBJECT_ID('FK_PhieuXuat_NhanVien', 'F') IS NOT NULL
-    ALTER TABLE PhieuXuat DROP CONSTRAINT FK_PhieuXuat_NhanVien;
-GO
-
-IF OBJECT_ID('FK_TonKho_SanPham', 'F') IS NOT NULL
-    ALTER TABLE TonKho DROP CONSTRAINT FK_TonKho_SanPham;
-GO
-
-IF OBJECT_ID('FK_SanPham_LoaiSanPham', 'F') IS NOT NULL
-    ALTER TABLE SanPham DROP CONSTRAINT FK_SanPham_LoaiSanPham;
-GO
-
-IF OBJECT_ID('ChiTietPhieuXuat', 'U') IS NOT NULL
-    DROP TABLE ChiTietPhieuXuat;
-GO
-
-IF OBJECT_ID('PhieuXuat', 'U') IS NOT NULL
-    DROP TABLE PhieuXuat;
-GO
-
-IF OBJECT_ID('SanPham', 'U') IS NOT NULL
-    DROP TABLE SanPham;
-GO
-
-IF OBJECT_ID('LoaiSanPham', 'U') IS NOT NULL
-    DROP TABLE LoaiSanPham;
 GO
 
 -- 5. Bảng DanhMuc (Bảng cha - Phân loại danh mục món ăn)
