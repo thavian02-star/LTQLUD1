@@ -20,10 +20,10 @@
 13. **ChamCong**: Ghi nhận giờ bắt đầu/kết thúc làm và trạng thái Quản lý duyệt chấm công (`CC_Ma`, `CC_MaLich`, `CC_MaNV`, `CC_GioBatDau`, `CC_GioKetThuc`, `CC_DaDuyet`, `CC_Xoa`).
 
 ## Nhóm 4: Bàn ăn & Thực đơn
-14. **Ban**: Quản lý tổ chức bàn ghế và trạng thái bàn (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
+14. **Ban**: Quản lý tổ chức bàn ghế, khu vực và trạng thái bàn (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_KhuVuc`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
 15. **DanhMuc**: Phân loại danh mục món ăn/nước uống (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa`).
 16. **MonAn**: Quản lý thông tin món ăn/nước uống và báo hết món (`MA_Ma`, `MA_Ten`, `MA_DanhMuc`, `MA_DonGia`, `MA_HetMon`, `MA_MoTa`, `MA_Xoa`).
 
 ## Nhóm 5: Phục vụ, Gọi món & Hóa đơn
-17. **HoaDon**: Quản lý phiên phục vụ tại bàn, chuyển bàn, gộp bàn, thanh toán (`HD_Ma`, `HD_MaBan`, `HD_MaNVPhucVu`, `HD_SoLuongKhach`, `HD_ThoiGianVao`, `HD_ThoiGianThanhToan`, `HD_TongTien`, `HD_TrangThai`, `HD_Xoa`).
+17. **HoaDon**: Quản lý phiên phục vụ tại bàn, ca làm việc, chuyển bàn, gộp bàn, thanh toán (`HD_Ma`, `HD_MaBan`, `HD_MaNVPhucVu`, `HD_MaCa`, `HD_MaHoaDonGop`, `HD_SoLuongKhach`, `HD_ThoiGianVao`, `HD_ThoiGianThanhToan`, `HD_TongTien`, `HD_TrangThai`, `HD_Xoa`).
 18. **ChiTietHoaDon**: Chi tiết từng lần gọi món, ghi chú, thứ tự thời gian chuyển xuống bếp và trạng thái món (`CTHD_Ma`, `CTHD_MaHoaDon`, `CTHD_MaMonAn`, `CTHD_SoLuong`, `CTHD_DonGia`, `CTHD_GhiChu`, `CTHD_ThoiGianGoi`, `CTHD_TrangThaiMon`, `CTHD_Xoa`).

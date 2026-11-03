@@ -43,20 +43,20 @@ GO
 -- để khởi tạo lại cấu trúc mới nhất mà không cần viết script migrate thủ công.
 -- >>> LƯU Ý: XÓA HOẶC COMMENT KHỐI NÀY KHI ĐÃ THIẾT KẾ ỔN ĐỊNH <<<
 -- ==============================================================
-DECLARE @dropConstraintsSql NVARCHAR(MAX) = N'';
-SELECT @dropConstraintsSql += N'ALTER TABLE ' + QUOTENAME(OBJECT_SCHEMA_NAME(parent_object_id)) + '.' + QUOTENAME(OBJECT_NAME(parent_object_id)) + 
+-- DECLARE @dropConstraintsSql NVARCHAR(MAX) = N'';
+-- SELECT @dropConstraintsSql += N'ALTER TABLE ' + QUOTENAME(OBJECT_SCHEMA_NAME(parent_object_id)) + '.' + QUOTENAME(OBJECT_NAME(parent_object_id)) + 
                               N' DROP CONSTRAINT ' + QUOTENAME(name) + ';' + CHAR(13)
-FROM sys.foreign_keys;
-IF LEN(@dropConstraintsSql) > 0
-    EXEC sp_executesql @dropConstraintsSql;
+-- FROM sys.foreign_keys;
+-- IF LEN(@dropConstraintsSql) > 0
+--     EXEC sp_executesql @dropConstraintsSql;
 
-DECLARE @dropTablesSql NVARCHAR(MAX) = N'';
-SELECT @dropTablesSql += N'DROP TABLE ' + QUOTENAME(SCHEMA_NAME(schema_id)) + '.' + QUOTENAME(name) + ';' + CHAR(13)
-FROM sys.tables
-WHERE is_ms_shipped = 0;
-IF LEN(@dropTablesSql) > 0
-    EXEC sp_executesql @dropTablesSql;
-GO
+-- DECLARE @dropTablesSql NVARCHAR(MAX) = N'';
+-- SELECT @dropTablesSql += N'DROP TABLE ' + QUOTENAME(SCHEMA_NAME(schema_id)) + '.' + QUOTENAME(name) + ';' + CHAR(13)
+-- FROM sys.tables
+-- WHERE is_ms_shipped = 0;
+-- IF LEN(@dropTablesSql) > 0
+--     EXEC sp_executesql @dropTablesSql;
+-- GO
 
 -- ==============================================================
 -- NHÓM 1: BẢNG PHÂN QUYỀN & TÀI KHOẢN (RBAC - 5 BẢNG)
@@ -260,13 +260,14 @@ GO
 -- NHÓM 4: BẢNG BÀN ĂN & THỰC ĐƠN (3 BẢNG)
 -- ==============================================================
 
--- 4.1. Bảng Ban (Số thứ tự bàn, số người tối đa, 4 trạng thái bàn)
+-- 4.1. Bảng Ban (Số thứ tự bàn, khu vực, số người tối đa, 4 trạng thái bàn)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Ban')
 BEGIN
     CREATE TABLE Ban (
         B_Ma INT IDENTITY(1,1) PRIMARY KEY,
         B_SoThuTu INT NOT NULL UNIQUE,
         B_TenBan NVARCHAR(50) NOT NULL,
+        B_KhuVuc NVARCHAR(50) DEFAULT N'Tầng trệt', -- Khu vực bàn (Tầng 1, Tầng 2, Sân vườn, VIP...)
         B_SoNguoiToiDa INT NOT NULL DEFAULT 4,
         B_TrangThai INT DEFAULT 0, -- 0: Trống, 1: Có khách, 2: Đang đợi món, 3: Món đã xong
         B_Xoa BIT DEFAULT 0
@@ -306,21 +307,25 @@ GO
 -- NHÓM 5: BẢNG PHỤC VỤ, GỌI MÓN & HÓA ĐƠN (2 BẢNG)
 -- ==============================================================
 
--- 5.1. Bảng HoaDon (Quản lý phiên phục vụ tại bàn, chuyển bàn, gộp bàn, thanh toán)
+-- 5.1. Bảng HoaDon (Quản lý phiên phục vụ tại bàn, ca làm việc, chuyển/gộp bàn, thanh toán)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'HoaDon')
 BEGIN
     CREATE TABLE HoaDon (
         HD_Ma INT IDENTITY(1,1) PRIMARY KEY,
         HD_MaBan INT NOT NULL,
         HD_MaNVPhucVu INT NOT NULL,
+        HD_MaCa INT NULL,                           -- Khóa ngoại CaLamViec: phục vụ báo cáo lượng khách theo ca
+        HD_MaHoaDonGop INT NULL,                    -- Khóa ngoại tự tham chiếu HoaDon: lưu vết khi 2 bàn gộp tính tiền chung
         HD_SoLuongKhach INT NOT NULL DEFAULT 1,
         HD_ThoiGianVao DATETIME DEFAULT GETDATE(),
         HD_ThoiGianThanhToan DATETIME NULL,
         HD_TongTien DECIMAL(18, 2) DEFAULT 0,
-        HD_TrangThai INT DEFAULT 0, -- 0: Đang phục vụ, 1: Đã thanh toán, 2: Đã gộp/hủy
+        HD_TrangThai INT DEFAULT 0,                 -- 0: Đang phục vụ, 1: Đã thanh toán, 2: Đã gộp, 3: Đã hủy
         HD_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_HoaDon_Ban FOREIGN KEY (HD_MaBan) REFERENCES Ban(B_Ma),
-        CONSTRAINT FK_HoaDon_NhanVien FOREIGN KEY (HD_MaNVPhucVu) REFERENCES NhanVien(NV_Ma)
+        CONSTRAINT FK_HoaDon_NhanVien FOREIGN KEY (HD_MaNVPhucVu) REFERENCES NhanVien(NV_Ma),
+        CONSTRAINT FK_HoaDon_CaLamViec FOREIGN KEY (HD_MaCa) REFERENCES CaLamViec(CA_Ma),
+        CONSTRAINT FK_HoaDon_HoaDonGop FOREIGN KEY (HD_MaHoaDonGop) REFERENCES HoaDon(HD_Ma)
     );
 END
 GO

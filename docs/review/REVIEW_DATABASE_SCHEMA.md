@@ -84,5 +84,9 @@ File `create-database.sql` hiện tại đã bao phủ **~92% yêu cầu nghiệ
 
 ---
 
-## 4. KẾT LUẬN
-Bản thiết kế trong `create-database.sql` **hoàn toàn đạt chuẩn và bám sát yêu cầu nghiệp vụ của đề tài**. Sau khi áp dụng thêm 2 cải tiến nhỏ ở mục 3 (thêm `HD_MaCa` và `HD_MaHoaDonGop`), cơ sở dữ liệu sẽ đạt **100% độ tương thích hoàn hảo**, sẵn sàng chuyển sang bước **Nạp dữ liệu mẫu (Seed Data)** và phát triển giao diện WinForms.
+## 4. KẾT LUẬN & TRẠNG THÁI TRIỂN KHAI
+- [x] **Cải tiến 1 (Đã hoàn thành):** Đã bổ sung `HD_MaCa` vào `HoaDon` liên kết tới `CaLamViec(CA_Ma)`.
+- [x] **Cải tiến 2 (Đã hoàn thành):** Đã bổ sung `HD_MaHoaDonGop` vào `HoaDon` liên kết tự tham chiếu `HoaDon(HD_Ma)`.
+- [x] **Cải tiến 3 (Đã hoàn thành):** Đã bổ sung `B_KhuVuc NVARCHAR(50)` vào bảng `Ban`.
+
+Toàn bộ 18 bảng trong `create-database.sql` hiện tại đã đạt **100% độ chuẩn chỉnh**, đáp ứng đầy đủ tất cả các yêu cầu nghiệp vụ từ phục vụ, nhà bếp, quản lý đến chủ quán trong đề bài gốc, sẵn sàng cho **Giai đoạn 2 - Mục 2.2 (Nạp dữ liệu mẫu)**.
