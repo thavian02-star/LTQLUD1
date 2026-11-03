@@ -117,3 +117,90 @@ BEGIN
     );
 END
 GO
+
+-- 8. Bảng KhachHang (Quản lý khách hàng mua hàng)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'KhachHang')
+BEGIN
+    CREATE TABLE KhachHang (
+        kh_ma INT IDENTITY(1,1) PRIMARY KEY,
+        kh_code NVARCHAR(50) NULL,
+        kh_ten NVARCHAR(150) NOT NULL,
+        kh_dia_chi NVARCHAR(255) NULL,
+        kh_dien_thoai NVARCHAR(20) NULL,
+        kh_email NVARCHAR(100) NULL,
+        kh_xoa BIT DEFAULT 0
+    );
+END
+GO
+
+-- 9. Bảng PhieuNhap (Bảng cha - Quản lý thông tin chung các đợt nhập hàng)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PhieuNhap')
+BEGIN
+    CREATE TABLE PhieuNhap (
+        pn_ma INT IDENTITY(1,1) PRIMARY KEY,
+        pn_code NVARCHAR(50) NULL,
+        pn_ngay DATETIME DEFAULT GETDATE(),
+        pn_tong_san_pham INT DEFAULT 0,
+        pn_tong_tien DECIMAL(18, 2) DEFAULT 0,
+        pn_ghi_chu NVARCHAR(500) NULL,
+        pn_nha_cung_cap INT NOT NULL,
+        pn_nhan_vien INT NOT NULL,
+        pn_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_PhieuNhap_NhaCungCap FOREIGN KEY (pn_nha_cung_cap) REFERENCES NhaCungCap(ncc_ma),
+        CONSTRAINT FK_PhieuNhap_NhanVien FOREIGN KEY (pn_nhan_vien) REFERENCES NhanVien(nv_ma)
+    );
+END
+GO
+
+-- 10. Bảng ChiTietPhieuNhap (Bảng con - Chi tiết sản phẩm trong phiếu nhập)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuNhap')
+BEGIN
+    CREATE TABLE ChiTietPhieuNhap (
+        ctpn_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ctpn_phieu_nhap INT NOT NULL,
+        ctpn_san_pham INT NOT NULL,
+        ctpn_so_luong INT NOT NULL DEFAULT 0,
+        ctpn_gia_nhap DECIMAL(18, 2) DEFAULT 0,
+        ctpn_thanh_tien DECIMAL(18, 2) DEFAULT 0,
+        ctpn_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_ChiTietPhieuNhap_PhieuNhap FOREIGN KEY (ctpn_phieu_nhap) REFERENCES PhieuNhap(pn_ma),
+        CONSTRAINT FK_ChiTietPhieuNhap_SanPham FOREIGN KEY (ctpn_san_pham) REFERENCES SanPham(sp_ma)
+    );
+END
+GO
+
+-- 11. Bảng PhieuXuat (Bảng cha - Quản lý thông tin chung đợt xuất/bán hàng)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PhieuXuat')
+BEGIN
+    CREATE TABLE PhieuXuat (
+        px_ma INT IDENTITY(1,1) PRIMARY KEY,
+        px_code NVARCHAR(50) NULL,
+        px_ngay DATETIME DEFAULT GETDATE(),
+        px_tong_san_pham INT DEFAULT 0,
+        px_tong_tien DECIMAL(18, 2) DEFAULT 0,
+        px_ghi_chu NVARCHAR(500) NULL,
+        px_khach_hang INT NOT NULL,
+        px_nhan_vien INT NOT NULL,
+        px_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_PhieuXuat_KhachHang FOREIGN KEY (px_khach_hang) REFERENCES KhachHang(kh_ma),
+        CONSTRAINT FK_PhieuXuat_NhanVien FOREIGN KEY (px_nhan_vien) REFERENCES NhanVien(nv_ma)
+    );
+END
+GO
+
+-- 12. Bảng ChiTietPhieuXuat (Bảng con - Chi tiết sản phẩm trong phiếu xuất)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuXuat')
+BEGIN
+    CREATE TABLE ChiTietPhieuXuat (
+        ctpx_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ctpx_phieu_xuat INT NOT NULL,
+        ctpx_san_pham INT NOT NULL,
+        ctpx_so_luong INT NOT NULL DEFAULT 0,
+        ctpx_gia_xuat DECIMAL(18, 2) DEFAULT 0,
+        ctpx_thanh_tien DECIMAL(18, 2) DEFAULT 0,
+        ctpx_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_ChiTietPhieuXuat_PhieuXuat FOREIGN KEY (ctpx_phieu_xuat) REFERENCES PhieuXuat(px_ma),
+        CONSTRAINT FK_ChiTietPhieuXuat_SanPham FOREIGN KEY (ctpx_san_pham) REFERENCES SanPham(sp_ma)
+    );
+END
+GO
