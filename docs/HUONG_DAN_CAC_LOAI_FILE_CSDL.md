@@ -75,3 +75,4 @@ Khi nộp bài cho Giảng viên môn học, sinh viên nên nén thư mục CSD
    ├── HUONG_DAN_CAI_DAT.txt               <-- Thông tin kết nối & thứ tự chạy file
    └── (Tuy chon) QuanLyQuanAnDB.mdf/.ldf  <-- Dành cho trường hợp yêu cầu Attach DB
 ```
+
