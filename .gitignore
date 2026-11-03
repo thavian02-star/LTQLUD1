@@ -1,0 +1,13 @@
+# Visual Studio / VB.NET
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archives & Temporary files
+*.zip
+*.tmp
+*.log
