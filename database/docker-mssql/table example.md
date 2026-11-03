@@ -9,8 +9,8 @@
 7. **PhieuNhap**: Quản lý thông tin chung các đợt nhập hàng/nguyên liệu.
 8. **ChiTietPhieuNhap**: Chi tiết món ăn/nguyên liệu, số lượng và giá của phiếu nhập.
 9. **KhachHang**: Quản lý thông tin khách hàng (mua hàng, tích điểm).
-10. **PhieuXuat**: Quản lý thông tin chung các đợt xuất kho/hóa đơn bán hàng.
-11. **ChiTietPhieuXuat**: Chi tiết món ăn, số lượng và giá của phiếu xuất/hóa đơn.
+10. **DonHang**: Quản lý thông tin chung các đơn hàng / hóa đơn bán hàng cho khách (thay thế PhieuXuat).
+11. **ChiTietDonHang**: Chi tiết từng món ăn, số lượng, đơn giá và thành tiền của đơn hàng (thay thế ChiTietPhieuXuat).
 12. **TonKho**: Quản lý số lượng tồn kho theo thời điểm/món ăn/khu vực.
 13. **PhanQuyen**: Quản lý các nhóm vai trò/quyền hạn trong hệ thống (RBAC).
 14. **ChiTietPhanQuyen**: Phân quyền chi tiết chức năng (Xem, Thêm, Sửa, Xóa) cho từng tài khoản.

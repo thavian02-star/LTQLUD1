@@ -76,8 +76,8 @@ GO
 
 -- ==============================================================
 -- DỌN DẸP BẢNG CŨ (MIGRATION / CLEANUP):
--- Nếu hệ thống từng tạo bảng SanPham hoặc LoaiSanPham, xóa an toàn
--- bằng cách gỡ các khóa ngoại trước, sau đó xóa bảng con SanPham rồi đến LoaiSanPham.
+-- Xóa an toàn các bảng cũ (SanPham, LoaiSanPham, PhieuXuat, ChiTietPhieuXuat)
+-- bằng cách gỡ các khóa ngoại trước, sau đó xóa bảng con rồi đến bảng cha.
 -- ==============================================================
 IF OBJECT_ID('FK_ChiTietPhieuNhap_SanPham', 'F') IS NOT NULL
     ALTER TABLE ChiTietPhieuNhap DROP CONSTRAINT FK_ChiTietPhieuNhap_SanPham;
@@ -87,12 +87,36 @@ IF OBJECT_ID('FK_ChiTietPhieuXuat_SanPham', 'F') IS NOT NULL
     ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_SanPham;
 GO
 
+IF OBJECT_ID('FK_ChiTietPhieuXuat_MonAn', 'F') IS NOT NULL
+    ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_MonAn;
+GO
+
+IF OBJECT_ID('FK_ChiTietPhieuXuat_PhieuXuat', 'F') IS NOT NULL
+    ALTER TABLE ChiTietPhieuXuat DROP CONSTRAINT FK_ChiTietPhieuXuat_PhieuXuat;
+GO
+
+IF OBJECT_ID('FK_PhieuXuat_KhachHang', 'F') IS NOT NULL
+    ALTER TABLE PhieuXuat DROP CONSTRAINT FK_PhieuXuat_KhachHang;
+GO
+
+IF OBJECT_ID('FK_PhieuXuat_NhanVien', 'F') IS NOT NULL
+    ALTER TABLE PhieuXuat DROP CONSTRAINT FK_PhieuXuat_NhanVien;
+GO
+
 IF OBJECT_ID('FK_TonKho_SanPham', 'F') IS NOT NULL
     ALTER TABLE TonKho DROP CONSTRAINT FK_TonKho_SanPham;
 GO
 
 IF OBJECT_ID('FK_SanPham_LoaiSanPham', 'F') IS NOT NULL
     ALTER TABLE SanPham DROP CONSTRAINT FK_SanPham_LoaiSanPham;
+GO
+
+IF OBJECT_ID('ChiTietPhieuXuat', 'U') IS NOT NULL
+    DROP TABLE ChiTietPhieuXuat;
+GO
+
+IF OBJECT_ID('PhieuXuat', 'U') IS NOT NULL
+    DROP TABLE PhieuXuat;
 GO
 
 IF OBJECT_ID('SanPham', 'U') IS NOT NULL
@@ -198,38 +222,38 @@ BEGIN
 END
 GO
 
--- 11. Bảng PhieuXuat (Bảng cha - Quản lý thông tin chung đợt xuất/bán hàng)
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'PhieuXuat')
+-- 11. Bảng DonHang (Bảng cha - Quản lý đơn hàng / hóa đơn bán hàng cho khách)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DonHang')
 BEGIN
-    CREATE TABLE PhieuXuat (
-        px_ma INT IDENTITY(1,1) PRIMARY KEY,
-        px_code NVARCHAR(50) NULL,
-        px_ngay DATETIME DEFAULT GETDATE(),
-        px_tong_san_pham INT DEFAULT 0,
-        px_tong_tien DECIMAL(18, 2) DEFAULT 0,
-        px_ghi_chu NVARCHAR(500) NULL,
-        px_khach_hang INT NOT NULL,
-        px_nhan_vien INT NOT NULL,
-        px_xoa BIT DEFAULT 0,
-        CONSTRAINT FK_PhieuXuat_KhachHang FOREIGN KEY (px_khach_hang) REFERENCES KhachHang(kh_ma),
-        CONSTRAINT FK_PhieuXuat_NhanVien FOREIGN KEY (px_nhan_vien) REFERENCES NhanVien(nv_ma)
+    CREATE TABLE DonHang (
+        dh_ma INT IDENTITY(1,1) PRIMARY KEY,
+        dh_code NVARCHAR(50) NULL,
+        dh_ngay DATETIME DEFAULT GETDATE(),
+        dh_tong_so_luong INT DEFAULT 0,
+        dh_tong_tien DECIMAL(18, 2) DEFAULT 0,
+        dh_ghi_chu NVARCHAR(500) NULL,
+        dh_khach_hang INT NOT NULL,
+        dh_nhan_vien INT NOT NULL,
+        dh_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_DonHang_KhachHang FOREIGN KEY (dh_khach_hang) REFERENCES KhachHang(kh_ma),
+        CONSTRAINT FK_DonHang_NhanVien FOREIGN KEY (dh_nhan_vien) REFERENCES NhanVien(nv_ma)
     );
 END
 GO
 
--- 12. Bảng ChiTietPhieuXuat (Bảng con - Chi tiết món ăn trong phiếu xuất)
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietPhieuXuat')
+-- 12. Bảng ChiTietDonHang (Bảng con - Chi tiết từng món ăn trong đơn hàng)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiTietDonHang')
 BEGIN
-    CREATE TABLE ChiTietPhieuXuat (
-        ctpx_ma INT IDENTITY(1,1) PRIMARY KEY,
-        ctpx_phieu_xuat INT NOT NULL,
-        ctpx_mon_an INT NOT NULL,
-        ctpx_so_luong INT NOT NULL DEFAULT 0,
-        ctpx_gia_xuat DECIMAL(18, 2) DEFAULT 0,
-        ctpx_thanh_tien DECIMAL(18, 2) DEFAULT 0,
-        ctpx_xoa BIT DEFAULT 0,
-        CONSTRAINT FK_ChiTietPhieuXuat_PhieuXuat FOREIGN KEY (ctpx_phieu_xuat) REFERENCES PhieuXuat(px_ma),
-        CONSTRAINT FK_ChiTietPhieuXuat_MonAn FOREIGN KEY (ctpx_mon_an) REFERENCES MonAn(ma_ma)
+    CREATE TABLE ChiTietDonHang (
+        ctdh_ma INT IDENTITY(1,1) PRIMARY KEY,
+        ctdh_don_hang INT NOT NULL,
+        ctdh_mon_an INT NOT NULL,
+        ctdh_so_luong INT NOT NULL DEFAULT 0,
+        ctdh_don_gia DECIMAL(18, 2) DEFAULT 0,
+        ctdh_thanh_tien DECIMAL(18, 2) DEFAULT 0,
+        ctdh_xoa BIT DEFAULT 0,
+        CONSTRAINT FK_ChiTietDonHang_DonHang FOREIGN KEY (ctdh_don_hang) REFERENCES DonHang(dh_ma),
+        CONSTRAINT FK_ChiTietDonHang_MonAn FOREIGN KEY (ctdh_mon_an) REFERENCES MonAn(ma_ma)
     );
 END
 GO
