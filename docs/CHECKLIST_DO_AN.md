@@ -52,13 +52,6 @@
   - [x] `ChiTietHoaDon` (`CTHD_Ma`, `CTHD_MaHoaDon`, `CTHD_MaMonAn`, `CTHD_SoLuong`, `CTHD_DonGia`, `CTHD_GhiChu`, `CTHD_ThoiGianGoi`, `CTHD_TrangThaiMon`, `CTHD_Xoa`).
 - [x] **Khởi chạy & Kiểm thử Docker:**
   - [x] Tạo file `docker-compose.yml` và script `start-db.bat` để chạy 1-click.
-- [ ] **Nhóm bảng Bàn & Thực đơn (Món ăn / Nước uống):**
-  - [ ] `Ban` (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_SoNguoiToiDa`, `B_TrangThai` [0: Trống, 1: Có khách, 2: Đang đợi món, 3: Món đã xong], `B_Xoa`).
-  - [ ] `DanhMuc` (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa`) — *Món ăn, Nước uống...*
-  - [ ] `SanPham` / `MonAn` (`SP_Ma`, `SP_Ten`, `SP_MoTa`, `SP_DanhMuc`, `SP_GiaBan`, `SP_HetHang` [BIT: báo hết món], `SP_Xoa`).
-- [ ] **Nhóm bảng Phục vụ, Đặt món (Order), Nhà bếp & Hóa đơn:**
-  - [ ] `HoaDon` (`HD_Ma`, `HD_MaBan`, `HD_NhanVienPhucVu`, `HD_SoLuongKhach`, `HD_ThoiGianVao`, `HD_ThoiGianThanhToan`, `HD_TongTien`, `HD_TrangThai` [0: Đang phục vụ, 1: Đã thanh toán, 2: Đã gộp/hủy], `HD_Xoa`).
-  - [ ] `ChiTietHoaDon` (`CTHD_Ma`, `CTHD_MaHoaDon`, `CTHD_MaSanPham`, `CTHD_SoLuong`, `CTHD_DonGia`, `CTHD_GhiChu`, `CTHD_ThoiGianGoi`, `CTHD_TrangThaiMon` [0: Chờ thực hiện, 1: Đã nấu xong, 2: Đã mang ra, 3: Đã hủy], `CTHD_Xoa`).
 
 ### 2.2. Nạp dữ liệu mẫu (Seed Data) & Kiểm thử Docker
 - [ ] Viết dữ liệu mẫu (`INSERT INTO`) cho 4 tài khoản đại diện 4 vai trò (mật khẩu `123456`), danh sách bàn, thực đơn món ăn/nước uống, ca làm việc, lịch làm việc và một vài hóa đơn mẫu để test báo cáo.
