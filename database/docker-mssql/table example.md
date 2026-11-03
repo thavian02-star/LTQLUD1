@@ -7,12 +7,13 @@
 5. **MonAn**: Quản lý thông tin món ăn, đồ uống trong thực đơn.
 6. **LoaiNguyenLieu**: Phân loại danh mục các nhóm nguyên liệu (thực phẩm tươi sống, gia vị, rau củ...).
 7. **NguyenLieu**: Quản lý thông tin nguyên vật liệu chế biến.
-8. **NhaCungCap**: Quản lý thông tin nhà cung cấp nguyên liệu, hàng hóa.
-9. **KhachHang**: Quản lý thông tin khách hàng (mua hàng, tích điểm).
-10. **PhieuNhap**: Quản lý thông tin chung các đợt nhập nguyên liệu từ nhà cung cấp.
-11. **ChiTietPhieuNhap**: Chi tiết nguyên liệu, số lượng và giá của phiếu nhập.
-12. **DonHang**: Quản lý thông tin chung các đơn hàng / hóa đơn bán hàng cho khách.
-13. **ChiTietDonHang**: Chi tiết từng món ăn, số lượng, đơn giá và thành tiền của đơn hàng.
-14. **TonKho**: Quản lý số lượng tồn kho theo thời điểm / nguyên liệu / khu vực.
-15. **PhanQuyen**: Quản lý các nhóm vai trò/quyền hạn trong hệ thống (RBAC).
-16. **ChiTietPhanQuyen**: Phân quyền chi tiết chức năng (Xem, Thêm, Sửa, Xóa) cho từng tài khoản.
+8. **NguyenLieuMonAn**: Định mức nguyên liệu cho từng món ăn (công thức chế biến).
+9. **NhaCungCap**: Quản lý thông tin nhà cung cấp nguyên liệu, hàng hóa.
+10. **KhachHang**: Quản lý thông tin khách hàng (mua hàng, tích điểm).
+11. **PhieuNhap**: Quản lý thông tin chung các đợt nhập nguyên liệu từ nhà cung cấp.
+12. **ChiTietPhieuNhap**: Chi tiết nguyên liệu, số lượng và giá của phiếu nhập.
+13. **DonHang**: Quản lý thông tin chung các đơn hàng / hóa đơn bán hàng cho khách.
+14. **ChiTietDonHang**: Chi tiết từng món ăn, số lượng, đơn giá và thành tiền của đơn hàng.
+15. **TonKho**: Quản lý số lượng tồn kho theo thời điểm / nguyên liệu / khu vực.
+16. **PhanQuyen**: Quản lý các nhóm vai trò/quyền hạn trong hệ thống (RBAC).
+17. **ChiTietPhanQuyen**: Phân quyền chi tiết chức năng (Xem, Thêm, Sửa, Xóa) cho từng tài khoản.
