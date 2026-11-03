@@ -45,7 +45,7 @@ GO
 -- ==============================================================
 -- DECLARE @dropConstraintsSql NVARCHAR(MAX) = N'';
 -- SELECT @dropConstraintsSql += N'ALTER TABLE ' + QUOTENAME(OBJECT_SCHEMA_NAME(parent_object_id)) + '.' + QUOTENAME(OBJECT_NAME(parent_object_id)) + 
-                              N' DROP CONSTRAINT ' + QUOTENAME(name) + ';' + CHAR(13)
+--                               N' DROP CONSTRAINT ' + QUOTENAME(name) + ';' + CHAR(13)
 -- FROM sys.foreign_keys;
 -- IF LEN(@dropConstraintsSql) > 0
 --     EXEC sp_executesql @dropConstraintsSql;
@@ -91,7 +91,7 @@ BEGIN
     CREATE TABLE Quyen (
         Q_Ma INT IDENTITY(1,1) PRIMARY KEY,
         Q_Ten NVARCHAR(100) NOT NULL,
-        Q_Tag NVARCHAR(50) NOT NULL,
+        Q_Tag NVARCHAR(50) NOT NULL UNIQUE,
         Q_Xoa BIT DEFAULT 0
     );
 END
@@ -106,7 +106,8 @@ BEGIN
         TKVT_VaiTro INT NOT NULL,
         TKVT_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_TaiKhoanVaiTro_TaiKhoan FOREIGN KEY (TKVT_TaiKhoan) REFERENCES TaiKhoan(TK_Ma),
-        CONSTRAINT FK_TaiKhoanVaiTro_VaiTro FOREIGN KEY (TKVT_VaiTro) REFERENCES VaiTro(VT_Ma)
+        CONSTRAINT FK_TaiKhoanVaiTro_VaiTro FOREIGN KEY (TKVT_VaiTro) REFERENCES VaiTro(VT_Ma),
+        CONSTRAINT UQ_TaiKhoan_VaiTro UNIQUE (TKVT_TaiKhoan, TKVT_VaiTro)
     );
 END
 GO
@@ -120,7 +121,8 @@ BEGIN
         VTQ_Quyen INT NOT NULL,
         VTQ_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_VaiTroQuyen_VaiTro FOREIGN KEY (VTQ_VaiTro) REFERENCES VaiTro(VT_Ma),
-        CONSTRAINT FK_VaiTroQuyen_Quyen FOREIGN KEY (VTQ_Quyen) REFERENCES Quyen(Q_Ma)
+        CONSTRAINT FK_VaiTroQuyen_Quyen FOREIGN KEY (VTQ_Quyen) REFERENCES Quyen(Q_Ma),
+        CONSTRAINT UQ_VaiTro_Quyen UNIQUE (VTQ_VaiTro, VTQ_Quyen)
     );
 END
 GO
@@ -129,7 +131,7 @@ GO
 -- NHÓM 2: BẢNG NHÂN SỰ & TUYỂN DỤNG (5 BẢNG)
 -- ==============================================================
 
--- 2.1. Bảng NhanVien (Hồ sơ nhân sự, vị trí dự tuyển, trạng thái làm việc/nghỉ việc)
+-- 2.1. Bảng NhanVien (Hồ sơ nhân sự đầy đủ theo yêu cầu tuyển dụng)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'NhanVien')
 BEGIN
     CREATE TABLE NhanVien (
@@ -138,10 +140,14 @@ BEGIN
         NV_GioiTinh BIT DEFAULT 1, -- 1: Nam, 0: Nữ
         NV_NgaySinh DATE NULL,
         NV_ViTri NVARCHAR(50) NOT NULL, -- Phục vụ, Pha chế, Quản lý, Tiếp tân, Chủ quán
-        NV_DienThoai NVARCHAR(20) NULL,
-        NV_DiaChi NVARCHAR(255) NULL,
         NV_CMND NVARCHAR(20) NULL,
+        NV_DienThoai NVARCHAR(20) NULL,
+        NV_Email NVARCHAR(100) NULL,
+        NV_DiaChi NVARCHAR(255) NULL,
+        NV_TrinhDoHocVan NVARCHAR(100) NULL, -- Lớp 12/12, Trung cấp, Cao đẳng, Đại học...
+        NV_NgoaiNgu NVARCHAR(255) NULL,      -- Danh sách ngoại ngữ (Tiếng Anh, Tiếng Hoa...)
         NV_NgayBatDauLam DATE DEFAULT GETDATE(),
+        NV_NgayThoiViec DATE NULL,           -- Lưu ngày nghỉ việc khi nhân viên thôi việc
         NV_MaTaiKhoan INT NULL,
         NV_TrangThai NVARCHAR(30) DEFAULT N'Đang làm việc', -- Đang làm việc / Đã nghỉ việc
         NV_Xoa BIT DEFAULT 0,
@@ -169,7 +175,8 @@ BEGIN
         NV_Ma INT NOT NULL,
         TDVT_Ma INT NOT NULL,
         CONSTRAINT FK_NhanVienViTinh_NhanVien FOREIGN KEY (NV_Ma) REFERENCES NhanVien(NV_Ma),
-        CONSTRAINT FK_NhanVienViTinh_TrinhDoViTinh FOREIGN KEY (TDVT_Ma) REFERENCES TrinhDoViTinh(TDVT_Ma)
+        CONSTRAINT FK_NhanVienViTinh_TrinhDoViTinh FOREIGN KEY (TDVT_Ma) REFERENCES TrinhDoViTinh(TDVT_Ma),
+        CONSTRAINT UQ_NhanVien_ViTinh UNIQUE (NV_Ma, TDVT_Ma)
     );
 END
 GO
@@ -182,7 +189,8 @@ BEGIN
         DC_Ten NVARCHAR(100) NOT NULL,
         DC_SoLuongTong INT DEFAULT 0,
         DC_GhiChu NVARCHAR(255) NULL,
-        DC_Xoa BIT DEFAULT 0
+        DC_Xoa BIT DEFAULT 0,
+        CONSTRAINT CK_DungCu_SoLuongTong CHECK (DC_SoLuongTong >= 0)
     );
 END
 GO
@@ -200,30 +208,33 @@ BEGIN
         NgayTra DATE NULL,
         GhiChu NVARCHAR(255) NULL,
         CONSTRAINT FK_NhanVienDungCu_NhanVien FOREIGN KEY (NV_Ma) REFERENCES NhanVien(NV_Ma),
-        CONSTRAINT FK_NhanVienDungCu_DungCuTrangPhuc FOREIGN KEY (DC_Ma) REFERENCES DungCuTrangPhuc(DC_Ma)
+        CONSTRAINT FK_NhanVienDungCu_DungCuTrangPhuc FOREIGN KEY (DC_Ma) REFERENCES DungCuTrangPhuc(DC_Ma),
+        CONSTRAINT CK_NhanVienDungCu_SoLuong CHECK (SoLuong > 0)
     );
 END
 GO
 
 -- ==============================================================
 -- NHÓM 3: BẢNG CA LÀM VIỆC, XẾP LỊCH & CHẤM CÔNG (3 BẢNG)
+-- (Cố định 2 ca làm việc chính: Ca Sáng & Ca Tối; Quản lý trực tiếp phân công ca)
 -- ==============================================================
 
--- 3.1. Bảng CaLamViec (Danh sách ca, khung giờ linh hoạt & mức lương mỗi ca)
+-- 3.1. Bảng CaLamViec (Cố định 2 ca làm việc trong ngày & mức lương mỗi ca)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'CaLamViec')
 BEGIN
     CREATE TABLE CaLamViec (
         CA_Ma INT IDENTITY(1,1) PRIMARY KEY,
-        CA_Ten NVARCHAR(50) NOT NULL,
-        CA_GioBatDau NVARCHAR(10) NOT NULL,
-        CA_GioKetThuc NVARCHAR(10) NOT NULL,
+        CA_Ten NVARCHAR(50) NOT NULL,        -- VD: Ca 1 (Ca Sáng), Ca 2 (Ca Chiều/Tối)
+        CA_GioBatDau NVARCHAR(10) NOT NULL,  -- VD: 08:00, 15:00
+        CA_GioKetThuc NVARCHAR(10) NOT NULL, -- VD: 15:00, 22:00
         CA_LuongMoiCa DECIMAL(18, 2) DEFAULT 0,
-        CA_Xoa BIT DEFAULT 0
+        CA_Xoa BIT DEFAULT 0,
+        CONSTRAINT CK_CaLamViec_Luong CHECK (CA_LuongMoiCa >= 0)
     );
 END
 GO
 
--- 3.2. Bảng LichLamViec (Xếp lịch làm việc theo tuần/tháng cho nhân viên)
+-- 3.2. Bảng LichLamViec (Quản lý trực tiếp phân công ca làm việc cho nhân viên theo tháng)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'LichLamViec')
 BEGIN
     CREATE TABLE LichLamViec (
@@ -234,7 +245,8 @@ BEGIN
         LLV_TrangThai NVARCHAR(30) DEFAULT N'Đã xếp lịch',
         LLV_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_LichLamViec_NhanVien FOREIGN KEY (LLV_MaNV) REFERENCES NhanVien(NV_Ma),
-        CONSTRAINT FK_LichLamViec_CaLamViec FOREIGN KEY (LLV_MaCa) REFERENCES CaLamViec(CA_Ma)
+        CONSTRAINT FK_LichLamViec_CaLamViec FOREIGN KEY (LLV_MaCa) REFERENCES CaLamViec(CA_Ma),
+        CONSTRAINT UQ_LichLamViec_NV_Ca_Ngay UNIQUE (LLV_MaNV, LLV_MaCa, LLV_NgayLam)
     );
 END
 GO
@@ -248,10 +260,13 @@ BEGIN
         CC_MaNV INT NOT NULL,
         CC_GioBatDau DATETIME NULL,
         CC_GioKetThuc DATETIME NULL,
-        CC_DaDuyet BIT DEFAULT 0, -- 0: Chờ duyệt, 1: Quản lý đã duyệt
+        CC_DaDuyet BIT DEFAULT 0,          -- 0: Chờ duyệt, 1: Quản lý đã duyệt
+        CC_NguoiDuyet INT NULL,            -- Lưu mã Quản lý bấm duyệt chấm công
+        CC_ThoiGianDuyet DATETIME NULL,    -- Lưu thời điểm Quản lý bấm duyệt
         CC_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_ChamCong_LichLamViec FOREIGN KEY (CC_MaLich) REFERENCES LichLamViec(LLV_Ma),
-        CONSTRAINT FK_ChamCong_NhanVien FOREIGN KEY (CC_MaNV) REFERENCES NhanVien(NV_Ma)
+        CONSTRAINT FK_ChamCong_NhanVien FOREIGN KEY (CC_MaNV) REFERENCES NhanVien(NV_Ma),
+        CONSTRAINT FK_ChamCong_NguoiDuyet FOREIGN KEY (CC_NguoiDuyet) REFERENCES NhanVien(NV_Ma)
     );
 END
 GO
@@ -267,10 +282,11 @@ BEGIN
         B_Ma INT IDENTITY(1,1) PRIMARY KEY,
         B_SoThuTu INT NOT NULL UNIQUE,
         B_TenBan NVARCHAR(50) NOT NULL,
-        B_KhuVuc NVARCHAR(50) DEFAULT N'Tầng trệt', -- Khu vực bàn (Tầng 1, Tầng 2, Sân vườn, VIP...)
+        B_KhuVuc NVARCHAR(50) DEFAULT N'Tầng trệt', -- Khu vực bàn (Tầng trệt, Lầu 1, Sân vườn...)
         B_SoNguoiToiDa INT NOT NULL DEFAULT 4,
         B_TrangThai INT DEFAULT 0, -- 0: Trống, 1: Có khách, 2: Đang đợi món, 3: Món đã xong
-        B_Xoa BIT DEFAULT 0
+        B_Xoa BIT DEFAULT 0,
+        CONSTRAINT CK_Ban_SoNguoiToiDa CHECK (B_SoNguoiToiDa > 0)
     );
 END
 GO
@@ -298,7 +314,8 @@ BEGIN
         MA_HetMon BIT DEFAULT 0, -- 0: Còn món, 1: Hết món
         MA_MoTa NVARCHAR(255) NULL,
         MA_Xoa BIT DEFAULT 0,
-        CONSTRAINT FK_MonAn_DanhMuc FOREIGN KEY (MA_DanhMuc) REFERENCES DanhMuc(DM_Ma)
+        CONSTRAINT FK_MonAn_DanhMuc FOREIGN KEY (MA_DanhMuc) REFERENCES DanhMuc(DM_Ma),
+        CONSTRAINT CK_MonAn_DonGia CHECK (MA_DonGia >= 0)
     );
 END
 GO
@@ -313,8 +330,9 @@ BEGIN
     CREATE TABLE HoaDon (
         HD_Ma INT IDENTITY(1,1) PRIMARY KEY,
         HD_MaBan INT NOT NULL,
-        HD_MaNVPhucVu INT NOT NULL,
-        HD_MaCa INT NULL,                           -- Khóa ngoại CaLamViec: phục vụ báo cáo lượng khách theo ca
+        HD_MaNVPhucVu INT NOT NULL,                 -- Nhân viên phụ trách phục vụ bàn (tính doanh thu nhân viên)
+        HD_NguoiTao INT NULL,                       -- Người thực tế bấm tạo trên phần mềm (hỗ trợ khi Quản lý tạo hộ NV)
+        HD_MaCa INT NULL,                           -- Khóa ngoại CaLamViec: phục vụ 5 báo cáo thống kê theo Ca
         HD_MaHoaDonGop INT NULL,                    -- Khóa ngoại tự tham chiếu HoaDon: lưu vết khi 2 bàn gộp tính tiền chung
         HD_SoLuongKhach INT NOT NULL DEFAULT 1,
         HD_ThoiGianVao DATETIME DEFAULT GETDATE(),
@@ -324,8 +342,11 @@ BEGIN
         HD_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_HoaDon_Ban FOREIGN KEY (HD_MaBan) REFERENCES Ban(B_Ma),
         CONSTRAINT FK_HoaDon_NhanVien FOREIGN KEY (HD_MaNVPhucVu) REFERENCES NhanVien(NV_Ma),
+        CONSTRAINT FK_HoaDon_NguoiTao FOREIGN KEY (HD_NguoiTao) REFERENCES NhanVien(NV_Ma),
         CONSTRAINT FK_HoaDon_CaLamViec FOREIGN KEY (HD_MaCa) REFERENCES CaLamViec(CA_Ma),
-        CONSTRAINT FK_HoaDon_HoaDonGop FOREIGN KEY (HD_MaHoaDonGop) REFERENCES HoaDon(HD_Ma)
+        CONSTRAINT FK_HoaDon_HoaDonGop FOREIGN KEY (HD_MaHoaDonGop) REFERENCES HoaDon(HD_Ma),
+        CONSTRAINT CK_HoaDon_SoLuongKhach CHECK (HD_SoLuongKhach > 0),
+        CONSTRAINT CK_HoaDon_TongTien CHECK (HD_TongTien >= 0)
     );
 END
 GO
@@ -344,7 +365,9 @@ BEGIN
         CTHD_TrangThaiMon INT DEFAULT 0, -- 0: Chờ thực hiện, 1: Đã nấu xong, 2: Đã mang ra, 3: Đã hủy
         CTHD_Xoa BIT DEFAULT 0,
         CONSTRAINT FK_ChiTietHoaDon_HoaDon FOREIGN KEY (CTHD_MaHoaDon) REFERENCES HoaDon(HD_Ma),
-        CONSTRAINT FK_ChiTietHoaDon_MonAn FOREIGN KEY (CTHD_MaMonAn) REFERENCES MonAn(MA_Ma)
+        CONSTRAINT FK_ChiTietHoaDon_MonAn FOREIGN KEY (CTHD_MaMonAn) REFERENCES MonAn(MA_Ma),
+        CONSTRAINT CK_ChiTietHoaDon_SoLuong CHECK (CTHD_SoLuong > 0),
+        CONSTRAINT CK_ChiTietHoaDon_DonGia CHECK (CTHD_DonGia >= 0)
     );
 END
 GO
