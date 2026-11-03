@@ -25,3 +25,15 @@ CREATE TABLE NhanVien (
     nv_xoa BIT DEFAULT 0
 );
 GO
+
+-- 3. Bảng TaiKhoan
+IF OBJECT_ID('TaiKhoan', 'U') IS NOT NULL DROP TABLE TaiKhoan;
+GO
+
+CREATE TABLE TaiKhoan (
+    tk_ma INT IDENTITY(1,1) PRIMARY KEY,
+    tk_tai_khoan NVARCHAR(50) NOT NULL UNIQUE,
+    tk_mat_khau NVARCHAR(255) NOT NULL,
+    tk_xoa BIT DEFAULT 0
+);
+GO
