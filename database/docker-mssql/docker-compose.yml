@@ -2,6 +2,7 @@ services:
   sqlserver:
     build: .
     container_name: sqlserver-quanan
+    user: root
     ports:
       - "1433:1433"
     environment:
