@@ -37,7 +37,7 @@ Namespace Features.Auth
                 Dim thanhCong As Boolean = AuthBUS.DangNhap(tenDangNhap, matKhau, thongBaoLoi)
 
                 If thanhCong Then
-                    ' Đăng nhập thành công -> Hiển thị chào mừng và mở màn hình tiếp theo
+                    ' Đăng nhập thành công -> Hiển thị chào mừng
                     MessageBox.Show(
                         "Đăng nhập thành công!" & vbCrLf &
                         "Xin chào: " & Session.HoTenNhanVien & " (" & Session.TenVaiTro & ")",
@@ -45,12 +45,6 @@ Namespace Features.Auth
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     )
-
-                    ' Mở Form chính và ẩn Form Đăng nhập
-                    Dim fMain As New Form1()
-                    AddHandler fMain.FormClosed, Sub(s, args) Me.Close()
-                    fMain.Show()
-                    Me.Hide()
                 Else
                     ' Đăng nhập thất bại -> Hiển thị lỗi cảnh báo
                     lblThongBaoLoi.Text = thongBaoLoi
@@ -108,6 +102,5 @@ Namespace Features.Auth
                 lblThongBaoLoi.Text = String.Empty
             End If
         End Sub
-
     End Class
 End Namespace

@@ -15,15 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Update="Features\Auth\frmDangNhap.vb">
+      <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Update="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Features\Auth\frmDangNhap.Designer.vb">
       <DependentUpon>frmDangNhap.vb</DependentUpon>
     </Compile>

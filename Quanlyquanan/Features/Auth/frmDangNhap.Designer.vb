@@ -33,178 +33,178 @@ Namespace Features.Auth
 
         <System.Diagnostics.DebuggerStepThrough()>
         Private Sub InitializeComponent()
-            Me.pnlHeader = New System.Windows.Forms.Panel()
-            Me.lblTieuDeChinh = New System.Windows.Forms.Label()
-            Me.lblTieuDePhu = New System.Windows.Forms.Label()
-            Me.lblTenDangNhap = New System.Windows.Forms.Label()
-            Me.txtTenDangNhap = New System.Windows.Forms.TextBox()
-            Me.lblMatKhau = New System.Windows.Forms.Label()
-            Me.txtMatKhau = New System.Windows.Forms.TextBox()
-            Me.chkHienMatKhau = New System.Windows.Forms.CheckBox()
-            Me.lblThongBaoLoi = New System.Windows.Forms.Label()
-            Me.btnDangNhap = New System.Windows.Forms.Button()
-            Me.btnThoat = New System.Windows.Forms.Button()
-            Me.pnlHeader.SuspendLayout()
-            Me.SuspendLayout()
-            '
+            pnlHeader = New Panel()
+            lblTieuDePhu = New Label()
+            lblTieuDeChinh = New Label()
+            lblTenDangNhap = New Label()
+            txtTenDangNhap = New TextBox()
+            lblMatKhau = New Label()
+            txtMatKhau = New TextBox()
+            chkHienMatKhau = New CheckBox()
+            lblThongBaoLoi = New Label()
+            btnDangNhap = New Button()
+            btnThoat = New Button()
+            pnlHeader.SuspendLayout()
+            SuspendLayout()
+            ' 
             ' pnlHeader
-            '
-            Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-            Me.pnlHeader.Controls.Add(Me.lblTieuDePhu)
-            Me.pnlHeader.Controls.Add(Me.lblTieuDeChinh)
-            Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
-            Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
-            Me.pnlHeader.Name = "pnlHeader"
-            Me.pnlHeader.Size = New System.Drawing.Size(464, 80)
-            Me.pnlHeader.TabIndex = 0
-            '
-            ' lblTieuDeChinh
-            '
-            Me.lblTieuDeChinh.Dock = System.Windows.Forms.DockStyle.Top
-            Me.lblTieuDeChinh.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblTieuDeChinh.ForeColor = System.Drawing.Color.White
-            Me.lblTieuDeChinh.Location = New System.Drawing.Point(0, 0)
-            Me.lblTieuDeChinh.Name = "lblTieuDeChinh"
-            Me.lblTieuDeChinh.Padding = New System.Windows.Forms.Padding(0, 14, 0, 0)
-            Me.lblTieuDeChinh.Size = New System.Drawing.Size(464, 42)
-            Me.lblTieuDeChinh.TabIndex = 0
-            Me.lblTieuDeChinh.Text = "HỆ THỐNG QUẢN LÝ QUÁN ĂN"
-            Me.lblTieuDeChinh.TextAlign = System.Drawing.ContentAlignment.TopCenter
-            '
+            ' 
+            pnlHeader.BackColor = Color.FromArgb(CByte(41), CByte(128), CByte(185))
+            pnlHeader.Controls.Add(lblTieuDePhu)
+            pnlHeader.Controls.Add(lblTieuDeChinh)
+            pnlHeader.Dock = DockStyle.Top
+            pnlHeader.Location = New Point(0, 0)
+            pnlHeader.Name = "pnlHeader"
+            pnlHeader.Size = New Size(464, 80)
+            pnlHeader.TabIndex = 0
+            ' 
             ' lblTieuDePhu
-            '
-            Me.lblTieuDePhu.Dock = System.Windows.Forms.DockStyle.Bottom
-            Me.lblTieuDePhu.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.lblTieuDePhu.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.lblTieuDePhu.Location = New System.Drawing.Point(0, 44)
-            Me.lblTieuDePhu.Name = "lblTieuDePhu"
-            Me.lblTieuDePhu.Size = New System.Drawing.Size(464, 36)
-            Me.lblTieuDePhu.TabIndex = 1
-            Me.lblTieuDePhu.Text = "ĐĂNG NHẬP TÀI KHOẢN HỆ THỐNG"
-            Me.lblTieuDePhu.TextAlign = System.Drawing.ContentAlignment.TopCenter
-            '
+            ' 
+            lblTieuDePhu.Dock = DockStyle.Bottom
+            lblTieuDePhu.Font = New Font("Segoe UI", 10F)
+            lblTieuDePhu.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            lblTieuDePhu.Location = New Point(0, 44)
+            lblTieuDePhu.Name = "lblTieuDePhu"
+            lblTieuDePhu.Size = New Size(464, 36)
+            lblTieuDePhu.TabIndex = 1
+            lblTieuDePhu.Text = "ĐĂNG NHẬP TÀI KHOẢN HỆ THỐNG"
+            lblTieuDePhu.TextAlign = ContentAlignment.TopCenter
+            ' 
+            ' lblTieuDeChinh
+            ' 
+            lblTieuDeChinh.Dock = DockStyle.Top
+            lblTieuDeChinh.Font = New Font("Segoe UI", 14F, FontStyle.Bold)
+            lblTieuDeChinh.ForeColor = Color.White
+            lblTieuDeChinh.Location = New Point(0, 0)
+            lblTieuDeChinh.Name = "lblTieuDeChinh"
+            lblTieuDeChinh.Padding = New Padding(0, 14, 0, 0)
+            lblTieuDeChinh.Size = New Size(464, 42)
+            lblTieuDeChinh.TabIndex = 0
+            lblTieuDeChinh.Text = "HỆ THỐNG QUẢN LÝ QUÁN ĂN"
+            lblTieuDeChinh.TextAlign = ContentAlignment.TopCenter
+            ' 
             ' lblTenDangNhap
-            '
-            Me.lblTenDangNhap.AutoSize = True
-            Me.lblTenDangNhap.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblTenDangNhap.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.lblTenDangNhap.Location = New System.Drawing.Point(48, 102)
-            Me.lblTenDangNhap.Name = "lblTenDangNhap"
-            Me.lblTenDangNhap.Size = New System.Drawing.Size(107, 19)
-            Me.lblTenDangNhap.TabIndex = 1
-            Me.lblTenDangNhap.Text = "Tên đăng nhập:"
-            '
+            ' 
+            lblTenDangNhap.AutoSize = True
+            lblTenDangNhap.Font = New Font("Segoe UI Semibold", 10F, FontStyle.Bold)
+            lblTenDangNhap.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            lblTenDangNhap.Location = New Point(48, 102)
+            lblTenDangNhap.Name = "lblTenDangNhap"
+            lblTenDangNhap.Size = New Size(105, 19)
+            lblTenDangNhap.TabIndex = 1
+            lblTenDangNhap.Text = "Tên đăng nhập:"
+            ' 
             ' txtTenDangNhap
-            '
-            Me.txtTenDangNhap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-            Me.txtTenDangNhap.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.txtTenDangNhap.Location = New System.Drawing.Point(52, 126)
-            Me.txtTenDangNhap.MaxLength = 50
-            Me.txtTenDangNhap.Name = "txtTenDangNhap"
-            Me.txtTenDangNhap.Size = New System.Drawing.Size(360, 27)
-            Me.txtTenDangNhap.TabIndex = 2
-            '
+            ' 
+            txtTenDangNhap.BorderStyle = BorderStyle.FixedSingle
+            txtTenDangNhap.Font = New Font("Segoe UI", 11F)
+            txtTenDangNhap.Location = New Point(52, 126)
+            txtTenDangNhap.MaxLength = 50
+            txtTenDangNhap.Name = "txtTenDangNhap"
+            txtTenDangNhap.Size = New Size(360, 27)
+            txtTenDangNhap.TabIndex = 2
+            ' 
             ' lblMatKhau
-            '
-            Me.lblMatKhau.AutoSize = True
-            Me.lblMatKhau.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblMatKhau.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.lblMatKhau.Location = New System.Drawing.Point(48, 168)
-            Me.lblMatKhau.Name = "lblMatKhau"
-            Me.lblMatKhau.Size = New System.Drawing.Size(71, 19)
-            Me.lblMatKhau.TabIndex = 3
-            Me.lblMatKhau.Text = "Mật khẩu:"
-            '
+            ' 
+            lblMatKhau.AutoSize = True
+            lblMatKhau.Font = New Font("Segoe UI Semibold", 10F, FontStyle.Bold)
+            lblMatKhau.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            lblMatKhau.Location = New Point(48, 168)
+            lblMatKhau.Name = "lblMatKhau"
+            lblMatKhau.Size = New Size(71, 19)
+            lblMatKhau.TabIndex = 3
+            lblMatKhau.Text = "Mật khẩu:"
+            ' 
             ' txtMatKhau
-            '
-            Me.txtMatKhau.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-            Me.txtMatKhau.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.txtMatKhau.Location = New System.Drawing.Point(52, 192)
-            Me.txtMatKhau.MaxLength = 100
-            Me.txtMatKhau.Name = "txtMatKhau"
-            Me.txtMatKhau.Size = New System.Drawing.Size(360, 27)
-            Me.txtMatKhau.TabIndex = 4
-            Me.txtMatKhau.UseSystemPasswordChar = True
-            '
+            ' 
+            txtMatKhau.BorderStyle = BorderStyle.FixedSingle
+            txtMatKhau.Font = New Font("Segoe UI", 11F)
+            txtMatKhau.Location = New Point(52, 192)
+            txtMatKhau.MaxLength = 100
+            txtMatKhau.Name = "txtMatKhau"
+            txtMatKhau.Size = New Size(360, 27)
+            txtMatKhau.TabIndex = 4
+            txtMatKhau.UseSystemPasswordChar = True
+            ' 
             ' chkHienMatKhau
-            '
-            Me.chkHienMatKhau.AutoSize = True
-            Me.chkHienMatKhau.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.chkHienMatKhau.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.chkHienMatKhau.ForeColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(140, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.chkHienMatKhau.Location = New System.Drawing.Point(52, 226)
-            Me.chkHienMatKhau.Name = "chkHienMatKhau"
-            Me.chkHienMatKhau.Size = New System.Drawing.Size(104, 19)
-            Me.chkHienMatKhau.TabIndex = 5
-            Me.chkHienMatKhau.Text = "Hiện mật khẩu"
-            Me.chkHienMatKhau.UseVisualStyleBackColor = True
-            '
+            ' 
+            chkHienMatKhau.AutoSize = True
+            chkHienMatKhau.Cursor = Cursors.Hand
+            chkHienMatKhau.Font = New Font("Segoe UI", 9F)
+            chkHienMatKhau.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+            chkHienMatKhau.Location = New Point(52, 226)
+            chkHienMatKhau.Name = "chkHienMatKhau"
+            chkHienMatKhau.Size = New Size(104, 19)
+            chkHienMatKhau.TabIndex = 5
+            chkHienMatKhau.Text = "Hiện mật khẩu"
+            chkHienMatKhau.UseVisualStyleBackColor = True
+            ' 
             ' lblThongBaoLoi
-            '
-            Me.lblThongBaoLoi.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblThongBaoLoi.ForeColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
-            Me.lblThongBaoLoi.Location = New System.Drawing.Point(52, 252)
-            Me.lblThongBaoLoi.Name = "lblThongBaoLoi"
-            Me.lblThongBaoLoi.Size = New System.Drawing.Size(360, 36)
-            Me.lblThongBaoLoi.TabIndex = 6
-            Me.lblThongBaoLoi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            '
+            ' 
+            lblThongBaoLoi.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold)
+            lblThongBaoLoi.ForeColor = Color.FromArgb(CByte(231), CByte(76), CByte(60))
+            lblThongBaoLoi.Location = New Point(52, 252)
+            lblThongBaoLoi.Name = "lblThongBaoLoi"
+            lblThongBaoLoi.Size = New Size(360, 36)
+            lblThongBaoLoi.TabIndex = 6
+            lblThongBaoLoi.TextAlign = ContentAlignment.MiddleLeft
+            ' 
             ' btnDangNhap
-            '
-            Me.btnDangNhap.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-            Me.btnDangNhap.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnDangNhap.FlatAppearance.BorderSize = 0
-            Me.btnDangNhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnDangNhap.Font = New System.Drawing.Font("Segoe UI", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnDangNhap.ForeColor = System.Drawing.Color.White
-            Me.btnDangNhap.Location = New System.Drawing.Point(52, 298)
-            Me.btnDangNhap.Name = "btnDangNhap"
-            Me.btnDangNhap.Size = New System.Drawing.Size(215, 38)
-            Me.btnDangNhap.TabIndex = 7
-            Me.btnDangNhap.Text = "ĐĂNG NHẬP"
-            Me.btnDangNhap.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnDangNhap.BackColor = Color.FromArgb(CByte(41), CByte(128), CByte(185))
+            btnDangNhap.Cursor = Cursors.Hand
+            btnDangNhap.FlatAppearance.BorderSize = 0
+            btnDangNhap.FlatStyle = FlatStyle.Flat
+            btnDangNhap.Font = New Font("Segoe UI", 10.5F, FontStyle.Bold)
+            btnDangNhap.ForeColor = Color.White
+            btnDangNhap.Location = New Point(52, 298)
+            btnDangNhap.Name = "btnDangNhap"
+            btnDangNhap.Size = New Size(215, 38)
+            btnDangNhap.TabIndex = 7
+            btnDangNhap.Text = "ĐĂNG NHẬP"
+            btnDangNhap.UseVisualStyleBackColor = False
+            ' 
             ' btnThoat
-            '
-            Me.btnThoat.BackColor = System.Drawing.Color.FromArgb(CType(CType(149, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(166, Byte), Integer))
-            Me.btnThoat.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnThoat.FlatAppearance.BorderSize = 0
-            Me.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnThoat.Font = New System.Drawing.Font("Segoe UI", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnThoat.ForeColor = System.Drawing.Color.White
-            Me.btnThoat.Location = New System.Drawing.Point(277, 298)
-            Me.btnThoat.Name = "btnThoat"
-            Me.btnThoat.Size = New System.Drawing.Size(135, 38)
-            Me.btnThoat.TabIndex = 8
-            Me.btnThoat.Text = "THOÁT"
-            Me.btnThoat.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnThoat.BackColor = Color.FromArgb(CByte(149), CByte(165), CByte(166))
+            btnThoat.Cursor = Cursors.Hand
+            btnThoat.FlatAppearance.BorderSize = 0
+            btnThoat.FlatStyle = FlatStyle.Flat
+            btnThoat.Font = New Font("Segoe UI", 10.5F, FontStyle.Bold)
+            btnThoat.ForeColor = Color.White
+            btnThoat.Location = New Point(277, 298)
+            btnThoat.Name = "btnThoat"
+            btnThoat.Size = New Size(135, 38)
+            btnThoat.TabIndex = 8
+            btnThoat.Text = "THOÁT"
+            btnThoat.UseVisualStyleBackColor = False
+            ' 
             ' frmDangNhap
-            '
-            Me.AcceptButton = Me.btnDangNhap
-            Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-            Me.BackColor = System.Drawing.Color.White
-            Me.CancelButton = Me.btnThoat
-            Me.ClientSize = New System.Drawing.Size(464, 361)
-            Me.Controls.Add(Me.btnThoat)
-            Me.Controls.Add(Me.btnDangNhap)
-            Me.Controls.Add(Me.lblThongBaoLoi)
-            Me.Controls.Add(Me.chkHienMatKhau)
-            Me.Controls.Add(Me.txtMatKhau)
-            Me.Controls.Add(Me.lblMatKhau)
-            Me.Controls.Add(Me.txtTenDangNhap)
-            Me.Controls.Add(Me.lblTenDangNhap)
-            Me.Controls.Add(Me.pnlHeader)
-            Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-            Me.MaximizeBox = False
-            Me.Name = "frmDangNhap"
-            Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-            Me.Text = "Đăng Nhập - Quản Lý Quán Ăn"
-            Me.pnlHeader.ResumeLayout(False)
-            Me.ResumeLayout(False)
-            Me.PerformLayout()
+            ' 
+            AcceptButton = btnDangNhap
+            AutoScaleDimensions = New SizeF(7F, 15F)
+            AutoScaleMode = AutoScaleMode.Font
+            BackColor = Color.White
+            CancelButton = btnThoat
+            ClientSize = New Size(464, 361)
+            Controls.Add(btnThoat)
+            Controls.Add(btnDangNhap)
+            Controls.Add(lblThongBaoLoi)
+            Controls.Add(chkHienMatKhau)
+            Controls.Add(txtMatKhau)
+            Controls.Add(lblMatKhau)
+            Controls.Add(txtTenDangNhap)
+            Controls.Add(lblTenDangNhap)
+            Controls.Add(pnlHeader)
+            Font = New Font("Segoe UI", 9F)
+            FormBorderStyle = FormBorderStyle.FixedDialog
+            MaximizeBox = False
+            Name = "frmDangNhap"
+            StartPosition = FormStartPosition.CenterScreen
+            Text = "Đăng Nhập - Quản Lý Quán Ăn"
+            pnlHeader.ResumeLayout(False)
+            ResumeLayout(False)
+            PerformLayout()
 
         End Sub
     End Class
