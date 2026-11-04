@@ -68,6 +68,7 @@ DAQLUD1/
 │   ├── KIEN_TRUC_HE_THONG.md    # Tài liệu đặc tả kiến trúc Package-by-Feature & luồng dữ liệu
 │   ├── MA_TRAN_PHAN_QUYEN.md    # Bảng ma trận phân quyền 4 vai trò & mã Q_Tag
 │   ├── DATABASE_SCHEMA.md       # Đặc tả cấu trúc 18 bảng dữ liệu SQL Server
+│   ├── features/                # Kế hoạch Sprint & đặc tả từng màn hình (AUTH, POS, BẾP...)
 │   └── review/                  # Báo cáo đánh giá và rà soát kỹ thuật
 │
 ├── .gitignore                   # Loại trừ file rác, file tạm và build artifacts

@@ -7,4 +7,4 @@ Chứa toàn bộ các thành phần phục vụ việc đăng nhập, quản l�
 - `TaiKhoanDAO.vb` (Truy vấn bảng TaiKhoan, TaiKhoan_VaiTro, VaiTro_Quyen)
 - `AuthBUS.vb` (Xác thực thông tin, nạp Session, kiểm tra phân quyền)
 
-> 📋 **Kế hoạch triển khai Step-by-Step chi tiết:** Xem tại [Kế hoạch Sprint Đăng nhập (docs/KE_HOACH_SPRINT_DANG_NHAP.md)](../../../docs/KE_HOACH_SPRINT_DANG_NHAP.md)
+> 📋 **Kế hoạch triển khai Step-by-Step chi tiết:** Xem tại [Kế hoạch Sprint Đăng nhập (docs/features/AUTH_DANG_NHAP.md)](../../../docs/features/AUTH_DANG_NHAP.md)
