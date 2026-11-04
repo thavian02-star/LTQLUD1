@@ -13,3 +13,9 @@
 *.log
 .DS_Store
 */.DS_Store
+
+# MS Access / Legacy DB (Du an chi dung SQL Server Docker)
+*.mdb
+*.accdb
+*.ldb
+*.laccdb

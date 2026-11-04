@@ -2,7 +2,7 @@
 **Dự án:** Hệ thống Quản lý Quán ăn  
 **Môn học:** Lập trình ứng dụng quản lý 1  
 **Nền tảng:** Visual Basic .NET (.NET 10.0 Windows Forms)  
-**Cơ sở dữ liệu:** Microsoft SQL Server 2022 Express (Docker) / MS Access 2000-2003 (.mdb)  
+**Cơ sở dữ liệu:** Microsoft SQL Server 2022 Express (Docker)  
 
 ---
 

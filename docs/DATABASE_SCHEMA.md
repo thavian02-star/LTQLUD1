@@ -1,103 +1,111 @@
-# TÀI LIỆU CẤU TRÚC CƠ SỞ DỮ LIỆU MICROSOFT ACCESS (.MDB)
-**Dự án:** Quản lý Quán ăn (Lập trình ứng dụng quản lý 1 - VB.NET)  
-**Tập tin CSDL:** `QuanLyQuanAn.mdb`  
+# TÀI LIỆU CẤU TRÚC CƠ SỞ DỮ LIỆU (SQL SERVER 2022 DOCKER)
+**Dự án:** Hệ thống Quản lý Quán ăn (Lập trình ứng dụng quản lý 1 - VB.NET)  
+**Hệ quản trị CSDL:** Microsoft SQL Server 2022 Express (Docker)  
+**Database:** `QuanLyQuanAnDB`  
 **Chuỗi kết nối trong VB.NET:**
 ```vbnet
-Dim connStr As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\QuanLyQuanAn.mdb;"
-' Hoặc dùng đường dẫn tuyệt đối:
-' Dim connStr As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\wmwar\OneDrive\Desktop\DAQLUD1\QuanLyQuanAn.mdb;"
+Dim connStr As String = "Server=localhost,1433;Database=QuanLyQuanAnDB;User Id=sa;Password=password123!;TrustServerCertificate=True;"
 ```
 
 ---
 
-## 1. Bảng `NhanVien` (Quản lý hồ sơ nhân sự)
-Lưu trữ thông tin tiếp nhận hồ sơ tuyển dụng và trạng thái làm việc/nghỉ việc theo đúng yêu cầu trang 1 & 2 của đề bài.
+## 1. TỔNG QUAN 18 BẢNG THEO 5 PHÂN HỆ
 
-| Tên cột | Kiểu dữ liệu | Ý nghĩa | Ghi chú |
+| Phân hệ | Số bảng | Danh sách bảng |
+| :--- | :---: | :--- |
+| **1. Phân quyền & Tài khoản (RBAC)** | 5 | `TaiKhoan`, `VaiTro`, `Quyen`, `TaiKhoan_VaiTro`, `VaiTro_Quyen` |
+| **2. Hồ sơ nhân sự & Dụng cụ** | 5 | `NhanVien`, `TrinhDoViTinh`, `NhanVien_ViTinh`, `DungCuTrangPhuc`, `NhanVien_DungCu` |
+| **3. Ca làm việc & Chấm công** | 3 | `CaLamViec`, `LichLamViec`, `ChamCong` |
+| **4. Bàn ăn & Thực đơn** | 3 | `Ban`, `DanhMuc`, `MonAn` |
+| **5. Phục vụ, Gọi món & Hóa đơn** | 2 | `HoaDon`, `ChiTietHoaDon` |
+
+---
+
+## 2. CHI TIẾT CÁC BẢNG DỮ LIỆU
+
+### Nhóm 1: Phân quyền & Tài khoản (RBAC)
+
+#### 1. Bảng `TaiKhoan` (Tài khoản người dùng)
+| Tên cột | Kiểu dữ liệu | Ràng buộc | Ý nghĩa |
 | :--- | :--- | :--- | :--- |
-| **`MaNV`** | AUTOINCREMENT | Mã nhân viên (Khóa chính) | Tự tăng (Primary Key) |
-| **`HoTen`** | TEXT(100) | Họ và tên nhân viên | Bắt buộc |
-| **`GioiTinh`** | TEXT(10) | Giới tính | Nam / Nữ |
-| **`NgaySinh`** | DATETIME | Ngày tháng năm sinh | |
-| **`ViTri`** | TEXT(50) | Vị trí dự tuyển / làm việc | Phục vụ, Pha chế, Quản lý, Tiếp tân, Chủ quán |
-| **`DienThoai`** | TEXT(20) | Số điện thoại liên lạc | |
-| **`DiaChi`** | TEXT(255) | Địa chỉ thường trú/tạm trú | |
-| **`CMND`** | TEXT(20) | Số CMND / CCCD | |
-| **`NgayBatDauLam`** | DATETIME | Thời gian bắt đầu làm việc | |
-| **`TenDangNhap`** | TEXT(50) | Tên đăng nhập phần mềm | Dùng cho `frmDangNhap` |
-| **`MatKhau`** | TEXT(100) | Mật khẩu tài khoản | Hỗ trợ chức năng *Đổi mật khẩu* |
-| **`TrangThai`** | TEXT(30) | Trạng thái nhân sự | `Đang làm việc` hoặc `Đã nghỉ việc` |
-| **`DaXoa`** | YESNO | Đánh dấu xóa mềm | Mặc định `FALSE` (0: còn, -1: đã xóa) |
+| `TK_Ma` | INT IDENTITY(1,1) | PRIMARY KEY | Mã tài khoản tự tăng |
+| `TK_TenDangNhap` | NVARCHAR(50) | NOT NULL UNIQUE | Tên đăng nhập |
+| `TK_MatKhau` | NVARCHAR(100) | NOT NULL | Mật khẩu (băm MD5) |
+| `TK_Xoa` | BIT | DEFAULT 0 | Đánh dấu xóa mềm |
+
+#### 2. Bảng `VaiTro` (Danh mục vai trò)
+- Các vai trò mặc định: `Chủ quán`, `Quản lý`, `Nhân viên phục vụ`, `Nhà bếp / Pha chế`.
+
+#### 3. Bảng `Quyen` (Danh mục quyền chức năng)
+- `Q_Tag` tương ứng với thuộc tính `Tag` trên Form Control WinForms để tự động bật/tắt quyền.
+
+#### 4. Bảng `TaiKhoan_VaiTro` & `VaiTro_Quyen`
+- Bảng trung gian giải quyết quan hệ N-N giữa Tài khoản - Vai trò và Vai trò - Quyền.
 
 ---
 
-## 2. Bảng `TrinhDoViTinh` (Danh mục trình độ vi tính)
-Đề bài quy định: *"Trình độ vi tính: có các lựa chọn sau (Word, Excel, Cài phần mềm, Khác) => danh sách này có thể thay đổi."*
+### Nhóm 2: Hồ sơ nhân sự & Dụng cụ
 
+#### 5. Bảng `NhanVien`
 | Tên cột | Kiểu dữ liệu | Ý nghĩa |
 | :--- | :--- | :--- |
-| **`MaTD`** | AUTOINCREMENT | Mã trình độ (Khóa chính) |
-| **`TenTrinhDo`** | TEXT(50) | Tên kỹ năng (`Word`, `Excel`, `Cài phần mềm`, `Khác`...) |
-| **`DaXoa`** | YESNO | Đánh dấu xóa |
+| `NV_Ma` | INT IDENTITY(1,1) | Khóa chính |
+| `NV_HoTen` | NVARCHAR(100) | Họ tên nhân viên |
+| `NV_GioiTinh` | NVARCHAR(10) | Giới tính (Nam/Nữ) |
+| `NV_NgaySinh` | DATE | Ngày sinh |
+| `NV_ViTri` | NVARCHAR(50) | Vị trí làm việc |
+| `NV_DienThoai` | NVARCHAR(20) | Số điện thoại |
+| `NV_DiaChi` | NVARCHAR(255) | Địa chỉ |
+| `NV_CMND` | NVARCHAR(20) | CMND / CCCD |
+| `NV_NgayBatDauLam`| DATE | Ngày vào làm |
+| `NV_NgayThoiViec` | DATE | Ngày nghỉ việc |
+| `NV_TrinhDoHocVan`| NVARCHAR(100) | Trình độ học vấn |
+| `NV_NgoaiNgu` | NVARCHAR(200) | Trình độ ngoại ngữ |
+| `NV_MaTaiKhoan` | INT | FK -> `TaiKhoan(TK_Ma)` |
+| `NV_TrangThai` | NVARCHAR(30) | `Dang lam viec` / `Da nghi viec` |
+| `NV_Xoa` | BIT | Đánh dấu xóa mềm |
+
+#### 6. Bảng `TrinhDoViTinh` & `NhanVien_ViTinh`
+- Quản lý các kỹ năng vi tính (`Word`, `Excel`, `Cài phần mềm`, `Khác`...) cho từng nhân viên.
+
+#### 7. Bảng `DungCuTrangPhuc` & `NhanVien_DungCu`
+- Quản lý danh mục và lịch sử cấp phát dụng cụ, đồng phục khi nhận việc và thu hồi khi nhân viên nghỉ việc.
 
 ---
 
-## 3. Bảng `NhanVien_ViTinh` (Bảng trung gian N - N)
-Một nhân viên có thể có một hoặc nhiều kỹ năng vi tính khác nhau.
+### Nhóm 3: Ca làm việc & Chấm công
 
-| Tên cột | Kiểu dữ liệu | Ý nghĩa |
-| :--- | :--- | :--- |
-| **`ID`** | AUTOINCREMENT | Khóa chính tự tăng |
-| **`MaNV`** | INT | Khóa ngoại tham chiếu `NhanVien(MaNV)` |
-| **`MaTD`** | INT | Khóa ngoại tham chiếu `TrinhDoViTinh(MaTD)` |
+#### 8. Bảng `CaLamViec`
+- Cố định 2 ca chính: Ca Sáng (`08:00:00` - `15:00:00`) và Ca Chiều Tối (`15:00:00` - `22:00:00`).
+- Cột `CA_GioBatDau`, `CA_GioKetThuc` kiểu `TIME(0)` giúp tính toán chính xác số giờ làm và tiền lương.
 
----
+#### 9. Bảng `LichLamViec`
+- Quản lý trực tiếp xếp ca theo ngày cho nhân viên (`LLV_MaNV`, `LLV_MaCa`, `LLV_NgayLam`).
 
-## 4. Bảng `DungCuTrangPhuc` (Danh mục đồng phục & dụng cụ)
-Đề bài quy định: *"Dụng cụ/trang phục nhận từ quán. Nhân viên nghỉ việc: đổi trạng thái, xóa lịch, trả trang phục/dụng cụ."*
-
-| Tên cột | Kiểu dữ liệu | Ý nghĩa |
-| :--- | :--- | :--- |
-| **`MaDC`** | AUTOINCREMENT | Mã dụng cụ/trang phục (Khóa chính) |
-| **`TenDungCu`** | TEXT(100) | Tên đồ dùng (`Áo đồng phục`, `Tạp dề`, `Thẻ nhân viên`...) |
-| **`SoLuongTong`** | INT | Tổng số lượng trong kho của quán |
-| **`GhiChu`** | TEXT(255) | Ghi chú quy cách (size, màu sắc...) |
-| **`DaXoa`** | YESNO | Đánh dấu xóa |
+#### 10. Bảng `ChamCong`
+- Lưu thời gian thực tế check-in/check-out (`CC_GioBatDau`, `CC_GioKetThuc`), cờ duyệt của quản lý (`CC_DaDuyet`, `CC_NguoiDuyet`).
 
 ---
 
-## 5. Bảng `NhanVien_DungCu` (Quản lý cấp phát & thu hồi)
-Lưu chi tiết trang phục/dụng cụ từng nhân viên nhận khi vào làm và ngày trả lại khi nghỉ việc.
+### Nhóm 4: Bàn ăn & Thực đơn
 
-| Tên cột | Kiểu dữ liệu | Ý nghĩa |
-| :--- | :--- | :--- |
-| **`MaPhieu`** | AUTOINCREMENT | Mã phiếu cấp phát (Khóa chính) |
-| **`MaNV`** | INT | Khóa ngoại tham chiếu `NhanVien(MaNV)` |
-| **`MaDC`** | INT | Khóa ngoại tham chiếu `DungCuTrangPhuc(MaDC)` |
-| **`SoLuong`** | INT | Số lượng đã nhận |
-| **`NgayNhan`** | DATETIME | Ngày nhận dụng cụ |
-| **`DaTra`** | YESNO | Trạng thái đã trả (TRUE khi nghỉ việc) |
-| **`NgayTra`** | DATETIME | Ngày trả lại cho quán |
-| **`GhiChu`** | TEXT(255) | Tình trạng đồ khi trả |
+#### 11. Bảng `Ban`
+- Lưu số bàn, tên bàn, khu vực (Tầng trệt, VIP...), số khách tối đa và trạng thái (0: Trống, 1: Có khách, 2: Đặt trước).
+
+#### 12. Bảng `DanhMuc` & `MonAn`
+- Danh mục nhóm món (Món chính, Khai vị, Nước uống...).
+- Bảng món ăn có trường `MA_HetMon` (BIT) để cảnh báo tức thì cho nhân viên phục vụ khi hết nguyên liệu.
 
 ---
 
-## 6. Bảng `CaLamViec` (Danh mục ca & khung giờ)
-Đề bài quy định: *"ngày chia 3 ca: 8g-13g, 12g-17g, 17g-22g hoặc 2 ca cố định 9h-16h, 16h-22h => số ca trong ngày và thời gian có thể thay đổi. Tính lương nhân viên phụ thuộc vào tổng số ca làm việc trong tháng."*
+### Nhóm 5: Phục vụ, Gọi món & Hóa đơn
 
-| Tên cột | Kiểu dữ liệu | Ý nghĩa |
-| :--- | :--- | :--- |
-| **`MaCa`** | AUTOINCREMENT | Mã ca làm việc (Khóa chính) |
-| **`TenCa`** | TEXT(50) | Tên ca (`Ca sáng`, `Ca chiều`, `Ca tối`...) |
-| **`GioBatDau`** | TEXT(10) | Giờ bắt đầu (VD: `08:00`) |
-| **`GioKetThuc`** | TEXT(10) | Giờ kết thúc (VD: `13:00`) |
-| **`LuongMoiCa`** | DOUBLE | Mức lương cho 1 ca làm việc (để nhân với tổng số ca) |
-| **`DaXoa`** | YESNO | Đánh dấu xóa |
+#### 13. Bảng `HoaDon`
+- `HD_MaBan`: Bàn đang phục vụ.
+- `HD_MaNVPhucVu`: Nhân viên phục vụ phụ trách (dùng tính doanh số).
+- `HD_MaHoaDonGop`: Khóa ngoại tự tham chiếu hỗ trợ nghiệp vụ gộp bàn / tách hóa đơn.
+- `HD_PhuongThucThanhToan`: `Tien mat`, `Chuyen khoan`, `QR Code`.
+- `HD_TongTien`, `HD_TrangThai` (0: Chưa thanh toán, 1: Đã thanh toán).
 
----
-
-## 7. Tài khoản mẫu có sẵn trong CSDL:
-- **Chủ quán:** `chuquan` / `123456`
-- **Nhân viên quản lý:** `quanly` / `123456`
-- **Nhân viên phục vụ:** `phucvu` / `123456`
-- **Nhân viên pha chế/bếp:** `nhabep` / `123456`
+#### 14. Bảng `ChiTietHoaDon`
+- Chi tiết từng món gọi của bàn: số lượng, đơn giá tại thời điểm gọi, ghi chú đặc biệt cho bếp (ít cay, không đường...), và `CTHD_TrangThaiMon` (0: Chờ nấu, 1: Đang nấu, 2: Đã nấu xong, 3: Đã mang lên bàn).
