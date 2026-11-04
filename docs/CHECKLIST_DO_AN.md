@@ -19,7 +19,7 @@
 ### 1.2. Thiết kế kiến trúc & Mô hình dữ liệu
 - [ ] Lập danh sách các lớp thực thể (theo bảng mẫu cuối file PDF: Tên lớp, Tên thuộc tính, Kiểu dữ liệu).
 - [ ] Vẽ sơ đồ ERD (Mô hình thực thể kết hợp) và Sơ đồ quan hệ (Relational Schema).
-- [ ] Thiết kế kiến trúc phần mềm VB.NET theo mô hình 3 lớp (**GUI - BUS - DAO/DTO**).
+- [x] Thiết kế kiến trúc phần mềm VB.NET theo mô hình 3 lớp (**GUI - BUS - DAO/DTO**) (chi tiết tại `docs/KIEN_TRUC_HE_THONG.md`).
 - [ ] Phác thảo giao diện (Wireframe / Mockup) các màn hình chính trên Windows Forms.
 
 ---
@@ -54,7 +54,7 @@
   - [x] Tạo file `docker-compose.yml` và script `start-db.bat` để chạy 1-click.
 
 ### 2.2. Nạp dữ liệu mẫu (Seed Data) & Kiểm thử Docker
-- [ ] Viết dữ liệu mẫu (`INSERT INTO`) cho 4 tài khoản đại diện 4 vai trò (mật khẩu `123456`), danh sách bàn, thực đơn món ăn/nước uống, ca làm việc, lịch làm việc và một vài hóa đơn mẫu để test báo cáo.
+- [x] Viết dữ liệu mẫu (`INSERT INTO`) cho 4 tài khoản đại diện 4 vai trò (mật khẩu `123456`), danh sách bàn, thực đơn món ăn/nước uống, ca làm việc, lịch làm việc và một vài hóa đơn mẫu để test báo cáo (chi tiết tại `database/docker-mssql/seed-data.sql`).
 - [ ] Build Docker image và chạy container từ `docker-data-server`.
 - [ ] Kiểm tra kết nối tới `localhost,1433` và xác nhận tất cả các bảng được tạo thành công không lỗi.
 
@@ -63,7 +63,7 @@
 ## GIAI ĐOẠN 3: PHÁT TRIỂN ỨNG DỤNG VB.NET WINFORMS (Development)
 
 ### 3.1. Khởi tạo Solution & Lớp nền tảng (Core / Infrastructure)
-- [ ] Tạo Solution VB.NET Windows Forms App (`QuanLyQuanAn`).
+- [x] Tạo Solution VB.NET Windows Forms App (`Quanlyquanan` - target .NET 10.0-windows).
 - [ ] Xây dựng lớp `DatabaseAccess` / `KetNoiCSDL` (Quản lý `SqlConnection`, thực thi truy vấn `ExecuteQuery`, `ExecuteNonQuery`, `ExecuteScalar`).
 - [ ] Xây dựng hàm tiện ích mã hóa mật khẩu `MD5` và quản lý phiên đăng nhập (`Session`: lưu thông tin người dùng hiện tại và danh sách quyền `Q_Tag`).
 - [ ] Xây dựng cơ chế kiểm tra phân quyền tự động theo `Tag` của Menu/Button trên Form.
