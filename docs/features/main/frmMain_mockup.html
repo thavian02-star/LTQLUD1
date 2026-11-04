@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockup Giao Diện - Màn Hình Chính (frmMain) - Quản Lý Quán Ăn</title>
+  <!-- Sử dụng font Segoe UI và các icon chuẩn SVG / Unicode -->
+  <style>
+    :root {
+      --primary: #2980B9;
+      --primary-dark: #1F618D;
+      --primary-light: #3498DB;
+      --header-bg: #2980B9;
+      --sidebar-bg: #2C3E50;
+      --sidebar-hover: #34495E;
+      --sidebar-active: #1A5276;
+      --content-bg: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-dark: #2C3E50;
+      --text-light: #ECF0F1;
+      --text-muted: #7F8C8D;
+      --danger: #E74C3C;
+      --danger-dark: #C0392B;
+      --success: #27AE60;
+      --warning: #F39C12;
+      --border-color: #BDC3C7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #1A252F;
+      color: var(--text-dark);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Khung giả lập cửa sổ Windows Forms */
+    .winform-window {
+      width: 100%;
+      max-width: 1280px;
+      height: 820px;
+      background-color: var(--content-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #4A6572;
+    }
+
+    /* Thanh tiêu đề Windows (Title Bar) */
+    .win-titlebar {
+      height: 32px;
+      background-color: #1F618D;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .win-controls {
+      display: flex;
+      gap: 12px;
+    }
+
+    .win-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .win-btn.min { background-color: #F1C40F; }
+    .win-btn.max { background-color: #2ECC71; }
+    .win-btn.close { background-color: #E74C3C; }
+
+    /* Thanh Header chính ứng dụng */
+    .app-header {
+      height: 65px;
+      background: linear-gradient(90deg, #2980B9 0%, #1F618D 100%);
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      font-size: 26px;
+      background: rgba(255, 255, 255, 0.15);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: #D6EAF8;
+      font-weight: 400;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .clock-badge {
+      background: rgba(0, 0, 0, 0.18);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #EBF5FB;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      background: #FFFFFF;
+      color: var(--primary-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .user-role-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      display: inline-block;
+      width: fit-content;
+      margin-top: 2px;
+    }
+
+    .role-chuquan { background-color: #F39C12; color: #FFFFFF; }
+    .role-quanly { background-color: #9B59B6; color: #FFFFFF; }
+    .role-phucvu { background-color: #2ECC71; color: #FFFFFF; }
+    .role-nhabep { background-color: #E67E22; color: #FFFFFF; }
+
+    .btn-logout {
+      background-color: var(--danger);
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background-color: var(--danger-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Thân ứng dụng: Sidebar + Content Area */
+    .app-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Sidebar Menu */
+    .app-sidebar {
+      width: 260px;
+      background-color: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      border-right: 1px solid #1A252F;
+    }
+
+    .nav-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #95A5A6;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 18px 20px 8px 20px;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: all 0.15s ease-in-out;
+      border-left: 4px solid transparent;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      background-color: var(--sidebar-hover);
+      color: #FFFFFF;
+    }
+
+    .nav-item.active {
+      background-color: var(--sidebar-active);
+      color: #FFFFFF;
+      border-left-color: #3498DB;
+      font-weight: 600;
+    }
+
+    .nav-item-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-icon {
+      font-size: 16px;
+      width: 22px;
+      text-align: center;
+    }
+
+    .nav-badge {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 12px;
+    }
+
+    .nav-item.disabled-rbac {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background-color: transparent !important;
+      color: #7F8C8D !important;
+      border-left-color: transparent !important;
+    }
+
+    /* Vùng làm việc chính (Content Workspace) */
+    .app-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background-color: #F4F6F9;
+    }
+
+    /* Banner chào mừng & thống kê nhanh */
+    .welcome-card {
+      background: #FFFFFF;
+      padding: 20px 24px;
+      border-radius: 8px;
+      border-left: 5px solid var(--primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .welcome-card h2 {
+      font-size: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .welcome-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* KPI Summary Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .kpi-card {
+      background: #FFFFFF;
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid #E2E8F0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .kpi-blue { background: #EBF5FB; color: #2980B9; }
+    .kpi-orange { background: #FEF5E7; color: #E67E22; }
+    .kpi-green { background: #EAFAF1; color: #27AE60; }
+    .kpi-purple { background: #F4ECF7; color: #8E44AD; }
+
+    .kpi-info h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .kpi-info .kpi-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-top: 2px;
+    }
+
+    /* Khối thao tác nhanh & sơ đồ bàn demo */
+    .dashboard-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .panel-card {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      border: 1px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #EEF2F7;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .quick-btn {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      padding: 16px 12px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: #EBF5FB;
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .quick-btn .icon {
+      font-size: 24px;
+    }
+
+    /* Danh sách hoạt động gần đây */
+    .activity-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+
+    .activity-item .time {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    /* Thanh trạng thái dưới đáy (Status Bar) */
+    .app-statusbar {
+      height: 28px;
+      background-color: #2C3E50;
+      color: #BDC3C7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 11.5px;
+      border-top: 1px solid #1A252F;
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #2ECC71;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    /* BẢNG ĐIỀU KHIỂN GIẢ LẬP PHÂN QUYỀN (RBAC SIMULATOR) CHO DEV / USER KIỂM TRA */
+    .simulator-bar {
+      margin-top: 16px;
+      background: #2C3E50;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFFFFF;
+      width: 100%;
+      max-width: 1280px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .simulator-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F1C40F;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .role-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .role-btn {
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: 1px solid #4A6572;
+      background: #34495E;
+      color: #FFFFFF;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .role-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary-light);
+    }
+
+    .role-btn.active {
+      background: var(--primary);
+      border-color: #FFFFFF;
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- KHUNG CỬA SỔ WINFORMS MÔ PHỎNG -->
+  <div class="winform-window">
+    
+    <!-- 1. Thanh tiêu đề cửa sổ Windows -->
+    <div class="win-titlebar">
+      <span>🍽️ Hệ Thống Quản Lý Quán Ăn - [Màn Hình Chính - frmMain]</span>
+      <div class="win-controls">
+        <span class="win-btn min" title="Thu nhỏ"></span>
+        <span class="win-btn max" title="Phóng to"></span>
+        <span class="win-btn close" title="Đóng"></span>
+      </div>
+    </div>
+
+    <!-- 2. Header chính ứng dụng (Đồng bộ tone màu #2980B9 với frmDangNhap) -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-icon">🏪</div>
+        <div>
+          <div class="brand-title">HỆ THỐNG QUẢN LÝ QUÁN ĂN</div>
+          <div class="brand-subtitle">PHÂN HỆ ĐIỀU HÀNH & BÁN HÀNG TẬP TRUNG</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Đồng hồ thời gian thực -->
+        <div class="clock-badge">
+          <span>🕒</span>
+          <span id="liveClock">16:55:00 - Thứ Tư, 04/11/2026</span>
+        </div>
+
+        <!-- Thông tin User phiên đăng nhập (Session) -->
+        <div class="user-profile">
+          <div class="user-avatar" id="userAvatar">CQ</div>
+          <div class="user-info">
+            <span class="user-name" id="userName">Nguyễn Văn Chủ Quán</span>
+            <span class="user-role-badge role-chuquan" id="userRole">CHỦ QUÁN</span>
+          </div>
+        </div>
+
+        <!-- Nút Đăng xuất -->
+        <button class="btn-logout" onclick="alert('Đã gọi hàm AuthBUS: Xóa Session và quay trở về frmDangNhap!')">
+          <span>🚪</span> ĐĂNG XUẤT
+        </button>
+      </div>
+    </header>
+
+    <!-- 3. Thân ứng dụng: Sidebar Navigation & Content Workspace -->
+    <div class="app-body">
+      
+      <!-- Sidebar Menu trái (Ánh xạ các thẻ Tag theo MA_TRAN_PHAN_QUYEN.md) -->
+      <aside class="app-sidebar">
+        
+        <!-- Nhóm 1: Bán hàng & Phục vụ -->
+        <div class="nav-group-title">BÁN HÀNG & PHỤC VỤ</div>
+        <ul class="nav-list">
+          <li class="nav-item active" id="navSoDoBan" data-tag="POS_SO_DO_BAN" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">🍽️</span>
+              <span>Sơ Đồ Bàn Ăn</span>
+            </div>
+            <span class="nav-badge" title="8 bàn có khách">8/20</span>
+          </li>
+          <li class="nav-item" id="navNhaBep" data-tag="B_XEM_MON_CHE_BIEN" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">🍳</span>
+              <span>Nhà Bếp & Pha Chế</span>
+            </div>
+            <span class="nav-badge" style="background-color: var(--danger);" title="5 món đang chờ">5</span>
+          </li>
+        </ul>
+
+        <!-- Nhóm 2: Quản lý & Vận hành -->
+        <div class="nav-group-title">QUẢN LÝ & VẬN HÀNH</div>
+        <ul class="nav-list">
+          <li class="nav-item" id="navDuyetChamCong" data-tag="QL_DUYET_CHAM_CONG" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">🕒</span>
+              <span>Duyệt Chấm Công</span>
+            </div>
+          </li>
+          <li class="nav-item" id="navQuanLyNhanSu" data-tag="CQ_QUAN_LY_NHAN_VIEN" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">👥</span>
+              <span>Quản Lý Nhân Sự</span>
+            </div>
+          </li>
+          <li class="nav-item" id="navQuanLyThucDon" data-tag="CQ_QUAN_LY_THUC_DON" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">📋</span>
+              <span>Thực Đơn & Bàn Ghế</span>
+            </div>
+          </li>
+          <li class="nav-item" id="navBaoCao" data-tag="CQ_BAO_CAO_THONG_KE" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">📊</span>
+              <span>Báo Cáo Doanh Thu</span>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Nhóm 3: Tiện ích cá nhân (Ai cũng có quyền) -->
+        <div class="nav-group-title">CÁ NHÂN & CÀI ĐẶT</div>
+        <ul class="nav-list">
+          <li class="nav-item" id="navChamCongCaNhan" data-tag="CHUNG_CHAM_CONG_CA_NHAN" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">⏱️</span>
+              <span>Chấm Công Của Tôi</span>
+            </div>
+          </li>
+          <li class="nav-item" id="navDoiMatKhau" data-tag="CHUNG_DOI_MAT_KHAU" onclick="setActiveNav(this)">
+            <div class="nav-item-content">
+              <span class="nav-icon">🔑</span>
+              <span>Đổi Mật Khẩu</span>
+            </div>
+          </li>
+        </ul>
+
+      </aside>
+
+      <!-- Content Workspace: Vùng làm việc trung tâm -->
+      <main class="app-content" id="mainContent">
+        
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+          <div>
+            <h2 id="welcomeGreeting">Xin chào, Nguyễn Văn Chủ Quán! 👋</h2>
+            <p>Hôm nay hệ thống hoạt động ổn định. Chúc bạn một ngày làm việc hiệu quả!</p>
+          </div>
+          <button class="quick-btn" style="padding: 10px 18px; flex-direction: row;" onclick="alert('Mở nhanh cửa sổ Sơ đồ bàn ăn!')">
+            <span>⚡ Mở Sơ Đồ Bàn</span>
+          </button>
+        </div>
+
+        <!-- 4 KPI Summary Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-blue">🪑</div>
+            <div class="kpi-info">
+              <h4>Bàn Đang Phục Vụ</h4>
+              <div class="kpi-value">8 / 20</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-orange">🍜</div>
+            <div class="kpi-info">
+              <h4>Món Chờ Chế Biến</h4>
+              <div class="kpi-value">5 món</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-green">👨‍🍳</div>
+            <div class="kpi-info">
+              <h4>Nhân Sự Trong Ca</h4>
+              <div class="kpi-value">6 người</div>
+            </div>
+          </div>
+          <div class="kpi-card" id="kpiDoanhThu">
+            <div class="kpi-icon kpi-purple">💰</div>
+            <div class="kpi-info">
+              <h4>Doanh Thu Hôm Nay</h4>
+              <div class="kpi-value">4.850.000 đ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Khối thao tác nhanh & Hoạt động gần đây -->
+        <div class="dashboard-row">
+          
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">⚡ Thao Tác Nghiệp Vụ Nhanh</div>
+              <span style="font-size: 11px; color: var(--text-muted);">Các chức năng sử dụng thường xuyên</span>
+            </div>
+            <div class="quick-actions-grid">
+              <div class="quick-btn" onclick="alert('Chuyển tới Sơ Đồ Bàn')">
+                <span class="icon">🍽️</span>
+                <span>Đặt Bàn / Gọi Món</span>
+              </div>
+              <div class="quick-btn" onclick="alert('Chuyển tới Hàng Đợi Bếp')">
+                <span class="icon">👨‍🍳</span>
+                <span>Xem Hàng Đợi Bếp</span>
+              </div>
+              <div class="quick-btn" onclick="alert('Chấm công Vào Ca')">
+                <span class="icon">⏱️</span>
+                <span>Chấm Công Vào Ca</span>
+              </div>
+              <div class="quick-btn" onclick="alert('Chuyển tới Duyệt Chấm Công')">
+                <span class="icon">📋</span>
+                <span>Duyệt Công Ca</span>
+              </div>
+              <div class="quick-btn" onclick="alert('Chuyển tới Thực Đơn')">
+                <span class="icon">🍲</span>
+                <span>Cập Nhật Món Ăn</span>
+              </div>
+              <div class="quick-btn" onclick="alert('Xem Báo Cáo Doanh Thu')">
+                <span class="icon">📈</span>
+                <span>Thống Kê Doanh Thu</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">🔔 Hoạt Động Gần Đây</div>
+              <span style="font-size: 11px; color: var(--primary); font-weight: 600; cursor: pointer;">Làm mới</span>
+            </div>
+            <ul class="activity-list">
+              <li class="activity-item">
+                <div>
+                  <strong>Bàn số 05</strong> gọi thêm 2 Lẩu Hải Sản
+                </div>
+                <span class="time">16:48</span>
+              </li>
+              <li class="activity-item">
+                <div>
+                  <strong>Bếp</strong> báo xong 1 Cơm Chiên Bò (Bàn 02)
+                </div>
+                <span class="time">16:42</span>
+              </li>
+              <li class="activity-item">
+                <div>
+                  <strong>Bàn số 01</strong> đã thanh toán: 620.000 đ
+                </div>
+                <span class="time">16:30</span>
+              </li>
+              <li class="activity-item">
+                <div>
+                  <strong>NV Trần Phục Vụ</strong> chấm công vào ca chiều
+                </div>
+                <span class="time">16:00</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- 4. Thanh trạng thái dưới cùng (Status Bar) -->
+    <footer class="app-statusbar">
+      <div class="status-left">
+        <div>
+          <span class="status-dot"></span>
+          <span>CSDL: <strong>Microsoft SQL Server 2022 (Docker) - 172.20.218.246:1433</strong></span>
+        </div>
+        <div>Database: <strong>QuanLyQuanAnDB</strong></div>
+      </div>
+      <div class="status-right">
+        <span>Session ID: <strong id="statusSession">TK_001</strong></span>
+        <span>Phiên bản: <strong>1.0.0 (VB.NET .NET 10.0)</strong></span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- BẢNG ĐIỀU KHIỂN THỬ NGHIỆM PHÂN QUYỀN (RBAC SIMULATOR) -->
+  <div class="simulator-bar">
+    <div class="simulator-title">
+      <span>⚙️ TRÌNH MÔ PHỎNG PHÂN QUYỀN RBAC (CLICK ĐỂ THỬ CÁC VAI TRÒ):</span>
+    </div>
+    <div class="role-buttons">
+      <button class="role-btn active" onclick="switchRole('chuquan')">👑 CHỦ QUÁN (chuquan)</button>
+      <button class="role-btn" onclick="switchRole('quanly')">👔 QUẢN LÝ (quanly)</button>
+      <button class="role-btn" onclick="switchRole('phucvu')">🍽️ PHỤC VỤ (phucvu1)</button>
+      <button class="role-btn" onclick="switchRole('nhabep')">🍳 NHÀ BẾP (nhabep1)</button>
+    </div>
+  </div>
+
+  <script>
+    // 1. Cập nhật đồng hồ thời gian thực
+    function updateClock() {
+      const now = new Date();
+      const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+      const dayName = days[now.getDay()];
+      const timeStr = now.toLocaleTimeString('vi-VN', { hour12: false });
+      const dateStr = now.toLocaleDateString('vi-VN');
+      document.getElementById('liveClock').textContent = `${timeStr} - ${dayName}, ${dateStr}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Chuyển đổi tab Sidebar được chọn
+    function setActiveNav(el) {
+      if (el.classList.contains('disabled-rbac')) {
+        alert('Tài khoản hiện tại không có quyền truy cập chức năng này (theo MA_TRAN_PHAN_QUYEN.md)!');
+        return;
+      }
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // 3. Logic mô phỏng phân quyền tự động theo vai trò (Ánh xạ chính xác theo Session & PhanQuyenHelper.vb)
+    const rolePermissions = {
+      'chuquan': {
+        name: 'Nguyễn Văn Chủ Quán',
+        roleText: 'CHỦ QUÁN',
+        roleClass: 'role-chuquan',
+        avatar: 'CQ',
+        session: 'TK_001 (chuquan)',
+        showRevenue: true,
+        allowedTags: [
+          'POS_SO_DO_BAN', 'B_XEM_MON_CHE_BIEN', 'QL_DUYET_CHAM_CONG',
+          'CQ_QUAN_LY_NHAN_VIEN', 'CQ_QUAN_LY_THUC_DON', 'CQ_BAO_CAO_THONG_KE',
+          'CHUNG_CHAM_CONG_CA_NHAN', 'CHUNG_DOI_MAT_KHAU'
+        ]
+      },
+      'quanly': {
+        name: 'Trần Thị Quản Lý',
+        roleText: 'QUẢN LÝ',
+        roleClass: 'role-quanly',
+        avatar: 'QL',
+        session: 'TK_002 (quanly)',
+        showRevenue: false,
+        allowedTags: [
+          'POS_SO_DO_BAN', 'QL_DUYET_CHAM_CONG',
+          'CHUNG_CHAM_CONG_CA_NHAN', 'CHUNG_DOI_MAT_KHAU'
+        ]
+      },
+      'phucvu': {
+        name: 'Lê Văn Phục Vụ 1',
+        roleText: 'PHỤC VỤ',
+        roleClass: 'role-phucvu',
+        avatar: 'PV',
+        session: 'TK_003 (phucvu1)',
+        showRevenue: false,
+        allowedTags: [
+          'POS_SO_DO_BAN',
+          'CHUNG_CHAM_CONG_CA_NHAN', 'CHUNG_DOI_MAT_KHAU'
+        ]
+      },
+      'nhabep': {
+        name: 'Phạm Đầu Bếp 1',
+        roleText: 'NHÀ BẾP',
+        roleClass: 'role-nhabep',
+        avatar: 'NB',
+        session: 'TK_005 (nhabep1)',
+        showRevenue: false,
+        allowedTags: [
+          'B_XEM_MON_CHE_BIEN',
+          'CHUNG_CHAM_CONG_CA_NHAN', 'CHUNG_DOI_MAT_KHAU'
+        ]
+      }
+    };
+
+    function switchRole(roleKey) {
+      // Đổi active button
+      document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const data = rolePermissions[roleKey];
+      
+      // Đổi thông tin User Header
+      document.getElementById('userName').textContent = data.name;
+      document.getElementById('welcomeGreeting').textContent = `Xin chào, ${data.name}! 👋`;
+      document.getElementById('userAvatar').textContent = data.avatar;
+      document.getElementById('statusSession').textContent = data.session;
+      
+      const roleBadge = document.getElementById('userRole');
+      roleBadge.textContent = data.roleText;
+      roleBadge.className = `user-role-badge ${data.roleClass}`;
+
+      // Ẩn/Hiện KPI doanh thu (chỉ Chủ quán có quyền xem)
+      const kpiDoanhThu = document.getElementById('kpiDoanhThu');
+      kpiDoanhThu.style.display = data.showRevenue ? 'flex' : 'none';
+
+      // Áp dụng Phân quyền lên từng menu item dựa theo thuộc tính data-tag
+      const navItems = document.querySelectorAll('.nav-item');
+      let firstActiveSet = false;
+
+      navItems.forEach(item => {
+        const tag = item.getAttribute('data-tag');
+        if (data.allowedTags.includes(tag)) {
+          item.classList.remove('disabled-rbac');
+          item.title = 'Được phép truy cập';
+          if (!firstActiveSet) {
+            item.classList.add('active');
+            firstActiveSet = true;
+          }
+        } else {
+          item.classList.add('disabled-rbac');
+          item.classList.remove('active');
+          item.title = 'Bị khóa: Vai trò của bạn không có quyền truy cập';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

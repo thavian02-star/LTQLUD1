@@ -13,7 +13,7 @@
   - **Nhà bếp / Pha chế** (Xem danh sách món chờ chế biến theo thời gian, cập nhật trạng thái món đã nấu xong).
   - **Quản lý** (Xem lịch chung/riêng, duyệt chấm công, thực hiện các chức năng của phục vụ với đầu vào là nhân viên phục vụ tương ứng).
   - **Chủ quán** (Quản lý nhân viên, tổ chức bàn ghế, quản lý thực đơn, xếp lịch làm việc theo tuần/tháng, xem báo cáo thống kê, phân quyền, sao lưu/phục hồi).
-- [ ] Đặc tả chi tiết **Quy trình 1: Phục vụ khách hàng** (Chọn bàn -> Đặt món -> Chuyển bếp -> Bếp báo xong -> Mang món -> Chuyển/Gộp bàn -> Tính tiền & In hóa đơn).
+- [x] Đặc tả chi tiết **Quy trình 1: Phục vụ khách hàng** (Chọn bàn -> Đặt món -> Chuyển bếp -> Bếp báo xong -> Mang món -> Chuyển/Gộp bàn -> Tính tiền & In hóa đơn) (chi tiết tại [`docs/QUY_TRINH_ORDER_MON.md`](QUY_TRINH_ORDER_MON.md)).
 - [ ] Đặc tả chi tiết **Quy trình 2: Quản lý nhân sự** (Tiếp nhận hồ sơ, trình độ vi tính, cấp phát dụng cụ/trang phục -> Đăng ký/Xếp ca -> Chấm công & Duyệt công -> Tính lương theo số ca -> Nghỉ việc & Thu hồi dụng cụ).
 
 ### 1.2. Thiết kế kiến trúc & Mô hình dữ liệu
