@@ -69,7 +69,7 @@
 - [x] Xây dựng cơ chế kiểm tra phân quyền tự động theo `Tag` của Menu/Button trên Form (`Core/Helpers/PhanQuyenHelper.vb`).
 
 ### 3.2. Phân hệ Chung (Hệ thống & Cá nhân)
-- [ ] **Màn hình Đăng nhập (`frmDangNhap`):** Đăng nhập, kiểm tra tài khoản, tải quyền theo vai trò (kế hoạch chi tiết tại `docs/features/AUTH_DANG_NHAP.md`).
+- [x] **Màn hình Đăng nhập (`frmDangNhap`):** Đăng nhập, kiểm tra tài khoản, tải quyền theo vai trò (hoàn thành 5 bước theo `docs/features/AUTH_DANG_NHAP.md`).
 - [ ] **Màn hình Chính (`frmMain`):** Thanh điều hướng (Menu/Sidebar) hiển thị các chức năng được phép truy cập theo vai trò.
 - [ ] **Màn hình Đổi mật khẩu (`frmDoiMatKhau`):** Xác nhận mật khẩu cũ và cập nhật mật khẩu mới (băm MD5).
 - [ ] **Màn hình Cá nhân & Chấm công (`frmChamCongCaNhan`):**
