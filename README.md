@@ -24,7 +24,7 @@ Hệ thống được tổ chức theo kiến trúc **Package-by-Feature (Vertic
   - `BaoCao_ThongKe`: Thống kê doanh thu, số ca làm việc, lượng khách.
 - **Database Server:** 18 bảng chuẩn hóa trên Microsoft SQL Server 2022 Express chạy bằng Docker container.
 
-> 📖 **Xem chi tiết:** [Tài liệu Kiến trúc Hệ thống](docs/KIEN_TRUC_HE_THONG.md) & [Đặc tả Cơ sở Dữ liệu](docs/DATABASE_SCHEMA.md)
+> 📖 **Xem chi tiết:** [Tài liệu Kiến trúc Hệ thống](docs/KIEN_TRUC_HE_THONG.md) | [Ma trận Phân quyền RBAC](docs/MA_TRAN_PHAN_QUYEN.md) | [Đặc tả Cơ sở Dữ liệu](docs/DATABASE_SCHEMA.md)
 
 ---
 
@@ -66,6 +66,7 @@ DAQLUD1/
 │   ├── Đồ án - Quan ly quan an 3.pdf  # Đề bài yêu cầu của giảng viên
 │   ├── CHECKLIST_DO_AN.md       # Kế hoạch & tiến độ hoàn thành các giai đoạn đồ án
 │   ├── KIEN_TRUC_HE_THONG.md    # Tài liệu đặc tả kiến trúc Package-by-Feature & luồng dữ liệu
+│   ├── MA_TRAN_PHAN_QUYEN.md    # Bảng ma trận phân quyền 4 vai trò & mã Q_Tag
 │   ├── DATABASE_SCHEMA.md       # Đặc tả cấu trúc 18 bảng dữ liệu SQL Server
 │   └── review/                  # Báo cáo đánh giá và rà soát kỹ thuật
 │
