@@ -3,6 +3,7 @@
 **Môn học:** Lập trình ứng dụng quản lý 1  
 **Nền tảng:** Visual Basic .NET (.NET 10.0 Windows Forms)  
 **Cơ sở dữ liệu:** Microsoft SQL Server 2022 Express (Docker)  
+**Mô hình tổ chức:** **Package-by-Feature (Vertical Slice Architecture) trên nền tảng 3 lớp (3-Tier)**
 
 ---
 
@@ -16,99 +17,99 @@ Phần mềm Quản lý Quán ăn được xây dựng nhằm hỗ trợ toàn d
 
 ---
 
-## 2. MÔ HÌNH KIẾN TRÚC 3 LỚP (3-TIER ARCHITECTURE)
+## 2. MÔ HÌNH TỔ CHỨC MÃ NGUỒN (PACKAGE-BY-FEATURE)
 
-Dự án áp dụng mô hình phân lớp chuẩn công nghiệp nhằm đảm bảo tính độc lập, dễ bảo trì, dễ mở rộng và kiểm thử:
+### 2.1. Tại sao chọn Package-by-Feature thay vì Package-by-Layer truyền thống?
+- **Package-by-Layer (Cũ):** Chia theo thư mục kỹ thuật `DTO/`, `DAO/`, `BUS/`, `GUI/`. Nhược điểm lớn: Khi cần xem luồng xử lý hoặc sửa một màn hình, lập trình viên phải nhảy qua lại giữa 4 thư mục khác nhau. Khi dự án có nhiều màn hình, danh sách file trong mỗi thư mục trở nên quá dài và khó tìm kiếm.
+- **Package-by-Feature (Hiện tại):** Gom trọn gói mã nguồn theo **từng Màn hình / Phân hệ nghiệp vụ khép kín**.
+  - Muốn xem luồng nghiệp vụ của màn hình nào $\rightarrow$ Chỉ cần mở đúng 1 thư mục của màn hình đó.
+  - Mỗi phân hệ tự chứa Form (GUI), nghiệp vụ kiểm tra (BUS), truy vấn dữ liệu (DAO) và khuôn mẫu thực thể (DTO) riêng của mình.
+  - Các tiện ích cốt lõi dùng chung (kết nối CSDL, băm mật khẩu, phiên làm việc) được đặt tập trung trong thư mục `Core/`.
+
+### 2.2. Sơ đồ cấu trúc tổ chức mã nguồn
+
+```text
+Quanlyquanan/
+│
+├── Core/                               # NỀN TẢNG KỸ THUẬT DÙNG CHUNG (INFRASTRUCTURE)
+│   ├── Database/
+│   │   └── KetNoiCSDL.vb               # Quản lý SqlConnection & ExecuteQuery / ExecuteNonQuery / ExecuteScalar
+│   ├── Security/
+│   │   ├── MaHoaMD5.vb                 # Tiện ích băm mật khẩu chuẩn MD5 (seed data: 123456)
+│   │   └── Session.vb                  # Lưu thông tin tài khoản đăng nhập & danh sách quyền RBAC
+│   └── Helpers/
+│       └── PhanQuyenHelper.vb          # Tự động duyệt Control.Tag trên Form để ẩn/mờ theo quyền
+│
+├── Features/                           # CÁC PHÂN HỆ NGHIỆP VỤ / MÀN HÌNH (VERTICAL SLICES)
+│   ├── Auth/                           # Màn hình: Đăng nhập & Đổi mật khẩu
+│   │   ├── frmDangNhap.vb (.Designer, .resx)
+│   │   ├── frmDoiMatKhau.vb
+│   │   ├── TaiKhoanDTO.vb, TaiKhoanDAO.vb, AuthBUS.vb
+│   │
+│   ├── BanAn_GoiMon/                   # Màn hình: Sơ đồ bàn & Gọi món / Thu ngân
+│   │   ├── frmBanAn.vb                 # Sơ đồ trạng thái bàn (Trống, Có khách, Đặt trước)
+│   │   ├── frmGoiMon.vb                # Màn hình gọi món, chuyển/gộp bàn, in hóa đơn
+│   │   ├── BanDTO.vb, HoaDonDTO.vb, ChiTietHoaDonDTO.vb
+│   │   ├── BanDAO.vb, HoaDonDAO.vb, BanAnBUS.vb
+│   │
+│   ├── ThucDon/                        # Màn hình: Quản lý món ăn & Thực đơn
+│   │   ├── frmThucDon.vb, MonAnDTO.vb, DanhMucDTO.vb, MonAnDAO.vb, ThucDonBUS.vb
+│   │
+│   ├── NhaBep/                         # Màn hình: Hàng đợi chế biến của Bếp & Pha chế
+│   │   ├── frmNhaBep.vb, NhaBepDAO.vb, NhaBepBUS.vb
+│   │
+│   ├── NhanSu/                         # Màn hình: Quản lý tuyển dụng, kỹ năng vi tính & dụng cụ
+│   │   ├── frmNhanVien.vb, NhanVienDTO.vb, DungCuDTO.vb, NhanVienDAO.vb, NhanSuBUS.vb
+│   │
+│   ├── ChamCong_LichLam/               # Màn hình: Xếp ca làm việc & Chấm công
+│   │   ├── frmLichLamViec.vb, frmChamCong.vb
+│   │   ├── CaLamViecDTO.vb, ChamCongDTO.vb, ChamCongDAO.vb, ChamCongBUS.vb
+│   │
+│   └── BaoCao_ThongKe/                 # Màn hình: Báo cáo thống kê dành cho Chủ quán
+│       ├── frmBaoCao.vb, BaoCaoDAO.vb, BaoCaoBUS.vb
+│
+├── Form1.vb (.Designer.vb, .resx)      # Form khởi động mặc định ban đầu
+├── Quanlyquanan.vbproj                  # Cấu hình project .NET 10.0-windows
+└── Quanlyquanan.slnx                   # File Solution XML
+```
+
+---
+
+## 3. NGUYÊN TẮC LUỒNG DỮ LIỆU BÊN TRONG MỖI FEATURE (3-TIER FLOW)
+
+Dù được gom theo Màn hình (Feature), bên trong mỗi phân hệ vẫn tuân thủ nghiêm ngặt **3 lớp logic**:
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│              1. TẦNG TRÌNH DIỄN (Presentation Layer - GUI)       │
-│  - Windows Forms (VB.NET .NET 10.0-windows)                    │
-│  - Form Đăng nhập, Bán hàng/Bàn ăn, Nhà bếp, Nhân sự, Báo cáo │
-│  - Bắt sự kiện người dùng, kiểm soát trạng thái giao diện      │
-└────────────────────────────────┬────────────────────────────────┘
-                                 │ (Gọi xử lý)
-┌────────────────────────────────▼────────────────────────────────┐
-│           2. TẦNG NGHIỆP VỤ (Business Logic Layer - BUS / BLL)   │
-│  - Quy tắc nghiệp vụ (Business Rules & Validation)              │
-│  - Phân quyền RBAC (Role-Based Access Control)                  │
-│  - Xử lý chuyển/gộp bàn, tính tổng tiền hóa đơn, duyệt công     │
-└────────────────────────────────┬────────────────────────────────┘
-                                 │ (Truyền tải DTO & gọi DAO)
-┌────────────────────────────────▼────────────────────────────────┐
-│           3. TẦNG TRUY CẬP DỮ LIỆU (Data Access Layer - DAO)     │
-│  - DTO (Data Transfer Objects): Lớp đối tượng thực thể          │
-│  - DAO (Data Access Objects): SqlHelper / KetNoiCSDL            │
-│  - Thực thi SqlCommand, Parameters, chống SQL Injection         │
-└────────────────────────────────┬────────────────────────────────┘
-                                 │ (Chuỗi kết nối / T-SQL)
-┌────────────────────────────────▼────────────────────────────────┐
-│                   4. CƠ SỞ DỮ LIỆU (Database Server)             │
-│  - Microsoft SQL Server 2022 Express (Docker Container)         │
-│  - 18 bảng chuẩn hóa quan hệ (1-N, N-N)                          │
-└─────────────────────────────────────────────────────────────────┘
+[Người dùng tương tác] 
+         │
+         ▼
+    [Form GUI]  (Bắt sự kiện click nút, nhập dữ liệu ô text, hiển thị DataGridView)
+         │
+         ▼ (Truyền tham số qua)
+    [Lớp BUS]   (Kiểm tra tính hợp lệ dữ liệu, áp dụng quy tắc kinh doanh, tính tiền, gộp bàn)
+         │
+         ▼ (Gửi/nhận đối tượng DTO)
+    [Lớp DAO]   (Gọi KetNoiCSDL.ExecuteQuery / ExecuteNonQuery với SqlParameter)
+         │
+         ▼ (T-SQL qua Port 1433)
+[Microsoft SQL Server 2022 Docker]
 ```
 
----
-
-## 3. CHI TIẾT TỪNG TẦNG TRONG HỆ THỐNG
-
-### 3.1. Tầng Giao diện (Presentation Layer - GUI)
-- **Vị trí thư mục:** `Quanlyquanan/`
-- **Thành phần chính:**
-  - `frmDangNhap`: Đăng nhập, ghi nhận phiên làm việc, tải danh sách quyền.
-  - `frmMain`: Giao diện chính chứa MenuStrip / Sidebar điều hướng theo quyền hạn.
-  - `frmBanAn` & `frmGoiMon`: Quản lý sơ đồ bàn trực quan theo màu sắc trạng thái, menu gọi món, hóa đơn tạm tính.
-  - `frmNhaBep`: Màn hình dành riêng cho bếp theo dõi order theo thời gian thực (FIFO).
-  - `frmNhanVien`, `frmLichLamViec`, `frmChamCong`: Phân hệ quản trị nhân sự và lịch làm việc.
-  - `frmThucDon`, `frmBan`: Quản lý danh mục món, nhóm món và sơ đồ bàn ăn.
-  - `frmBaoCao`: Thống kê doanh thu theo ngày/tháng, nhân viên bán nhiều nhất, món bán chạy.
-
-### 3.2. Tầng Nghiệp vụ (Business Logic Layer - BUS)
-- **Nhiệm vụ:**
-  - Tiếp nhận yêu cầu từ GUI, kiểm tra dữ liệu đầu vào (Validation).
-  - Áp dụng các quy tắc logic nghiệp vụ:
-    - Bàn đang có khách thì không thể xóa bàn hoặc chuyển sang bàn đã có khách khác mà không có lệnh gộp bàn.
-    - Món ăn đã chế biến xong không cho phép nhân viên phục vụ tự ý hủy nếu không có xác nhận của quản lý.
-    - Nhân viên nghỉ việc sẽ tự động chuyển trạng thái, hủy lịch làm tương lai và yêu cầu hoàn trả đầy đủ dụng cụ/trang phục đã cấp phát.
-    - Chỉ cho phép tính tiền nếu hóa đơn đang ở trạng thái `Chưa thanh toán`.
-
-### 3.3. Tầng Truy cập Dữ liệu (Data Access Layer - DAO / DTO)
-- **DTO (Data Transfer Objects):**
-  - Chứa các class đơn giản (POCO) biểu diễn dữ liệu bảng: `TaiKhoanDTO`, `NhanVienDTO`, `MonAnDTO`, `BanDTO`, `HoaDonDTO`, `ChiTietHoaDonDTO`...
-- **DAO (Data Access Objects):**
-  - `KetNoiCSDL` / `DatabaseAccess`: Quản lý chuỗi kết nối (`ConnectionString`), mở/đóng kết nối tự động bằng khối `Using`.
-  - Cung cấp các hàm dùng chung:
-    - `ExecuteQuery(sql, parameters) As DataTable`: Đọc dữ liệu lên lưới (DataGridView) hoặc danh sách.
-    - `ExecuteNonQuery(sql, parameters) As Integer`: Thực hiện `INSERT`, `UPDATE`, `DELETE`.
-    - `ExecuteScalar(sql, parameters) As Object`: Lấy giá trị đơn lẻ (COUNT, MAX, SUM, SCOPE_IDENTITY).
-  - Toàn bộ tham số đầu vào bắt buộc truyền qua `SqlParameter` để ngăn chặn hoàn toàn lỗi bảo mật **SQL Injection**.
+### Quy chuẩn lập trình bắt buộc:
+1. **Tuyệt đối không viết SQL trong Form:** Mọi câu lệnh `SELECT`, `INSERT`, `UPDATE`, `DELETE` bắt buộc phải nằm trong các lớp `DAO`.
+2. **Chống SQL Injection 100%:** Luôn sử dụng `SqlParameter` hoặc danh sách tham số thông qua `KetNoiCSDL`.
+3. **Phân quyền tự động bằng Tag:** Đặt `Tag = "Q_TENQUYEN"` trên các Control cần bảo vệ; gọi `PhanQuyenHelper.ApDungPhanQuyen(Me)` trong sự kiện `Form_Load`.
 
 ---
 
-## 4. CƠ CHẾ PHÂN QUYỀN VAI TRÒ (RBAC - ROLE BASED ACCESS CONTROL)
+## 4. BẢNG PHÂN HỆ VÀ CÁC BẢNG CƠ SỞ DỮ LIỆU TƯƠNG ỨNG
 
-Hệ thống triển khai cơ chế kiểm soát truy cập dựa trên vai trò kết hợp với thuộc tính `Tag` của Windows Forms:
-
-1. **Bảng phân quyền:**
-   - `TaiKhoan` (1 - N) `TaiKhoan_VaiTro` (N - 1) `VaiTro` (1 - N) `VaiTro_Quyen` (N - 1) `Quyen`.
-2. **Mã định danh quyền (`Q_Tag`):**
-   - Mỗi chức năng hoặc nút bấm nhạy cảm trên form được cấp một mã `Q_Tag` duy nhất (ví dụ: `BTN_XOA_NV`, `MENU_BAO_CAO`, `BTN_DUYET_CONG`...).
-3. **Quản lý phiên (Session Management):**
-   - Khi đăng nhập thành công, lớp `Session` lưu trữ thông tin tài khoản hiện tại và nạp danh sách quyền (`List(Of String)`) mà tài khoản được cấp.
-4. **Ánh xạ động lên UI:**
-   - Một hàm tiện ích duyệt đệ quy toàn bộ Control/MenuItem trên Form:
-     - Nếu Control có `Tag` được thiết lập và `Tag` đó không tồn tại trong danh sách quyền của `Session`, hệ thống sẽ tự động đặt `Control.Visible = False` hoặc `Control.Enabled = False`.
-
----
-
-## 5. MÔ HÌNH CƠ SỞ DỮ LIỆU (DATABASE ARCHITECTURE)
-
-Hệ thống gồm **18 bảng chuẩn hóa quan hệ** được chia làm 5 nhóm nghiệp vụ:
-- **Nhóm 1 - Phân quyền & Tài khoản (5 bảng):** `TaiKhoan`, `VaiTro`, `Quyen`, `TaiKhoan_VaiTro`, `VaiTro_Quyen`.
-- **Nhóm 2 - Nhân sự & Tuyển dụng (5 bảng):** `NhanVien`, `TrinhDoViTinh`, `NhanVien_ViTinh`, `DungCuTrangPhuc`, `NhanVien_DungCu`.
-- **Nhóm 3 - Ca làm việc & Chấm công (3 bảng):** `CaLamViec`, `LichLamViec`, `ChamCong`.
-- **Nhóm 4 - Bàn ăn & Thực đơn (3 bảng):** `Ban`, `DanhMuc`, `MonAn`.
-- **Nhóm 5 - Phục vụ & Hóa đơn (2 bảng):** `HoaDon`, `ChiTietHoaDon`.
-
-Toàn bộ script khởi tạo tự động có sẵn tại `database/docker-mssql/create-database.sql` và dữ liệu mẫu thực tế tại `database/docker-mssql/seed-data.sql`.
+| Feature (Màn hình) | Bảng dữ liệu tương ứng trong SQL Server |
+| :--- | :--- |
+| **Auth** | `TaiKhoan`, `VaiTro`, `Quyen`, `TaiKhoan_VaiTro`, `VaiTro_Quyen` |
+| **NhanSu** | `NhanVien`, `TrinhDoViTinh`, `NhanVien_ViTinh`, `DungCuTrangPhuc`, `NhanVien_DungCu` |
+| **ChamCong_LichLam** | `CaLamViec`, `LichLamViec`, `ChamCong` |
+| **ThucDon** | `DanhMuc`, `MonAn` |
+| **BanAn_GoiMon** | `Ban`, `HoaDon`, `ChiTietHoaDon` |
+| **NhaBep** | `ChiTietHoaDon` (`CTHD_TrangThaiMon`, `CTHD_ThoiGianGoi`) |
+| **BaoCao_ThongKe** | `HoaDon`, `ChiTietHoaDon`, `ChamCong`, `LichLamViec` |

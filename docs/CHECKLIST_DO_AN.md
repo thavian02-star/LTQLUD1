@@ -64,9 +64,9 @@
 
 ### 3.1. Khởi tạo Solution & Lớp nền tảng (Core / Infrastructure)
 - [x] Tạo Solution VB.NET Windows Forms App (`Quanlyquanan` - target .NET 10.0-windows).
-- [ ] Xây dựng lớp `DatabaseAccess` / `KetNoiCSDL` (Quản lý `SqlConnection`, thực thi truy vấn `ExecuteQuery`, `ExecuteNonQuery`, `ExecuteScalar`).
-- [ ] Xây dựng hàm tiện ích mã hóa mật khẩu `MD5` và quản lý phiên đăng nhập (`Session`: lưu thông tin người dùng hiện tại và danh sách quyền `Q_Tag`).
-- [ ] Xây dựng cơ chế kiểm tra phân quyền tự động theo `Tag` của Menu/Button trên Form.
+- [x] Xây dựng lớp `DatabaseAccess` / `KetNoiCSDL` (Quản lý `SqlConnection`, thực thi truy vấn `ExecuteQuery`, `ExecuteNonQuery`, `ExecuteScalar`) tại `Core/Database/KetNoiCSDL.vb`.
+- [x] Xây dựng hàm tiện ích mã hóa mật khẩu `MD5` (`Core/Security/MaHoaMD5.vb`) và quản lý phiên đăng nhập (`Core/Security/Session.vb`: lưu thông tin người dùng hiện tại và danh sách quyền `Q_Tag`).
+- [x] Xây dựng cơ chế kiểm tra phân quyền tự động theo `Tag` của Menu/Button trên Form (`Core/Helpers/PhanQuyenHelper.vb`).
 
 ### 3.2. Phân hệ Chung (Hệ thống & Cá nhân)
 - [ ] **Màn hình Đăng nhập (`frmDangNhap`):** Đăng nhập, kiểm tra tài khoản, tải quyền theo vai trò.

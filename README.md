@@ -6,13 +6,23 @@
 
 ---
 
-## 🏛️ KIẾN TRÚC PHẦN MỀM (3-TIER ARCHITECTURE)
+## 🏛️ KIẾN TRÚC PHẦN MỀM (PACKAGE-BY-FEATURE / VERTICAL SLICES)
 
-Hệ thống được thiết kế theo mô hình **3 lớp (3-Tier)** chuẩn:
-- **Presentation Layer (GUI):** Xây dựng bằng Windows Forms trên .NET 10.0 (`Quanlyquanan`). Cung cấp giao diện trực quan cho 4 vai trò: *Chủ quán*, *Quản lý*, *Nhân viên phục vụ*, *Nhà bếp/Pha chế*.
-- **Business Logic Layer (BUS):** Tiếp nhận dữ liệu từ GUI, kiểm tra tính hợp lệ (Validation) và áp dụng các luật nghiệp vụ (gọi món, đổi/gộp bàn, tính tiền, kiểm tra quyền hạn RBAC).
-- **Data Access Layer (DAO / DTO):** Quản lý kết nối CSDL, thực thi truy vấn an toàn (chống SQL Injection), chuyển đổi dữ liệu thành các đối tượng DTO.
-- **Database Server:** Hệ thống 18 bảng chuẩn hóa trên Microsoft SQL Server 2022 Express chạy bằng Docker container.
+Hệ thống được tổ chức theo kiến trúc **Package-by-Feature (Vertical Slice Architecture)** trên nền tảng **3 lớp (3-Tier)**:
+- **Core / Infrastructure:** Chứa các lớp nền tảng dùng chung:
+  - `KetNoiCSDL`: Quản lý `SqlConnection`, thực thi câu lệnh SQL với `SqlParameter` chống SQL Injection.
+  - `MaHoaMD5`: Hàm băm mật khẩu tài khoản người dùng chuẩn MD5.
+  - `Session`: Lưu trữ thông tin tài khoản đang đăng nhập và nạp danh sách quyền (RBAC).
+  - `PhanQuyenHelper`: Tự động duyệt và áp dụng quyền lên toàn bộ control trên Form theo mã `Q_Tag`.
+- **Features (Các phân hệ chức năng khép kín):** Mỗi màn hình được gom trọn gói gồm Form (GUI), Quy tắc nghiệp vụ (BUS), Truy vấn dữ liệu (DAO) và Thực thể dữ liệu (DTO):
+  - `Auth`: Đăng nhập & Đổi mật khẩu.
+  - `BanAn_GoiMon`: Sơ đồ bàn ăn, chọn món, chuyển/gộp bàn, in hóa đơn.
+  - `ThucDon`: Quản lý món ăn, nhóm món, cảnh báo hết hàng.
+  - `NhaBep`: Hàng đợi chế biến món ăn theo thời gian thực (FIFO).
+  - `NhanSu`: Tuyển dụng, hồ sơ nhân sự, kỹ năng vi tính và cấp phát đồng phục/dụng cụ.
+  - `ChamCong_LichLam`: Phân ca làm việc, chấm công & duyệt công.
+  - `BaoCao_ThongKe`: Thống kê doanh thu, số ca làm việc, lượng khách.
+- **Database Server:** 18 bảng chuẩn hóa trên Microsoft SQL Server 2022 Express chạy bằng Docker container.
 
 > 📖 **Xem chi tiết:** [Tài liệu Kiến trúc Hệ thống](docs/KIEN_TRUC_HE_THONG.md) & [Đặc tả Cơ sở Dữ liệu](docs/DATABASE_SCHEMA.md)
 
@@ -24,10 +34,23 @@ Hệ thống được thiết kế theo mô hình **3 lớp (3-Tier)** chuẩn:
 DAQLUD1/
 │
 ├── Quanlyquanan/                # Mã nguồn ứng dụng VB.NET Windows Forms (.NET 10.0)
-│   ├── ApplicationEvents.vb     # Sự kiện vòng đời ứng dụng
-│   ├── Form1.vb                 # Giao diện khởi động
-│   ├── Quanlyquanan.slnx        # Solution file
-│   └── Quanlyquanan.vbproj      # Cấu hình project VB.NET
+│   ├── Core/                    # Nền tảng dùng chung (Database, Security, Helpers)
+│   │   ├── Database/            # KetNoiCSDL.vb (Quản lý SqlConnection & ExecuteQuery)
+│   │   ├── Security/            # MaHoaMD5.vb, Session.vb (Quản lý phiên đăng nhập & RBAC)
+│   │   └── Helpers/             # PhanQuyenHelper.vb (Tự động quét Tag trên Form)
+│   │
+│   ├── Features/                # Gom trọn gói theo từng màn hình / phân hệ
+│   │   ├── Auth/                # Đăng nhập & Đổi mật khẩu
+│   │   ├── BanAn_GoiMon/        # Sơ đồ bàn, gọi món & in hóa đơn
+│   │   ├── ThucDon/             # Quản lý thực đơn món ăn & danh mục
+│   │   ├── NhaBep/              # Hàng đợi chế biến món của Bếp
+│   │   ├── NhanSu/              # Quản lý hồ sơ nhân viên, vi tính, dụng cụ
+│   │   ├── ChamCong_LichLam/    # Xếp ca làm việc & Chấm công
+│   │   └── BaoCao_ThongKe/      # Báo cáo doanh thu & thống kê
+│   │
+│   ├── Form1.vb                 # Giao diện khởi động mặc định
+│   ├── Quanlyquanan.slnx        # Solution file định dạng XML mới
+│   └── Quanlyquanan.vbproj      # Cấu hình project VB.NET SDK-style
 │
 ├── database/                    # Tài nguyên Cơ sở dữ liệu Microsoft SQL Server 2022
 │   └── docker-mssql/            # Môi trường Docker SQL Server Express
@@ -42,7 +65,7 @@ DAQLUD1/
 ├── docs/                        # Tài liệu dự án
 │   ├── Đồ án - Quan ly quan an 3.pdf  # Đề bài yêu cầu của giảng viên
 │   ├── CHECKLIST_DO_AN.md       # Kế hoạch & tiến độ hoàn thành các giai đoạn đồ án
-│   ├── KIEN_TRUC_HE_THONG.md    # Tài liệu đặc tả kiến trúc 3 lớp & luồng dữ liệu
+│   ├── KIEN_TRUC_HE_THONG.md    # Tài liệu đặc tả kiến trúc Package-by-Feature & luồng dữ liệu
 │   ├── DATABASE_SCHEMA.md       # Đặc tả cấu trúc 18 bảng dữ liệu SQL Server
 │   └── review/                  # Báo cáo đánh giá và rà soát kỹ thuật
 │
