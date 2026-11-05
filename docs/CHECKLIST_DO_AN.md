@@ -71,7 +71,7 @@
 ### 3.2. Phân hệ Chung (Hệ thống & Cá nhân)
 - [x] **Màn hình Đăng nhập (`frmDangNhap`):** Đăng nhập, kiểm tra tài khoản, tải quyền theo vai trò (hoàn thành 5 bước theo `docs/features/AUTH_DANG_NHAP.md`).
 - [x] **Màn hình Chính (`frmMain`):** Thanh điều hướng (Menu/Sidebar) hiển thị các chức năng được phép truy cập theo vai trò (đã nghiệm thu 64/64 test cases RBAC).
-- [ ] **Màn hình Đổi mật khẩu (`frmDoiMatKhau`):** Xác nhận mật khẩu cũ và cập nhật mật khẩu mới (băm MD5).
+- [x] **Màn hình Đổi mật khẩu (`frmDoiMatKhau`):** Xác nhận mật khẩu cũ và cập nhật mật khẩu mới (băm MD5) — Đã nghiệm thu 48/48 test cases trên 4 vai trò.
 - [ ] **Màn hình Cá nhân & Chấm công (`frmChamCongCaNhan`):**
   - [ ] Xem lịch làm việc của bản thân theo tuần.
   - [ ] Nút **Bắt đầu làm** (Check-in) và **Kết thúc làm** (Check-out) cho ca hiện tại.

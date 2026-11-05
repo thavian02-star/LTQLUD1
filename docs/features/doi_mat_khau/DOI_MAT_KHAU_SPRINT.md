@@ -131,4 +131,4 @@
 - [x] **Bước 2:** Tạo file thiết kế `frmDoiMatKhau.Designer.vb` và `frmDoiMatKhau.resx` — Đã biên dịch thành công (0 Warning, 0 Error).
 - [x] **Bước 3:** Viết code xử lý logic `frmDoiMatKhau.vb` (Validation, hiển thị mật khẩu, gọi BUS) — Đã hoàn thành & build thành công.
 - [x] **Bước 4:** Đấu nối sự kiện mở form từ `btnDoiMatKhau` trên `frmMain` (`fDoiMK.ShowDialog(Me)` trong khối `Using`).
-- [ ] **Bước 5:** Kiểm thử thực tế trên CSDL Docker và commit code theo quy chuẩn.
+- [x] **Bước 5:** Kiểm thử thực tế trên CSDL Docker và commit code theo quy chuẩn — **Kết quả: 48/48 test cases ĐẠT (100%)**.
