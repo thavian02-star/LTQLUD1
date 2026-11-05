@@ -107,6 +107,6 @@ Màn hình **Quản lý Món ăn & Thức uống (`frmMonAn`)** là màn hình t
 
 - [x] **Bước 1: Phân tích nghiệp vụ, tạo Sprint Plan (`MON_AN_SPRINT.md`) & Interactive HTML Mockup (`frmMonAn_mockup_v1_0.html`) để PO review**
 - [x] **Bước 2: Thiết kế giao diện WinForms (`Features/Menu/frmMonAn.Designer.vb`)**
-- [ ] **Bước 3: Xây dựng tầng `DTO` (`MonAnDTO.vb`), `DAO` (`MonAnDAO.vb`), `BUS` (`MonAnBUS.vb`) và xử lý sự kiện `frmMonAn.vb`**
+- [x] **Bước 3: Xây dựng tầng `DTO` (`MonAnDTO.vb`), `DAO` (`MonAnDAO.vb`), `BUS` (`MonAnBUS.vb`) và xử lý sự kiện `frmMonAn.vb`**
 - [ ] **Bước 4: Kết nối liên hoàn `frmMain` ↔ `frmDanhMuc` ↔ `frmMonAn` & Chạy bộ Kiểm thử tự động (CRUD + Filter + Validation + Layout Geometry + RBAC)**
 - [ ] **Bước 5: Tạo Release Report (`docs/release_report/report_0_2_4.html`) & Đánh dấu hoàn thành `[x]` trong `CHECKLIST_UU_TIEN_DANH_MUC.md` + `CHECKLIST_DO_AN.md`**

@@ -50,9 +50,9 @@
   - [x] Tạo tài liệu đặc tả `MON_AN_SPRINT.md` và file mockup `frmMonAn_mockup_v1_0.html` để PO duyệt.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmMonAn.Designer.vb`)**
   - [x] Thiết kế bố cục: Bộ lọc theo `Danh mục` + Từ khóa + Trạng thái (`Còn món` / `Hết món`), khung chi tiết (`Tên món`, `ComboBox Danh mục`, `Đơn giá VNĐ`, `CheckBox Báo hết món`, `Mô tả`), các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới` và lưới `DataGridView` định dạng tiền tệ `#,##0 đ`.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMonAn.vb`)**
-  - [ ] Tạo `MonAnDTO.vb`, `MonAnDAO.vb`, `MonAnBUS.vb`.
-  - [ ] Ràng buộc nghiệp vụ: `MA_Ten` bắt buộc, `MA_DonGia >= 0`, `MA_DanhMuc` hợp lệ, hỗ trợ bật/tắt nhanh trạng thái `Hết món` (`MA_HetMon`), xóa mềm (`MA_Xoa = 1`).
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMonAn.vb`)**
+  - [x] Tạo `MonAnDTO.vb`, `MonAnDAO.vb`, `MonAnBUS.vb`.
+  - [x] Ràng buộc nghiệp vụ: `MA_Ten` bắt buộc, `MA_DonGia >= 0`, `MA_DanhMuc` hợp lệ, hỗ trợ bật/tắt nhanh trạng thái `Hết món` (`MA_HetMon`), xóa mềm (`MA_Xoa = 1`).
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [ ] Mở từ `btnMenuThucDon` / `btnQuickThucDon` trên `frmMain` (hoặc điều hướng liên hoàn giữa `frmDanhMuc` ↔ `frmMonAn`).
   - [ ] Chạy bộ test tự động kiểm tra CRUD + Filter theo Danh mục + Validation giá bán.
