@@ -26,971 +26,963 @@ Namespace Features.Main
         ' Do not modify it using the code editor.
         <System.Diagnostics.DebuggerStepThrough()>
         Private Sub InitializeComponent()
-            Me.components = New System.ComponentModel.Container()
-            Me.pnlHeader = New System.Windows.Forms.Panel()
-            Me.pnlBrand = New System.Windows.Forms.Panel()
-            Me.lblBrandSubtitle = New System.Windows.Forms.Label()
-            Me.lblBrandTitle = New System.Windows.Forms.Label()
-            Me.lblBrandIcon = New System.Windows.Forms.Label()
-            Me.pnlUserSection = New System.Windows.Forms.Panel()
-            Me.btnDangXuat = New System.Windows.Forms.Button()
-            Me.pnlUserProfile = New System.Windows.Forms.Panel()
-            Me.lblUserRole = New System.Windows.Forms.Label()
-            Me.lblUserName = New System.Windows.Forms.Label()
-            Me.lblUserAvatar = New System.Windows.Forms.Label()
-            Me.lblClock = New System.Windows.Forms.Label()
-            Me.pnlSidebar = New System.Windows.Forms.Panel()
-            Me.btnDoiMatKhau = New System.Windows.Forms.Button()
-            Me.btnChamCongCaNhan = New System.Windows.Forms.Button()
-            Me.lblGroupCaNhan = New System.Windows.Forms.Label()
-            Me.btnBaoCao = New System.Windows.Forms.Button()
-            Me.btnQuanLyThucDon = New System.Windows.Forms.Button()
-            Me.btnQuanLyNhanSu = New System.Windows.Forms.Button()
-            Me.btnDuyetChamCong = New System.Windows.Forms.Button()
-            Me.lblGroupQuanLy = New System.Windows.Forms.Label()
-            Me.btnNhaBep = New System.Windows.Forms.Button()
-            Me.btnSoDoBan = New System.Windows.Forms.Button()
-            Me.lblGroupBanHang = New System.Windows.Forms.Label()
-            Me.appStatusStrip = New System.Windows.Forms.StatusStrip()
-            Me.lblStatusDb = New System.Windows.Forms.ToolStripStatusLabel()
-            Me.lblStatusSpring = New System.Windows.Forms.ToolStripStatusLabel()
-            Me.lblStatusSession = New System.Windows.Forms.ToolStripStatusLabel()
-            Me.lblStatusVersion = New System.Windows.Forms.ToolStripStatusLabel()
-            Me.pnlContent = New System.Windows.Forms.Panel()
-            Me.pnlDashboardHome = New System.Windows.Forms.Panel()
-            Me.pnlDashboardRow = New System.Windows.Forms.Panel()
-            Me.pnlActivity = New System.Windows.Forms.Panel()
-            Me.lblActivityHeader = New System.Windows.Forms.Label()
-            Me.lstActivity = New System.Windows.Forms.ListBox()
-            Me.pnlQuickActions = New System.Windows.Forms.Panel()
-            Me.tlpQuickButtons = New System.Windows.Forms.TableLayoutPanel()
-            Me.btnQuickDatBan = New System.Windows.Forms.Button()
-            Me.btnQuickNhaBep = New System.Windows.Forms.Button()
-            Me.btnQuickChamCong = New System.Windows.Forms.Button()
-            Me.btnQuickDuyetCong = New System.Windows.Forms.Button()
-            Me.btnQuickThucDon = New System.Windows.Forms.Button()
-            Me.btnQuickBaoCao = New System.Windows.Forms.Button()
-            Me.lblQuickHeader = New System.Windows.Forms.Label()
-            Me.tlpKpiGrid = New System.Windows.Forms.TableLayoutPanel()
-            Me.pnlKpiDoanhThu = New System.Windows.Forms.Panel()
-            Me.lblKpiDoanhThuValue = New System.Windows.Forms.Label()
-            Me.lblKpiDoanhThuTitle = New System.Windows.Forms.Label()
-            Me.pnlKpiNhanSu = New System.Windows.Forms.Panel()
-            Me.lblKpiNhanSuValue = New System.Windows.Forms.Label()
-            Me.lblKpiNhanSuTitle = New System.Windows.Forms.Label()
-            Me.pnlKpiMonCho = New System.Windows.Forms.Panel()
-            Me.lblKpiMonChoValue = New System.Windows.Forms.Label()
-            Me.lblKpiMonChoTitle = New System.Windows.Forms.Label()
-            Me.pnlKpiBan = New System.Windows.Forms.Panel()
-            Me.lblKpiBanValue = New System.Windows.Forms.Label()
-            Me.lblKpiBanTitle = New System.Windows.Forms.Label()
-            Me.pnlWelcome = New System.Windows.Forms.Panel()
-            Me.btnQuickOpenSoDoBan = New System.Windows.Forms.Button()
-            Me.lblWelcomeSubtitle = New System.Windows.Forms.Label()
-            Me.lblWelcomeGreeting = New System.Windows.Forms.Label()
-            Me.tmrClock = New System.Windows.Forms.Timer(Me.components)
-            Me.pnlHeader.SuspendLayout()
-            Me.pnlBrand.SuspendLayout()
-            Me.pnlUserSection.SuspendLayout()
-            Me.pnlUserProfile.SuspendLayout()
-            Me.pnlSidebar.SuspendLayout()
-            Me.appStatusStrip.SuspendLayout()
-            Me.pnlContent.SuspendLayout()
-            Me.pnlDashboardHome.SuspendLayout()
-            Me.pnlDashboardRow.SuspendLayout()
-            Me.pnlActivity.SuspendLayout()
-            Me.pnlQuickActions.SuspendLayout()
-            Me.tlpQuickButtons.SuspendLayout()
-            Me.tlpKpiGrid.SuspendLayout()
-            Me.pnlKpiDoanhThu.SuspendLayout()
-            Me.pnlKpiNhanSu.SuspendLayout()
-            Me.pnlKpiMonCho.SuspendLayout()
-            Me.pnlKpiBan.SuspendLayout()
-            Me.pnlWelcome.SuspendLayout()
-            Me.SuspendLayout()
-            '
+            components = New System.ComponentModel.Container()
+            pnlHeader = New Panel()
+            pnlBrand = New Panel()
+            lblBrandSubtitle = New Label()
+            lblBrandTitle = New Label()
+            lblBrandIcon = New Label()
+            pnlUserSection = New Panel()
+            btnDangXuat = New Button()
+            pnlUserProfile = New Panel()
+            lblUserRole = New Label()
+            lblUserName = New Label()
+            lblUserAvatar = New Label()
+            lblClock = New Label()
+            pnlSidebar = New Panel()
+            btnDoiMatKhau = New Button()
+            btnChamCongCaNhan = New Button()
+            lblGroupCaNhan = New Label()
+            btnBaoCao = New Button()
+            btnQuanLyThucDon = New Button()
+            btnQuanLyNhanSu = New Button()
+            btnDuyetChamCong = New Button()
+            lblGroupQuanLy = New Label()
+            btnNhaBep = New Button()
+            btnSoDoBan = New Button()
+            lblGroupBanHang = New Label()
+            appStatusStrip = New StatusStrip()
+            lblStatusDb = New ToolStripStatusLabel()
+            lblStatusSpring = New ToolStripStatusLabel()
+            lblStatusSession = New ToolStripStatusLabel()
+            lblStatusVersion = New ToolStripStatusLabel()
+            pnlContent = New Panel()
+            pnlDashboardHome = New Panel()
+            pnlDashboardRow = New Panel()
+            pnlActivity = New Panel()
+            lblActivityHeader = New Label()
+            lstActivity = New ListBox()
+            pnlQuickActions = New Panel()
+            tlpQuickButtons = New TableLayoutPanel()
+            btnQuickDatBan = New Button()
+            btnQuickNhaBep = New Button()
+            btnQuickChamCong = New Button()
+            btnQuickDuyetCong = New Button()
+            btnQuickThucDon = New Button()
+            btnQuickBaoCao = New Button()
+            lblQuickHeader = New Label()
+            tlpKpiGrid = New TableLayoutPanel()
+            pnlKpiDoanhThu = New Panel()
+            lblKpiDoanhThuValue = New Label()
+            lblKpiDoanhThuTitle = New Label()
+            pnlKpiNhanSu = New Panel()
+            lblKpiNhanSuValue = New Label()
+            lblKpiNhanSuTitle = New Label()
+            pnlKpiMonCho = New Panel()
+            lblKpiMonChoValue = New Label()
+            lblKpiMonChoTitle = New Label()
+            pnlKpiBan = New Panel()
+            lblKpiBanValue = New Label()
+            lblKpiBanTitle = New Label()
+            pnlWelcome = New Panel()
+            btnQuickOpenSoDoBan = New Button()
+            lblWelcomeSubtitle = New Label()
+            lblWelcomeGreeting = New Label()
+            tmrClock = New Timer(components)
+            pnlHeader.SuspendLayout()
+            pnlBrand.SuspendLayout()
+            pnlUserSection.SuspendLayout()
+            pnlUserProfile.SuspendLayout()
+            pnlSidebar.SuspendLayout()
+            appStatusStrip.SuspendLayout()
+            pnlContent.SuspendLayout()
+            pnlDashboardHome.SuspendLayout()
+            pnlDashboardRow.SuspendLayout()
+            pnlActivity.SuspendLayout()
+            pnlQuickActions.SuspendLayout()
+            tlpQuickButtons.SuspendLayout()
+            tlpKpiGrid.SuspendLayout()
+            pnlKpiDoanhThu.SuspendLayout()
+            pnlKpiNhanSu.SuspendLayout()
+            pnlKpiMonCho.SuspendLayout()
+            pnlKpiBan.SuspendLayout()
+            pnlWelcome.SuspendLayout()
+            SuspendLayout()
+            ' 
             ' pnlHeader
-            '
-            Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-            Me.pnlHeader.Controls.Add(Me.pnlBrand)
-            Me.pnlHeader.Controls.Add(Me.pnlUserSection)
-            Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
-            Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
-            Me.pnlHeader.Name = "pnlHeader"
-            Me.pnlHeader.Size = New System.Drawing.Size(1264, 65)
-            Me.pnlHeader.TabIndex = 0
-            '
+            ' 
+            pnlHeader.BackColor = Color.FromArgb(CByte(41), CByte(128), CByte(185))
+            pnlHeader.Controls.Add(pnlBrand)
+            pnlHeader.Controls.Add(pnlUserSection)
+            pnlHeader.Dock = DockStyle.Top
+            pnlHeader.Location = New Point(0, 0)
+            pnlHeader.Name = "pnlHeader"
+            pnlHeader.Size = New Size(1264, 65)
+            pnlHeader.TabIndex = 0
+            ' 
             ' pnlBrand
-            '
-            Me.pnlBrand.Controls.Add(Me.lblBrandSubtitle)
-            Me.pnlBrand.Controls.Add(Me.lblBrandTitle)
-            Me.pnlBrand.Controls.Add(Me.lblBrandIcon)
-            Me.pnlBrand.Dock = System.Windows.Forms.DockStyle.Left
-            Me.pnlBrand.Location = New System.Drawing.Point(0, 0)
-            Me.pnlBrand.Name = "pnlBrand"
-            Me.pnlBrand.Size = New System.Drawing.Size(420, 65)
-            Me.pnlBrand.TabIndex = 0
-            '
+            ' 
+            pnlBrand.Controls.Add(lblBrandSubtitle)
+            pnlBrand.Controls.Add(lblBrandTitle)
+            pnlBrand.Controls.Add(lblBrandIcon)
+            pnlBrand.Dock = DockStyle.Left
+            pnlBrand.Location = New Point(0, 0)
+            pnlBrand.Name = "pnlBrand"
+            pnlBrand.Size = New Size(420, 65)
+            pnlBrand.TabIndex = 0
+            ' 
             ' lblBrandSubtitle
-            '
-            Me.lblBrandSubtitle.AutoSize = True
-            Me.lblBrandSubtitle.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.lblBrandSubtitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(214, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(248, Byte), Integer))
-            Me.lblBrandSubtitle.Location = New System.Drawing.Point(62, 36)
-            Me.lblBrandSubtitle.Name = "lblBrandSubtitle"
-            Me.lblBrandSubtitle.Size = New System.Drawing.Size(258, 15)
-            Me.lblBrandSubtitle.TabIndex = 2
-            Me.lblBrandSubtitle.Text = "PHÂN HỆ ĐIỀU HÀNH & BÁN HÀNG TẬP TRUNG"
-            '
+            ' 
+            lblBrandSubtitle.AutoSize = True
+            lblBrandSubtitle.Font = New Font("Segoe UI", 8.5F)
+            lblBrandSubtitle.ForeColor = Color.FromArgb(CByte(214), CByte(234), CByte(248))
+            lblBrandSubtitle.Location = New Point(62, 36)
+            lblBrandSubtitle.Name = "lblBrandSubtitle"
+            lblBrandSubtitle.Size = New Size(258, 15)
+            lblBrandSubtitle.TabIndex = 2
+            lblBrandSubtitle.Text = "PHÂN HỆ ĐIỀU HÀNH & BÁN HÀNG TẬP TRUNG"
+            ' 
             ' lblBrandTitle
-            '
-            Me.lblBrandTitle.AutoSize = True
-            Me.lblBrandTitle.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblBrandTitle.ForeColor = System.Drawing.Color.White
-            Me.lblBrandTitle.Location = New System.Drawing.Point(60, 12)
-            Me.lblBrandTitle.Name = "lblBrandTitle"
-            Me.lblBrandTitle.Size = New System.Drawing.Size(280, 25)
-            Me.lblBrandTitle.TabIndex = 1
-            Me.lblBrandTitle.Text = "HỆ THỐNG QUẢN LÝ QUÁN ĂN"
-            '
+            ' 
+            lblBrandTitle.AutoSize = True
+            lblBrandTitle.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+            lblBrandTitle.ForeColor = Color.White
+            lblBrandTitle.Location = New Point(60, 12)
+            lblBrandTitle.Name = "lblBrandTitle"
+            lblBrandTitle.Size = New Size(281, 25)
+            lblBrandTitle.TabIndex = 1
+            lblBrandTitle.Text = "HỆ THỐNG QUẢN LÝ QUÁN ĂN"
+            ' 
             ' lblBrandIcon
-            '
-            Me.lblBrandIcon.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.lblBrandIcon.ForeColor = System.Drawing.Color.White
-            Me.lblBrandIcon.Location = New System.Drawing.Point(12, 10)
-            Me.lblBrandIcon.Name = "lblBrandIcon"
-            Me.lblBrandIcon.Size = New System.Drawing.Size(44, 44)
-            Me.lblBrandIcon.TabIndex = 0
-            Me.lblBrandIcon.Text = "🏪"
-            Me.lblBrandIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-            '
+            ' 
+            lblBrandIcon.Font = New Font("Segoe UI", 20F)
+            lblBrandIcon.ForeColor = Color.White
+            lblBrandIcon.Location = New Point(12, 10)
+            lblBrandIcon.Name = "lblBrandIcon"
+            lblBrandIcon.Size = New Size(44, 44)
+            lblBrandIcon.TabIndex = 0
+            lblBrandIcon.Text = "🏪"
+            lblBrandIcon.TextAlign = ContentAlignment.MiddleCenter
+            ' 
             ' pnlUserSection
-            '
-            Me.pnlUserSection.Controls.Add(Me.btnDangXuat)
-            Me.pnlUserSection.Controls.Add(Me.pnlUserProfile)
-            Me.pnlUserSection.Controls.Add(Me.lblClock)
-            Me.pnlUserSection.Dock = System.Windows.Forms.DockStyle.Right
-            Me.pnlUserSection.Location = New System.Drawing.Point(604, 0)
-            Me.pnlUserSection.Name = "pnlUserSection"
-            Me.pnlUserSection.Size = New System.Drawing.Size(660, 65)
-            Me.pnlUserSection.TabIndex = 1
-            '
+            ' 
+            pnlUserSection.Controls.Add(btnDangXuat)
+            pnlUserSection.Controls.Add(pnlUserProfile)
+            pnlUserSection.Controls.Add(lblClock)
+            pnlUserSection.Dock = DockStyle.Right
+            pnlUserSection.Location = New Point(604, 0)
+            pnlUserSection.Name = "pnlUserSection"
+            pnlUserSection.Size = New Size(660, 65)
+            pnlUserSection.TabIndex = 1
+            ' 
             ' btnDangXuat
-            '
-            Me.btnDangXuat.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
-            Me.btnDangXuat.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnDangXuat.FlatAppearance.BorderSize = 0
-            Me.btnDangXuat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnDangXuat.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnDangXuat.ForeColor = System.Drawing.Color.White
-            Me.btnDangXuat.Location = New System.Drawing.Point(535, 15)
-            Me.btnDangXuat.Name = "btnDangXuat"
-            Me.btnDangXuat.Size = New System.Drawing.Size(115, 36)
-            Me.btnDangXuat.TabIndex = 2
-            Me.btnDangXuat.Text = "🚪 ĐĂNG XUẤT"
-            Me.btnDangXuat.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnDangXuat.BackColor = Color.FromArgb(CByte(231), CByte(76), CByte(60))
+            btnDangXuat.Cursor = Cursors.Hand
+            btnDangXuat.FlatAppearance.BorderSize = 0
+            btnDangXuat.FlatStyle = FlatStyle.Flat
+            btnDangXuat.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnDangXuat.ForeColor = Color.White
+            btnDangXuat.Location = New Point(535, 15)
+            btnDangXuat.Name = "btnDangXuat"
+            btnDangXuat.Size = New Size(115, 36)
+            btnDangXuat.TabIndex = 2
+            btnDangXuat.Text = "🚪 ĐĂNG XUẤT"
+            btnDangXuat.UseVisualStyleBackColor = False
+            ' 
             ' pnlUserProfile
-            '
-            Me.pnlUserProfile.BackColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(97, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.pnlUserProfile.Controls.Add(Me.lblUserRole)
-            Me.pnlUserProfile.Controls.Add(Me.lblUserName)
-            Me.pnlUserProfile.Controls.Add(Me.lblUserAvatar)
-            Me.pnlUserProfile.Location = New System.Drawing.Point(265, 12)
-            Me.pnlUserProfile.Name = "pnlUserProfile"
-            Me.pnlUserProfile.Size = New System.Drawing.Size(255, 42)
-            Me.pnlUserProfile.TabIndex = 1
-            '
+            ' 
+            pnlUserProfile.BackColor = Color.FromArgb(CByte(31), CByte(97), CByte(141))
+            pnlUserProfile.Controls.Add(lblUserRole)
+            pnlUserProfile.Controls.Add(lblUserName)
+            pnlUserProfile.Controls.Add(lblUserAvatar)
+            pnlUserProfile.Location = New Point(265, 12)
+            pnlUserProfile.Name = "pnlUserProfile"
+            pnlUserProfile.Size = New Size(255, 42)
+            pnlUserProfile.TabIndex = 1
+            ' 
             ' lblUserRole
-            '
-            Me.lblUserRole.AutoSize = True
-            Me.lblUserRole.BackColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
-            Me.lblUserRole.Font = New System.Drawing.Font("Segoe UI", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblUserRole.ForeColor = System.Drawing.Color.White
-            Me.lblUserRole.Location = New System.Drawing.Point(48, 22)
-            Me.lblUserRole.Name = "lblUserRole"
-            Me.lblUserRole.Padding = New System.Windows.Forms.Padding(3, 1, 3, 1)
-            Me.lblUserRole.Size = New System.Drawing.Size(65, 14)
-            Me.lblUserRole.TabIndex = 2
-            Me.lblUserRole.Text = "CHỦ QUÁN"
-            '
+            ' 
+            lblUserRole.AutoSize = True
+            lblUserRole.BackColor = Color.FromArgb(CByte(243), CByte(156), CByte(18))
+            lblUserRole.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
+            lblUserRole.ForeColor = Color.White
+            lblUserRole.Location = New Point(48, 22)
+            lblUserRole.Name = "lblUserRole"
+            lblUserRole.Padding = New Padding(3, 1, 3, 1)
+            lblUserRole.Size = New Size(65, 14)
+            lblUserRole.TabIndex = 2
+            lblUserRole.Text = "CHỦ QUÁN"
+            ' 
             ' lblUserName
-            '
-            Me.lblUserName.AutoSize = True
-            Me.lblUserName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblUserName.ForeColor = System.Drawing.Color.White
-            Me.lblUserName.Location = New System.Drawing.Point(46, 5)
-            Me.lblUserName.Name = "lblUserName"
-            Me.lblUserName.Size = New System.Drawing.Size(128, 15)
-            Me.lblUserName.TabIndex = 1
-            Me.lblUserName.Text = "Nguyễn Văn Chủ Quán"
-            '
+            ' 
+            lblUserName.AutoSize = True
+            lblUserName.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            lblUserName.ForeColor = Color.White
+            lblUserName.Location = New Point(46, 5)
+            lblUserName.Name = "lblUserName"
+            lblUserName.Size = New Size(129, 15)
+            lblUserName.TabIndex = 1
+            lblUserName.Text = "Nguyễn Văn Chủ Quán"
+            ' 
             ' lblUserAvatar
-            '
-            Me.lblUserAvatar.BackColor = System.Drawing.Color.White
-            Me.lblUserAvatar.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblUserAvatar.ForeColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-            Me.lblUserAvatar.Location = New System.Drawing.Point(6, 6)
-            Me.lblUserAvatar.Name = "lblUserAvatar"
-            Me.lblUserAvatar.Size = New System.Drawing.Size(32, 30)
-            Me.lblUserAvatar.TabIndex = 0
-            Me.lblUserAvatar.Text = "CQ"
-            Me.lblUserAvatar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-            '
+            ' 
+            lblUserAvatar.BackColor = Color.White
+            lblUserAvatar.Font = New Font("Segoe UI", 9.5F, FontStyle.Bold)
+            lblUserAvatar.ForeColor = Color.FromArgb(CByte(41), CByte(128), CByte(185))
+            lblUserAvatar.Location = New Point(6, 6)
+            lblUserAvatar.Name = "lblUserAvatar"
+            lblUserAvatar.Size = New Size(32, 30)
+            lblUserAvatar.TabIndex = 0
+            lblUserAvatar.Text = "CQ"
+            lblUserAvatar.TextAlign = ContentAlignment.MiddleCenter
+            ' 
             ' lblClock
-            '
-            Me.lblClock.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblClock.ForeColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(245, Byte), Integer), CType(CType(251, Byte), Integer))
-            Me.lblClock.Location = New System.Drawing.Point(10, 16)
-            Me.lblClock.Name = "lblClock"
-            Me.lblClock.Size = New System.Drawing.Size(245, 34)
-            Me.lblClock.TabIndex = 0
-            Me.lblClock.Text = "🕒 17:00:00 - Thứ Tư, 04/11/2026"
-            Me.lblClock.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-            '
+            ' 
+            lblClock.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            lblClock.ForeColor = Color.FromArgb(CByte(235), CByte(245), CByte(251))
+            lblClock.Location = New Point(10, 16)
+            lblClock.Name = "lblClock"
+            lblClock.Size = New Size(245, 34)
+            lblClock.TabIndex = 0
+            lblClock.Text = "🕒 17:00:00 - Thứ Tư, 04/11/2026"
+            lblClock.TextAlign = ContentAlignment.MiddleRight
+            ' 
             ' pnlSidebar
-            '
-            Me.pnlSidebar.AutoScroll = True
-            Me.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.pnlSidebar.Controls.Add(Me.btnDoiMatKhau)
-            Me.pnlSidebar.Controls.Add(Me.btnChamCongCaNhan)
-            Me.pnlSidebar.Controls.Add(Me.lblGroupCaNhan)
-            Me.pnlSidebar.Controls.Add(Me.btnBaoCao)
-            Me.pnlSidebar.Controls.Add(Me.btnQuanLyThucDon)
-            Me.pnlSidebar.Controls.Add(Me.btnQuanLyNhanSu)
-            Me.pnlSidebar.Controls.Add(Me.btnDuyetChamCong)
-            Me.pnlSidebar.Controls.Add(Me.lblGroupQuanLy)
-            Me.pnlSidebar.Controls.Add(Me.btnNhaBep)
-            Me.pnlSidebar.Controls.Add(Me.btnSoDoBan)
-            Me.pnlSidebar.Controls.Add(Me.lblGroupBanHang)
-            Me.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left
-            Me.pnlSidebar.Location = New System.Drawing.Point(0, 65)
-            Me.pnlSidebar.Name = "pnlSidebar"
-            Me.pnlSidebar.Padding = New System.Windows.Forms.Padding(0, 10, 0, 15)
-            Me.pnlSidebar.Size = New System.Drawing.Size(250, 668)
-            Me.pnlSidebar.TabIndex = 1
-            '
+            ' 
+            pnlSidebar.AutoScroll = True
+            pnlSidebar.BackColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            pnlSidebar.Controls.Add(btnDoiMatKhau)
+            pnlSidebar.Controls.Add(btnChamCongCaNhan)
+            pnlSidebar.Controls.Add(lblGroupCaNhan)
+            pnlSidebar.Controls.Add(btnBaoCao)
+            pnlSidebar.Controls.Add(btnQuanLyThucDon)
+            pnlSidebar.Controls.Add(btnQuanLyNhanSu)
+            pnlSidebar.Controls.Add(btnDuyetChamCong)
+            pnlSidebar.Controls.Add(lblGroupQuanLy)
+            pnlSidebar.Controls.Add(btnNhaBep)
+            pnlSidebar.Controls.Add(btnSoDoBan)
+            pnlSidebar.Controls.Add(lblGroupBanHang)
+            pnlSidebar.Dock = DockStyle.Left
+            pnlSidebar.Location = New Point(0, 65)
+            pnlSidebar.Name = "pnlSidebar"
+            pnlSidebar.Padding = New Padding(0, 10, 0, 15)
+            pnlSidebar.Size = New Size(250, 668)
+            pnlSidebar.TabIndex = 1
+            ' 
             ' btnDoiMatKhau
-            '
-            Me.btnDoiMatKhau.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnDoiMatKhau.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnDoiMatKhau.FlatAppearance.BorderSize = 0
-            Me.btnDoiMatKhau.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnDoiMatKhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnDoiMatKhau.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnDoiMatKhau.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnDoiMatKhau.Location = New System.Drawing.Point(0, 422)
-            Me.btnDoiMatKhau.Name = "btnDoiMatKhau"
-            Me.btnDoiMatKhau.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnDoiMatKhau.Size = New System.Drawing.Size(250, 44)
-            Me.btnDoiMatKhau.TabIndex = 10
-            Me.btnDoiMatKhau.Tag = ""
-            Me.btnDoiMatKhau.Text = "🔑  Đổi Mật Khẩu"
-            Me.btnDoiMatKhau.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnDoiMatKhau.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnDoiMatKhau.Cursor = Cursors.Hand
+            btnDoiMatKhau.Dock = DockStyle.Top
+            btnDoiMatKhau.FlatAppearance.BorderSize = 0
+            btnDoiMatKhau.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnDoiMatKhau.FlatStyle = FlatStyle.Flat
+            btnDoiMatKhau.Font = New Font("Segoe UI", 9.5F)
+            btnDoiMatKhau.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnDoiMatKhau.Location = New Point(0, 408)
+            btnDoiMatKhau.Name = "btnDoiMatKhau"
+            btnDoiMatKhau.Padding = New Padding(18, 0, 0, 0)
+            btnDoiMatKhau.Size = New Size(250, 44)
+            btnDoiMatKhau.TabIndex = 10
+            btnDoiMatKhau.Tag = ""
+            btnDoiMatKhau.Text = "🔑  Đổi Mật Khẩu"
+            btnDoiMatKhau.TextAlign = ContentAlignment.MiddleLeft
+            btnDoiMatKhau.UseVisualStyleBackColor = True
+            ' 
             ' btnChamCongCaNhan
-            '
-            Me.btnChamCongCaNhan.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnChamCongCaNhan.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnChamCongCaNhan.FlatAppearance.BorderSize = 0
-            Me.btnChamCongCaNhan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnChamCongCaNhan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnChamCongCaNhan.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnChamCongCaNhan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnChamCongCaNhan.Location = New System.Drawing.Point(0, 378)
-            Me.btnChamCongCaNhan.Name = "btnChamCongCaNhan"
-            Me.btnChamCongCaNhan.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnChamCongCaNhan.Size = New System.Drawing.Size(250, 44)
-            Me.btnChamCongCaNhan.TabIndex = 9
-            Me.btnChamCongCaNhan.Tag = "CA_NHAN_CHAM_CONG"
-            Me.btnChamCongCaNhan.Text = "⏱️  Chấm Công Của Tôi"
-            Me.btnChamCongCaNhan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnChamCongCaNhan.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnChamCongCaNhan.Cursor = Cursors.Hand
+            btnChamCongCaNhan.Dock = DockStyle.Top
+            btnChamCongCaNhan.FlatAppearance.BorderSize = 0
+            btnChamCongCaNhan.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnChamCongCaNhan.FlatStyle = FlatStyle.Flat
+            btnChamCongCaNhan.Font = New Font("Segoe UI", 9.5F)
+            btnChamCongCaNhan.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnChamCongCaNhan.Location = New Point(0, 364)
+            btnChamCongCaNhan.Name = "btnChamCongCaNhan"
+            btnChamCongCaNhan.Padding = New Padding(18, 0, 0, 0)
+            btnChamCongCaNhan.Size = New Size(250, 44)
+            btnChamCongCaNhan.TabIndex = 9
+            btnChamCongCaNhan.Tag = "CA_NHAN_CHAM_CONG"
+            btnChamCongCaNhan.Text = "⏱️  Chấm Công Của Tôi"
+            btnChamCongCaNhan.TextAlign = ContentAlignment.MiddleLeft
+            btnChamCongCaNhan.UseVisualStyleBackColor = True
+            ' 
             ' lblGroupCaNhan
-            '
-            Me.lblGroupCaNhan.Dock = System.Windows.Forms.DockStyle.Top
-            Me.lblGroupCaNhan.Font = New System.Drawing.Font("Segoe UI", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblGroupCaNhan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(149, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(166, Byte), Integer))
-            Me.lblGroupCaNhan.Location = New System.Drawing.Point(0, 348)
-            Me.lblGroupCaNhan.Name = "lblGroupCaNhan"
-            Me.lblGroupCaNhan.Padding = New System.Windows.Forms.Padding(16, 12, 0, 0)
-            Me.lblGroupCaNhan.Size = New System.Drawing.Size(250, 30)
-            Me.lblGroupCaNhan.TabIndex = 8
-            Me.lblGroupCaNhan.Text = "CÁ NHÂN & CÀI ĐẶT"
-            '
+            ' 
+            lblGroupCaNhan.Dock = DockStyle.Top
+            lblGroupCaNhan.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
+            lblGroupCaNhan.ForeColor = Color.FromArgb(CByte(149), CByte(165), CByte(166))
+            lblGroupCaNhan.Location = New Point(0, 334)
+            lblGroupCaNhan.Name = "lblGroupCaNhan"
+            lblGroupCaNhan.Padding = New Padding(16, 12, 0, 0)
+            lblGroupCaNhan.Size = New Size(250, 30)
+            lblGroupCaNhan.TabIndex = 8
+            lblGroupCaNhan.Text = "CÁ NHÂN & CÀI ĐẶT"
+            ' 
             ' btnBaoCao
-            '
-            Me.btnBaoCao.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnBaoCao.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnBaoCao.FlatAppearance.BorderSize = 0
-            Me.btnBaoCao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnBaoCao.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnBaoCao.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnBaoCao.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnBaoCao.Location = New System.Drawing.Point(0, 304)
-            Me.btnBaoCao.Name = "btnBaoCao"
-            Me.btnBaoCao.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnBaoCao.Size = New System.Drawing.Size(250, 44)
-            Me.btnBaoCao.TabIndex = 7
-            Me.btnBaoCao.Tag = "CQ_BAO_CAO_THONG_KE"
-            Me.btnBaoCao.Text = "📊  Báo Cáo Doanh Thu"
-            Me.btnBaoCao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnBaoCao.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnBaoCao.Cursor = Cursors.Hand
+            btnBaoCao.Dock = DockStyle.Top
+            btnBaoCao.FlatAppearance.BorderSize = 0
+            btnBaoCao.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnBaoCao.FlatStyle = FlatStyle.Flat
+            btnBaoCao.Font = New Font("Segoe UI", 9.5F)
+            btnBaoCao.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnBaoCao.Location = New Point(0, 290)
+            btnBaoCao.Name = "btnBaoCao"
+            btnBaoCao.Padding = New Padding(18, 0, 0, 0)
+            btnBaoCao.Size = New Size(250, 44)
+            btnBaoCao.TabIndex = 7
+            btnBaoCao.Tag = "CQ_BAO_CAO_THONG_KE"
+            btnBaoCao.Text = "📊  Báo Cáo Doanh Thu"
+            btnBaoCao.TextAlign = ContentAlignment.MiddleLeft
+            btnBaoCao.UseVisualStyleBackColor = True
+            ' 
             ' btnQuanLyThucDon
-            '
-            Me.btnQuanLyThucDon.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuanLyThucDon.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnQuanLyThucDon.FlatAppearance.BorderSize = 0
-            Me.btnQuanLyThucDon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnQuanLyThucDon.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuanLyThucDon.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuanLyThucDon.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnQuanLyThucDon.Location = New System.Drawing.Point(0, 260)
-            Me.btnQuanLyThucDon.Name = "btnQuanLyThucDon"
-            Me.btnQuanLyThucDon.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnQuanLyThucDon.Size = New System.Drawing.Size(250, 44)
-            Me.btnQuanLyThucDon.TabIndex = 6
-            Me.btnQuanLyThucDon.Tag = "CQ_QUAN_LY_THUC_DON"
-            Me.btnQuanLyThucDon.Text = "📋  Thực Đơn & Bàn Ghế"
-            Me.btnQuanLyThucDon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnQuanLyThucDon.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnQuanLyThucDon.Cursor = Cursors.Hand
+            btnQuanLyThucDon.Dock = DockStyle.Top
+            btnQuanLyThucDon.FlatAppearance.BorderSize = 0
+            btnQuanLyThucDon.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnQuanLyThucDon.FlatStyle = FlatStyle.Flat
+            btnQuanLyThucDon.Font = New Font("Segoe UI", 9.5F)
+            btnQuanLyThucDon.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnQuanLyThucDon.Location = New Point(0, 246)
+            btnQuanLyThucDon.Name = "btnQuanLyThucDon"
+            btnQuanLyThucDon.Padding = New Padding(18, 0, 0, 0)
+            btnQuanLyThucDon.Size = New Size(250, 44)
+            btnQuanLyThucDon.TabIndex = 6
+            btnQuanLyThucDon.Tag = "CQ_QUAN_LY_THUC_DON"
+            btnQuanLyThucDon.Text = "📋  Thực Đơn & Bàn Ghế"
+            btnQuanLyThucDon.TextAlign = ContentAlignment.MiddleLeft
+            btnQuanLyThucDon.UseVisualStyleBackColor = True
+            ' 
             ' btnQuanLyNhanSu
-            '
-            Me.btnQuanLyNhanSu.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuanLyNhanSu.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnQuanLyNhanSu.FlatAppearance.BorderSize = 0
-            Me.btnQuanLyNhanSu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnQuanLyNhanSu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuanLyNhanSu.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuanLyNhanSu.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnQuanLyNhanSu.Location = New System.Drawing.Point(0, 216)
-            Me.btnQuanLyNhanSu.Name = "btnQuanLyNhanSu"
-            Me.btnQuanLyNhanSu.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnQuanLyNhanSu.Size = New System.Drawing.Size(250, 44)
-            Me.btnQuanLyNhanSu.TabIndex = 5
-            Me.btnQuanLyNhanSu.Tag = "CQ_QUAN_LY_NHAN_VIEN"
-            Me.btnQuanLyNhanSu.Text = "👥  Quản Lý Nhân Sự"
-            Me.btnQuanLyNhanSu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnQuanLyNhanSu.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnQuanLyNhanSu.Cursor = Cursors.Hand
+            btnQuanLyNhanSu.Dock = DockStyle.Top
+            btnQuanLyNhanSu.FlatAppearance.BorderSize = 0
+            btnQuanLyNhanSu.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnQuanLyNhanSu.FlatStyle = FlatStyle.Flat
+            btnQuanLyNhanSu.Font = New Font("Segoe UI", 9.5F)
+            btnQuanLyNhanSu.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnQuanLyNhanSu.Location = New Point(0, 202)
+            btnQuanLyNhanSu.Name = "btnQuanLyNhanSu"
+            btnQuanLyNhanSu.Padding = New Padding(18, 0, 0, 0)
+            btnQuanLyNhanSu.Size = New Size(250, 44)
+            btnQuanLyNhanSu.TabIndex = 5
+            btnQuanLyNhanSu.Tag = "CQ_QUAN_LY_NHAN_VIEN"
+            btnQuanLyNhanSu.Text = "👥  Quản Lý Nhân Sự"
+            btnQuanLyNhanSu.TextAlign = ContentAlignment.MiddleLeft
+            btnQuanLyNhanSu.UseVisualStyleBackColor = True
+            ' 
             ' btnDuyetChamCong
-            '
-            Me.btnDuyetChamCong.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnDuyetChamCong.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnDuyetChamCong.FlatAppearance.BorderSize = 0
-            Me.btnDuyetChamCong.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnDuyetChamCong.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnDuyetChamCong.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnDuyetChamCong.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnDuyetChamCong.Location = New System.Drawing.Point(0, 172)
-            Me.btnDuyetChamCong.Name = "btnDuyetChamCong"
-            Me.btnDuyetChamCong.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnDuyetChamCong.Size = New System.Drawing.Size(250, 44)
-            Me.btnDuyetChamCong.TabIndex = 4
-            Me.btnDuyetChamCong.Tag = "QL_DUYET_CHAM_CONG"
-            Me.btnDuyetChamCong.Text = "🕒  Duyệt Chấm Công"
-            Me.btnDuyetChamCong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnDuyetChamCong.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnDuyetChamCong.Cursor = Cursors.Hand
+            btnDuyetChamCong.Dock = DockStyle.Top
+            btnDuyetChamCong.FlatAppearance.BorderSize = 0
+            btnDuyetChamCong.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnDuyetChamCong.FlatStyle = FlatStyle.Flat
+            btnDuyetChamCong.Font = New Font("Segoe UI", 9.5F)
+            btnDuyetChamCong.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnDuyetChamCong.Location = New Point(0, 158)
+            btnDuyetChamCong.Name = "btnDuyetChamCong"
+            btnDuyetChamCong.Padding = New Padding(18, 0, 0, 0)
+            btnDuyetChamCong.Size = New Size(250, 44)
+            btnDuyetChamCong.TabIndex = 4
+            btnDuyetChamCong.Tag = "QL_DUYET_CHAM_CONG"
+            btnDuyetChamCong.Text = "🕒  Duyệt Chấm Công"
+            btnDuyetChamCong.TextAlign = ContentAlignment.MiddleLeft
+            btnDuyetChamCong.UseVisualStyleBackColor = True
+            ' 
             ' lblGroupQuanLy
-            '
-            Me.lblGroupQuanLy.Dock = System.Windows.Forms.DockStyle.Top
-            Me.lblGroupQuanLy.Font = New System.Drawing.Font("Segoe UI", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblGroupQuanLy.ForeColor = System.Drawing.Color.FromArgb(CType(CType(149, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(166, Byte), Integer))
-            Me.lblGroupQuanLy.Location = New System.Drawing.Point(0, 142)
-            Me.lblGroupQuanLy.Name = "lblGroupQuanLy"
-            Me.lblGroupQuanLy.Padding = New System.Windows.Forms.Padding(16, 12, 0, 0)
-            Me.lblGroupQuanLy.Size = New System.Drawing.Size(250, 30)
-            Me.lblGroupQuanLy.TabIndex = 3
-            Me.lblGroupQuanLy.Text = "QUẢN LÝ & VẬN HÀNH"
-            '
+            ' 
+            lblGroupQuanLy.Dock = DockStyle.Top
+            lblGroupQuanLy.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
+            lblGroupQuanLy.ForeColor = Color.FromArgb(CByte(149), CByte(165), CByte(166))
+            lblGroupQuanLy.Location = New Point(0, 128)
+            lblGroupQuanLy.Name = "lblGroupQuanLy"
+            lblGroupQuanLy.Padding = New Padding(16, 12, 0, 0)
+            lblGroupQuanLy.Size = New Size(250, 30)
+            lblGroupQuanLy.TabIndex = 3
+            lblGroupQuanLy.Text = "QUẢN LÝ & VẬN HÀNH"
+            ' 
             ' btnNhaBep
-            '
-            Me.btnNhaBep.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnNhaBep.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnNhaBep.FlatAppearance.BorderSize = 0
-            Me.btnNhaBep.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnNhaBep.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnNhaBep.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnNhaBep.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnNhaBep.Location = New System.Drawing.Point(0, 98)
-            Me.btnNhaBep.Name = "btnNhaBep"
-            Me.btnNhaBep.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnNhaBep.Size = New System.Drawing.Size(250, 44)
-            Me.btnNhaBep.TabIndex = 2
-            Me.btnNhaBep.Tag = "BEP_HANG_DOI_MON"
-            Me.btnNhaBep.Text = "🍳  Nhà Bếp & Pha Chế"
-            Me.btnNhaBep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnNhaBep.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnNhaBep.Cursor = Cursors.Hand
+            btnNhaBep.Dock = DockStyle.Top
+            btnNhaBep.FlatAppearance.BorderSize = 0
+            btnNhaBep.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnNhaBep.FlatStyle = FlatStyle.Flat
+            btnNhaBep.Font = New Font("Segoe UI", 9.5F)
+            btnNhaBep.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnNhaBep.Location = New Point(0, 84)
+            btnNhaBep.Name = "btnNhaBep"
+            btnNhaBep.Padding = New Padding(18, 0, 0, 0)
+            btnNhaBep.Size = New Size(250, 44)
+            btnNhaBep.TabIndex = 2
+            btnNhaBep.Tag = "BEP_HANG_DOI_MON"
+            btnNhaBep.Text = "🍳  Nhà Bếp & Pha Chế"
+            btnNhaBep.TextAlign = ContentAlignment.MiddleLeft
+            btnNhaBep.UseVisualStyleBackColor = True
+            ' 
             ' btnSoDoBan
-            '
-            Me.btnSoDoBan.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnSoDoBan.Dock = System.Windows.Forms.DockStyle.Top
-            Me.btnSoDoBan.FlatAppearance.BorderSize = 0
-            Me.btnSoDoBan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-            Me.btnSoDoBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnSoDoBan.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.btnSoDoBan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-            Me.btnSoDoBan.Location = New System.Drawing.Point(0, 54)
-            Me.btnSoDoBan.Name = "btnSoDoBan"
-            Me.btnSoDoBan.Padding = New System.Windows.Forms.Padding(18, 0, 0, 0)
-            Me.btnSoDoBan.Size = New System.Drawing.Size(250, 44)
-            Me.btnSoDoBan.TabIndex = 1
-            Me.btnSoDoBan.Tag = "POS_SO_DO_BAN"
-            Me.btnSoDoBan.Text = "🍽️  Sơ Đồ Bàn Ăn"
-            Me.btnSoDoBan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-            Me.btnSoDoBan.UseVisualStyleBackColor = True
-            '
+            ' 
+            btnSoDoBan.Cursor = Cursors.Hand
+            btnSoDoBan.Dock = DockStyle.Top
+            btnSoDoBan.FlatAppearance.BorderSize = 0
+            btnSoDoBan.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(52), CByte(73), CByte(94))
+            btnSoDoBan.FlatStyle = FlatStyle.Flat
+            btnSoDoBan.Font = New Font("Segoe UI", 9.5F)
+            btnSoDoBan.ForeColor = Color.FromArgb(CByte(236), CByte(240), CByte(241))
+            btnSoDoBan.Location = New Point(0, 40)
+            btnSoDoBan.Name = "btnSoDoBan"
+            btnSoDoBan.Padding = New Padding(18, 0, 0, 0)
+            btnSoDoBan.Size = New Size(250, 44)
+            btnSoDoBan.TabIndex = 1
+            btnSoDoBan.Tag = "POS_SO_DO_BAN"
+            btnSoDoBan.Text = "🍽️  Sơ Đồ Bàn Ăn"
+            btnSoDoBan.TextAlign = ContentAlignment.MiddleLeft
+            btnSoDoBan.UseVisualStyleBackColor = True
+            ' 
             ' lblGroupBanHang
-            '
-            Me.lblGroupBanHang.Dock = System.Windows.Forms.DockStyle.Top
-            Me.lblGroupBanHang.Font = New System.Drawing.Font("Segoe UI", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblGroupBanHang.ForeColor = System.Drawing.Color.FromArgb(CType(CType(149, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(166, Byte), Integer))
-            Me.lblGroupBanHang.Location = New System.Drawing.Point(0, 10)
-            Me.lblGroupBanHang.Name = "lblGroupBanHang"
-            Me.lblGroupBanHang.Padding = New System.Windows.Forms.Padding(16, 8, 0, 0)
-            Me.lblGroupBanHang.Size = New System.Drawing.Size(250, 30)
-            Me.lblGroupBanHang.TabIndex = 0
-            Me.lblGroupBanHang.Text = "BÁN HÀNG & PHỤC VỤ"
-            '
+            ' 
+            lblGroupBanHang.Dock = DockStyle.Top
+            lblGroupBanHang.Font = New Font("Segoe UI", 7.5F, FontStyle.Bold)
+            lblGroupBanHang.ForeColor = Color.FromArgb(CByte(149), CByte(165), CByte(166))
+            lblGroupBanHang.Location = New Point(0, 10)
+            lblGroupBanHang.Name = "lblGroupBanHang"
+            lblGroupBanHang.Padding = New Padding(16, 8, 0, 0)
+            lblGroupBanHang.Size = New Size(250, 30)
+            lblGroupBanHang.TabIndex = 0
+            lblGroupBanHang.Text = "BÁN HÀNG & PHỤC VỤ"
+            ' 
             ' appStatusStrip
-            '
-            Me.appStatusStrip.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.appStatusStrip.Font = New System.Drawing.Font("Segoe UI", 8.5!)
-            Me.appStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatusDb, Me.lblStatusSpring, Me.lblStatusSession, Me.lblStatusVersion})
-            Me.appStatusStrip.Location = New System.Drawing.Point(250, 709)
-            Me.appStatusStrip.Name = "appStatusStrip"
-            Me.appStatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 14, 0)
-            Me.appStatusStrip.Size = New System.Drawing.Size(1014, 24)
-            Me.appStatusStrip.TabIndex = 2
-            '
+            ' 
+            appStatusStrip.BackColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            appStatusStrip.Font = New Font("Segoe UI", 8.5F)
+            appStatusStrip.Items.AddRange(New ToolStripItem() {lblStatusDb, lblStatusSpring, lblStatusSession, lblStatusVersion})
+            appStatusStrip.Location = New Point(250, 711)
+            appStatusStrip.Name = "appStatusStrip"
+            appStatusStrip.Size = New Size(1014, 22)
+            appStatusStrip.TabIndex = 2
+            ' 
             ' lblStatusDb
-            '
-            Me.lblStatusDb.ForeColor = System.Drawing.Color.FromArgb(CType(CType(189, Byte), Integer), CType(CType(195, Byte), Integer), CType(CType(199, Byte), Integer))
-            Me.lblStatusDb.Name = "lblStatusDb"
-            Me.lblStatusDb.Size = New System.Drawing.Size(430, 19)
-            Me.lblStatusDb.Text = "🟢 CSDL: Microsoft SQL Server 2022 (Docker) - 172.20.218.246:1433 [QuanLyQuanAnDB]"
-            '
+            ' 
+            lblStatusDb.ForeColor = Color.FromArgb(CByte(189), CByte(195), CByte(199))
+            lblStatusDb.Name = "lblStatusDb"
+            lblStatusDb.Size = New Size(464, 17)
+            lblStatusDb.Text = ChrW(55357) & ChrW(57314) & " CSDL: Microsoft SQL Server 2022 (Docker) - 172.20.218.246:1433 [QuanLyQuanAnDB]"
+            ' 
             ' lblStatusSpring
-            '
-            Me.lblStatusSpring.Name = "lblStatusSpring"
-            Me.lblStatusSpring.Size = New System.Drawing.Size(374, 19)
-            Me.lblStatusSpring.Spring = True
-            '
+            ' 
+            lblStatusSpring.Name = "lblStatusSpring"
+            lblStatusSpring.Size = New Size(303, 17)
+            lblStatusSpring.Spring = True
+            ' 
             ' lblStatusSession
-            '
-            Me.lblStatusSession.ForeColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(196, Byte), Integer), CType(CType(15, Byte), Integer))
-            Me.lblStatusSession.Name = "lblStatusSession"
-            Me.lblStatusSession.Size = New System.Drawing.Size(115, 19)
-            Me.lblStatusSession.Text = "Phiên: TK_001 (chuquan)"
-            '
+            ' 
+            lblStatusSession.ForeColor = Color.FromArgb(CByte(241), CByte(196), CByte(15))
+            lblStatusSession.Name = "lblStatusSession"
+            lblStatusSession.Size = New Size(138, 17)
+            lblStatusSession.Text = "Phiên: TK_001 (chuquan)"
+            ' 
             ' lblStatusVersion
-            '
-            Me.lblStatusVersion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(149, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(166, Byte), Integer))
-            Me.lblStatusVersion.Name = "lblStatusVersion"
-            Me.lblStatusVersion.Size = New System.Drawing.Size(80, 19)
-            Me.lblStatusVersion.Text = "| v1.0.0 (.NET 10)"
-            '
+            ' 
+            lblStatusVersion.ForeColor = Color.FromArgb(CByte(149), CByte(165), CByte(166))
+            lblStatusVersion.Name = "lblStatusVersion"
+            lblStatusVersion.Size = New Size(94, 17)
+            lblStatusVersion.Text = "| v1.0.0 (.NET 10)"
+            ' 
             ' pnlContent
-            '
-            Me.pnlContent.BackColor = System.Drawing.Color.FromArgb(CType(CType(244, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(249, Byte), Integer))
-            Me.pnlContent.Controls.Add(Me.pnlDashboardHome)
-            Me.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlContent.Location = New System.Drawing.Point(250, 65)
-            Me.pnlContent.Name = "pnlContent"
-            Me.pnlContent.Padding = New System.Windows.Forms.Padding(20)
-            Me.pnlContent.Size = New System.Drawing.Size(1014, 644)
-            Me.pnlContent.TabIndex = 3
-            '
+            ' 
+            pnlContent.BackColor = Color.FromArgb(CByte(244), CByte(246), CByte(249))
+            pnlContent.Controls.Add(pnlDashboardHome)
+            pnlContent.Dock = DockStyle.Fill
+            pnlContent.Location = New Point(250, 65)
+            pnlContent.Name = "pnlContent"
+            pnlContent.Padding = New Padding(20)
+            pnlContent.Size = New Size(1014, 646)
+            pnlContent.TabIndex = 3
+            ' 
             ' pnlDashboardHome
-            '
-            Me.pnlDashboardHome.AutoScroll = True
-            Me.pnlDashboardHome.Controls.Add(Me.pnlDashboardRow)
-            Me.pnlDashboardHome.Controls.Add(Me.tlpKpiGrid)
-            Me.pnlDashboardHome.Controls.Add(Me.pnlWelcome)
-            Me.pnlDashboardHome.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlDashboardHome.Location = New System.Drawing.Point(20, 20)
-            Me.pnlDashboardHome.Name = "pnlDashboardHome"
-            Me.pnlDashboardHome.Size = New System.Drawing.Size(974, 604)
-            Me.pnlDashboardHome.TabIndex = 0
-            '
+            ' 
+            pnlDashboardHome.AutoScroll = True
+            pnlDashboardHome.Controls.Add(pnlDashboardRow)
+            pnlDashboardHome.Controls.Add(tlpKpiGrid)
+            pnlDashboardHome.Controls.Add(pnlWelcome)
+            pnlDashboardHome.Dock = DockStyle.Fill
+            pnlDashboardHome.Location = New Point(20, 20)
+            pnlDashboardHome.Name = "pnlDashboardHome"
+            pnlDashboardHome.Size = New Size(974, 606)
+            pnlDashboardHome.TabIndex = 0
+            ' 
             ' pnlDashboardRow
-            '
-            Me.pnlDashboardRow.Controls.Add(Me.pnlActivity)
-            Me.pnlDashboardRow.Controls.Add(Me.pnlQuickActions)
-            Me.pnlDashboardRow.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlDashboardRow.Location = New System.Drawing.Point(0, 185)
-            Me.pnlDashboardRow.Name = "pnlDashboardRow"
-            Me.pnlDashboardRow.Padding = New System.Windows.Forms.Padding(0, 15, 0, 0)
-            Me.pnlDashboardRow.Size = New System.Drawing.Size(974, 419)
-            Me.pnlDashboardRow.TabIndex = 2
-            '
+            ' 
+            pnlDashboardRow.Controls.Add(pnlActivity)
+            pnlDashboardRow.Controls.Add(pnlQuickActions)
+            pnlDashboardRow.Dock = DockStyle.Fill
+            pnlDashboardRow.Location = New Point(0, 185)
+            pnlDashboardRow.Name = "pnlDashboardRow"
+            pnlDashboardRow.Padding = New Padding(0, 15, 0, 0)
+            pnlDashboardRow.Size = New Size(974, 421)
+            pnlDashboardRow.TabIndex = 2
+            ' 
             ' pnlActivity
-            '
-            Me.pnlActivity.BackColor = System.Drawing.Color.White
-            Me.pnlActivity.Controls.Add(Me.lblActivityHeader)
-            Me.pnlActivity.Controls.Add(Me.lstActivity)
-            Me.pnlActivity.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlActivity.Location = New System.Drawing.Point(580, 15)
-            Me.pnlActivity.Name = "pnlActivity"
-            Me.pnlActivity.Padding = New System.Windows.Forms.Padding(16)
-            Me.pnlActivity.Size = New System.Drawing.Size(394, 404)
-            Me.pnlActivity.TabIndex = 1
-            '
+            ' 
+            pnlActivity.BackColor = Color.White
+            pnlActivity.Controls.Add(lblActivityHeader)
+            pnlActivity.Controls.Add(lstActivity)
+            pnlActivity.Dock = DockStyle.Fill
+            pnlActivity.Location = New Point(565, 15)
+            pnlActivity.Name = "pnlActivity"
+            pnlActivity.Padding = New Padding(16)
+            pnlActivity.Size = New Size(409, 406)
+            pnlActivity.TabIndex = 1
+            ' 
             ' lblActivityHeader
-            '
-            Me.lblActivityHeader.AutoSize = True
-            Me.lblActivityHeader.Dock = System.Windows.Forms.DockStyle.Top
-            Me.lblActivityHeader.Font = New System.Drawing.Font("Segoe UI", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblActivityHeader.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.lblActivityHeader.Location = New System.Drawing.Point(16, 16)
-            Me.lblActivityHeader.Name = "lblActivityHeader"
-            Me.lblActivityHeader.Padding = New System.Windows.Forms.Padding(0, 0, 0, 12)
-            Me.lblActivityHeader.Size = New System.Drawing.Size(161, 31)
-            Me.lblActivityHeader.TabIndex = 0
-            Me.lblActivityHeader.Text = "🔔 Hoạt Động Gần Đây"
-            '
+            ' 
+            lblActivityHeader.AutoSize = True
+            lblActivityHeader.Dock = DockStyle.Top
+            lblActivityHeader.Font = New Font("Segoe UI", 10.5F, FontStyle.Bold)
+            lblActivityHeader.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            lblActivityHeader.Location = New Point(16, 16)
+            lblActivityHeader.Name = "lblActivityHeader"
+            lblActivityHeader.Padding = New Padding(0, 0, 0, 12)
+            lblActivityHeader.Size = New Size(166, 31)
+            lblActivityHeader.TabIndex = 0
+            lblActivityHeader.Text = "🔔 Hoạt Động Gần Đây"
+            ' 
             ' lstActivity
-            '
-            Me.lstActivity.BorderStyle = System.Windows.Forms.BorderStyle.None
-            Me.lstActivity.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.lstActivity.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.lstActivity.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.lstActivity.FormattingEnabled = True
-            Me.lstActivity.ItemHeight = 15
-            Me.lstActivity.Items.AddRange(New Object() {
-                "• [16:48] Bàn 05 gọi thêm 2 Lẩu Hải Sản",
-                "• [16:42] Bếp báo xong món Bò Lúc Lắc (Bàn 02)",
-                "• [16:30] Bàn 01 thanh toán thành công: 620.000 đ",
-                "• [16:00] NV Lê Văn Phục Vụ 1 chấm công vào ca chiều",
-                "• [15:45] Quản lý duyệt 3 bảng chấm công ca trưa"
-            })
-            Me.lstActivity.Location = New System.Drawing.Point(16, 47)
-            Me.lstActivity.Name = "lstActivity"
-            Me.lstActivity.Size = New System.Drawing.Size(362, 341)
-            Me.lstActivity.TabIndex = 1
-            '
+            ' 
+            lstActivity.BorderStyle = BorderStyle.None
+            lstActivity.Dock = DockStyle.Fill
+            lstActivity.Font = New Font("Segoe UI", 9F)
+            lstActivity.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            lstActivity.FormattingEnabled = True
+            lstActivity.Items.AddRange(New Object() {"• [16:48] Bàn 05 gọi thêm 2 Lẩu Hải Sản", "• [16:42] Bếp báo xong món Bò Lúc Lắc (Bàn 02)", "• [16:30] Bàn 01 thanh toán thành công: 620.000 đ", "• [16:00] NV Lê Văn Phục Vụ 1 chấm công vào ca chiều", "• [15:45] Quản lý duyệt 3 bảng chấm công ca trưa"})
+            lstActivity.Location = New Point(16, 16)
+            lstActivity.Name = "lstActivity"
+            lstActivity.Size = New Size(377, 374)
+            lstActivity.TabIndex = 1
+            ' 
             ' pnlQuickActions
-            '
-            Me.pnlQuickActions.BackColor = System.Drawing.Color.White
-            Me.pnlQuickActions.Controls.Add(Me.tlpQuickButtons)
-            Me.pnlQuickActions.Controls.Add(Me.lblQuickHeader)
-            Me.pnlQuickActions.Dock = System.Windows.Forms.DockStyle.Left
-            Me.pnlQuickActions.Location = New System.Drawing.Point(0, 15)
-            Me.pnlQuickActions.Name = "pnlQuickActions"
-            Me.pnlQuickActions.Padding = New System.Windows.Forms.Padding(16)
-            Me.pnlQuickActions.Size = New System.Drawing.Size(565, 404)
-            Me.pnlQuickActions.TabIndex = 0
-            '
+            ' 
+            pnlQuickActions.BackColor = Color.White
+            pnlQuickActions.Controls.Add(tlpQuickButtons)
+            pnlQuickActions.Controls.Add(lblQuickHeader)
+            pnlQuickActions.Dock = DockStyle.Left
+            pnlQuickActions.Location = New Point(0, 15)
+            pnlQuickActions.Name = "pnlQuickActions"
+            pnlQuickActions.Padding = New Padding(16)
+            pnlQuickActions.Size = New Size(565, 406)
+            pnlQuickActions.TabIndex = 0
+            ' 
             ' tlpQuickButtons
-            '
-            Me.tlpQuickButtons.ColumnCount = 3
-            Me.tlpQuickButtons.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-            Me.tlpQuickButtons.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-            Me.tlpQuickButtons.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-            Me.tlpQuickButtons.Controls.Add(Me.btnQuickDatBan, 0, 0)
-            Me.tlpQuickButtons.Controls.Add(Me.btnQuickNhaBep, 1, 0)
-            Me.tlpQuickButtons.Controls.Add(Me.btnQuickChamCong, 2, 0)
-            Me.tlpQuickButtons.Controls.Add(Me.btnQuickDuyetCong, 0, 1)
-            Me.tlpQuickButtons.Controls.Add(Me.btnQuickThucDon, 1, 1)
-            Me.tlpQuickButtons.Controls.Add(Me.btnQuickBaoCao, 2, 1)
-            Me.tlpQuickButtons.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.tlpQuickButtons.Location = New System.Drawing.Point(16, 47)
-            Me.tlpQuickButtons.Name = "tlpQuickButtons"
-            Me.tlpQuickButtons.RowCount = 2
-            Me.tlpQuickButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-            Me.tlpQuickButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-            Me.tlpQuickButtons.Size = New System.Drawing.Size(533, 341)
-            Me.tlpQuickButtons.TabIndex = 1
-            '
+            ' 
+            tlpQuickButtons.ColumnCount = 3
+            tlpQuickButtons.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 33.33333F))
+            tlpQuickButtons.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 33.33333F))
+            tlpQuickButtons.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 33.33333F))
+            tlpQuickButtons.Controls.Add(btnQuickDatBan, 0, 0)
+            tlpQuickButtons.Controls.Add(btnQuickNhaBep, 1, 0)
+            tlpQuickButtons.Controls.Add(btnQuickChamCong, 2, 0)
+            tlpQuickButtons.Controls.Add(btnQuickDuyetCong, 0, 1)
+            tlpQuickButtons.Controls.Add(btnQuickThucDon, 1, 1)
+            tlpQuickButtons.Controls.Add(btnQuickBaoCao, 2, 1)
+            tlpQuickButtons.Dock = DockStyle.Fill
+            tlpQuickButtons.Location = New Point(16, 47)
+            tlpQuickButtons.Name = "tlpQuickButtons"
+            tlpQuickButtons.RowCount = 2
+            tlpQuickButtons.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
+            tlpQuickButtons.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
+            tlpQuickButtons.Size = New Size(533, 343)
+            tlpQuickButtons.TabIndex = 1
+            ' 
             ' btnQuickDatBan
-            '
-            Me.btnQuickDatBan.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-            Me.btnQuickDatBan.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickDatBan.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.btnQuickDatBan.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-            Me.btnQuickDatBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickDatBan.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickDatBan.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.btnQuickDatBan.Location = New System.Drawing.Point(4, 4)
-            Me.btnQuickDatBan.Margin = New System.Windows.Forms.Padding(4)
-            Me.btnQuickDatBan.Name = "btnQuickDatBan"
-            Me.btnQuickDatBan.Size = New System.Drawing.Size(169, 162)
-            Me.btnQuickDatBan.TabIndex = 0
-            Me.btnQuickDatBan.Tag = "POS_SO_DO_BAN"
-            Me.btnQuickDatBan.Text = "🍽️" & vbCrLf & vbCrLf & "Sơ Đồ Bàn / Gọi Món"
-            Me.btnQuickDatBan.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickDatBan.BackColor = Color.FromArgb(CByte(248), CByte(250), CByte(252))
+            btnQuickDatBan.Cursor = Cursors.Hand
+            btnQuickDatBan.Dock = DockStyle.Fill
+            btnQuickDatBan.FlatAppearance.BorderColor = Color.FromArgb(CByte(203), CByte(213), CByte(225))
+            btnQuickDatBan.FlatStyle = FlatStyle.Flat
+            btnQuickDatBan.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnQuickDatBan.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            btnQuickDatBan.Location = New Point(4, 4)
+            btnQuickDatBan.Margin = New Padding(4)
+            btnQuickDatBan.Name = "btnQuickDatBan"
+            btnQuickDatBan.Size = New Size(169, 163)
+            btnQuickDatBan.TabIndex = 0
+            btnQuickDatBan.Tag = "POS_SO_DO_BAN"
+            btnQuickDatBan.Text = "🍽️" & vbCrLf & vbCrLf & "Sơ Đồ Bàn / Gọi Món"
+            btnQuickDatBan.UseVisualStyleBackColor = False
+            ' 
             ' btnQuickNhaBep
-            '
-            Me.btnQuickNhaBep.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-            Me.btnQuickNhaBep.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickNhaBep.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.btnQuickNhaBep.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-            Me.btnQuickNhaBep.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickNhaBep.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickNhaBep.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.btnQuickNhaBep.Location = New System.Drawing.Point(181, 4)
-            Me.btnQuickNhaBep.Margin = New System.Windows.Forms.Padding(4)
-            Me.btnQuickNhaBep.Name = "btnQuickNhaBep"
-            Me.btnQuickNhaBep.Size = New System.Drawing.Size(169, 162)
-            Me.btnQuickNhaBep.TabIndex = 1
-            Me.btnQuickNhaBep.Tag = "BEP_HANG_DOI_MON"
-            Me.btnQuickNhaBep.Text = "🍳" & vbCrLf & vbCrLf & "Hàng Đợi Nhà Bếp"
-            Me.btnQuickNhaBep.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickNhaBep.BackColor = Color.FromArgb(CByte(248), CByte(250), CByte(252))
+            btnQuickNhaBep.Cursor = Cursors.Hand
+            btnQuickNhaBep.Dock = DockStyle.Fill
+            btnQuickNhaBep.FlatAppearance.BorderColor = Color.FromArgb(CByte(203), CByte(213), CByte(225))
+            btnQuickNhaBep.FlatStyle = FlatStyle.Flat
+            btnQuickNhaBep.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnQuickNhaBep.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            btnQuickNhaBep.Location = New Point(181, 4)
+            btnQuickNhaBep.Margin = New Padding(4)
+            btnQuickNhaBep.Name = "btnQuickNhaBep"
+            btnQuickNhaBep.Size = New Size(169, 163)
+            btnQuickNhaBep.TabIndex = 1
+            btnQuickNhaBep.Tag = "BEP_HANG_DOI_MON"
+            btnQuickNhaBep.Text = "🍳" & vbCrLf & vbCrLf & "Hàng Đợi Nhà Bếp"
+            btnQuickNhaBep.UseVisualStyleBackColor = False
+            ' 
             ' btnQuickChamCong
-            '
-            Me.btnQuickChamCong.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-            Me.btnQuickChamCong.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickChamCong.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.btnQuickChamCong.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-            Me.btnQuickChamCong.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickChamCong.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickChamCong.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.btnQuickChamCong.Location = New System.Drawing.Point(358, 4)
-            Me.btnQuickChamCong.Margin = New System.Windows.Forms.Padding(4)
-            Me.btnQuickChamCong.Name = "btnQuickChamCong"
-            Me.btnQuickChamCong.Size = New System.Drawing.Size(171, 162)
-            Me.btnQuickChamCong.TabIndex = 2
-            Me.btnQuickChamCong.Tag = "CA_NHAN_CHAM_CONG"
-            Me.btnQuickChamCong.Text = "⏱️" & vbCrLf & vbCrLf & "Chấm Công Vào Ca"
-            Me.btnQuickChamCong.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickChamCong.BackColor = Color.FromArgb(CByte(248), CByte(250), CByte(252))
+            btnQuickChamCong.Cursor = Cursors.Hand
+            btnQuickChamCong.Dock = DockStyle.Fill
+            btnQuickChamCong.FlatAppearance.BorderColor = Color.FromArgb(CByte(203), CByte(213), CByte(225))
+            btnQuickChamCong.FlatStyle = FlatStyle.Flat
+            btnQuickChamCong.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnQuickChamCong.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            btnQuickChamCong.Location = New Point(358, 4)
+            btnQuickChamCong.Margin = New Padding(4)
+            btnQuickChamCong.Name = "btnQuickChamCong"
+            btnQuickChamCong.Size = New Size(171, 163)
+            btnQuickChamCong.TabIndex = 2
+            btnQuickChamCong.Tag = "CA_NHAN_CHAM_CONG"
+            btnQuickChamCong.Text = "⏱️" & vbCrLf & vbCrLf & "Chấm Công Vào Ca"
+            btnQuickChamCong.UseVisualStyleBackColor = False
+            ' 
             ' btnQuickDuyetCong
-            '
-            Me.btnQuickDuyetCong.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-            Me.btnQuickDuyetCong.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickDuyetCong.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.btnQuickDuyetCong.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-            Me.btnQuickDuyetCong.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickDuyetCong.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickDuyetCong.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.btnQuickDuyetCong.Location = New System.Drawing.Point(4, 174)
-            Me.btnQuickDuyetCong.Margin = New System.Windows.Forms.Padding(4)
-            Me.btnQuickDuyetCong.Name = "btnQuickDuyetCong"
-            Me.btnQuickDuyetCong.Size = New System.Drawing.Size(169, 163)
-            Me.btnQuickDuyetCong.TabIndex = 3
-            Me.btnQuickDuyetCong.Tag = "QL_DUYET_CHAM_CONG"
-            Me.btnQuickDuyetCong.Text = "🕒" & vbCrLf & vbCrLf & "Duyệt Công Ca"
-            Me.btnQuickDuyetCong.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickDuyetCong.BackColor = Color.FromArgb(CByte(248), CByte(250), CByte(252))
+            btnQuickDuyetCong.Cursor = Cursors.Hand
+            btnQuickDuyetCong.Dock = DockStyle.Fill
+            btnQuickDuyetCong.FlatAppearance.BorderColor = Color.FromArgb(CByte(203), CByte(213), CByte(225))
+            btnQuickDuyetCong.FlatStyle = FlatStyle.Flat
+            btnQuickDuyetCong.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnQuickDuyetCong.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            btnQuickDuyetCong.Location = New Point(4, 175)
+            btnQuickDuyetCong.Margin = New Padding(4)
+            btnQuickDuyetCong.Name = "btnQuickDuyetCong"
+            btnQuickDuyetCong.Size = New Size(169, 164)
+            btnQuickDuyetCong.TabIndex = 3
+            btnQuickDuyetCong.Tag = "QL_DUYET_CHAM_CONG"
+            btnQuickDuyetCong.Text = "🕒" & vbCrLf & vbCrLf & "Duyệt Công Ca"
+            btnQuickDuyetCong.UseVisualStyleBackColor = False
+            ' 
             ' btnQuickThucDon
-            '
-            Me.btnQuickThucDon.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-            Me.btnQuickThucDon.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickThucDon.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.btnQuickThucDon.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-            Me.btnQuickThucDon.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickThucDon.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickThucDon.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.btnQuickThucDon.Location = New System.Drawing.Point(181, 174)
-            Me.btnQuickThucDon.Margin = New System.Windows.Forms.Padding(4)
-            Me.btnQuickThucDon.Name = "btnQuickThucDon"
-            Me.btnQuickThucDon.Size = New System.Drawing.Size(169, 163)
-            Me.btnQuickThucDon.TabIndex = 4
-            Me.btnQuickThucDon.Tag = "CQ_QUAN_LY_THUC_DON"
-            Me.btnQuickThucDon.Text = "🍲" & vbCrLf & vbCrLf & "Cập Nhật Thực Đơn"
-            Me.btnQuickThucDon.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickThucDon.BackColor = Color.FromArgb(CByte(248), CByte(250), CByte(252))
+            btnQuickThucDon.Cursor = Cursors.Hand
+            btnQuickThucDon.Dock = DockStyle.Fill
+            btnQuickThucDon.FlatAppearance.BorderColor = Color.FromArgb(CByte(203), CByte(213), CByte(225))
+            btnQuickThucDon.FlatStyle = FlatStyle.Flat
+            btnQuickThucDon.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnQuickThucDon.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            btnQuickThucDon.Location = New Point(181, 175)
+            btnQuickThucDon.Margin = New Padding(4)
+            btnQuickThucDon.Name = "btnQuickThucDon"
+            btnQuickThucDon.Size = New Size(169, 164)
+            btnQuickThucDon.TabIndex = 4
+            btnQuickThucDon.Tag = "CQ_QUAN_LY_THUC_DON"
+            btnQuickThucDon.Text = "🍲" & vbCrLf & vbCrLf & "Cập Nhật Thực Đơn"
+            btnQuickThucDon.UseVisualStyleBackColor = False
+            ' 
             ' btnQuickBaoCao
-            '
-            Me.btnQuickBaoCao.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-            Me.btnQuickBaoCao.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickBaoCao.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.btnQuickBaoCao.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-            Me.btnQuickBaoCao.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickBaoCao.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickBaoCao.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.btnQuickBaoCao.Location = New System.Drawing.Point(358, 174)
-            Me.btnQuickBaoCao.Margin = New System.Windows.Forms.Padding(4)
-            Me.btnQuickBaoCao.Name = "btnQuickBaoCao"
-            Me.btnQuickBaoCao.Size = New System.Drawing.Size(171, 163)
-            Me.btnQuickBaoCao.TabIndex = 5
-            Me.btnQuickBaoCao.Tag = "CQ_BAO_CAO_THONG_KE"
-            Me.btnQuickBaoCao.Text = "📈" & vbCrLf & vbCrLf & "Báo Cáo Thống Kê"
-            Me.btnQuickBaoCao.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickBaoCao.BackColor = Color.FromArgb(CByte(248), CByte(250), CByte(252))
+            btnQuickBaoCao.Cursor = Cursors.Hand
+            btnQuickBaoCao.Dock = DockStyle.Fill
+            btnQuickBaoCao.FlatAppearance.BorderColor = Color.FromArgb(CByte(203), CByte(213), CByte(225))
+            btnQuickBaoCao.FlatStyle = FlatStyle.Flat
+            btnQuickBaoCao.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+            btnQuickBaoCao.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            btnQuickBaoCao.Location = New Point(358, 175)
+            btnQuickBaoCao.Margin = New Padding(4)
+            btnQuickBaoCao.Name = "btnQuickBaoCao"
+            btnQuickBaoCao.Size = New Size(171, 164)
+            btnQuickBaoCao.TabIndex = 5
+            btnQuickBaoCao.Tag = "CQ_BAO_CAO_THONG_KE"
+            btnQuickBaoCao.Text = "📈" & vbCrLf & vbCrLf & "Báo Cáo Thống Kê"
+            btnQuickBaoCao.UseVisualStyleBackColor = False
+            ' 
             ' lblQuickHeader
-            '
-            Me.lblQuickHeader.AutoSize = True
-            Me.lblQuickHeader.Dock = System.Windows.Forms.DockStyle.Top
-            Me.lblQuickHeader.Font = New System.Drawing.Font("Segoe UI", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblQuickHeader.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.lblQuickHeader.Location = New System.Drawing.Point(16, 16)
-            Me.lblQuickHeader.Name = "lblQuickHeader"
-            Me.lblQuickHeader.Padding = New System.Windows.Forms.Padding(0, 0, 0, 12)
-            Me.lblQuickHeader.Size = New System.Drawing.Size(206, 31)
-            Me.lblQuickHeader.TabIndex = 0
-            Me.lblQuickHeader.Text = "⚡ Thao Tác Nghiệp Vụ Nhanh"
-            '
+            ' 
+            lblQuickHeader.AutoSize = True
+            lblQuickHeader.Dock = DockStyle.Top
+            lblQuickHeader.Font = New Font("Segoe UI", 10.5F, FontStyle.Bold)
+            lblQuickHeader.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            lblQuickHeader.Location = New Point(16, 16)
+            lblQuickHeader.Name = "lblQuickHeader"
+            lblQuickHeader.Padding = New Padding(0, 0, 0, 12)
+            lblQuickHeader.Size = New Size(213, 31)
+            lblQuickHeader.TabIndex = 0
+            lblQuickHeader.Text = "⚡ Thao Tác Nghiệp Vụ Nhanh"
+            ' 
             ' tlpKpiGrid
-            '
-            Me.tlpKpiGrid.ColumnCount = 4
-            Me.tlpKpiGrid.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-            Me.tlpKpiGrid.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-            Me.tlpKpiGrid.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-            Me.tlpKpiGrid.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-            Me.tlpKpiGrid.Controls.Add(Me.pnlKpiDoanhThu, 3, 0)
-            Me.tlpKpiGrid.Controls.Add(Me.pnlKpiNhanSu, 2, 0)
-            Me.tlpKpiGrid.Controls.Add(Me.pnlKpiMonCho, 1, 0)
-            Me.tlpKpiGrid.Controls.Add(Me.pnlKpiBan, 0, 0)
-            Me.tlpKpiGrid.Dock = System.Windows.Forms.DockStyle.Top
-            Me.tlpKpiGrid.Location = New System.Drawing.Point(0, 85)
-            Me.tlpKpiGrid.Name = "tlpKpiGrid"
-            Me.tlpKpiGrid.RowCount = 1
-            Me.tlpKpiGrid.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-            Me.tlpKpiGrid.Size = New System.Drawing.Size(974, 100)
-            Me.tlpKpiGrid.TabIndex = 1
-            '
+            ' 
+            tlpKpiGrid.ColumnCount = 4
+            tlpKpiGrid.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+            tlpKpiGrid.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+            tlpKpiGrid.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+            tlpKpiGrid.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+            tlpKpiGrid.Controls.Add(pnlKpiDoanhThu, 3, 0)
+            tlpKpiGrid.Controls.Add(pnlKpiNhanSu, 2, 0)
+            tlpKpiGrid.Controls.Add(pnlKpiMonCho, 1, 0)
+            tlpKpiGrid.Controls.Add(pnlKpiBan, 0, 0)
+            tlpKpiGrid.Dock = DockStyle.Top
+            tlpKpiGrid.Location = New Point(0, 85)
+            tlpKpiGrid.Name = "tlpKpiGrid"
+            tlpKpiGrid.RowCount = 1
+            tlpKpiGrid.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+            tlpKpiGrid.Size = New Size(974, 100)
+            tlpKpiGrid.TabIndex = 1
+            ' 
             ' pnlKpiDoanhThu
-            '
-            Me.pnlKpiDoanhThu.BackColor = System.Drawing.Color.White
-            Me.pnlKpiDoanhThu.Controls.Add(Me.lblKpiDoanhThuValue)
-            Me.pnlKpiDoanhThu.Controls.Add(Me.lblKpiDoanhThuTitle)
-            Me.pnlKpiDoanhThu.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlKpiDoanhThu.Location = New System.Drawing.Point(733, 4)
-            Me.pnlKpiDoanhThu.Margin = New System.Windows.Forms.Padding(4)
-            Me.pnlKpiDoanhThu.Name = "pnlKpiDoanhThu"
-            Me.pnlKpiDoanhThu.Padding = New System.Windows.Forms.Padding(16)
-            Me.pnlKpiDoanhThu.Size = New System.Drawing.Size(237, 92)
-            Me.pnlKpiDoanhThu.TabIndex = 3
-            '
+            ' 
+            pnlKpiDoanhThu.BackColor = Color.White
+            pnlKpiDoanhThu.Controls.Add(lblKpiDoanhThuValue)
+            pnlKpiDoanhThu.Controls.Add(lblKpiDoanhThuTitle)
+            pnlKpiDoanhThu.Dock = DockStyle.Fill
+            pnlKpiDoanhThu.Location = New Point(733, 4)
+            pnlKpiDoanhThu.Margin = New Padding(4)
+            pnlKpiDoanhThu.Name = "pnlKpiDoanhThu"
+            pnlKpiDoanhThu.Padding = New Padding(16)
+            pnlKpiDoanhThu.Size = New Size(237, 92)
+            pnlKpiDoanhThu.TabIndex = 3
+            ' 
             ' lblKpiDoanhThuValue
-            '
-            Me.lblKpiDoanhThuValue.AutoSize = True
-            Me.lblKpiDoanhThuValue.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiDoanhThuValue.ForeColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
-            Me.lblKpiDoanhThuValue.Location = New System.Drawing.Point(12, 42)
-            Me.lblKpiDoanhThuValue.Name = "lblKpiDoanhThuValue"
-            Me.lblKpiDoanhThuValue.Size = New System.Drawing.Size(130, 25)
-            Me.lblKpiDoanhThuValue.TabIndex = 1
-            Me.lblKpiDoanhThuValue.Text = "4.850.000 đ"
-            '
+            ' 
+            lblKpiDoanhThuValue.AutoSize = True
+            lblKpiDoanhThuValue.Font = New Font("Segoe UI", 14F, FontStyle.Bold)
+            lblKpiDoanhThuValue.ForeColor = Color.FromArgb(CByte(142), CByte(68), CByte(173))
+            lblKpiDoanhThuValue.Location = New Point(12, 42)
+            lblKpiDoanhThuValue.Name = "lblKpiDoanhThuValue"
+            lblKpiDoanhThuValue.Size = New Size(116, 25)
+            lblKpiDoanhThuValue.TabIndex = 1
+            lblKpiDoanhThuValue.Text = "4.850.000 đ"
+            ' 
             ' lblKpiDoanhThuTitle
-            '
-            Me.lblKpiDoanhThuTitle.AutoSize = True
-            Me.lblKpiDoanhThuTitle.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiDoanhThuTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(140, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.lblKpiDoanhThuTitle.Location = New System.Drawing.Point(12, 16)
-            Me.lblKpiDoanhThuTitle.Name = "lblKpiDoanhThuTitle"
-            Me.lblKpiDoanhThuTitle.Size = New System.Drawing.Size(149, 15)
-            Me.lblKpiDoanhThuTitle.TabIndex = 0
-            Me.lblKpiDoanhThuTitle.Text = "💰 DOANH THU HÔM NAY"
-            '
+            ' 
+            lblKpiDoanhThuTitle.AutoSize = True
+            lblKpiDoanhThuTitle.Font = New Font("Segoe UI", 8.5F, FontStyle.Bold)
+            lblKpiDoanhThuTitle.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+            lblKpiDoanhThuTitle.Location = New Point(12, 16)
+            lblKpiDoanhThuTitle.Name = "lblKpiDoanhThuTitle"
+            lblKpiDoanhThuTitle.Size = New Size(153, 15)
+            lblKpiDoanhThuTitle.TabIndex = 0
+            lblKpiDoanhThuTitle.Text = "💰 DOANH THU HÔM NAY"
+            ' 
             ' pnlKpiNhanSu
-            '
-            Me.pnlKpiNhanSu.BackColor = System.Drawing.Color.White
-            Me.pnlKpiNhanSu.Controls.Add(Me.lblKpiNhanSuValue)
-            Me.pnlKpiNhanSu.Controls.Add(Me.lblKpiNhanSuTitle)
-            Me.pnlKpiNhanSu.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlKpiNhanSu.Location = New System.Drawing.Point(490, 4)
-            Me.pnlKpiNhanSu.Margin = New System.Windows.Forms.Padding(4)
-            Me.pnlKpiNhanSu.Name = "pnlKpiNhanSu"
-            Me.pnlKpiNhanSu.Padding = New System.Windows.Forms.Padding(16)
-            Me.pnlKpiNhanSu.Size = New System.Drawing.Size(235, 92)
-            Me.pnlKpiNhanSu.TabIndex = 2
-            '
+            ' 
+            pnlKpiNhanSu.BackColor = Color.White
+            pnlKpiNhanSu.Controls.Add(lblKpiNhanSuValue)
+            pnlKpiNhanSu.Controls.Add(lblKpiNhanSuTitle)
+            pnlKpiNhanSu.Dock = DockStyle.Fill
+            pnlKpiNhanSu.Location = New Point(490, 4)
+            pnlKpiNhanSu.Margin = New Padding(4)
+            pnlKpiNhanSu.Name = "pnlKpiNhanSu"
+            pnlKpiNhanSu.Padding = New Padding(16)
+            pnlKpiNhanSu.Size = New Size(235, 92)
+            pnlKpiNhanSu.TabIndex = 2
+            ' 
             ' lblKpiNhanSuValue
-            '
-            Me.lblKpiNhanSuValue.AutoSize = True
-            Me.lblKpiNhanSuValue.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiNhanSuValue.ForeColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
-            Me.lblKpiNhanSuValue.Location = New System.Drawing.Point(12, 42)
-            Me.lblKpiNhanSuValue.Name = "lblKpiNhanSuValue"
-            Me.lblKpiNhanSuValue.Size = New System.Drawing.Size(86, 25)
-            Me.lblKpiNhanSuValue.TabIndex = 1
-            Me.lblKpiNhanSuValue.Text = "6 Người"
-            '
+            ' 
+            lblKpiNhanSuValue.AutoSize = True
+            lblKpiNhanSuValue.Font = New Font("Segoe UI", 14F, FontStyle.Bold)
+            lblKpiNhanSuValue.ForeColor = Color.FromArgb(CByte(39), CByte(174), CByte(96))
+            lblKpiNhanSuValue.Location = New Point(12, 42)
+            lblKpiNhanSuValue.Name = "lblKpiNhanSuValue"
+            lblKpiNhanSuValue.Size = New Size(85, 25)
+            lblKpiNhanSuValue.TabIndex = 1
+            lblKpiNhanSuValue.Text = "6 Người"
+            ' 
             ' lblKpiNhanSuTitle
-            '
-            Me.lblKpiNhanSuTitle.AutoSize = True
-            Me.lblKpiNhanSuTitle.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiNhanSuTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(140, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.lblKpiNhanSuTitle.Location = New System.Drawing.Point(12, 16)
-            Me.lblKpiNhanSuTitle.Name = "lblKpiNhanSuTitle"
-            Me.lblKpiNhanSuTitle.Size = New System.Drawing.Size(147, 15)
-            Me.lblKpiNhanSuTitle.TabIndex = 0
-            Me.lblKpiNhanSuTitle.Text = "👨‍🍳 NHÂN SỰ TRONG CA"
-            '
+            ' 
+            lblKpiNhanSuTitle.AutoSize = True
+            lblKpiNhanSuTitle.Font = New Font("Segoe UI", 8.5F, FontStyle.Bold)
+            lblKpiNhanSuTitle.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+            lblKpiNhanSuTitle.Location = New Point(12, 16)
+            lblKpiNhanSuTitle.Name = "lblKpiNhanSuTitle"
+            lblKpiNhanSuTitle.Size = New Size(140, 15)
+            lblKpiNhanSuTitle.TabIndex = 0
+            lblKpiNhanSuTitle.Text = "👨‍🍳 NHÂN SỰ TRONG CA"
+            ' 
             ' pnlKpiMonCho
-            '
-            Me.pnlKpiMonCho.BackColor = System.Drawing.Color.White
-            Me.pnlKpiMonCho.Controls.Add(Me.lblKpiMonChoValue)
-            Me.pnlKpiMonCho.Controls.Add(Me.lblKpiMonChoTitle)
-            Me.pnlKpiMonCho.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlKpiMonCho.Location = New System.Drawing.Point(247, 4)
-            Me.pnlKpiMonCho.Margin = New System.Windows.Forms.Padding(4)
-            Me.pnlKpiMonCho.Name = "pnlKpiMonCho"
-            Me.pnlKpiMonCho.Padding = New System.Windows.Forms.Padding(16)
-            Me.pnlKpiMonCho.Size = New System.Drawing.Size(235, 92)
-            Me.pnlKpiMonCho.TabIndex = 1
-            '
+            ' 
+            pnlKpiMonCho.BackColor = Color.White
+            pnlKpiMonCho.Controls.Add(lblKpiMonChoValue)
+            pnlKpiMonCho.Controls.Add(lblKpiMonChoTitle)
+            pnlKpiMonCho.Dock = DockStyle.Fill
+            pnlKpiMonCho.Location = New Point(247, 4)
+            pnlKpiMonCho.Margin = New Padding(4)
+            pnlKpiMonCho.Name = "pnlKpiMonCho"
+            pnlKpiMonCho.Padding = New Padding(16)
+            pnlKpiMonCho.Size = New Size(235, 92)
+            pnlKpiMonCho.TabIndex = 1
+            ' 
             ' lblKpiMonChoValue
-            '
-            Me.lblKpiMonChoValue.AutoSize = True
-            Me.lblKpiMonChoValue.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiMonChoValue.ForeColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(34, Byte), Integer))
-            Me.lblKpiMonChoValue.Location = New System.Drawing.Point(12, 42)
-            Me.lblKpiMonChoValue.Name = "lblKpiMonChoValue"
-            Me.lblKpiMonChoValue.Size = New System.Drawing.Size(76, 25)
-            Me.lblKpiMonChoValue.TabIndex = 1
-            Me.lblKpiMonChoValue.Text = "5 Món"
-            '
+            ' 
+            lblKpiMonChoValue.AutoSize = True
+            lblKpiMonChoValue.Font = New Font("Segoe UI", 14F, FontStyle.Bold)
+            lblKpiMonChoValue.ForeColor = Color.FromArgb(CByte(230), CByte(126), CByte(34))
+            lblKpiMonChoValue.Location = New Point(12, 42)
+            lblKpiMonChoValue.Name = "lblKpiMonChoValue"
+            lblKpiMonChoValue.Size = New Size(70, 25)
+            lblKpiMonChoValue.TabIndex = 1
+            lblKpiMonChoValue.Text = "5 Món"
+            ' 
             ' lblKpiMonChoTitle
-            '
-            Me.lblKpiMonChoTitle.AutoSize = True
-            Me.lblKpiMonChoTitle.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiMonChoTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(140, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.lblKpiMonChoTitle.Location = New System.Drawing.Point(12, 16)
-            Me.lblKpiMonChoTitle.Name = "lblKpiMonChoTitle"
-            Me.lblKpiMonChoTitle.Size = New System.Drawing.Size(147, 15)
-            Me.lblKpiMonChoTitle.TabIndex = 0
-            Me.lblKpiMonChoTitle.Text = "🍜 MÓN CHỜ CHẾ BIẾN"
-            '
+            ' 
+            lblKpiMonChoTitle.AutoSize = True
+            lblKpiMonChoTitle.Font = New Font("Segoe UI", 8.5F, FontStyle.Bold)
+            lblKpiMonChoTitle.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+            lblKpiMonChoTitle.Location = New Point(12, 16)
+            lblKpiMonChoTitle.Name = "lblKpiMonChoTitle"
+            lblKpiMonChoTitle.Size = New Size(135, 15)
+            lblKpiMonChoTitle.TabIndex = 0
+            lblKpiMonChoTitle.Text = "🍜 MÓN CHỜ CHẾ BIẾN"
+            ' 
             ' pnlKpiBan
-            '
-            Me.pnlKpiBan.BackColor = System.Drawing.Color.White
-            Me.pnlKpiBan.Controls.Add(Me.lblKpiBanValue)
-            Me.pnlKpiBan.Controls.Add(Me.lblKpiBanTitle)
-            Me.pnlKpiBan.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.pnlKpiBan.Location = New System.Drawing.Point(4, 4)
-            Me.pnlKpiBan.Margin = New System.Windows.Forms.Padding(4)
-            Me.pnlKpiBan.Name = "pnlKpiBan"
-            Me.pnlKpiBan.Padding = New System.Windows.Forms.Padding(16)
-            Me.pnlKpiBan.Size = New System.Drawing.Size(235, 92)
-            Me.pnlKpiBan.TabIndex = 0
-            '
+            ' 
+            pnlKpiBan.BackColor = Color.White
+            pnlKpiBan.Controls.Add(lblKpiBanValue)
+            pnlKpiBan.Controls.Add(lblKpiBanTitle)
+            pnlKpiBan.Dock = DockStyle.Fill
+            pnlKpiBan.Location = New Point(4, 4)
+            pnlKpiBan.Margin = New Padding(4)
+            pnlKpiBan.Name = "pnlKpiBan"
+            pnlKpiBan.Padding = New Padding(16)
+            pnlKpiBan.Size = New Size(235, 92)
+            pnlKpiBan.TabIndex = 0
+            ' 
             ' lblKpiBanValue
-            '
-            Me.lblKpiBanValue.AutoSize = True
-            Me.lblKpiBanValue.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiBanValue.ForeColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-            Me.lblKpiBanValue.Location = New System.Drawing.Point(12, 42)
-            Me.lblKpiBanValue.Name = "lblKpiBanValue"
-            Me.lblKpiBanValue.Size = New System.Drawing.Size(78, 25)
-            Me.lblKpiBanValue.TabIndex = 1
-            Me.lblKpiBanValue.Text = "8 / 20"
-            '
+            ' 
+            lblKpiBanValue.AutoSize = True
+            lblKpiBanValue.Font = New Font("Segoe UI", 14F, FontStyle.Bold)
+            lblKpiBanValue.ForeColor = Color.FromArgb(CByte(41), CByte(128), CByte(185))
+            lblKpiBanValue.Location = New Point(12, 42)
+            lblKpiBanValue.Name = "lblKpiBanValue"
+            lblKpiBanValue.Size = New Size(63, 25)
+            lblKpiBanValue.TabIndex = 1
+            lblKpiBanValue.Text = "8 / 20"
+            ' 
             ' lblKpiBanTitle
-            '
-            Me.lblKpiBanTitle.AutoSize = True
-            Me.lblKpiBanTitle.Font = New System.Drawing.Font("Segoe UI", 8.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblKpiBanTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(140, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.lblKpiBanTitle.Location = New System.Drawing.Point(12, 16)
-            Me.lblKpiBanTitle.Name = "lblKpiBanTitle"
-            Me.lblKpiBanTitle.Size = New System.Drawing.Size(155, 15)
-            Me.lblKpiBanTitle.TabIndex = 0
-            Me.lblKpiBanTitle.Text = "🪑 BÀN ĐANG PHỤC VỤ"
-            '
+            ' 
+            lblKpiBanTitle.AutoSize = True
+            lblKpiBanTitle.Font = New Font("Segoe UI", 8.5F, FontStyle.Bold)
+            lblKpiBanTitle.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+            lblKpiBanTitle.Location = New Point(12, 16)
+            lblKpiBanTitle.Name = "lblKpiBanTitle"
+            lblKpiBanTitle.Size = New Size(141, 15)
+            lblKpiBanTitle.TabIndex = 0
+            lblKpiBanTitle.Text = ChrW(55358) & ChrW(56977) & " BÀN ĐANG PHỤC VỤ"
+            ' 
             ' pnlWelcome
-            '
-            Me.pnlWelcome.BackColor = System.Drawing.Color.White
-            Me.pnlWelcome.Controls.Add(Me.btnQuickOpenSoDoBan)
-            Me.pnlWelcome.Controls.Add(Me.lblWelcomeSubtitle)
-            Me.pnlWelcome.Controls.Add(Me.lblWelcomeGreeting)
-            Me.pnlWelcome.Dock = System.Windows.Forms.DockStyle.Top
-            Me.pnlWelcome.Location = New System.Drawing.Point(0, 0)
-            Me.pnlWelcome.Name = "pnlWelcome"
-            Me.pnlWelcome.Padding = New System.Windows.Forms.Padding(18)
-            Me.pnlWelcome.Size = New System.Drawing.Size(974, 85)
-            Me.pnlWelcome.TabIndex = 0
-            '
+            ' 
+            pnlWelcome.BackColor = Color.White
+            pnlWelcome.Controls.Add(btnQuickOpenSoDoBan)
+            pnlWelcome.Controls.Add(lblWelcomeSubtitle)
+            pnlWelcome.Controls.Add(lblWelcomeGreeting)
+            pnlWelcome.Dock = DockStyle.Top
+            pnlWelcome.Location = New Point(0, 0)
+            pnlWelcome.Name = "pnlWelcome"
+            pnlWelcome.Padding = New Padding(18)
+            pnlWelcome.Size = New Size(974, 85)
+            pnlWelcome.TabIndex = 0
+            ' 
             ' btnQuickOpenSoDoBan
-            '
-            Me.btnQuickOpenSoDoBan.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-            Me.btnQuickOpenSoDoBan.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-            Me.btnQuickOpenSoDoBan.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.btnQuickOpenSoDoBan.FlatAppearance.BorderSize = 0
-            Me.btnQuickOpenSoDoBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-            Me.btnQuickOpenSoDoBan.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.btnQuickOpenSoDoBan.ForeColor = System.Drawing.Color.White
-            Me.btnQuickOpenSoDoBan.Location = New System.Drawing.Point(784, 22)
-            Me.btnQuickOpenSoDoBan.Name = "btnQuickOpenSoDoBan"
-            Me.btnQuickOpenSoDoBan.Size = New System.Drawing.Size(175, 40)
-            Me.btnQuickOpenSoDoBan.TabIndex = 2
-            Me.btnQuickOpenSoDoBan.Tag = "POS_SO_DO_BAN"
-            Me.btnQuickOpenSoDoBan.Text = "⚡ Mở Sơ Đồ Bàn"
-            Me.btnQuickOpenSoDoBan.UseVisualStyleBackColor = False
-            '
+            ' 
+            btnQuickOpenSoDoBan.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+            btnQuickOpenSoDoBan.BackColor = Color.FromArgb(CByte(41), CByte(128), CByte(185))
+            btnQuickOpenSoDoBan.Cursor = Cursors.Hand
+            btnQuickOpenSoDoBan.FlatAppearance.BorderSize = 0
+            btnQuickOpenSoDoBan.FlatStyle = FlatStyle.Flat
+            btnQuickOpenSoDoBan.Font = New Font("Segoe UI", 9.5F, FontStyle.Bold)
+            btnQuickOpenSoDoBan.ForeColor = Color.White
+            btnQuickOpenSoDoBan.Location = New Point(784, 22)
+            btnQuickOpenSoDoBan.Name = "btnQuickOpenSoDoBan"
+            btnQuickOpenSoDoBan.Size = New Size(175, 40)
+            btnQuickOpenSoDoBan.TabIndex = 2
+            btnQuickOpenSoDoBan.Tag = "POS_SO_DO_BAN"
+            btnQuickOpenSoDoBan.Text = "⚡ Mở Sơ Đồ Bàn"
+            btnQuickOpenSoDoBan.UseVisualStyleBackColor = False
+            ' 
             ' lblWelcomeSubtitle
-            '
-            Me.lblWelcomeSubtitle.AutoSize = True
-            Me.lblWelcomeSubtitle.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.lblWelcomeSubtitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(140, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.lblWelcomeSubtitle.Location = New System.Drawing.Point(18, 47)
-            Me.lblWelcomeSubtitle.Name = "lblWelcomeSubtitle"
-            Me.lblWelcomeSubtitle.Size = New System.Drawing.Size(434, 17)
-            Me.lblWelcomeSubtitle.TabIndex = 1
-            Me.lblWelcomeSubtitle.Text = "Hôm nay hệ thống hoạt động ổn định. Chúc bạn một ngày làm việc hiệu quả!"
-            '
+            ' 
+            lblWelcomeSubtitle.AutoSize = True
+            lblWelcomeSubtitle.Font = New Font("Segoe UI", 9.5F)
+            lblWelcomeSubtitle.ForeColor = Color.FromArgb(CByte(127), CByte(140), CByte(141))
+            lblWelcomeSubtitle.Location = New Point(18, 47)
+            lblWelcomeSubtitle.Name = "lblWelcomeSubtitle"
+            lblWelcomeSubtitle.Size = New Size(458, 17)
+            lblWelcomeSubtitle.TabIndex = 1
+            lblWelcomeSubtitle.Text = "Hôm nay hệ thống hoạt động ổn định. Chúc bạn một ngày làm việc hiệu quả!"
+            ' 
             ' lblWelcomeGreeting
-            '
-            Me.lblWelcomeGreeting.AutoSize = True
-            Me.lblWelcomeGreeting.Font = New System.Drawing.Font("Segoe UI", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-            Me.lblWelcomeGreeting.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-            Me.lblWelcomeGreeting.Location = New System.Drawing.Point(16, 16)
-            Me.lblWelcomeGreeting.Name = "lblWelcomeGreeting"
-            Me.lblWelcomeGreeting.Size = New System.Drawing.Size(364, 28)
-            Me.lblWelcomeGreeting.TabIndex = 0
-            Me.lblWelcomeGreeting.Text = "Xin chào, Nguyễn Văn Chủ Quán! 👋"
-            '
+            ' 
+            lblWelcomeGreeting.AutoSize = True
+            lblWelcomeGreeting.Font = New Font("Segoe UI", 15F, FontStyle.Bold)
+            lblWelcomeGreeting.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
+            lblWelcomeGreeting.Location = New Point(16, 16)
+            lblWelcomeGreeting.Name = "lblWelcomeGreeting"
+            lblWelcomeGreeting.Size = New Size(359, 28)
+            lblWelcomeGreeting.TabIndex = 0
+            lblWelcomeGreeting.Text = "Xin chào, Nguyễn Văn Chủ Quán! 👋"
+            ' 
             ' tmrClock
-            '
-            Me.tmrClock.Enabled = True
-            Me.tmrClock.Interval = 1000
-            '
+            ' 
+            tmrClock.Enabled = True
+            tmrClock.Interval = 1000
+            ' 
             ' frmMain
-            '
-            Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
-            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-            Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(244, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(249, Byte), Integer))
-            Me.ClientSize = New System.Drawing.Size(1264, 733)
-            Me.Controls.Add(Me.pnlContent)
-            Me.Controls.Add(Me.appStatusStrip)
-            Me.Controls.Add(Me.pnlSidebar)
-            Me.Controls.Add(Me.pnlHeader)
-            Me.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-            Me.MinimumSize = New System.Drawing.Size(1150, 700)
-            Me.Name = "frmMain"
-            Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-            Me.Text = "Hệ Thống Quản Lý Quán Ăn - [Màn Hình Chính]"
-            Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-            Me.pnlHeader.ResumeLayout(False)
-            Me.pnlBrand.ResumeLayout(False)
-            Me.pnlBrand.PerformLayout()
-            Me.pnlUserSection.ResumeLayout(False)
-            Me.pnlUserProfile.ResumeLayout(False)
-            Me.pnlUserProfile.PerformLayout()
-            Me.pnlSidebar.ResumeLayout(False)
-            Me.appStatusStrip.ResumeLayout(False)
-            Me.appStatusStrip.PerformLayout()
-            Me.pnlContent.ResumeLayout(False)
-            Me.pnlDashboardHome.ResumeLayout(False)
-            Me.pnlDashboardRow.ResumeLayout(False)
-            Me.pnlActivity.ResumeLayout(False)
-            Me.pnlActivity.PerformLayout()
-            Me.pnlQuickActions.ResumeLayout(False)
-            Me.pnlQuickActions.PerformLayout()
-            Me.tlpQuickButtons.ResumeLayout(False)
-            Me.tlpKpiGrid.ResumeLayout(False)
-            Me.pnlKpiDoanhThu.ResumeLayout(False)
-            Me.pnlKpiDoanhThu.PerformLayout()
-            Me.pnlKpiNhanSu.ResumeLayout(False)
-            Me.pnlKpiNhanSu.PerformLayout()
-            Me.pnlKpiMonCho.ResumeLayout(False)
-            Me.pnlKpiMonCho.PerformLayout()
-            Me.pnlKpiBan.ResumeLayout(False)
-            Me.pnlKpiBan.PerformLayout()
-            Me.pnlWelcome.ResumeLayout(False)
-            Me.pnlWelcome.PerformLayout()
-            Me.ResumeLayout(False)
-            Me.PerformLayout()
+            ' 
+            AutoScaleDimensions = New SizeF(7F, 17F)
+            AutoScaleMode = AutoScaleMode.Font
+            BackColor = Color.FromArgb(CByte(244), CByte(246), CByte(249))
+            ClientSize = New Size(1264, 733)
+            Controls.Add(pnlContent)
+            Controls.Add(appStatusStrip)
+            Controls.Add(pnlSidebar)
+            Controls.Add(pnlHeader)
+            Font = New Font("Segoe UI", 9.5F)
+            MinimumSize = New Size(1150, 700)
+            Name = "frmMain"
+            StartPosition = FormStartPosition.CenterScreen
+            Text = "Hệ Thống Quản Lý Quán Ăn - [Màn Hình Chính]"
+            WindowState = FormWindowState.Maximized
+            pnlHeader.ResumeLayout(False)
+            pnlBrand.ResumeLayout(False)
+            pnlBrand.PerformLayout()
+            pnlUserSection.ResumeLayout(False)
+            pnlUserProfile.ResumeLayout(False)
+            pnlUserProfile.PerformLayout()
+            pnlSidebar.ResumeLayout(False)
+            appStatusStrip.ResumeLayout(False)
+            appStatusStrip.PerformLayout()
+            pnlContent.ResumeLayout(False)
+            pnlDashboardHome.ResumeLayout(False)
+            pnlDashboardRow.ResumeLayout(False)
+            pnlActivity.ResumeLayout(False)
+            pnlActivity.PerformLayout()
+            pnlQuickActions.ResumeLayout(False)
+            pnlQuickActions.PerformLayout()
+            tlpQuickButtons.ResumeLayout(False)
+            tlpKpiGrid.ResumeLayout(False)
+            pnlKpiDoanhThu.ResumeLayout(False)
+            pnlKpiDoanhThu.PerformLayout()
+            pnlKpiNhanSu.ResumeLayout(False)
+            pnlKpiNhanSu.PerformLayout()
+            pnlKpiMonCho.ResumeLayout(False)
+            pnlKpiMonCho.PerformLayout()
+            pnlKpiBan.ResumeLayout(False)
+            pnlKpiBan.PerformLayout()
+            pnlWelcome.ResumeLayout(False)
+            pnlWelcome.PerformLayout()
+            ResumeLayout(False)
+            PerformLayout()
 
         End Sub
 
