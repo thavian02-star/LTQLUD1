@@ -98,6 +98,7 @@ docs/
     ├── RELEASE_REPORT_TEMPLATE.md      ← Tài liệu mẫu & Prompt hướng dẫn (file này)
     ├── report_0_2_0.html               ← Báo cáo phát hành phiên bản v0.2.0 (Auth & Main Dashboard)
     ├── report_0_2_1.html               ← Báo cáo phát hành phiên bản v0.2.1 (Đổi Mật Khẩu & Kiểm thử Đa Vai trò)
+    ├── report_0_2_2.html               ← Báo cáo phát hành phiên bản v0.2.2 (Sửa lỗi Z-Order & Tối ưu Responsive 60:40 trên frmMain v1.1)
     ├── report_0_3_0.html               ← (Dự kiến: Sơ đồ bàn & Gọi món)
     └── ...
 ```

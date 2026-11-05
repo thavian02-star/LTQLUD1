@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Release Report v0.2.2 — Sửa Lỗi Z-Order & Tối Ưu Responsive 60:40 Trên frmMain (v1.1)</title>
+  <style>
+    :root {
+      --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      --mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+      --slate-900: #0F172A;
+      --slate-800: #1E293B;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748B;
+      --slate-400: #94A3B8;
+      --slate-300: #CBD5E1;
+      --slate-200: #E2E8F0;
+      --slate-100: #F1F5F9;
+      --slate-50:  #F8FAFC;
+      --blue-600:  #2563EB;
+      --blue-100:  #DBEAFE;
+      --green-600: #16A34A;
+      --green-100: #DCFCE7;
+      --red-600:   #DC2626;
+      --red-100:   #FEE2E2;
+      --purple-600:#7C3AED;
+      --purple-100:#EDE9FE;
+      --orange-600:#EA580C;
+      --orange-100:#FFEDD5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--slate-100);
+      color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    /* ── 1. HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 55%, #1D4ED8 100%);
+      color: white;
+      padding: 44px 24px 38px;
+      border-bottom: 4px solid #38BDF8;
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
+    .header-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: #4ADE80;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #4ADE80;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: #DBEAFE;
+      max-width: 920px;
+      margin-bottom: 22px;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .header-meta-item {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 6px 14px;
+      border-radius: 8px;
+    }
+
+    /* ── 2. STATS BAR ── */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    .stats-bar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      background: var(--slate-50);
+      border-radius: 12px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.red    { background: var(--red-100); color: var(--red-600); }
+    .stat-icon.blue   { background: var(--blue-100); color: var(--blue-600); }
+    .stat-icon.green  { background: var(--green-100); color: var(--green-600); }
+    .stat-icon.purple { background: var(--purple-100); color: var(--purple-600); }
+    .stat-icon.orange { background: var(--orange-100); color: var(--orange-600); }
+
+    .stat-num {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--slate-500);
+      font-weight: 600;
+    }
+
+    /* ── 3. TOC BAR ── */
+    .toc-bar {
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .toc-list {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .toc-pill {
+      display: inline-block;
+      padding: 6px 14px;
+      background: white;
+      border: 1px solid var(--slate-300);
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--slate-700);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .toc-pill:hover {
+      background: var(--blue-600);
+      color: white;
+      border-color: var(--blue-600);
+    }
+
+    /* ── 4. MAIN CONTENT & CARDS ── */
+    .main {
+      max-width: 1180px;
+      margin: 28px auto 60px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--slate-500);
+      text-transform: uppercase;
+    }
+
+    .change-card {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--slate-50);
+    }
+
+    .card-type-badge {
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge-fix     { background: var(--red-100); color: var(--red-600); }
+    .badge-ux      { background: var(--green-100); color: var(--green-600); }
+    .badge-feature { background: var(--blue-100); color: var(--blue-600); }
+    .badge-infra   { background: var(--orange-100); color: var(--orange-600); }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12.5px;
+      color: var(--slate-500);
+    }
+
+    .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* ── BEFORE / AFTER PANELS ── */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 920px) {
+      .ba-grid { grid-template-columns: 1fr; }
+    }
+
+    .ba-panel {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ba-panel.before { border-color: #FECACA; background: #FFF5F5; }
+    .ba-panel.after  { border-color: #BBF7D0; background: #F0FDF4; }
+
+    .ba-panel-header {
+      padding: 10px 16px;
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+
+    .ba-panel.before .ba-panel-header { background: #FEE2E2; color: #991B1B; border-bottom: 1px solid #FECACA; }
+    .ba-panel.after  .ba-panel-header { background: #DCFCE7; color: #166534; border-bottom: 1px solid #BBF7D0; }
+
+    .ba-panel-body {
+      padding: 16px;
+      font-size: 13px;
+      color: var(--slate-700);
+      flex: 1;
+    }
+
+    /* ── PURE CSS DESKTOP MOCKUP ── */
+    .desktop-mockup {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      border: 1px solid var(--slate-300);
+    }
+
+    .mockup-titlebar {
+      background: #1F618D;
+      color: white;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-ctrl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .ctrl-yellow { background: #F1C40F; }
+    .ctrl-green  { background: #2ECC71; }
+    .ctrl-red    { background: #E74C3C; }
+
+    /* ── CODE DIFF BLOCK ── */
+    .code-diff {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--slate-300);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .code-diff-header {
+      background: var(--slate-800);
+      color: var(--slate-300);
+      padding: 8px 14px;
+      font-size: 11.5px;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font);
+      font-weight: 600;
+    }
+
+    .code-diff-body {
+      background: white;
+      padding: 8px 0;
+      overflow-x: auto;
+    }
+
+    .diff-line {
+      padding: 2px 14px;
+      white-space: pre;
+    }
+
+    .diff-line.add { background: #F0FDF4; color: #166534; border-left: 3px solid #22C55E; }
+    .diff-line.del { background: #FEF2F2; color: #991B1B; border-left: 3px solid #EF4444; }
+    .diff-line.context { color: var(--slate-600); }
+
+    /* ── TABLE ── */
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .model-table th {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .model-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--slate-100);
+      color: var(--slate-700);
+    }
+
+    code {
+      font-family: var(--mono);
+      background: var(--slate-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--slate-900);
+    }
+
+    .footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 34px 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── 1. HEADER ── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-badge">
+        <span class="dot"></span>
+        <span>OFFICIAL RELEASE REPORT · v0.2.2 (frmMain v1.1 UI/UX Hotfix)</span>
+      </div>
+      <h1>Hệ Thống Quản Lý Quán Ăn — Phiên Bản v0.2.2</h1>
+      <p class="header-desc">
+        Báo cáo phát hành chính thức cho bản nâng cấp <strong>frmMain v1.1 (UI/UX Hotfix &amp; Responsive Layout)</strong>: Khắc phục triệt để lỗi đè chữ Z-Order tại khung <em>"🔔 Hoạt Động Gần Đây"</em> (<code>BUG-MAIN-01</code>), xóa bỏ khoảng trống trắng dư thừa bên phải khi phóng to màn hình bằng <code>TableLayoutPanel</code> tỉ lệ <strong>60% : 40%</strong> (<code>BUG-MAIN-02</code>), liên kết nhật ký thời gian thực với <code>frmDoiMatKhau</code> và vượt qua <strong>74/74 bài kiểm thử tọa độ &amp; RBAC (100%)</strong>.
+      </p>
+      <div class="header-meta">
+        <div class="header-meta-item">Phiên bản: <strong>v0.2.1 ➔ v0.2.2 (frmMain v1.1)</strong></div>
+        <div class="header-meta-item">Commit range: <strong>a072031 .. fe16724</strong></div>
+        <div class="header-meta-item">Ngày phát hành: <strong>05/11/2026</strong></div>
+        <div class="header-meta-item"><a href="report_0_2_1.html" style="color: #93C5FD; font-weight: 700; text-decoration: underline;">⬅️ Xem Release v0.2.1 (frmDoiMatKhau)</a></div>
+        <div class="header-meta-item"><a href="../features/main/v1_1/frmMain_mockup_v1_1.html" style="color: #86EFAC; font-weight: 700; text-decoration: underline;">🎨 Mở Mockup Tương Tác frmMain v1.1</a></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 2. STATS BAR ── -->
+  <section class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <div class="stat-icon red">🐛</div>
+        <div>
+          <div class="stat-num">2 Bugs UI/UX</div>
+          <div class="stat-label">Đã Khắc Phục Triệt Để</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon blue">📐</div>
+        <div>
+          <div class="stat-num">60% : 40%</div>
+          <div class="stat-label">TableLayoutPanel Co Giãn</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon green">✅</div>
+        <div>
+          <div class="stat-num">74 / 74</div>
+          <div class="stat-label">Test Cases Đạt (100%)</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon purple">🔗</div>
+        <div>
+          <div class="stat-num">Real-Time</div>
+          <div class="stat-label">Ghi Nhật Ký Khi Đổi MK</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon orange">📦</div>
+        <div>
+          <div class="stat-num">4 Commits</div>
+          <div class="stat-label">6 Files Cập Nhật</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. TABLE OF CONTENTS ── -->
+  <nav class="toc-bar">
+    <ul class="toc-list">
+      <li><a class="toc-pill" href="#card-zorder">🐛 1. Sửa Lỗi Đè Chữ Z-Order (BUG-MAIN-01)</a></li>
+      <li><a class="toc-pill" href="#card-responsive">📐 2. Xóa Khoảng Trống Dư Thừa 60:40 (BUG-MAIN-02)</a></li>
+      <li><a class="toc-pill" href="#card-integration">🔗 3. Liên Kết Nhật Ký Động Với frmDoiMatKhau</a></li>
+      <li><a class="toc-pill" href="#card-testing">🧪 4. Nghiệm Thu 74/74 Test Cases</a></li>
+      <li><a class="toc-pill" href="#card-files">📋 5. Bảng Thống Kê Files</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── 4. MAIN CONTENT ── -->
+  <main class="main">
+
+    <div class="section-title">CHI TIẾT CÁC THAY ĐỔI TRỌNG YẾU TRONG RELEASE v0.2.2 (BEFORE / AFTER)</div>
+
+    <!-- CARD 1: SỬA LỖI ĐÈ CHỮ Z-ORDER TRONG PNLACTIVITY (BUG-MAIN-01) -->
+    <article class="change-card" id="card-zorder">
+      <div class="card-header">
+        <span class="card-type-badge badge-fix">🐛 FIX · BUG-MAIN-01</span>
+        <div>
+          <h2 class="card-title">Khắc Phục Lỗi Nhãn Tiêu Đề "🔔 Hoạt Động Gần Đây" Đè Khuất 2 Dòng Đầu Của Danh Sách (Z-Order Overlap)</h2>
+          <div class="card-subtitle">Commits: <code>406d7d6</code>, <code>b9e0942</code> · File: <code>Quanlyquanan/Features/Main/frmMain.Designer.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          <strong>Nguyên nhân gốc rễ:</strong> Trong <code>pnlActivity.Controls</code> ở phiên bản cũ (<code>v1.0</code>), <code>lblActivityHeader</code> (<code>Dock = Top</code>, <code>AutoSize = True</code>, kích thước <code>166×31 px</code>) được thêm ở <code>Index 0</code> trước <code>lstActivity</code> (<code>Index 1</code>, <code>Dock = Fill</code>). Theo cơ chế Dock của WinForms, <code>lstActivity</code> được tính toán trước nên tràn lên đỉnh <code>Point(16, 16)</code>, còn <code>lblActivityHeader</code> nằm đè lên góc trái trên của <code>lstActivity</code>, che mất nửa bên trái của 2 dòng đầu tiên và chỉ để lộ chữ <strong>"Hải Sản"</strong> và <strong>"Lúc Lắc (Bàn 02)"</strong>.
+        </p>
+
+        <div class="ba-grid">
+          <!-- BEFORE -->
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC KHI SỬA (v0.2.1 — Lỗi đè chữ &amp; Bôi xanh dòng)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px; margin-bottom: 12px;">
+                <li><code>pnlActivity.Controls.Add(lblActivityHeader)</code> đặt ở <code>Index 0</code>.</li>
+                <li><code>lblActivityHeader.AutoSize = True</code> (co lại thành hộp trắng <code>166×31 px</code> đè lên góc trái của <code>lstActivity</code> tại <code>Y = 16</code>).</li>
+                <li>Mất đầu dòng 1 &amp; 2, chỉ lộ chữ <strong>"Hải Sản"</strong> và <strong>"Lúc Lắc (Bàn 02)"</strong>.</li>
+              </ul>
+
+              <!-- MOCKUP BEFORE: BROKEN Z-ORDER OVERLAP -->
+              <div class="desktop-mockup" style="padding: 14px; background: white; border: 1px solid #FCA5A5;">
+                <div style="position: relative; min-height: 135px; font-size: 11.5px; color: #2C3E50; line-height: 19px;">
+                  <!-- Overlapping Header at (0,0) width 162px height 31px -->
+                  <div style="position: absolute; top: 0; left: 0; width: 162px; height: 31px; background: white; z-index: 4; font-weight: 700; font-size: 13px; outline: 2px dashed #EF4444;">
+                    🔔 Hoạt Động Gần Đây
+                  </div>
+                  <!-- ListBox starting at (0,0) underneath -->
+                  <div style="position: relative; z-index: 1;">
+                    <div style="white-space: nowrap;">• [16:48] Bàn 05 gọi thêm 2 Lẩu Hải Sản</div>
+                    <div style="white-space: nowrap; background: #0078D7; color: white;">• [16:42] Bếp báo xong món Bò Lúc Lắc (Bàn 02)</div>
+                    <div style="white-space: nowrap;">• [16:30] Bàn 01 thanh toán thành công: 620.000 đ</div>
+                    <div style="white-space: nowrap;">• [16:00] NV Lê Văn Phục Vụ 1 chấm công vào ca chiều</div>
+                    <div style="white-space: nowrap;">• [15:45] Quản lý duyệt 3 bảng chấm công ca trưa</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AFTER -->
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU KHI SỬA (v0.2.2 — Chuẩn Z-Order, Hiển thị trọn vẹn 5 dòng)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px; margin-bottom: 12px;">
+                <li>Đảo <code>pnlActivity.Controls.Add(lstActivity)</code> lên <code>Index 0</code> và <code>lblActivityHeader</code> xuống <code>Index 1</code>.</li>
+                <li>Đặt <code>lblActivityHeader.AutoSize = False</code>, <code>Height = 32px</code>; <code>lstActivity.Location = Point(16, 48)</code>.</li>
+                <li>Gọi <code>lstActivity.ClearSelected()</code> xóa vệt xanh thừa.</li>
+              </ul>
+
+              <!-- MOCKUP AFTER: CLEAN Z-ORDER -->
+              <div class="desktop-mockup" style="padding: 14px; background: white; border: 1px solid #86EFAC;">
+                <div style="font-weight: 700; font-size: 13px; color: #2C3E50; height: 28px; border-bottom: 1px solid #E2E8F0; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                  <span>🔔 Hoạt Động Gần Đây</span>
+                  <span style="font-size: 10px; color: #16A34A;">lstActivity.Top = 48px</span>
+                </div>
+                <div style="font-size: 11.5px; color: #2C3E50; line-height: 21px;">
+                  <div>• [16:48] Bàn 05 gọi thêm 2 Lẩu Hải Sản</div>
+                  <div>• [16:42] Bếp báo xong món Bò Lúc Lắc (Bàn 02)</div>
+                  <div>• [16:30] Bàn 01 thanh toán thành công: 620.000 đ</div>
+                  <div>• [16:00] NV Lê Văn Phục Vụ 1 chấm công vào ca chiều</div>
+                  <div>• [15:45] Quản lý duyệt 3 bảng chấm công ca trưa</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>Quanlyquanan/Features/Main/frmMain.Designer.vb — Đảo thứ tự Z-Order trong pnlActivity &amp; cố định chiều cao Header 32px</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line context">  ' pnlActivity</div>
+            <div class="diff-line del">- pnlActivity.Controls.Add(lblActivityHeader)</div>
+            <div class="diff-line del">- pnlActivity.Controls.Add(lstActivity)</div>
+            <div class="diff-line add">+ pnlActivity.Controls.Add(lstActivity) ' Index 0: Dock = Fill (nam duoi Header)</div>
+            <div class="diff-line add">+ pnlActivity.Controls.Add(lblActivityHeader) ' Index 1: Dock = Top (nam tren cung)</div>
+            <div class="diff-line context">  ' lblActivityHeader</div>
+            <div class="diff-line del">- lblActivityHeader.AutoSize = True</div>
+            <div class="diff-line del">- lblActivityHeader.Size = New Size(166, 31)</div>
+            <div class="diff-line add">+ lblActivityHeader.AutoSize = False</div>
+            <div class="diff-line add">+ lblActivityHeader.Size = New Size(350, 32)</div>
+            <div class="diff-line add">+ lblActivityHeader.TextAlign = ContentAlignment.MiddleLeft</div>
+            <div class="diff-line context">  ' lstActivity</div>
+            <div class="diff-line del">- lstActivity.Location = New Point(16, 16)</div>
+            <div class="diff-line add">+ lstActivity.Location = New Point(16, 48)</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 2: XÓA KHOẢNG TRỐNG DƯ THỪA BẰNG TABLELAYOUTPANEL 60% : 40% (BUG-MAIN-02) -->
+    <article class="change-card" id="card-responsive">
+      <div class="card-header">
+        <span class="card-type-badge badge-ux">📐 RESPONSIVE LAYOUT · BUG-MAIN-02</span>
+        <div>
+          <h2 class="card-title">Xóa Bỏ Khoảng Trống Trắng Dư Thừa Khi Phóng To Màn Hình Bằng TableLayoutPanel (Tỉ Lệ 60% : 40%)</h2>
+          <div class="card-subtitle">Commit: <code>b9e0942</code> · File: <code>Quanlyquanan/Features/Main/frmMain.Designer.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          <strong>Nguyên nhân gốc rễ:</strong> Ở phiên bản cũ, <code>pnlDashboardRow</code> là một <code>Panel</code> thường trong đó cột trái <code>pnlQuickActions</code> đặt <code>Dock = Left</code> cố định <code>565px</code>, còn cột phải <code>pnlActivity</code> đặt <code>Dock = Fill</code>. Khi mở toàn màn hình Full HD (<code>1920×1080</code>), cột trái bị khóa chết ở <code>565px</code> trong khi toàn bộ chiều ngang dư ra dồn hết sang cột phải (<code>>1.000px</code>), tạo khoảng trắng dư thừa lớn bên phải và 2 khung dính sát nhau (<code>Gap = 0px</code>).
+        </p>
+
+        <div class="ba-grid">
+          <!-- BEFORE -->
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC (v0.2.1 — Cột trái khóa cứng 565px, Cột phải dư khoảng trắng)</div>
+            <div class="ba-panel-body">
+              <div class="desktop-mockup" style="padding: 10px; background: #F4F6F9;">
+                <div style="font-size: 10px; font-weight: 700; color: #64748B; margin-bottom: 6px;">Màn hình Maximized (1920×1080) — Panel thường (Dock=Left 565px + Dock=Fill):</div>
+                <div style="display: flex; gap: 0px; height: 140px; border: 1px solid #CBD5E1;">
+                  <!-- Fixed 35% width on 1920px -->
+                  <div style="width: 36%; background: white; padding: 8px; border-right: 1px dashed #EF4444; display: flex; flex-direction: column;">
+                    <div style="font-size: 9.5px; font-weight: 700; color: #2C3E50;">⚡ Thao Tác Nhanh (565px cố định)</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; flex: 1; margin-top: 6px;">
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8px; display: flex; align-items: center; justify-content: center;">🍽️ Bàn</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8px; display: flex; align-items: center; justify-content: center;">🍳 Bếp</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8px; display: flex; align-items: center; justify-content: center;">⏱️ Công</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8px; display: flex; align-items: center; justify-content: center;">🕒 Duyệt</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8px; display: flex; align-items: center; justify-content: center;">🍲 Món</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8px; display: flex; align-items: center; justify-content: center;">📈 Báo cáo</div>
+                    </div>
+                  </div>
+                  <!-- Stretched 64% width with huge empty space -->
+                  <div style="flex: 1; background: white; padding: 8px; position: relative; display: flex;">
+                    <div style="width: 48%; font-size: 8.5px; color: #334155;">
+                      <strong>🔔 Hoạt Động Gần Đây</strong><br/>
+                      • [16:48] Bàn 05 gọi 2 Lẩu<br/>
+                      • [16:42] Bếp xong Bàn 02<br/>
+                      • [16:30] Bàn 01 thanh toán
+                    </div>
+                    <div style="flex: 1; border: 2px dashed #F59E0B; background: rgba(245,158,11,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 9px; font-weight: 700; color: #B45309; padding: 4px;">
+                      ⚠️ Khoảng trống trắng dư thừa (~600px)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AFTER -->
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU (v0.2.2 — TableLayoutPanel 60% : 40% + Khoảng cách 16px)</div>
+            <div class="ba-panel-body">
+              <div class="desktop-mockup" style="padding: 10px; background: #F4F6F9;">
+                <div style="font-size: 10px; font-weight: 700; color: #166534; margin-bottom: 6px;">Màn hình Maximized (1920×1080) — TableLayoutPanel (Col0 = 60%, Col1 = 40%, Gap = 16px):</div>
+                <div style="display: grid; grid-template-columns: 60fr 40fr; gap: 10px; height: 140px;">
+                  <!-- 60% Responsive Column -->
+                  <div style="background: white; padding: 8px; border: 1px solid #86EFAC; border-radius: 4px; display: flex; flex-direction: column;">
+                    <div style="font-size: 9.5px; font-weight: 700; color: #2C3E50; display: flex; justify-content: space-between;">
+                      <span>⚡ Thao Tác Nghiệp Vụ Nhanh</span>
+                      <span style="color: #16A34A;">60% (960px)</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; flex: 1; margin-top: 6px;">
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;">🍽️ Sơ Đồ Bàn</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;">🍳 Hàng Đợi Bếp</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;">⏱️ Chấm Công</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;">🕒 Duyệt Công</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;">🍲 Thực Đơn</div>
+                      <div style="background: #F8FAFC; border: 1px solid #CBD5E1; font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;">📈 Báo Cáo</div>
+                    </div>
+                  </div>
+                  <!-- 40% Responsive Column -->
+                  <div style="background: white; padding: 8px; border: 1px solid #86EFAC; border-radius: 4px; display: flex; flex-direction: column;">
+                    <div style="font-size: 9.5px; font-weight: 700; color: #2C3E50; display: flex; justify-content: space-between; border-bottom: 1px solid #E2E8F0; padding-bottom: 3px; margin-bottom: 4px;">
+                      <span>🔔 Hoạt Động Gần Đây</span>
+                      <span style="color: #16A34A;">40% (638px)</span>
+                    </div>
+                    <div style="font-size: 8.5px; color: #334155; line-height: 1.55;">
+                      <div>• [16:48] Bàn 05 gọi thêm 2 Lẩu Hải Sản</div>
+                      <div>• [16:42] Bếp báo xong món Bò Lúc Lắc (Bàn 02)</div>
+                      <div>• [16:30] Bàn 01 thanh toán thành công: 620.000 đ</div>
+                      <div>• [16:00] NV Lê Văn Phục Vụ 1 chấm công vào ca</div>
+                      <div>• [15:45] Quản lý duyệt 3 bảng chấm công ca trưa</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>Quanlyquanan/Features/Main/frmMain.Designer.vb — Chuyển pnlDashboardRow sang TableLayoutPanel 60% : 40%</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line del">- pnlDashboardRow = New Panel()</div>
+            <div class="diff-line add">+ pnlDashboardRow = New TableLayoutPanel()</div>
+            <div class="diff-line add">+ pnlDashboardRow.ColumnCount = 2</div>
+            <div class="diff-line add">+ pnlDashboardRow.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 60F))</div>
+            <div class="diff-line add">+ pnlDashboardRow.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 40F))</div>
+            <div class="diff-line add">+ pnlDashboardRow.Controls.Add(pnlQuickActions, 0, 0)</div>
+            <div class="diff-line add">+ pnlDashboardRow.Controls.Add(pnlActivity, 1, 0)</div>
+            <div class="diff-line del">- pnlQuickActions.Dock = DockStyle.Left</div>
+            <div class="diff-line add">+ pnlQuickActions.Dock = DockStyle.Fill</div>
+            <div class="diff-line add">+ pnlQuickActions.Margin = New Padding(0, 0, 8, 0)</div>
+            <div class="diff-line add">+ pnlActivity.Margin = New Padding(8, 0, 0, 0)</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 3: LIÊN KẾT NHẬT KÝ HOẠT ĐỘNG THỜI GIAN THỰC VỚI FRMDOIMATKHAU -->
+    <article class="change-card" id="card-integration">
+      <div class="card-header">
+        <span class="card-type-badge badge-feature">🔗 REAL-TIME ACTIVITY LOG &amp; RBAC</span>
+        <div>
+          <h2 class="card-title">Tự Động Ghi Nhận Sự Kiện Đổi Mật Khẩu Vào Bảng "Hoạt Động Gần Đây" &amp; Củng Cố Đệ Quy RBAC</h2>
+          <div class="card-subtitle">Commit: <code>fe16724</code> · Files: <code>frmMain.vb</code>, <code>PhanQuyenHelper.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Bổ sung phương thức <code>GhiNhatKyHoatDong(noiDung As String)</code> trên <code>frmMain</code>. Khi người dùng mở hộp thoại <code>frmDoiMatKhau</code> từ Sidebar và cập nhật mật khẩu thành công (trả về <code>DialogResult.OK</code>), <code>frmMain</code> lập tức chèn dòng nhật ký mới kèm mốc giờ hiện tại lên đầu danh sách <code>lstActivity</code>.
+        </p>
+
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>Quanlyquanan/Features/Main/frmMain.vb — Ghi nhận sự kiện đổi mật khẩu vào lstActivity</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line context">  Private Sub btnDoiMatKhau_Click(sender As Object, e As EventArgs) Handles btnDoiMatKhau.Click</div>
+            <div class="diff-line context">      CapNhatButtonActive(btnDoiMatKhau)</div>
+            <div class="diff-line context">      Using fDoiMK As New Features.Auth.frmDoiMatKhau()</div>
+            <div class="diff-line del">-         fDoiMK.ShowDialog(Me)</div>
+            <div class="diff-line add">+         If fDoiMK.ShowDialog(Me) = DialogResult.OK Then</div>
+            <div class="diff-line add">+             GhiNhatKyHoatDong($"Tài khoản '{Session.TenDangNhap}' đã cập nhật mật khẩu mới")</div>
+            <div class="diff-line add">+         End If</div>
+            <div class="diff-line context">      End Using</div>
+            <div class="diff-line context">  End Sub</div>
+            <div class="diff-line context"> </div>
+            <div class="diff-line add">+ Public Sub GhiNhatKyHoatDong(noiDung As String)</div>
+            <div class="diff-line add">+     If String.IsNullOrWhiteSpace(noiDung) Then Return</div>
+            <div class="diff-line add">+     Dim mocThoiGian As String = DateTime.Now.ToString("HH:mm")</div>
+            <div class="diff-line add">+     lstActivity.Items.Insert(0, $"• [{mocThoiGian}] {noiDung.Trim()}")</div>
+            <div class="diff-line add">+     lstActivity.ClearSelected()</div>
+            <div class="diff-line add">+ End Sub</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 4: KẾT QUẢ KIỂM THỬ TỰ ĐỘNG 74/74 TEST CASES -->
+    <article class="change-card" id="card-testing">
+      <div class="card-header">
+        <span class="card-type-badge badge-ux">🧪 AUTOMATED GEOMETRY &amp; RBAC TESTS</span>
+        <div>
+          <h2 class="card-title">Nghiệm Thu Tự Động 10 Tiêu Chí Hình Học Giao Diện &amp; 64 Tiêu Chí Phân Quyền (74/74 Đạt 100%)</h2>
+          <div class="card-subtitle">CSDL: <code>172.20.218.246:1433 (QuanLyQuanAnDB)</code> · Công cụ: <code>RbacVerifier (.NET 10)</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Mã Test</th>
+              <th>Hạng Mục Kiểm Thử Tự Động Trên <code>frmMain v1.1</code></th>
+              <th>Thông Số Đo Thực Tế Khi Chạy Form</th>
+              <th>Kết Quả</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>L-01</code></td>
+              <td><code>pnlDashboardRow</code> là <code>TableLayoutPanel</code> (2 cột × 1 hàng)</td>
+              <td><code>Type=TableLayoutPanel, Cols=2, Rows=1</code></td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-02</code></td>
+              <td>Tỉ lệ <code>ColumnStyles</code> chuẩn <code>60%</code> (QuickActions) : <code>40%</code> (Activity)</td>
+              <td><code>Col0=60%, Col1=40%</code></td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-03</code></td>
+              <td>Z-Order trong <code>pnlActivity.Controls</code> chuẩn (<code>lstActivity</code> trước <code>lblActivityHeader</code>)</td>
+              <td><code>lstActivity.Index=0, lblActivityHeader.Index=1</code></td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-04..05</code></td>
+              <td><code>lblActivityHeader.AutoSize = False</code> &amp; <code>lblQuickHeader.AutoSize = False</code></td>
+              <td><code>Height = 32px</code> đồng bộ cả 2 khung</td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-06</code></td>
+              <td><strong>[Chống đè chữ BUG-MAIN-01]</strong> <code>lstActivity.Top &gt;= lblActivityHeader.Bottom</code></td>
+              <td><code>lblActivityHeader.Bottom=48px, lstActivity.Top=48px</code></td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-07</code></td>
+              <td>Độ phân giải chuẩn (<code>1280×750</code>): 2 khung cách nhau <code>16px</code> và cân đối</td>
+              <td><code>QuickWidth=576px, ActivityWidth=382px, Gap=16px</code></td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-08</code></td>
+              <td><strong>[Co giãn Full HD BUG-MAIN-02]</strong> Màn hình <code>1920×1080</code> tự mở rộng 60:40</td>
+              <td><code>QuickWidth=960px, ActivityWidth=638px, Gap=16px</code></td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>L-09..10</code></td>
+              <td>Xóa vệt xanh mặc định (<code>SelectedIndex = -1</code>) &amp; <code>GhiNhatKyHoatDong()</code></td>
+              <td>Chèn sự kiện mới lên <code>Items[0]</code> thành công</td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><code>RBAC</code></td>
+              <td>Kiểm thử đệ quy 16 tiêu chí phân quyền × 4 vai trò (<code>chuquan</code>, <code>quanly</code>, <code>phucvu1</code>, <code>nhabep1</code>)</td>
+              <td>Đạt <code>64/64</code> kịch bản trên CSDL Docker</td>
+              <td><span style="color: #16A34A; font-weight: 800;">✅ 64/64 PASS</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- CARD 5: FILE SUMMARY -->
+    <article class="change-card" id="card-files">
+      <div class="card-header">
+        <span class="card-type-badge badge-infra">📋 FILE SUMMARY</span>
+        <div>
+          <h2 class="card-title">Bảng Thống Kê Các File Thay Đổi Trong Phiên Bản v0.2.2</h2>
+          <div class="card-subtitle">Tổng hợp từ nhánh <code>main</code> (Sprint <code>frmMain v1.1</code>)</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Đường dẫn file</th>
+              <th>Phân hệ</th>
+              <th>Loại thay đổi</th>
+              <th>Mô tả chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Quanlyquanan/Features/Main/frmMain.Designer.vb</code></td>
+              <td>Main UI</td>
+              <td><span style="color: #2563EB; font-weight: 700;">Update (+31/-21)</span></td>
+              <td>Sửa Z-Order <code>pnlActivity</code>, tắt <code>AutoSize</code> tiêu đề và chuyển <code>pnlDashboardRow</code> sang <code>TableLayoutPanel</code> 60:40</td>
+            </tr>
+            <tr>
+              <td><code>Quanlyquanan/Features/Main/frmMain.vb</code></td>
+              <td>Main Logic</td>
+              <td><span style="color: #2563EB; font-weight: 700;">Update (+19/-5)</span></td>
+              <td>Bỏ chọn dòng mặc định <code>lstActivity</code>, thêm <code>GhiNhatKyHoatDong</code> khi đổi mật khẩu thành công</td>
+            </tr>
+            <tr>
+              <td><code>Quanlyquanan/Core/Helpers/PhanQuyenHelper.vb</code></td>
+              <td>Core RBAC</td>
+              <td><span style="color: #2563EB; font-weight: 700;">Update (+5/-2)</span></td>
+              <td>Đảm bảo tính bất biến (Idempotent) khi duyệt đệ quy qua <code>TableLayoutPanel</code></td>
+            </tr>
+            <tr>
+              <td><code>docs/features/main/v1_1/frmMain_mockup_v1_1.html</code></td>
+              <td>Docs / Mockup</td>
+              <td><span style="color: #16A34A; font-weight: 700;">New (+752)</span></td>
+              <td>Mockup HTML tương tác <code>v1.1</code> có bộ chuyển đổi 3 chế độ (<code>v1.1 Fix</code>, <code>v1.0 Bug</code>, <code>Split View</code>)</td>
+            </tr>
+            <tr>
+              <td><code>docs/features/main/v1_1/MAIN_UI_FIX_V1_1_SPRINT.md</code></td>
+              <td>Docs / Sprint</td>
+              <td><span style="color: #16A34A; font-weight: 700;">New (+137)</span></td>
+              <td>Kế hoạch Sprint 5 bước, phân tích Root Cause và báo cáo kết quả kiểm thử 74/74</td>
+            </tr>
+            <tr>
+              <td><code>docs/features/main/README.md</code> &amp; <code>MAIN_UI_VA_PHAN_QUYEN.md</code></td>
+              <td>Docs</td>
+              <td><span style="color: #2563EB; font-weight: 700;">Update (+5/-5)</span></td>
+              <td>Đồng bộ liên kết phiên bản <code>v1.0</code> và <code>v1.1</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ── 5. FOOTER ── -->
+  <footer class="footer">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <p style="font-weight: 700; color: white; margin-bottom: 6px;">ĐỒ ÁN: LẬP TRÌNH ỨNG DỤNG QUẢN LÝ 1 — HỆ THỐNG QUẢN LÝ QUÁN ĂN</p>
+      <p style="margin-bottom: 10px;">Release Report v0.2.2 (frmMain v1.1 UI/UX Hotfix &amp; Responsive Layout) · Năm học 2026</p>
+    </div>
+  </footer>
+
+</body>
+</html>

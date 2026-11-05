@@ -105,16 +105,26 @@ Khi chạy thực tế màn hình `frmMain` ở chế độ toàn màn hình (`W
 
 ---
 
-### BƯỚC 4: Kiểm thử Tự động Tọa độ Giao diện & Đa Vai trò (Automated Layout & RBAC Verification)
-- Bổ sung kịch bản kiểm thử tự động bằng code:
-  1. **Kiểm tra chống đè chữ (Anti-Overlap Assertion):** Xác nhận khi `frmMain` hiển thị (`fMain.Show()`), tọa độ đỉnh của danh sách luôn nằm dưới đáy tiêu đề: `lstActivity.Top >= lblActivityHeader.Bottom` (cụ thể `48 >= 48`) và `lblActivityHeader.AutoSize = False`.
-  2. **Kiểm tra tỉ lệ Responsive (Responsive Ratio Assertion):** Xác nhận `pnlQuickActions.Width > pnlActivity.Width` (tỉ lệ `~60:40`) ở cả kích thước `1280×750` và `1920×1080`, và khoảng cách giữa 2 khung `pnlActivity.Left - pnlQuickActions.Right = 16px`.
-  3. **Kiểm tra 64/64 tiêu chí phân quyền RBAC** trên cả 4 vai trò (`chuquan`, `quanly`, `phucvu1`, `nhabep1`).
+### BƯỚC 4: Kiểm thử Tự động Tọa độ Giao diện & Đa Vai trò (Automated Layout & RBAC Verification) — **ĐẠT 74/74 (100%)**
+- Đã thực thi bộ kiểm thử tự động `RbacVerifier` kết nối trực tiếp CSDL Docker SQL Server (`172.20.218.246:1433`):
+  1. **Phần 1 — Kiểm thử Tọa độ Hình học & Bố cục `frmMain v1.1` (10/10 PASS):**
+     - `L-01`: `pnlDashboardRow` là `TableLayoutPanel` (`Cols = 2, Rows = 1`) — **PASS**.
+     - `L-02`: `ColumnStyles` chuẩn tỉ lệ `Col0 = 60%` (`pnlQuickActions`) : `Col1 = 40%` (`pnlActivity`) — **PASS**.
+     - `L-03`: Z-Order trong `pnlActivity.Controls` chuẩn (`lstActivity.Index = 0`, `lblActivityHeader.Index = 1`) — **PASS**.
+     - `L-04`: `lblActivityHeader.AutoSize = False`, `Size = 350×32 px` — **PASS**.
+     - `L-05`: `lblQuickHeader.AutoSize = False`, `Size = 544×32 px` — **PASS**.
+     - `L-06` (`BUG-MAIN-01 FIX`): `lblActivityHeader.Bottom = 48px`, `lstActivity.Top = 48px` (`lstActivity.Top >= lblActivityHeader.Bottom` — tuyệt đối không đè chữ) — **PASS**.
+     - `L-07`: Ở độ phân giải chuẩn (`1280×750`), `QuickWidth = 576px`, `ActivityWidth = 382px`, khoảng cách `Gap = 16px` — **PASS**.
+     - `L-08` (`BUG-MAIN-02 FIX`): Ở độ phân giải Full HD (`1920×1080`), `QuickWidth = 960px` (tự co giãn `> 800px`, không khóa cứng `565px`), `ActivityWidth = 638px`, `Gap = 16px`, `lstTop = 48px` — **PASS**.
+     - `L-09`: `lstActivity.SelectedIndex = -1` khi nạp Form (không bị bôi xanh dòng mặc định) — **PASS**.
+     - `L-10`: Hàm `GhiNhatKyHoatDong()` chèn sự kiện mới lên đầu danh sách (`Items[0]`) và giữ `SelectedIndex = -1` — **PASS**.
+  2. **Phần 2 — Kiểm thử Đệ quy Phân quyền RBAC Đa Vai trò (64/64 PASS):**
+     - Đạt `16/16` tiêu chí cho từng vai trò (`chuquan`, `quanly`, `phucvu1`, `nhabep1`).
 
 ---
 
 ### BƯỚC 5: Cập nhật Tài liệu & Release Report
-- Cập nhật trạng thái hoàn thành trong [`MAIN_UI_FIX_V1_1_SPRINT.md`](MAIN_UI_FIX_V1_1_SPRINT.md), [`MAIN_DASHBOARD.md`](MAIN_DASHBOARD.md) và Release Report.
+- Cập nhật trạng thái hoàn thành trong [`MAIN_UI_FIX_V1_1_SPRINT.md`](MAIN_UI_FIX_V1_1_SPRINT.md), [`MAIN_DASHBOARD.md`](../MAIN_DASHBOARD.md) và Release Report.
 
 ---
 
@@ -123,5 +133,5 @@ Khi chạy thực tế màn hình `frmMain` ở chế độ toàn màn hình (`W
 - [x] **Bước 1:** Phân tích nguyên nhân gốc rễ, lập kế hoạch Sprint `v1.1` và tạo Mockup tương tác [`frmMain_mockup_v1_1.html`](frmMain_mockup_v1_1.html) *(Đã được PO duyệt)*.
 - [x] **Bước 2:** Cập nhật `frmMain.Designer.vb` (Sửa Z-Order `pnlActivity` & chuyển `pnlDashboardRow` sang `TableLayoutPanel` 60% : 40%).
 - [x] **Bước 3:** Rà soát tương thích `frmMain.vb` & `PhanQuyenHelper.vb`.
-- [ ] **Bước 4:** Chạy kiểm thử tự động Tọa độ UI (Anti-Overlap & Responsive 60:40) + 64/64 RBAC Test Cases.
-- [ ] **Bước 5:** Commit code và cập nhật Release Report.
+- [x] **Bước 4:** Chạy kiểm thử tự động Tọa độ UI (Anti-Overlap & Responsive 60:40) + 64/64 RBAC Test Cases — **Kết quả: 74/74 ĐẠT (100%)**.
+- [x] **Bước 5:** Commit code và tạo Release Report [`report_0_2_2.html`](../../../release_report/report_0_2_2.html).
