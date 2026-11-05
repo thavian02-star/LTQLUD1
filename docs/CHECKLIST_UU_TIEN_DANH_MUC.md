@@ -29,8 +29,8 @@
 ### MÀN HÌNH 1: MH DANH MỤC (`frmDanhMuc`)
 > **Mục tiêu:** Quản lý các nhóm phân loại thực đơn (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa` — VD: *Món Khai Vị & Gỏi, Món Chính, Món Lẩu & Nướng, Thức Uống, Tráng Miệng*).
 
-- [ ] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/menu/danh_muc/`)**
-  - [ ] Tạo tài liệu đặc tả `DANH_MUC_SPRINT.md` và file mockup `frmDanhMuc_mockup_v1_0.html` để PO duyệt.
+- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/menu/danh_muc/`)**
+  - [x] Tạo tài liệu đặc tả `DANH_MUC_SPRINT.md` và file mockup `frmDanhMuc_mockup_v1_0.html` để PO duyệt.
 - [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmDanhMuc.Designer.vb`)**
   - [ ] Thiết kế bố cục: Khung nhập liệu (`Mã DM`, `Tên danh mục`, `Mô tả`), thanh tìm kiếm nhanh, các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới`, và lưới `DataGridView` hiển thị danh sách danh mục kèm tổng số món ăn thuộc từng danh mục.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmDanhMuc.vb`)**
