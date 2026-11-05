@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockup Giao Diện - Đổi Mật Khẩu (frmDoiMatKhau) - Quản Lý Quán Ăn</title>
+  <style>
+    :root {
+      --primary: #2980B9;
+      --primary-dark: #1F618D;
+      --primary-light: #3498DB;
+      --header-bg: #2980B9;
+      --sidebar-bg: #2C3E50;
+      --content-bg: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-dark: #2C3E50;
+      --text-muted: #7F8C8D;
+      --danger: #E74C3C;
+      --success: #27AE60;
+      --warning: #F39C12;
+      --border-color: #CBD5E1;
+      --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+    }
+
+    body {
+      background: #1A252F;
+      color: var(--text-dark);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .doc-banner {
+      width: 100%;
+      max-width: 780px;
+      background: #2C3E50;
+      color: #ECF0F1;
+      padding: 14px 20px;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
+    }
+    .doc-banner-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .doc-banner-meta {
+      font-size: 12px;
+      color: #BDC3C7;
+    }
+
+    /* WinForms Window Shell */
+    .winform-window {
+      width: 100%;
+      max-width: 780px;
+      background-color: var(--content-bg);
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #4A6572;
+    }
+
+    /* Modal Backdrop Simulator (Simulate being opened from frmMain) */
+    .modal-simulator-container {
+      background: rgba(30, 41, 59, 0.82);
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 480px;
+      position: relative;
+    }
+
+    /* The actual frmDoiMatKhau Dialog (460 x 420 px WinForms modal) */
+    .winform-dialog {
+      width: 480px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      animation: dialogPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes dialogPop {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .win-titlebar {
+      height: 32px;
+      background-color: #1F618D;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .win-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .win-btn-close {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: var(--danger);
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .dialog-header {
+      background: linear-gradient(135deg, #2980B9 0%, #1F618D 100%);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dialog-header-icon {
+      font-size: 26px;
+      background: rgba(255, 255, 255, 0.15);
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dialog-header-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .dialog-header-subtitle {
+      font-size: 11px;
+      color: #D6EAF8;
+      margin-top: 2px;
+    }
+
+    .dialog-body {
+      padding: 20px 24px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Account badge info */
+    .user-pill {
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .user-pill-name {
+      font-weight: 700;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .user-pill-role {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: #2980B9;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Form Fields */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .form-label .req {
+      color: var(--danger);
+    }
+
+    .form-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 36px 0 12px;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #1E293B;
+      background: #FFFFFF;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.15);
+    }
+
+    .input-icon-btn {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      color: #94A3B8;
+      font-size: 15px;
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-icon-btn:hover {
+      color: #475569;
+    }
+
+    /* Strength Meter */
+    .strength-meter-container {
+      margin-top: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .strength-meter-bar {
+      height: 4px;
+      background: #E2E8F0;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+    }
+    .strength-meter-fill {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s, background-color 0.3s;
+    }
+    .strength-meter-label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Checkbox toggle */
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #475569;
+      cursor: pointer;
+      user-select: none;
+      margin-top: 2px;
+    }
+    .checkbox-row input {
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--primary);
+    }
+
+    /* Alert / Error box */
+    .alert-box {
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .alert-box.error {
+      background: #FEF2F2;
+      border: 1px solid #FECDD3;
+      color: #991B1B;
+    }
+    .alert-box.success {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #166534;
+    }
+
+    /* Dialog Footer Action Buttons */
+    .dialog-footer {
+      padding: 14px 24px;
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn {
+      height: 36px;
+      padding: 0 18px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: #E2E8F0;
+      color: #475569;
+      border: 1px solid #CBD5E1;
+    }
+    .btn-secondary:hover {
+      background: #CBD5E1;
+      color: #1E293B;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 4px rgba(41, 128, 185, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 3px 6px rgba(41, 128, 185, 0.35);
+    }
+
+    /* Simulation Control Bar below mockup */
+    .sim-bar {
+      width: 100%;
+      max-width: 780px;
+      background: #243342;
+      margin-top: 16px;
+      padding: 14px 20px;
+      border-radius: 8px;
+      border: 1px solid #3B4D61;
+      color: #ECF0F1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .sim-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #F1C40F;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sim-roles {
+      display: flex;
+      gap: 8px;
+    }
+    .sim-btn {
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid #4A6572;
+      background: #34495E;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sim-btn:hover, .sim-btn.active {
+      background: var(--primary);
+      border-color: #5DADE2;
+    }
+
+    /* Spec notes */
+    .spec-notes {
+      width: 100%;
+      max-width: 780px;
+      margin-top: 16px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .spec-notes h3 {
+      font-size: 13.5px;
+      color: #1E293B;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 6px;
+    }
+    .spec-notes ul {
+      padding-left: 20px;
+      color: #475569;
+    }
+    .spec-notes li {
+      margin-bottom: 4px;
+    }
+    .spec-notes code {
+      background: #F1F5F9;
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: #D946EF;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. DOC BANNER -->
+  <div class="doc-banner">
+    <div class="doc-banner-title">
+      <span>🔑</span>
+      <span>ĐẶC TẢ GIAO DIỆN MÀN HÌNH ĐỔI MẬT KHẨU (frmDoiMatKhau.vb)</span>
+    </div>
+    <div class="doc-banner-meta">
+      Phân hệ: <code>Features/Auth/</code> · Sprint 3.2
+    </div>
+  </div>
+
+  <!-- 2. WINFORMS WINDOW / DIALOG CONTAINER -->
+  <div class="winform-window">
+    <div class="modal-simulator-container">
+
+      <!-- THE DIALOG -->
+      <div class="winform-dialog" id="dialogDoiMatKhau">
+        
+        <!-- WinForms Titlebar -->
+        <div class="win-titlebar">
+          <span>🔑 Đổi Mật Khẩu - Quản Lý Quán Ăn</span>
+          <div class="win-controls">
+            <span class="win-btn-close" title="Hủy bỏ / Đóng" onclick="onCancelClick()"></span>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="dialog-header">
+          <div class="dialog-header-icon">🔐</div>
+          <div>
+            <div class="dialog-header-title">ĐỔI MẬT KHẨU TÀI KHOẢN</div>
+            <div class="dialog-header-subtitle">Nhập mật khẩu hiện tại và tạo mật khẩu mới để bảo mật</div>
+          </div>
+        </div>
+
+        <!-- Body Form -->
+        <div class="dialog-body">
+
+          <!-- Current Account Pill -->
+          <div class="user-pill">
+            <span class="user-pill-name">
+              <span>👤</span>
+              <span id="currentAccountText">chuquan (Nguyễn Hoàng Nam)</span>
+            </span>
+            <span class="user-pill-role" id="currentAccountRole">CHỦ QUÁN</span>
+          </div>
+
+          <!-- Alert Box -->
+          <div class="alert-box error" id="alertBox">
+            <span id="alertIcon">⚠️</span>
+            <span id="alertMessage">Mật khẩu cũ không chính xác!</span>
+          </div>
+
+          <!-- Field 1: Mat khau cu -->
+          <div class="form-group">
+            <label class="form-label">
+              Mật khẩu cũ (hiện tại) <span class="req">*</span>
+            </label>
+            <div class="form-input-wrapper">
+              <input type="password" id="txtMatKhauCu" class="form-input" placeholder="Nhập mật khẩu hiện tại của bạn" autofocus />
+              <button class="input-icon-btn" type="button" tabindex="-1" onclick="togglePasswordVisibility('txtMatKhauCu', this)">👁️</button>
+            </div>
+          </div>
+
+          <!-- Field 2: Mat khau moi -->
+          <div class="form-group">
+            <label class="form-label">
+              Mật khẩu mới <span class="req">*</span>
+            </label>
+            <div class="form-input-wrapper">
+              <input type="password" id="txtMatKhauMoi" class="form-input" placeholder="Tối thiểu 6 ký tự" oninput="checkPasswordStrength(this.value)" />
+              <button class="input-icon-btn" type="button" tabindex="-1" onclick="togglePasswordVisibility('txtMatKhauMoi', this)">👁️</button>
+            </div>
+            
+            <!-- Password Strength Indicator -->
+            <div class="strength-meter-container">
+              <div class="strength-meter-bar">
+                <div class="strength-meter-fill" id="strengthBar"></div>
+              </div>
+              <div class="strength-meter-label">
+                <span>Độ mạnh: <strong id="strengthText">Chưa nhập</strong></span>
+                <span style="color: #94A3B8;">Yêu cầu: ≥ 6 ký tự</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Field 3: Xac nhan mat khau moi -->
+          <div class="form-group">
+            <label class="form-label">
+              Xác nhận mật khẩu mới <span class="req">*</span>
+            </label>
+            <div class="form-input-wrapper">
+              <input type="password" id="txtXacNhanMoi" class="form-input" placeholder="Nhập lại mật khẩu mới" oninput="checkConfirmMatch()" />
+              <button class="input-icon-btn" type="button" tabindex="-1" onclick="togglePasswordVisibility('txtXacNhanMoi', this)">👁️</button>
+            </div>
+          </div>
+
+          <!-- Checkbox toggle all -->
+          <label class="checkbox-row">
+            <input type="checkbox" id="chkShowAll" onchange="toggleAllPasswords(this.checked)" />
+            <span>Hiển thị tất cả mật khẩu dạng văn bản</span>
+          </label>
+
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="dialog-footer">
+          <button class="btn btn-secondary" onclick="onCancelClick()">
+            <span>❌</span> Hủy Bỏ
+          </button>
+          <button class="btn btn-primary" onclick="onSubmitClick()">
+            <span>💾</span> Lưu Mật Khẩu Mới
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. SIMULATION TOOLBAR (Switch account & test) -->
+  <div class="sim-bar">
+    <div class="sim-label">
+      <span>⚙️</span>
+      <span>Mô phỏng tài khoản đang đăng nhập:</span>
+    </div>
+    <div class="sim-roles">
+      <button class="sim-btn active" onclick="switchUser('chuquan', 'Nguyễn Hoàng Nam', 'CHỦ QUÁN', '#F39C12', this)">👑 Chủ quán</button>
+      <button class="sim-btn" onclick="switchUser('quanly', 'Trần Thị Thu Thảo', 'QUẢN LÝ', '#9B59B6', this)">👔 Quản lý</button>
+      <button class="sim-btn" onclick="switchUser('phucvu1', 'Lê Minh Tuấn', 'PHỤC VỤ', '#2ECC71', this)">🍽️ Phục vụ</button>
+      <button class="sim-btn" onclick="switchUser('nhabep1', 'Võ Văn Hùng', 'NHÀ BẾP', '#E67E22', this)">🍳 Nhà bếp</button>
+    </div>
+  </div>
+
+  <!-- 4. SPECIFICATION NOTES FOR PO APPROVAL -->
+  <div class="spec-notes">
+    <h3>📋 ĐẶC TẢ KỸ THUẬT & QUY TẮC NGHIỆP VỤ (BUSINESS RULES & UI SPEC)</h3>
+    <ul>
+      <li><strong>Kiểu cửa sổ:</strong> WinForms Modal Dialog (<code>FormBorderStyle = FixedDialog</code>, <code>StartPosition = CenterParent</code>, <code>MaximizeBox = False</code>, <code>MinimizeBox = False</code>).</li>
+      <li><strong>Kích thước chuẩn:</strong> <code>480 x 420 px</code>. Phím <code>Enter</code> kích hoạt nút <em>Lưu</em> (<code>AcceptButton = btnLuu</code>), phím <code>Esc</code> đóng form (<code>CancelButton = btnHuy</code>).</li>
+      <li><strong>Tích hợp Backend:</strong> Tận dụng trực tiếp phương thức <code>AuthBUS.DoiMatKhau(matKhauCu, matKhauMoi, xacNhan, errorMsg)</code> và <code>TaiKhoanDAO.DoiMatKhau(maTK, matKhauMoiMD5)</code> đã viết sẵn trong phân hệ Auth.</li>
+      <li><strong>Bảo mật:</strong> Tự động băm <code>MaHoaMD5.BamMD5(matKhauMoi.Trim())</code> trước khi ghi xuống SQL Server; mật khẩu cũ mặc định của 4 tài khoản mẫu là <code>123456</code>.</li>
+      <li><strong>Xóa sạch bộ nhớ:</strong> Sau khi đổi mật khẩu thành công, toàn bộ 3 trường <code>TextBox.Clear()</code> để chống lộ dữ liệu nhạy cảm trong RAM.</li>
+    </ul>
+  </div>
+
+  <script>
+    let currentAccount = {
+      username: 'chuquan',
+      fullname: 'Nguyễn Hoàng Nam',
+      role: 'CHỦ QUÁN',
+      color: '#F39C12',
+      defaultPass: '123456'
+    };
+
+    function switchUser(username, fullname, role, color, btn) {
+      currentAccount.username = username;
+      currentAccount.fullname = fullname;
+      currentAccount.role = role;
+      currentAccount.color = color;
+
+      document.querySelectorAll('.sim-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('currentAccountText').innerText = `${username} (${fullname})`;
+      const roleBadge = document.getElementById('currentAccountRole');
+      roleBadge.innerText = role;
+      roleBadge.style.backgroundColor = color;
+
+      // Reset form
+      resetForm();
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerText = '🙈';
+      } else {
+        input.type = 'password';
+        btn.innerText = '👁️';
+      }
+    }
+
+    function toggleAllPasswords(show) {
+      const inputs = ['txtMatKhauCu', 'txtMatKhauMoi', 'txtXacNhanMoi'];
+      inputs.forEach(id => {
+        document.getElementById(id).type = show ? 'text' : 'password';
+      });
+    }
+
+    function checkPasswordStrength(password) {
+      const bar = document.getElementById('strengthBar');
+      const text = document.getElementById('strengthText');
+
+      if (!password || password.length === 0) {
+        bar.style.width = '0%';
+        bar.style.backgroundColor = '#E2E8F0';
+        text.innerText = 'Chưa nhập';
+        text.style.color = '#7F8C8D';
+        return;
+      }
+
+      if (password.length < 6) {
+        bar.style.width = '25%';
+        bar.style.backgroundColor = '#E74C3C';
+        text.innerText = 'Quá ngắn (< 6 ký tự)';
+        text.style.color = '#E74C3C';
+      } else if (password.length >= 6 && /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)) {
+        bar.style.width = '100%';
+        bar.style.backgroundColor = '#27AE60';
+        text.innerText = 'Mạnh (chữ & số)';
+        text.style.color = '#27AE60';
+      } else {
+        bar.style.width = '65%';
+        bar.style.backgroundColor = '#F39C12';
+        text.innerText = 'Trung bình (chỉ chữ hoặc số)';
+        text.style.color = '#F39C12';
+      }
+
+      checkConfirmMatch();
+    }
+
+    function checkConfirmMatch() {
+      const p1 = document.getElementById('txtMatKhauMoi').value;
+      const p2 = document.getElementById('txtXacNhanMoi').value;
+      const alertBox = document.getElementById('alertBox');
+
+      if (p2.length > 0 && p1 !== p2) {
+        showAlert('Mật khẩu xác nhận không khớp với mật khẩu mới!', 'error');
+      } else if (alertBox.classList.contains('error') && alertBox.style.display === 'flex') {
+        hideAlert();
+      }
+    }
+
+    function showAlert(msg, type = 'error') {
+      const box = document.getElementById('alertBox');
+      const text = document.getElementById('alertMessage');
+      const icon = document.getElementById('alertIcon');
+
+      box.className = `alert-box ${type}`;
+      box.style.display = 'flex';
+      text.innerText = msg;
+      icon.innerText = type === 'error' ? '⚠️' : '✅';
+    }
+
+    function hideAlert() {
+      const box = document.getElementById('alertBox');
+      box.style.display = 'none';
+    }
+
+    function onSubmitClick() {
+      const oldPass = document.getElementById('txtMatKhauCu').value;
+      const newPass = document.getElementById('txtMatKhauMoi').value;
+      const confirmPass = document.getElementById('txtXacNhanMoi').value;
+
+      // 1. Validation
+      if (!oldPass) {
+        showAlert('Vui lòng nhập mật khẩu cũ (hiện tại)!', 'error');
+        document.getElementById('txtMatKhauCu').focus();
+        return;
+      }
+      if (!newPass) {
+        showAlert('Vui lòng nhập mật khẩu mới!', 'error');
+        document.getElementById('txtMatKhauMoi').focus();
+        return;
+      }
+      if (newPass.length < 6) {
+        showAlert('Mật khẩu mới phải có ít nhất 6 ký tự!', 'error');
+        document.getElementById('txtMatKhauMoi').focus();
+        return;
+      }
+      if (newPass === oldPass) {
+        showAlert('Mật khẩu mới không được trùng với mật khẩu cũ!', 'error');
+        document.getElementById('txtMatKhauMoi').focus();
+        return;
+      }
+      if (newPass !== confirmPass) {
+        showAlert('Mật khẩu mới và xác nhận mật khẩu không khớp!', 'error');
+        document.getElementById('txtXacNhanMoi').focus();
+        return;
+      }
+
+      // Giả lập kiểm tra mật khẩu cũ với CSDL mẫu (123456)
+      if (oldPass !== currentAccount.defaultPass) {
+        showAlert('Mật khẩu cũ không chính xác! (Mật khẩu mặc định là 123456)', 'error');
+        document.getElementById('txtMatKhauCu').focus();
+        return;
+      }
+
+      // Mô phỏng thành công
+      currentAccount.defaultPass = newPass;
+      showAlert(`Đổi mật khẩu thành công cho tài khoản ${currentAccount.username}! Mật khẩu mới đã được băm MD5 và lưu vào CSDL.`, 'success');
+      
+      setTimeout(() => {
+        alert(`[THÔNG BÁO HỆ THỐNG]: Đổi mật khẩu tài khoản ${currentAccount.username} thành công! Form sẽ đóng lại.`);
+        resetForm();
+      }, 700);
+    }
+
+    function onCancelClick() {
+      if (confirm('Bạn có chắc chắn muốn hủy bỏ việc đổi mật khẩu?')) {
+        resetForm();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('txtMatKhauCu').value = '';
+      document.getElementById('txtMatKhauMoi').value = '';
+      document.getElementById('txtXacNhanMoi').value = '';
+      document.getElementById('chkShowAll').checked = false;
+      toggleAllPasswords(false);
+      checkPasswordStrength('');
+      hideAlert();
+      document.getElementById('txtMatKhauCu').focus();
+    }
+  </script>
+</body>
+</html>
