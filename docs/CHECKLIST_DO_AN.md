@@ -103,17 +103,22 @@
   - [ ] Nút **Hoàn thành món**: Cập nhật trạng thái món sang *Đã nấu xong* và tự động cập nhật trạng thái bàn tương ứng sang *Món đã xong* để nhân viên phục vụ biết mang ra.
 
 ### 3.5. Phân hệ Quản lý & Chủ quán
+> 📌 **Lưu ý đồng bộ tiến độ:** 5 màn hình danh mục nền tảng (`MH Danh mục`, `MH Món ăn`, `MH Ca làm việc`, `MH Khu vực`, `MH Bàn`) được tách ra triển khai ưu tiên trước tại [`docs/CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md). Khi hoàn thành tại checklist ưu tiên, các mục tương ứng bên dưới sẽ được đánh dấu `[x]` để không phải thực hiện lại.
 - [ ] **Quản lý Nhân sự (`frmQuanLyNhanVien`):**
   - [ ] Thêm / Sửa nhân viên với đầy đủ thông tin: Họ tên, giới tính, ngày sinh, vị trí dự tuyển (Phục vụ, Pha chế, Quản lý, Tiếp tân), SĐT, địa chỉ, CMND, ngày vào làm.
   - [ ] Chọn nhiều **Trình độ vi tính** (Word, Excel, Cài phần mềm, Khác) và cho phép thêm/sửa danh mục trình độ vi tính.
   - [ ] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên.
   - [ ] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái nghỉ việc, xóa lịch làm việc tương lai, đánh dấu thu hồi trang phục/dụng cụ.
-- [ ] **Quản lý Bàn ghế (`frmQuanLyBan`):**
-  - [ ] Tổ chức bàn ghế: Thêm / Sửa / Xóa bàn, gán số thứ tự, số người tối đa.
-- [ ] **Quản lý Thực đơn (`frmQuanLyThucDon`):**
-  - [ ] Quản lý danh mục món & khởi tạo/chỉnh sửa món ăn, nước uống (tên, giá bán, mô tả, đánh dấu còn/hết món).
+- [ ] **Quản lý Bàn ghế & Khu vực (`frmKhuVuc`, `frmBan` / `frmQuanLyBan`):** *(Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 4 & MH 5)*
+  - [ ] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn...
+  - [ ] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa.
+
+- [ ] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*
+  - [ ] Quản lý Danh mục món (`frmDanhMuc`): Thêm / Sửa / Xóa nhóm thực đơn.
+  - [ ] Quản lý Món ăn & Thức uống (`frmMonAn`): Khởi tạo/chỉnh sửa món ăn, nước uống (tên, danh mục, giá bán, mô tả, đánh dấu còn/hết món).
+
 - [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**
-  - [ ] Cấu hình danh sách ca và khung giờ làm việc.
+  - [ ] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3*).
   - [ ] Xem & chỉnh sửa lịch làm việc chung của tất cả nhân viên trong tuần (7 ngày/tuần, xem ca nào trống, ca nào có bao nhiêu nhân viên, thêm/xóa nhân viên vào ca).
   - [ ] Xem & chỉnh sửa lịch làm việc riêng của 1 nhân viên được chọn (thay đổi trạng thái ca).
   - [ ] **Duyệt chấm công** (dành cho Quản lý) & Tổng hợp số ca làm việc trong tháng để **Tính lương nhân viên**.
