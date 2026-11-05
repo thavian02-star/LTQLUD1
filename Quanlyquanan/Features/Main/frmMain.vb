@@ -213,14 +213,10 @@ Namespace Features.Main
 
         Private Sub btnDuyetChamCong_Click(sender As Object, e As EventArgs) Handles btnDuyetChamCong.Click, btnQuickDuyetCong.Click
             CapNhatButtonActive(btnDuyetChamCong)
-            MessageBox.Show(
-                "Phân hệ [Duyệt Chấm Công] (Features/ChamCong)!" & vbCrLf &
-                "- Dành cho Quản lý & Chủ quán kiểm tra và duyệt giờ làm ca của nhân viên." & vbCrLf &
-                "- Cơ sở để tính lương chuẩn xác vào cuối tháng.",
-                "Thông Báo Phân Hệ",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            Using fCa As New Features.Shift.frmCaLamViec()
+                fCa.ShowDialog(Me)
+            End Using
+            CapNhatButtonActive(Nothing)
         End Sub
 
         Private Sub btnQuanLyNhanSu_Click(sender As Object, e As EventArgs) Handles btnQuanLyNhanSu.Click

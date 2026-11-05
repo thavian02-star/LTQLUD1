@@ -70,9 +70,9 @@
 - [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmCaLamViec.vb`)**
   - [x] Tạo `CaLamViecDTO.vb`, `CaLamViecDAO.vb`, `CaLamViecBUS.vb`.
   - [x] Nạp danh sách ca từ bảng `CaLamViec`, tính tự động thời lượng ca (số giờ) và định dạng tiền lương.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [ ] Kết nối vào nhóm chức năng Lịch & Ca làm việc trên `frmMain`.
-  - [ ] Kiểm thử tự động truy vấn danh sách ca & hiển thị UI.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
+  - [x] Kết nối vào nhóm chức năng Lịch & Ca làm việc trên `frmMain`.
+  - [x] Kiểm thử tự động truy vấn danh sách ca & hiển thị UI (`24/24 PASS = 100%`).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đánh dấu `[x]` mục danh sách ca trong `CHECKLIST_DO_AN.md`**
 
 ---
