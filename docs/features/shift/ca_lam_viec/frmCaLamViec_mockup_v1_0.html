@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup UI v1.0 - Quản Lý Danh Sách Ca Làm Việc (frmCaLamViec)</title>
+    <style>
+        :root {
+            --navy: #1A5276;
+            --navy-dark: #154360;
+            --bg-body: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --border-color: #DCDFE6;
+            --text-main: #2C3E50;
+            --text-muted: #6C757D;
+            --green: #27AE60;
+            --blue: #2980B9;
+            --red: #C0392B;
+            --orange: #E67E22;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #E5E9F0; padding: 18px; color: var(--text-main); }
+
+        .demo-toolbar {
+            max-width: 1120px; margin: 0 auto 14px auto; background: #fff; border: 1px solid #cbd5e1;
+            border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .demo-toolbar span { font-size: 13px; font-weight: 700; color: var(--navy); }
+        .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .demo-btn {
+            border: 1px solid #cbd5e1; background: #f8fafc; color: #1e293b; padding: 6px 11px;
+            font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.15s;
+        }
+        .demo-btn:hover, .demo-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+        .winform-window {
+            max-width: 1120px; margin: 0 auto; background: var(--bg-body);
+            border: 2px solid #1A5276; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+        }
+        .titlebar {
+            background: #0f2f44; color: #fff; padding: 6px 14px; font-size: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar {
+            background: var(--navy); color: #fff; padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar h1 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+        .header-bar p { font-size: 12px; color: #AED6F1; }
+        .btn-close-form {
+            background: var(--red); color: #fff; border: none; padding: 8px 16px;
+            border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12.5px;
+        }
+
+        .kpi-row {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+            padding: 12px 16px 4px 16px;
+        }
+        .kpi-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 11px 16px; border-left: 5px solid var(--navy);
+        }
+        .kpi-card.green { border-left-color: var(--green); }
+        .kpi-card.orange { border-left-color: var(--orange); }
+        .kpi-title { font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-val { font-size: 20px; font-weight: 800; margin-top: 4px; color: var(--navy); }
+        .kpi-card.green .kpi-val { color: var(--green); }
+        .kpi-card.orange .kpi-val { color: #D35400; }
+
+        .main-split {
+            display: grid; grid-template-columns: 38% 62%; gap: 14px;
+            padding: 10px 16px 16px 16px;
+        }
+        .panel-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 16px; display: flex; flex-direction: column;
+        }
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+        }
+        .panel-head h2 { font-size: 14.5px; color: var(--navy); font-weight: 700; }
+        .mode-badge {
+            font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px;
+            background: #EBF5FB; color: var(--navy);
+        }
+        .alert-box {
+            padding: 8px 11px; border-radius: 4px; font-size: 12px; font-weight: 600;
+            margin-bottom: 12px; background: #EAF2F8; color: #1A5276; border-left: 4px solid #2980B9;
+        }
+        .alert-box.success { background: #E8F8F5; color: #1E8449; border-left-color: #27AE60; }
+        .alert-box.error { background: #FDEDEC; color: #B03A2E; border-left-color: #C0392B; }
+
+        .form-group { margin-bottom: 11px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; color: #34495E; }
+        .form-control {
+            width: 100%; padding: 7px 10px; font-size: 13px; border: 1px solid #CBD5E1; border-radius: 4px;
+        }
+        .form-control[readonly] { background: #EDF0F2; color: #566573; font-weight: 700; }
+        .time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .duration-badge {
+            background: #F4ECF7; border: 1px solid #D2B4DE; color: #6C3483;
+            padding: 8px 12px; border-radius: 5px; font-size: 12.5px; font-weight: 700;
+            margin-bottom: 12px; display: flex; justify-content: space-between;
+        }
+
+        .btn-grid {
+            margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 10px;
+        }
+        .btn-action {
+            padding: 9px 10px; border: none; border-radius: 4px; font-size: 12.5px; font-weight: 700;
+            cursor: pointer; color: #fff;
+        }
+        .btn-add { background: var(--green); }
+        .btn-update { background: var(--blue); }
+        .btn-delete { background: var(--red); }
+        .btn-reset { background: #5D6D7E; }
+
+        .search-bar {
+            display: flex; gap: 8px; background: #F0F3F6; padding: 9px 12px; border-radius: 5px;
+            margin-bottom: 10px; align-items: center;
+        }
+        .search-bar input { flex: 1; padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 13px; }
+        .btn-sm { padding: 6px 12px; border: none; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        thead th {
+            background: var(--navy); color: #fff; padding: 9px 10px; text-align: left; font-size: 12px;
+        }
+        tbody tr { border-bottom: 1px solid #E5E7EB; cursor: pointer; }
+        tbody tr:hover { background: #F1F5F9; }
+        tbody tr.selected { background: #D6EAF8; font-weight: 700; }
+        td { padding: 9px 10px; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .badge-shift {
+            background: #E8F8F5; color: #117864; padding: 3px 8px; border-radius: 12px; font-size: 11.5px; font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="demo-toolbar">
+        <span>🎛️ KỊCH BẢN DEMO TƯƠNG TÁC (frmCaLamViec v1.0):</span>
+        <div class="demo-btns">
+            <button class="demo-btn active" onclick="scenarioSeed()">1. Nạp 2 Ca chuẩn (Seed Data)</button>
+            <button class="demo-btn" onclick="scenarioAddCa3()">2. Thêm "Ca 3 (Ca Đêm) 22:00–23:30"</button>
+            <button class="demo-btn" onclick="scenarioBlockDelete()">3. Chặn xóa Ca 1 (Đang có 6 lịch xếp)</button>
+            <button class="demo-btn" onclick="scenarioInvalidTime()">4. Lỗi Giờ kết thúc &le; Giờ bắt đầu</button>
+        </div>
+    </div>
+
+    <div class="winform-window">
+        <div class="titlebar">
+            <span>⏰ Quản Lý Danh Sách Ca Làm Việc — Quán Ăn Hương Việt (v0.2.5)</span>
+            <span>_ □ ✕</span>
+        </div>
+
+        <div class="header-bar">
+            <div>
+                <h1>⏰ QUẢN LÝ DANH SÁCH CA LÀM VIỆC</h1>
+                <p>Danh mục chuẩn (3/5) • Cấu hình khung giờ hoạt động, tính thời lượng tự động và định mức lương mỗi ca</p>
+            </div>
+            <button class="btn-close-form">✖ Đóng (ESC)</button>
+        </div>
+
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-title">TỔNG SỐ CA HOẠT ĐỘNG</div>
+                <div class="kpi-val" id="kpiTotalShift">2 ca làm việc</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-title">TỔNG THỜI LƯỢNG MỞ CỬA / NGÀY</div>
+                <div class="kpi-val" id="kpiTotalHours">14.0 giờ / ngày</div>
+            </div>
+            <div class="kpi-card orange">
+                <div class="kpi-title">ĐỊNH MỨC LƯƠNG TB / CA</div>
+                <div class="kpi-val" id="kpiAvgSalary">195,000 đ / ca</div>
+            </div>
+        </div>
+
+        <div class="main-split">
+            <!-- CỘT TRÁI 38% -->
+            <div class="panel-card">
+                <div class="panel-head">
+                    <h2>📝 THÔNG TIN CA LÀM VIỆC</h2>
+                    <span class="mode-badge" id="modeBadge">CHẾ ĐỘ: CẬP NHẬT</span>
+                </div>
+
+                <div class="alert-box" id="alertBox">
+                    💡 Đang chọn [Ca 1 (Ca Sáng)] — Khung giờ 08:00 – 15:00 (7.0 giờ).
+                </div>
+
+                <div class="form-group">
+                    <label>Mã ca làm việc (Tự động):</label>
+                    <input type="text" class="form-control" id="txtMaCa" value="1" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Tên ca làm việc (*):</label>
+                    <input type="text" class="form-control" id="txtTenCa" value="Ca 1 (Ca Sáng)" maxlength="50">
+                </div>
+
+                <div class="time-grid">
+                    <div class="form-group" style="margin-bottom:0">
+                        <label>Giờ bắt đầu (HH:mm) (*):</label>
+                        <input type="time" class="form-control" id="dtpGioBatDau" value="08:00" onchange="updateDurationPreview()">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <label>Giờ kết thúc (HH:mm) (*):</label>
+                        <input type="time" class="form-control" id="dtpGioKetThuc" value="15:00" onchange="updateDurationPreview()">
+                    </div>
+                </div>
+
+                <div class="duration-badge" id="durationBadge">
+                    <span id="lblDuration">⏱️ Thời lượng ca: 7.0 giờ</span>
+                    <span id="lblAssignCount">📅 Đã xếp: 6 lượt</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Định mức lương mỗi ca (VNĐ) (*):</label>
+                    <input type="number" class="form-control" id="nudLuongMoiCa" value="180000" step="10000" min="0">
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn-action btn-add" onclick="scenarioAddCa3()">➕ Thêm mới</button>
+                    <button class="btn-action btn-update" onclick="saveCurrentShift()">💾 Cập nhật</button>
+                    <button class="btn-action btn-delete" onclick="scenarioBlockDelete()">🗑️ Xóa ca</button>
+                    <button class="btn-action btn-reset" onclick="resetForm()">🔄 Làm mới</button>
+                </div>
+            </div>
+
+            <!-- CỘT PHẢI 62% -->
+            <div class="panel-card">
+                <div class="panel-head">
+                    <h2>📋 DANH SÁCH CA LÀM VIỆC TRONG NGÀY (Click chọn dòng để xem / sửa)</h2>
+                </div>
+
+                <div class="search-bar">
+                    <span style="font-size:12.5px;font-weight:700;">🔍 Tìm tên ca:</span>
+                    <input type="text" id="txtTimKiem" placeholder="Nhập tên ca (VD: Ca Sáng, Ca Chiều)..." oninput="renderTable()">
+                    <button class="btn-sm" style="background:var(--navy)" onclick="renderTable()">Tìm</button>
+                    <button class="btn-sm" style="background:#5D6D7E" onclick="document.getElementById('txtTimKiem').value='';renderTable()">↻ Tải lại</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:65px">Mã ca</th>
+                            <th>Tên ca làm việc</th>
+                            <th class="text-center" style="width:125px">Khung giờ</th>
+                            <th class="text-center" style="width:95px">Thời lượng</th>
+                            <th class="text-right" style="width:125px">Lương / ca</th>
+                            <th class="text-center" style="width:105px">Lịch đã xếp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shiftBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let shifts = [];
+        let selectedId = 1;
+
+        function initSeed() {
+            shifts = [
+                { id: 1, name: "Ca 1 (Ca Sáng)", start: "08:00", end: "15:00", salary: 180000, assigned: 6 },
+                { id: 2, name: "Ca 2 (Ca Chiều Tối)", start: "15:00", end: "22:00", salary: 210000, assigned: 4 }
+            ];
+            selectedId = 1;
+        }
+
+        function calcHours(start, end) {
+            const [sh, sm] = start.split(':').map(Number);
+            const [eh, em] = end.split(':').map(Number);
+            return Math.round(((eh * 60 + em) - (sh * 60 + sm)) / 6) / 10;
+        }
+
+        function formatVND(n) {
+            return Number(n).toLocaleString('en-US') + ' đ';
+        }
+
+        function renderTable() {
+            const kw = document.getElementById('txtTimKiem').value.trim().toLowerCase();
+            const tbody = document.getElementById('shiftBody');
+            tbody.innerHTML = '';
+
+            let totalHours = 0;
+            let totalSalary = 0;
+            shifts.forEach(s => {
+                totalHours += calcHours(s.start, s.end);
+                totalSalary += s.salary;
+            });
+
+            document.getElementById('kpiTotalShift').textContent = `${shifts.length} ca làm việc`;
+            document.getElementById('kpiTotalHours').textContent = `${totalHours.toFixed(1)} giờ / ngày`;
+            const avg = shifts.length ? Math.round(totalSalary / shifts.length) : 0;
+            document.getElementById('kpiAvgSalary').textContent = `${formatVND(avg)} / ca`;
+
+            shifts.filter(s => !kw || s.name.toLowerCase().includes(kw)).forEach(s => {
+                const tr = document.createElement('tr');
+                if (s.id === selectedId) tr.className = 'selected';
+                const hrs = calcHours(s.start, s.end);
+                tr.onclick = () => selectShift(s.id);
+                tr.innerHTML = `
+                    <td class="text-center">${s.id}</td>
+                    <td>${s.name}</td>
+                    <td class="text-center">${s.start} – ${s.end}</td>
+                    <td class="text-center"><span class="badge-shift">${hrs.toFixed(1)} giờ</span></td>
+                    <td class="text-right">${formatVND(s.salary)}</td>
+                    <td class="text-center">${s.assigned} lượt</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function selectShift(id) {
+            selectedId = id;
+            const s = shifts.find(x => x.id === id);
+            if (!s) return;
+            document.getElementById('txtMaCa').value = s.id;
+            document.getElementById('txtTenCa').value = s.name;
+            document.getElementById('dtpGioBatDau').value = s.start;
+            document.getElementById('dtpGioKetThuc').value = s.end;
+            document.getElementById('nudLuongMoiCa').value = s.salary;
+            document.getElementById('modeBadge').textContent = 'CHẾ ĐỘ: CẬP NHẬT';
+            document.getElementById('lblAssignCount').textContent = `📅 Đã xếp: ${s.assigned} lượt`;
+            updateDurationPreview();
+            setAlert(`💡 Đang chọn [${s.name}] — Khung giờ ${s.start} – ${s.end} (${calcHours(s.start, s.end).toFixed(1)} giờ).`, '');
+            renderTable();
+        }
+
+        function updateDurationPreview() {
+            const st = document.getElementById('dtpGioBatDau').value;
+            const en = document.getElementById('dtpGioKetThuc').value;
+            const hrs = calcHours(st, en);
+            const lbl = document.getElementById('lblDuration');
+            if (hrs <= 0) {
+                lbl.textContent = `⚠️ Khung giờ không hợp lệ (${hrs.toFixed(1)} giờ)`;
+            } else {
+                lbl.textContent = `⏱️ Thời lượng ca: ${hrs.toFixed(1)} giờ`;
+            }
+        }
+
+        function setAlert(msg, type) {
+            const box = document.getElementById('alertBox');
+            box.className = 'alert-box ' + (type || '');
+            box.textContent = msg;
+        }
+
+        function resetForm() {
+            selectedId = 0;
+            document.getElementById('txtMaCa').value = '(Tự động)';
+            document.getElementById('txtTenCa').value = '';
+            document.getElementById('dtpGioBatDau').value = '08:00';
+            document.getElementById('dtpGioKetThuc').value = '15:00';
+            document.getElementById('nudLuongMoiCa').value = 180000;
+            document.getElementById('modeBadge').textContent = 'CHẾ ĐỘ: THÊM MỚI';
+            document.getElementById('lblAssignCount').textContent = '📅 Chưa xếp lịch';
+            updateDurationPreview();
+            setAlert('✨ Đã làm mới biểu mẫu. Nhập tên ca, khung giờ và lương mỗi ca để thêm mới.', '');
+            renderTable();
+        }
+
+        function scenarioSeed() {
+            initSeed();
+            selectShift(1);
+        }
+
+        function scenarioAddCa3() {
+            initSeed();
+            const ca3 = { id: 3, name: "Ca 3 (Ca Đêm)", start: "22:00", end: "23:30", salary: 150000, assigned: 0 };
+            shifts.push(ca3);
+            selectShift(3);
+            setAlert('✅ Đã thêm mới "Ca 3 (Ca Đêm)" (22:00 – 23:30, thời lượng 1.5 giờ, lương 150,000 đ) thành công!', 'success');
+        }
+
+        function scenarioBlockDelete() {
+            selectShift(1);
+            setAlert('⛔ Không thể xóa "Ca 1 (Ca Sáng)" vì đang có 6 lượt phân công lịch làm việc và 5 hóa đơn tham chiếu!', 'error');
+        }
+
+        function scenarioInvalidTime() {
+            resetForm();
+            document.getElementById('txtTenCa').value = 'Ca Thử Nghiệm';
+            document.getElementById('dtpGioBatDau').value = '16:00';
+            document.getElementById('dtpGioKetThuc').value = '14:00';
+            updateDurationPreview();
+            setAlert('⛔ Lỗi ràng buộc thời gian: Giờ kết thúc ca (14:00) phải lớn hơn Giờ bắt đầu ca (16:00) ít nhất 30 phút!', 'error');
+        }
+
+        function saveCurrentShift() {
+            const s = shifts.find(x => x.id === selectedId);
+            if (!s) return;
+            s.name = document.getElementById('txtTenCa').value;
+            s.start = document.getElementById('dtpGioBatDau').value;
+            s.end = document.getElementById('dtpGioKetThuc').value;
+            s.salary = Number(document.getElementById('nudLuongMoiCa').value);
+            renderTable();
+            setAlert(`✅ Đã cập nhật thông tin "${s.name}" thành công!`, 'success');
+        }
+
+        initSeed();
+        selectShift(1);
+    </script>
+</body>
+</html>
