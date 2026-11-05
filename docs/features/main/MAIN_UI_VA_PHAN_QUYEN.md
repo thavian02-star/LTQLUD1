@@ -2,8 +2,8 @@
 
 **Dự án:** Hệ thống Quản lý Quán ăn (VB.NET Windows Forms - .NET 10.0)  
 **Phân hệ:** `Features/Main/` (`frmMain.vb`)  
-**Tài liệu tham chiếu:** [`MAIN_DASHBOARD.md`](MAIN_DASHBOARD.md), [`MA_TRAN_PHAN_QUYEN.md`](../../MA_TRAN_PHAN_QUYEN.md), [`KIEN_TRUC_HE_THONG.md`](../../KIEN_TRUC_HE_THONG.md)  
-**Bản Mockup HTML tương tác:** [`frmMain_mockup.html`](frmMain_mockup.html)
+**Tài liệu tham chiếu:** [`MAIN_DASHBOARD.md`](MAIN_DASHBOARD.md), [`v1_1/MAIN_UI_FIX_V1_1_SPRINT.md`](v1_1/MAIN_UI_FIX_V1_1_SPRINT.md), [`MA_TRAN_PHAN_QUYEN.md`](../../MA_TRAN_PHAN_QUYEN.md), [`KIEN_TRUC_HE_THONG.md`](../../KIEN_TRUC_HE_THONG.md)  
+**Bản Mockup HTML tương tác:** [`frmMain_mockup.html`](frmMain_mockup.html) (v1.0) | **[`v1_1/frmMain_mockup_v1_1.html`](v1_1/frmMain_mockup_v1_1.html) (v1.1 - Bản sửa lỗi Z-Order & Responsive 60:40)**
 
 ---
 
