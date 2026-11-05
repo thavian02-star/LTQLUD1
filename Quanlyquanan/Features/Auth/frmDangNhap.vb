@@ -45,6 +45,29 @@ Namespace Features.Auth
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     )
+
+                    ' Xóa mật khẩu cũ trên form đăng nhập để bảo mật
+                    txtMatKhau.Clear()
+                    lblThongBaoLoi.Text = String.Empty
+
+                    ' Mở Form chính (frmMain) và ẩn Form Đăng nhập
+                    Dim fMain As New Features.Main.frmMain()
+
+                    ' Đăng ký sự kiện khi fMain đóng:
+                    ' - Nếu đóng do bấm nút Đăng Xuất (DialogResult.OK) -> Hiện lại frmDangNhap
+                    ' - Nếu người dùng xác nhận thoát ứng dụng (DialogResult.Cancel) -> Đóng luôn frmDangNhap
+                    AddHandler fMain.FormClosed, Sub(s, args)
+                                                     If fMain.DialogResult = DialogResult.OK Then
+                                                         Me.Show()
+                                                         txtTenDangNhap.Focus()
+                                                         txtTenDangNhap.SelectAll()
+                                                     Else
+                                                         Me.Close()
+                                                     End If
+                                                 End Sub
+
+                    fMain.Show()
+                    Me.Hide()
                 Else
                     ' Đăng nhập thất bại -> Hiển thị lỗi cảnh báo
                     lblThongBaoLoi.Text = thongBaoLoi
