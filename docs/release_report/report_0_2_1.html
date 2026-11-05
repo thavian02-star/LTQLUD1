@@ -507,6 +507,7 @@
         <div class="header-meta-item">Commit range: <strong>127b14e .. f9b364a</strong></div>
         <div class="header-meta-item">Ngày phát hành: <strong>05/11/2026</strong></div>
         <div class="header-meta-item">Trạng thái Build: <strong>0 Warnings · 0 Errors</strong></div>
+        <div class="header-meta-item"><a href="report_0_2_0.html" style="color: #93C5FD; text-decoration: underline; font-weight: 700;">⬅️ Xem Release trước: v0.2.0 (frmDangNhap &amp; frmMain)</a></div>
       </div>
     </div>
   </header>
@@ -766,23 +767,241 @@
       </div>
     </article>
 
-    <!-- CARD 3: ĐẤU NỐI TỪ FRMMAIN -->
+    <!-- CARD 3: LIÊN KẾT VỚI ỨNG DỤNG TRƯỚC (FRMMAIN & FRMDANGNHAP) & LUỒNG GỌI MÀN HÌNH -->
     <article class="change-card" id="card-wiring">
       <div class="card-header">
-        <span class="card-type-badge badge-ux">🔗 LIFECYCLE &amp; WIRING</span>
+        <span class="card-type-badge badge-ux">🔗 LIFECYCLE &amp; APP INTEGRATION</span>
         <div>
-          <h2 class="card-title">Đấu Nối Mở Hộp Thoại Modal Dialog An Toàn Trong Khối Using Từ frmMain</h2>
-          <div class="card-subtitle">Commit: <code>832feaf</code> · File: <code>Quanlyquanan/Features/Main/frmMain.vb</code></div>
+          <h2 class="card-title">Liên Kết Toàn Diện Giữa Ứng Dụng Trước (frmDangNhap ➔ frmMain) Và Hộp Thoại frmDoiMatKhau</h2>
+          <div class="card-subtitle">Commit: <code>832feaf</code> · Files liên kết: <code>frmDangNhap.vb</code> ➔ <code>PhienDangNhap.vb</code> ➔ <code>frmMain.vb</code> ➔ <code>frmDoiMatKhau.vb</code> ➔ <code>AuthBUS.vb</code></div>
         </div>
       </div>
       <div class="card-body">
         <p>
-          Cập nhật sự kiện <code>btnDoiMatKhau_Click</code> trên Sidebar của <code>frmMain</code>: sử dụng cấu trúc <code>Using ... End Using</code> kết hợp <code>ShowDialog(Me)</code> để truyền <code>frmMain</code> làm Owner Form, giúp hộp thoại luôn căn giữa cửa sổ chính và giải phóng ngay lập tức tài nguyên đồ họa (GDI Handles) ngay khi người dùng đóng hộp thoại.
+          Màn hình <code>frmDoiMatKhau</code> <strong>đã được liên kết trực tiếp</strong> vào luồng điều hướng của toàn bộ ứng dụng phát hành ở phiên bản <code>v0.2.0</code>. Người dùng gọi màn hình này ngay từ thanh <strong>Sidebar bên trái của <code>frmMain</code> (nhóm CÁ NHÂN ➔ nút <code>🔑 Đổi Mật Khẩu</code>)</strong>, và hộp thoại tự động nhận diện người dùng thông qua <code>Common.Session.NguoiDungHienTai</code> đã lưu từ lúc đăng nhập ở <code>frmDangNhap</code>.
         </p>
+
+        <!-- SƠ ĐỒ LUỒNG LIÊN KẾT END-TO-END 5 BƯỚC -->
+        <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; padding: 18px; margin: 16px 0 22px 0;">
+          <div style="font-size: 12px; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 14px;">
+            🔄 Sơ Đồ Luồng Liên Kết &amp; Gọi Màn Hình Đổi Mật Khẩu (End-to-End Integration Flow)
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 10px; align-items: stretch;">
+            <!-- Step 1 -->
+            <div style="background: white; border: 1px solid #BFDBFE; border-top: 4px solid #2563EB; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: #2563EB;">BƯỚC 1 · ĐĂNG NHẬP (v0.2.0)</div>
+              <div style="font-size: 12px; font-weight: 700; color: #0F172A; margin: 3px 0;"><code>frmDangNhap</code></div>
+              <div style="font-size: 11px; color: #475569;">Xác thực tài khoản thành công ➔ Lưu <code>MaNV</code>, <code>TenDangNhap</code>, <code>HoTen</code>, <code>TenVaiTro</code> vào biến toàn cục <code>Session.NguoiDungHienTai</code>.</div>
+            </div>
+            <!-- Step 2 -->
+            <div style="background: white; border: 1px solid #BFDBFE; border-top: 4px solid #0284C7; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: #0284C7;">BƯỚC 2 · ĐIỂM GỌI TRÊN SIDEBAR</div>
+              <div style="font-size: 12px; font-weight: 700; color: #0F172A; margin: 3px 0;"><code>frmMain.btnDoiMatKhau</code></div>
+              <div style="font-size: 11px; color: #475569;">Tại Sidebar trái (nhóm <strong>CÁ NHÂN</strong>), bấm nút <strong>🔑 Đổi Mật Khẩu</strong> (<code>Tag = ""</code> nên mở cho cả 4 vai trò).</div>
+            </div>
+            <!-- Step 3 -->
+            <div style="background: white; border: 1px solid #C4B5FD; border-top: 4px solid #7C3AED; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: #7C3AED;">BƯỚC 3 · BẬT MODAL DIALOG</div>
+              <div style="font-size: 12px; font-weight: 700; color: #0F172A; margin: 3px 0;"><code>fDoiMK.ShowDialog(Me)</code></div>
+              <div style="font-size: 11px; color: #475569;">Tô sáng nút Active trên Sidebar ➔ Khởi tạo <code>frmDoiMatKhau</code> trong khối <code>Using</code> ➔ Hiển thị đè chính giữa <code>frmMain</code> (<code>CenterParent</code>).</div>
+            </div>
+            <!-- Step 4 -->
+            <div style="background: white; border: 1px solid #BBF7D0; border-top: 4px solid #16A34A; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: #16A34A;">BƯỚC 4 · ĐỌC SESSION &amp; LƯU DB</div>
+              <div style="font-size: 12px; font-weight: 700; color: #0F172A; margin: 3px 0;"><code>frmDoiMatKhau</code> ➔ <code>AuthBUS</code></div>
+              <div style="font-size: 11px; color: #475569;">Tự động đọc <code>Session.NguoiDungHienTai</code> ➔ Kiểm tra 8 trạng thái lỗi ➔ Băm MD5 &amp; cập nhật bảng <code>TaiKhoan</code> trên SQL Server.</div>
+            </div>
+            <!-- Step 5 -->
+            <div style="background: white; border: 1px solid #FED7AA; border-top: 4px solid #EA580C; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 10px; font-weight: 800; color: #EA580C;">BƯỚC 5 · ĐÓNG &amp; TRẢ VỀ MAIN</div>
+              <div style="font-size: 12px; font-weight: 700; color: #0F172A; margin: 3px 0;"><code>Dispose()</code> ➔ <code>frmMain</code></div>
+              <div style="font-size: 11px; color: #475569;">Xóa mật khẩu thô trong RAM (<code>FormClosed</code>) ➔ Khối <code>Using</code> giải phóng GDI+ ➔ Trả quyền điều khiển về lại <code>frmMain</code>.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÔ PHỎNG TRỰC QUAN TOÀN CỬA SỔ FRMMAIN KHI BẤM NÚT ĐỔI MẬT KHẨU (TRƯỚC & SAU) -->
+        <div class="ba-grid">
+          <!-- BEFORE: FRMMAIN + MESSAGEBOX -->
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC KHI ĐẤU NỐI (v0.2.0 — Bấm nút trên Sidebar frmMain)</div>
+            <div class="ba-panel-body">
+              <p style="font-size: 12px; margin-bottom: 10px;">
+                Khi người dùng bấm vào nút <strong>🔑 Đổi Mật Khẩu</strong> ở góc dưới Sidebar của <code>frmMain</code>, ứng dụng chỉ hiện một hộp thoại <code>MessageBox</code> thông báo tạm thời:
+              </p>
+
+              <!-- FULL APP SHELL MOCKUP BEFORE -->
+              <div class="desktop-mockup" style="border: 1px solid #94A3B8;">
+                <div class="mockup-titlebar">
+                  <span>🍽️ Hệ Thống Quản Lý Quán Ăn - [Nguyễn Hoàng Nam - Chủ quán]</span>
+                  <div class="mockup-controls">
+                    <span class="mockup-ctrl-dot ctrl-yellow"></span>
+                    <span class="mockup-ctrl-dot ctrl-green"></span>
+                    <span class="mockup-ctrl-dot ctrl-red"></span>
+                  </div>
+                </div>
+                <!-- Top Header -->
+                <div style="background: #2980B9; color: white; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 10px;">
+                  <strong>🍽️ QUẢN LÝ QUÁN ĂN</strong>
+                  <span>👤 Nguyễn Hoàng Nam [CHỦ QUÁN] · 🚪 Đăng xuất</span>
+                </div>
+                <!-- Shell Body: Sidebar + Content with Modal Overlay -->
+                <div style="display: flex; height: 250px; position: relative;">
+                  <!-- Left Sidebar -->
+                  <div style="width: 145px; background: #2C3E50; color: #ECF0F1; padding: 8px 6px; font-size: 9.5px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                      <div style="color: #95A5A6; font-size: 8px; font-weight: 700; margin-bottom: 3px;">PHỤC VỤ &amp; BẾP</div>
+                      <div style="padding: 3px 6px;">🪑 Sơ Đồ Bàn &amp; Gọi Món</div>
+                      <div style="padding: 3px 6px;">🍳 Hàng Đợi Nhà Bếp</div>
+                      <div style="color: #95A5A6; font-size: 8px; font-weight: 700; margin: 6px 0 3px 0;">QUẢN LÝ</div>
+                      <div style="padding: 3px 6px;">👥 Quản Lý Nhân Sự</div>
+                      <div style="padding: 3px 6px;">📋 Quản Lý Thực Đơn</div>
+                    </div>
+                    <div style="border-top: 1px solid #34495E; padding-top: 6px;">
+                      <div style="color: #95A5A6; font-size: 8px; font-weight: 700; margin-bottom: 3px;">CÁ NHÂN</div>
+                      <div style="padding: 3px 6px;">🕒 Chấm Công Cá Nhân</div>
+                      <div style="padding: 4px 6px; background: #1A5276; color: #F1C40F; font-weight: 700; border-radius: 4px; border: 1px dashed #F1C40F;">
+                        🔑 Đổi Mật Khẩu ⬅ Click
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Main Content Area + Dimmed Overlay -->
+                  <div style="flex: 1; background: #ECF0F1; padding: 10px; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <div style="position: absolute; inset: 0; background: rgba(15,23,42,0.35);"></div>
+                    <!-- MessageBox Popup -->
+                    <div style="position: relative; z-index: 2; width: 230px; background: white; border: 1px solid #64748B; border-radius: 6px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow: hidden;">
+                      <div style="background: #64748B; color: white; font-size: 9.5px; font-weight: 700; padding: 4px 8px;">Thông Báo Cá Nhân</div>
+                      <div style="padding: 10px; font-size: 9.5px; color: #334155; display: flex; gap: 8px; align-items: center;">
+                        <span style="font-size: 18px;">ℹ️</span>
+                        <span>Chức năng [Đổi Mật Khẩu]: Đang hiển thị thông báo tạm...</span>
+                      </div>
+                      <div style="background: #F1F5F9; padding: 4px 8px; text-align: right;">
+                        <span style="background: #E2E8F0; border: 1px solid #94A3B8; padding: 1px 10px; font-size: 9px; font-weight: 700;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AFTER: FRMMAIN + FRMDOIMATKHAU MODAL OVERLAY -->
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU KHI ĐẤU NỐI (v0.2.1 — Mở Modal frmDoiMatKhau đè lên giữa frmMain)</div>
+            <div class="ba-panel-body">
+              <p style="font-size: 12px; margin-bottom: 10px;">
+                Khi bấm nút <strong>🔑 Đổi Mật Khẩu</strong> trên Sidebar của <code>frmMain</code>, phương thức <code>fDoiMK.ShowDialog(Me)</code> bật hộp thoại <code>frmDoiMatKhau</code> chính giữa <code>frmMain</code> và tự nạp <code>Session</code>:
+              </p>
+
+              <!-- FULL APP SHELL MOCKUP AFTER -->
+              <div class="desktop-mockup" style="border: 1px solid #1F618D;">
+                <div class="mockup-titlebar">
+                  <span>🍽️ Hệ Thống Quản Lý Quán Ăn - [Nguyễn Hoàng Nam - Chủ quán]</span>
+                  <div class="mockup-controls">
+                    <span class="mockup-ctrl-dot ctrl-yellow"></span>
+                    <span class="mockup-ctrl-dot ctrl-green"></span>
+                    <span class="mockup-ctrl-dot ctrl-red"></span>
+                  </div>
+                </div>
+                <!-- Top Header -->
+                <div style="background: #2980B9; color: white; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 10px;">
+                  <strong>🍽️ QUẢN LÝ QUÁN ĂN</strong>
+                  <span>👤 Nguyễn Hoàng Nam [CHỦ QUÁN] · 🚪 Đăng xuất</span>
+                </div>
+                <!-- Shell Body: Sidebar + Content with Modal frmDoiMatKhau Overlay -->
+                <div style="display: flex; height: 250px; position: relative;">
+                  <!-- Left Sidebar -->
+                  <div style="width: 145px; background: #2C3E50; color: #ECF0F1; padding: 8px 6px; font-size: 9.5px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                      <div style="color: #95A5A6; font-size: 8px; font-weight: 700; margin-bottom: 3px;">PHỤC VỤ &amp; BẾP</div>
+                      <div style="padding: 3px 6px;">🪑 Sơ Đồ Bàn &amp; Gọi Món</div>
+                      <div style="padding: 3px 6px;">🍳 Hàng Đợi Nhà Bếp</div>
+                      <div style="color: #95A5A6; font-size: 8px; font-weight: 700; margin: 6px 0 3px 0;">QUẢN LÝ</div>
+                      <div style="padding: 3px 6px;">👥 Quản Lý Nhân Sự</div>
+                      <div style="padding: 3px 6px;">📋 Quản Lý Thực Đơn</div>
+                    </div>
+                    <div style="border-top: 1px solid #34495E; padding-top: 6px;">
+                      <div style="color: #95A5A6; font-size: 8px; font-weight: 700; margin-bottom: 3px;">CÁ NHÂN</div>
+                      <div style="padding: 3px 6px;">🕒 Chấm Công Cá Nhân</div>
+                      <div style="padding: 4px 6px; background: #1A5276; color: #2ECC71; font-weight: 700; border-radius: 4px; border: 1px solid #2ECC71;">
+                        🔑 Đổi Mật Khẩu ⬅ Active
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Main Content Area + Dimmed Overlay + Centered frmDoiMatKhau -->
+                  <div style="flex: 1; background: #ECF0F1; padding: 8px; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <div style="position: absolute; inset: 0; background: rgba(15,23,42,0.42);"></div>
+                    <!-- Modal frmDoiMatKhau -->
+                    <div style="position: relative; z-index: 2; width: 255px; background: white; border: 2px solid #2980B9; border-radius: 7px; box-shadow: 0 12px 28px rgba(0,0,0,0.4); overflow: hidden;">
+                      <div style="background: #1F618D; color: white; font-size: 9px; font-weight: 700; padding: 3px 8px; display: flex; justify-content: space-between;">
+                        <span>🔑 Đổi Mật Khẩu (Modal CenterParent)</span>
+                        <span>✕</span>
+                      </div>
+                      <div style="background: #2980B9; color: white; padding: 5px 8px; font-size: 9.5px; font-weight: 700;">
+                        🔐 ĐỔI MẬT KHẨU TÀI KHOẢN
+                      </div>
+                      <div style="padding: 7px 9px; font-size: 8.5px; color: #334155;">
+                        <div style="background: #F1F5F9; padding: 3px 6px; border-radius: 3px; margin-bottom: 5px; display: flex; justify-content: space-between; font-weight: 700;">
+                          <span>👤 chuquan (Nguyễn Hoàng Nam)</span>
+                          <span style="background: #F39C12; color: white; padding: 0 4px; border-radius: 4px;">CHỦ QUÁN</span>
+                        </div>
+                        <div>Mật khẩu cũ *: <span style="border: 1px solid #CBD5E1; padding: 1px 6px; border-radius: 2px;">••••••</span></div>
+                        <div style="margin-top: 3px;">Mật khẩu mới *: <span style="border: 1px solid #2980B9; padding: 1px 6px; border-radius: 2px;">••••••••</span></div>
+                        <div style="margin-top: 3px;">Xác nhận mới *: <span style="border: 1px solid #CBD5E1; padding: 1px 6px; border-radius: 2px;">••••••••</span></div>
+                      </div>
+                      <div style="background: #F8FAFC; padding: 4px 8px; border-top: 1px solid #E2E8F0; text-align: right;">
+                        <span style="background: #E2E8F0; padding: 2px 6px; border-radius: 3px; font-size: 8px; font-weight: 700; margin-right: 4px;">❌ Hủy</span>
+                        <span style="background: #2980B9; color: white; padding: 2px 6px; border-radius: 3px; font-size: 8px; font-weight: 700;">💾 Lưu Mới</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BẢNG ĐỐI CHIẾU CƠ CHẾ LIÊN KẾT GIỮA CÁC FILE -->
+        <table class="model-table" style="margin-top: 16px;">
+          <thead>
+            <tr>
+              <th>Thành Phần Liên Kết</th>
+              <th>File Nguồn (v0.2.0)</th>
+              <th>File Đích (v0.2.1)</th>
+              <th>Cơ Chế Gọi &amp; Truyền Dữ Liệu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Nút bấm trên giao diện</strong></td>
+              <td><code>frmMain.Designer.vb</code> (Dòng 462)</td>
+              <td><code>btnDoiMatKhau</code> (<code>"🔑 Đổi Mật Khẩu"</code>)</td>
+              <td>Đặt trong <code>pnlSidebar</code> (nhóm <strong>CÁ NHÂN</strong>), <code>Tag = ""</code> để mọi vai trò đều nhìn thấy và bấm được.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Sự kiện kích hoạt mở Form</strong></td>
+              <td><code>frmMain.vb</code> (Dòng 276–281)</td>
+              <td><code>frmDoiMatKhau.ShowDialog(Me)</code></td>
+              <td>Hàm <code>btnDoiMatKhau_Click</code> đổi màu nút Active và khởi tạo <code>New Features.Auth.frmDoiMatKhau()</code> trong khối <code>Using</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Liên kết thông tin người dùng</strong></td>
+              <td><code>frmDangNhap.vb</code> ➔ <code>PhienDangNhap.vb</code></td>
+              <td><code>frmDoiMatKhau.vb</code> (<code>HienThiThongTinPhien</code>)</td>
+              <td>Đọc trực tiếp <code>Session.NguoiDungHienTai</code> (<code>TenDangNhap</code>, <code>HoTen</code>, <code>TenVaiTro</code>) để hiển thị lên đầu hộp thoại.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Liên kết xử lý nghiệp vụ &amp; CSDL</strong></td>
+              <td><code>frmDoiMatKhau.vb</code> (<code>btnLuu_Click</code>)</td>
+              <td><code>AuthBUS.DoiMatKhau</code> ➔ <code>AuthDAO.CapNhatMatKhau</code></td>
+              <td>Lấy <code>Session.NguoiDungHienTai.MaNV</code> đối chiếu mật khẩu cũ (MD5) và cập nhật mật khẩu mới xuống bảng <code>TaiKhoan</code>.</td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="code-diff">
           <div class="code-diff-header">
-            <span>Quanlyquanan/Features/Main/frmMain.vb — Đấu nối sự kiện btnDoiMatKhau_Click</span>
+            <span>Quanlyquanan/Features/Main/frmMain.vb (Dòng 276–281) — Đấu nối sự kiện btnDoiMatKhau_Click mở frmDoiMatKhau</span>
             <span>VB.NET</span>
           </div>
           <div class="code-diff-body">
