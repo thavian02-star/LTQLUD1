@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report — v0.2.0 · Quản Lý Quán Ăn (WinForms VB.NET)</title>
+  <style>
+    :root {
+      --primary: #2980B9;
+      --primary-light: #EBF5FB;
+      --primary-dark: #1F618D;
+      --green: #27AE60;
+      --green-light: #EAFAF1;
+      --red: #E74C3C;
+      --red-light: #FDEDEC;
+      --orange: #E67E22;
+      --orange-light: #FEF5E7;
+      --purple: #8E44AD;
+      --purple-light: #F4ECF7;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-500: #64748B;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #0F172A 0%, #1A365D 50%, #1F618D 100%);
+      color: white;
+      padding: 48px 40px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 50%;
+    }
+
+    .header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .header-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: #2ECC71;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: #CBD5E1;
+      max-width: 780px;
+      margin-bottom: 28px;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 13px;
+      color: #94A3B8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+
+    .header-meta-item strong {
+      color: white;
+      font-weight: 600;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .stats-bar-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.blue { background: var(--primary-light); color: var(--primary); }
+    .stat-icon.green { background: var(--green-light); color: var(--green); }
+    .stat-icon.red { background: var(--red-light); color: var(--red); }
+    .stat-icon.orange { background: var(--orange-light); color: var(--orange); }
+    .stat-icon.purple { background: var(--purple-light); color: var(--purple); }
+
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: var(--slate-500);
+      font-weight: 500;
+    }
+
+    /* ── TABLE OF CONTENTS (TOC) ── */
+    .toc-bar {
+      max-width: 1140px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+
+    .toc-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .toc-pill {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--slate-600);
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toc-pill:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      margin: 40px 0 20px;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--slate-200);
+    }
+
+    /* ── CHANGE CARD ── */
+    .change-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .change-card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--slate-100);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #FAFCFE;
+    }
+
+    .card-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 100px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .badge-feature { background: var(--primary-light); color: var(--primary-dark); }
+    .badge-fix { background: var(--red-light); color: var(--red); }
+    .badge-ux { background: var(--green-light); color: var(--green); }
+    .badge-rbac { background: var(--purple-light); color: var(--purple); }
+    .badge-infra { background: var(--orange-light); color: var(--orange); }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--slate-500);
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .card-body > * + * {
+      margin-top: 20px;
+    }
+
+    /* ── BEFORE / AFTER GRID ── */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .ba-grid { grid-template-columns: 1fr; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .ba-panel {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+    }
+
+    .ba-panel-header {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .ba-panel.before .ba-panel-header {
+      background: #FFF1F2;
+      color: #9F1239;
+      border-bottom: 1px solid #FECDD3;
+    }
+
+    .ba-panel.after .ba-panel-header {
+      background: #F0FDF4;
+      color: #15803D;
+      border-bottom: 1px solid #BBF7D0;
+    }
+
+    .ba-panel-body {
+      padding: 16px;
+      background: var(--slate-50);
+      font-size: 13px;
+    }
+
+    /* ── DESKTOP WINDOW MOCKUP ── */
+    .desktop-mockup {
+      background: #FFFFFF;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .mockup-titlebar {
+      height: 26px;
+      background: #1F618D;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .mockup-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-ctrl-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+    .ctrl-yellow { background: #F1C40F; }
+    .ctrl-green { background: #2ECC71; }
+    .ctrl-red { background: #E74C3C; }
+
+    .mockup-header {
+      background: #2980B9;
+      color: white;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-body {
+      padding: 16px;
+      background: #F4F6F9;
+    }
+
+    /* ── CODE DIFF BLOCK ── */
+    .code-diff {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--slate-300);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .code-diff-header {
+      background: var(--slate-800);
+      color: var(--slate-300);
+      padding: 8px 14px;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font);
+    }
+
+    .code-diff-body {
+      background: #FFFFFF;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .diff-line {
+      padding: 2px 14px;
+      display: flex;
+      gap: 12px;
+      white-space: pre;
+    }
+
+    .diff-line.add {
+      background: #F0FDF4;
+      color: #166534;
+      border-left: 3px solid #22C55E;
+    }
+
+    .diff-line.del {
+      background: #FEF2F2;
+      color: #991B1B;
+      border-left: 3px solid #EF4444;
+    }
+
+    .diff-line.context {
+      color: var(--slate-600);
+    }
+
+    /* ── DATA MODEL TABLE ── */
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      background: white;
+    }
+
+    .model-table th {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--slate-200);
+    }
+
+    .model-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+    }
+
+    .model-table tr:hover td {
+      background: var(--slate-50);
+    }
+
+    /* ── DEMO ACCOUNTS BOX ── */
+    .accounts-box {
+      background: #F8FAFC;
+      border: 1px solid var(--slate-300);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-top: 24px;
+    }
+
+    .accounts-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── FILE SUMMARY TABLE ── */
+    .file-table-wrap {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      padding: 40px 20px;
+      font-size: 13px;
+      text-align: center;
+      border-top: 1px solid var(--slate-800);
+    }
+
+    .footer a {
+      color: #38BDF8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── 1. HEADER ── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-badge">
+        <span class="dot"></span>
+        <span>RELEASE v0.2.0 · BÀN GIAO PHÂN HỆ AUTH & MAIN DASHBOARD</span>
+      </div>
+      <h1>Hệ Thống Quản Lý Quán Ăn (Quanlyquanan)</h1>
+      <p class="header-desc">
+        Báo cáo nghiệm thu kỹ thuật: Đã hoàn thành 100% Phân hệ Xác thực tài khoản (Auth), Màn hình chính điều hành (Main Dashboard), cơ chế Phân quyền tự động 4 vai trò (RBAC) và kết nối CSDL Microsoft SQL Server 2022 trên Docker.
+      </p>
+      <div class="header-meta">
+        <div class="header-meta-item">Framework: <strong>VB.NET Windows Forms (.NET 10.0)</strong></div>
+        <div class="header-meta-item">Database: <strong>MS SQL Server 2022 (Docker 172.20.218.246)</strong></div>
+        <div class="header-meta-item">Kiến trúc: <strong>Package-by-Feature (Vertical Slices)</strong></div>
+        <div class="header-meta-item">Base commit: <strong>c8e831b</strong> → Head: <strong>5fad458</strong></div>
+        <div class="header-meta-item">Ngày phát hành: <strong>05/11/2026</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 2. STATS BAR ── -->
+  <section class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <div class="stat-icon blue">✨</div>
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Features Mới</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon purple">🛡️</div>
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Vai Trò RBAC</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon orange">🗄️</div>
+        <div>
+          <div class="stat-num">18</div>
+          <div class="stat-label">Bảng SQL Docker</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon green">📝</div>
+        <div>
+          <div class="stat-num">39</div>
+          <div class="stat-label">Files Thay Đổi</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon red">🚀</div>
+        <div>
+          <div class="stat-num">+4.346</div>
+          <div class="stat-label">Dòng Code Thêm Mới</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. TABLE OF CONTENTS ── -->
+  <div class="toc-bar">
+    <ul class="toc-list">
+      <li><a href="#card-auth" class="toc-pill">🔐 1. Form Đăng Nhập & MD5</a></li>
+      <li><a href="#card-main" class="toc-pill">🖥️ 2. Màn Hình Chính & Dashboard</a></li>
+      <li><a href="#card-rbac" class="toc-pill">🛡️ 3. Tự Động Phân Quyền RBAC</a></li>
+      <li><a href="#card-flow" class="toc-pill">🔄 4. Đấu Nối Luồng & Vòng Đời Form</a></li>
+      <li><a href="#card-arch" class="toc-pill">🏗️ 5. Kiến Trúc & SQL Docker</a></li>
+      <li><a href="#card-accounts" class="toc-pill">👥 6. Tài Khoản Kiểm Thử</a></li>
+      <li><a href="#card-files" class="toc-pill">📋 7. Thống Kê File</a></li>
+    </ul>
+  </div>
+
+  <!-- ── 4. MAIN CONTENT ── -->
+  <main class="main">
+
+    <div class="section-title">CHI TIẾT CÁC THAY ĐỔI TRỌNG YẾU (BEFORE / AFTER COMPARISON)</div>
+
+    <!-- CARD 1: FORM ĐĂNG NHẬP (AUTH) -->
+    <article class="change-card" id="card-auth">
+      <div class="card-header">
+        <span class="card-type-badge badge-feature">✨ FEATURE</span>
+        <div>
+          <h2 class="card-title">Màn Hình Đăng Nhập (frmDangNhap) & Xác Thực CSDL</h2>
+          <div class="card-subtitle">Commits: <code>3c6ff4d</code>, <code>fd6c3a5</code>, <code>a4fbf63</code>, <code>7f41ebd</code> · Phân hệ: <code>Features/Auth/</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Xây dựng hoàn chỉnh luồng đăng nhập theo mô hình 3 lớp (DTO ➔ DAO ➔ BUS ➔ GUI). Mật khẩu được băm một chiều bằng <strong>MD5</strong> trước khi so sánh với CSDL. Xử lý bắt lỗi thân thiện khi SQL Server Docker chưa khởi động mà không làm sập (crash) ứng dụng.
+        </p>
+
+        <div class="ba-grid">
+          <!-- BEFORE -->
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC (BEFORE)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px; margin-bottom: 12px;">
+                <li>Chưa có màn hình đăng nhập, chạy mặc định Form1 rỗng.</li>
+                <li>Không có bảo mật, không kiểm tra tài khoản.</li>
+                <li>Nếu mất kết nối CSDL thì văng ứng dụng đột ngột (Unhandled Exception).</li>
+              </ul>
+              <div style="background: white; border: 1px dashed #FECDD3; padding: 10px; border-radius: 6px; color: #991B1B; font-size: 11.5px;">
+                ⚠️ <em>Crash Report: A network-related or instance-specific error occurred... App terminated.</em>
+              </div>
+            </div>
+          </div>
+
+          <!-- AFTER -->
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU (AFTER)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px; margin-bottom: 12px;">
+                <li>Giao diện phẳng Flat UI hiện đại, tông màu xanh <code>#2980B9</code> chuẩn nhận diện.</li>
+                <li>Băm MD5 tự động, ô ẩn mật khẩu <code>●●●●●</code> có checkbox xem/ẩn.</li>
+                <li>Khối <code>Try...Catch</code> hiển thị nhãn chữ đỏ êm đẹp khi lỗi mạng/CSDL.</li>
+              </ul>
+              <div class="desktop-mockup" style="max-width: 320px; margin: 0 auto;">
+                <div class="mockup-titlebar">
+                  <span>Đăng Nhập - Quản Lý Quán Ăn</span>
+                  <div class="mockup-controls">
+                    <span class="mockup-ctrl-dot ctrl-red"></span>
+                  </div>
+                </div>
+                <div class="mockup-header" style="padding: 8px 12px; text-align: center; flex-direction: column;">
+                  <strong style="font-size: 11px;">HỆ THỐNG QUẢN LÝ QUÁN ĂN</strong>
+                  <span style="font-size: 9px; opacity: 0.9;">ĐĂNG NHẬP TÀI KHOẢN HỆ THỐNG</span>
+                </div>
+                <div class="mockup-body" style="padding: 10px; background: white;">
+                  <div style="font-size: 10px; margin-bottom: 2px;">Tên đăng nhập:</div>
+                  <div style="border: 1px solid #CBD5E1; padding: 3px 6px; border-radius: 3px; font-size: 10px; margin-bottom: 6px;">chuquan</div>
+                  <div style="font-size: 10px; margin-bottom: 2px;">Mật khẩu:</div>
+                  <div style="border: 1px solid #CBD5E1; padding: 3px 6px; border-radius: 3px; font-size: 10px; margin-bottom: 6px;">••••••</div>
+                  <button style="width: 100%; background: #2980B9; color: white; border: none; padding: 5px; border-radius: 3px; font-size: 10.5px; font-weight: bold;">ĐĂNG NHẬP</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CODE DIFF -->
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>AuthBUS.vb — Băm MD5 & Xác thực phiên Session</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line del">- ' Trước: Chưa có lớp xử lý xác thực, người dùng vào thẳng form chính</div>
+            <div class="diff-line add">+ ' 1. Băm mật khẩu sang chuỗi MD5 trước khi so khớp CSDL</div>
+            <div class="diff-line add">+ Dim matKhauMD5 As String = MaHoaMD5.BamMD5(matKhauRaw.Trim())</div>
+            <div class="diff-line add">+ Dim dto As TaiKhoanDTO = TaiKhoanDAO.KiemTraDangNhap(tenDangNhap.Trim(), matKhauMD5)</div>
+            <div class="diff-line add">+ ' 2. Nạp phiên làm việc toàn cục (Session) & Danh sách quyền RBAC</div>
+            <div class="diff-line add">+ Session.MaTaiKhoan = dto.MaTaiKhoan</div>
+            <div class="diff-line add">+ Session.DanhSachQuyen = TaiKhoanDAO.LayDanhSachQuyen(dto.MaVaiTro)</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 2: MÀN HÌNH CHÍNH (MAIN DASHBOARD) -->
+    <article class="change-card" id="card-main">
+      <div class="card-header">
+        <span class="card-type-badge badge-feature">✨ FEATURE</span>
+        <div>
+          <h2 class="card-title">Màn Hình Chính (frmMain) & App Shell Điều Hành Tập Trung</h2>
+          <div class="card-subtitle">Commits: <code>bd3114c</code>, <code>5534cbe</code> · Phân hệ: <code>Features/Main/</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Thiết kế màn hình trung tâm của phần mềm với bố cục 4 vùng: <strong>Header</strong> (Logo, User profile, đồng hồ real-time, nút Đăng xuất), <strong>Sidebar trái</strong> (8 nút menu phân nhóm theo nghiệp vụ), <strong>Content Workspace</strong> (4 thẻ KPI thống kê, 6 nút thao tác nhanh, danh sách hoạt động) và <strong>Status Bar</strong> hiển thị IP Docker.
+        </p>
+
+        <div class="ba-grid">
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC (BEFORE)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px;">
+                <li>Chỉ có file <code>Form1.vb</code> mặc định rỗng của Visual Studio.</li>
+                <li>Không có thanh điều hướng menu.</li>
+                <li>Không hiển thị thông tin ai đang đăng nhập, không có đồng hồ.</li>
+                <li>Không có vùng chứa để nhúng các Form con nghiệp vụ.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU (AFTER)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px;">
+                <li>Khung App Shell toàn màn hình với Sidebar 250px nền xám đậm <code>#2C3E50</code>.</li>
+                <li>Đồng hồ số thời gian thực cập nhật từng giây <code>HH:mm:ss - Thứ X, dd/MM/yyyy</code>.</li>
+                <li>4 thẻ KPI trực quan: 🪑 Bàn phục vụ, 🍜 Món chờ nấu, 👨‍🍳 Nhân sự ca, 💰 Doanh thu.</li>
+                <li>Cơ chế <code>MoFormCon(childForm)</code> nhúng Form con toàn phần vào <code>pnlContent</code>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 3: TỰ ĐỘNG PHÂN QUYỀN (RBAC) -->
+    <article class="change-card" id="card-rbac">
+      <div class="card-header">
+        <span class="card-type-badge badge-rbac">🛡️ RBAC ENGINE</span>
+        <div>
+          <h2 class="card-title">Cơ Chế Tự Động Phân Quyền Giao Diện Qua Thuộc Tính Tag</h2>
+          <div class="card-subtitle">Commits: <code>bd3114c</code>, <code>e00b6bb</code> · File: <code>PhanQuyenHelper.vb</code>, <code>Session.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Hệ thống áp dụng tự động phân quyền theo vai trò (Role-Based Access Control). Toàn bộ các Button trên Sidebar và Quick Action được gán mã <code>Tag</code> (ví dụ: <code>POS_SO_DO_BAN</code>, <code>BEP_HANG_DOI_MON</code>, <code>QL_DUYET_CHAM_CONG</code>, <code>CQ_QUAN_LY_NHAN_VIEN</code>...). Lớp <code>PhanQuyenHelper</code> quét đệ quy cây Control và tự động vô hiệu hóa (<code>Enabled = False</code>) các chức năng trái thẩm quyền.
+        </p>
+
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Nút Menu / Quick Action</th>
+              <th>Thuộc tính Tag</th>
+              <th>👑 Chủ quán</th>
+              <th>👔 Quản lý</th>
+              <th>🍽️ Phục vụ</th>
+              <th>🍳 Nhà bếp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>🍽️ Sơ Đồ Bàn Ăn</strong></td>
+              <td><code>POS_SO_DO_BAN</code></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+            </tr>
+            <tr>
+              <td><strong>🍳 Nhà Bếp & Pha Chế</strong></td>
+              <td><code>BEP_HANG_DOI_MON</code></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+            </tr>
+            <tr>
+              <td><strong>🕒 Duyệt Chấm Công</strong></td>
+              <td><code>QL_DUYET_CHAM_CONG</code></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+            </tr>
+            <tr>
+              <td><strong>👥 Quản Lý Nhân Sự</strong></td>
+              <td><code>CQ_QUAN_LY_NHAN_VIEN</code></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+            </tr>
+            <tr>
+              <td><strong>📊 Báo Cáo Doanh Thu</strong></td>
+              <td><code>CQ_BAO_CAO_THONG_KE</code></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+              <td><span style="color: #DC2626; font-weight: bold;">Khóa (Mờ)</span></td>
+            </tr>
+            <tr>
+              <td><strong>⏱️ Chấm Công Của Tôi</strong></td>
+              <td><code>CA_NHAN_CHAM_CONG</code></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">Sáng rõ</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- CARD 4: ĐẤU NỐI LUỒNG & VÒNG ĐỜI FORM -->
+    <article class="change-card" id="card-flow">
+      <div class="card-header">
+        <span class="card-type-badge badge-ux">🎨 FLOW & LIFECYCLE</span>
+        <div>
+          <h2 class="card-title">Đấu Nối Chuyển Hướng & Quản Lý Vòng Đời Đăng Xuất An Toàn</h2>
+          <div class="card-subtitle">Commit: <code>5fad458</code> · File: <code>frmDangNhap.vb</code>, <code>frmMain.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Giải quyết triệt để vấn đề xung đột vòng đời Form trong WinForms (.NET 10.0). Khi đăng nhập thành công, Form đăng nhập chỉ ẩn đi (<code>Me.Hide()</code>) chứ không đóng để giữ tiến trình ứng dụng. Khi người dùng bấm <strong>ĐĂNG XUẤT</strong> trên màn hình chính, hệ thống gửi tín hiệu <code>DialogResult.OK</code> để mở lại Form Đăng nhập, đồng thời xóa sạch Session. Khi người dùng bấm <strong>[X]</strong>, hệ thống hỏi xác nhận và thoát hoàn toàn ứng dụng.
+        </p>
+
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>frmDangNhap.vb — Luồng chuyển giao diện an toàn</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line add">+ ' Khởi tạo frmMain và ẩn frmDangNhap</div>
+            <div class="diff-line add">+ Dim fMain As New Features.Main.frmMain()</div>
+            <div class="diff-line add">+ AddHandler fMain.FormClosed, Sub(s, args)</div>
+            <div class="diff-line add">+     If fMain.DialogResult = DialogResult.OK Then</div>
+            <div class="diff-line add">+         ' Người dùng bấm Đăng Xuất -> Hiện lại form Đăng nhập sạch sẽ</div>
+            <div class="diff-line add">+         Me.Show()</div>
+            <div class="diff-line add">+         txtTenDangNhap.Focus()</div>
+            <div class="diff-line add">+     Else</div>
+            <div class="diff-line add">+         ' Người dùng bấm [X] thoát -> Kết thúc hoàn toàn app</div>
+            <div class="diff-line add">+         Me.Close()</div>
+            <div class="diff-line add">+     End If</div>
+            <div class="diff-line add">+ End Sub</div>
+            <div class="diff-line add">+ fMain.Show()</div>
+            <div class="diff-line add">+ Me.Hide()</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 5: KIẾN TRÚC & DOCKER SQL SERVER -->
+    <article class="change-card" id="card-arch">
+      <div class="card-header">
+        <span class="card-type-badge badge-infra">🗄️ ARCHITECTURE & DATABASE</span>
+        <div>
+          <h2 class="card-title">Chuẩn Hóa 18 Bảng SQL Server Docker & Kiến Trúc Package-by-Feature</h2>
+          <div class="card-subtitle">Commits: <code>c8e831b</code>, <code>9280c76</code>, <code>aa28d66</code> · File: <code>KetNoiCSDL.vb</code>, <code>create-database.sql</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Loại bỏ hoàn toàn các file MS Access (<code>.mdb</code>) cũ; chuẩn hóa 100% lên Microsoft SQL Server 2022 Express chạy trên Docker. Cấu trúc mã nguồn được tái cấu trúc từ mô hình Package-by-Layer sang <strong>Package-by-Feature (Vertical Slices)</strong> giúp phân tách rõ ràng từng chức năng: <code>Auth/</code>, <code>Main/</code>, <code>BanAn_GoiMon/</code>, <code>NhaBep/</code>...
+        </p>
+
+        <div class="ba-grid">
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC (BEFORE)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px;">
+                <li>Dùng file Access <code>.mdb</code> dễ lỗi font Unicode Tiếng Việt và xung đột phiên bản 32-bit / 64-bit.</li>
+                <li>Thư mục chia theo Layer (DTO gom 1 chỗ, DAO gom 1 chỗ) gây khó khăn khi tìm kiếm file của 1 chức năng.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU (AFTER)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px;">
+                <li>18 bảng chuẩn hóa quan hệ 3NF trên Microsoft SQL Server 2022.</li>
+                <li>Kết nối qua thư viện hiện đại <code>Microsoft.Data.SqlClient v7.1.1</code> trỏ tới IP Docker <code>172.20.218.246:1433</code>.</li>
+                <li>Tổ chức Package-by-Feature: Mỗi màn hình là một thư mục khép kín (DTO, DAO, BUS, Form.vb, Form.Designer.vb).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 6: TÀI KHOẢN KIỂM THỬ -->
+    <article class="change-card" id="card-accounts">
+      <div class="card-header">
+        <span class="card-type-badge badge-ux">👥 TEST DATA</span>
+        <div>
+          <h2 class="card-title">Danh Sách Tài Khoản Mẫu Phục Vụ Nghiệm Thu (Demo Accounts)</h2>
+          <div class="card-subtitle">Nguồn dữ liệu: <code>database/docker-mssql/seed-data.sql</code> · Mật khẩu chung: <code>123456</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Người chấm bài có thể đăng nhập thử lần lượt bằng 4 tài khoản dưới đây để kiểm chứng cơ chế phân quyền RBAC và trải nghiệm giao diện tương ứng với từng vị trí công việc:
+        </p>
+
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Tên đăng nhập</th>
+              <th>Mật khẩu</th>
+              <th>Họ tên nhân viên</th>
+              <th>Vai trò</th>
+              <th>Mục tiêu nghiệm thu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>chuquan</code></td>
+              <td><code>123456</code></td>
+              <td>Nguyễn Hoàng Nam</td>
+              <td><span style="background: #FEF5E7; color: #D35400; font-weight: bold; padding: 2px 8px; border-radius: 4px;">CHỦ QUÁN</span></td>
+              <td>Thấy toàn bộ 8 menu; Thấy KPI doanh thu 4.850.000 đ; Toàn quyền quản trị.</td>
+            </tr>
+            <tr>
+              <td><code>quanly</code></td>
+              <td><code>123456</code></td>
+              <td>Trần Thị Thu Thảo</td>
+              <td><span style="background: #F4ECF7; color: #8E44AD; font-weight: bold; padding: 2px 8px; border-radius: 4px;">QUẢN LÝ</span></td>
+              <td>Sáng nút Bàn ăn, Duyệt chấm công; Khóa nút Báo cáo doanh thu & Quản lý nhân sự.</td>
+            </tr>
+            <tr>
+              <td><code>phucvu1</code></td>
+              <td><code>123456</code></td>
+              <td>Lê Minh Tuấn</td>
+              <td><span style="background: #EAFAF1; color: #27AE60; font-weight: bold; padding: 2px 8px; border-radius: 4px;">PHỤC VỤ</span></td>
+              <td>Chỉ sáng nút Sơ Đồ Bàn Ăn & Chấm Công; Khóa tất cả menu quản lý và bếp.</td>
+            </tr>
+            <tr>
+              <td><code>nhabep1</code></td>
+              <td><code>123456</code></td>
+              <td>Phạm Hồng Sơn</td>
+              <td><span style="background: #EDBB99; color: #BA4A00; font-weight: bold; padding: 2px 8px; border-radius: 4px;">NHÀ BẾP</span></td>
+              <td>Chỉ sáng nút Hàng Đợi Nhà Bếp & Chấm Công; Khóa menu bán hàng và quản lý.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- CARD 7: FILE SUMMARY TABLE -->
+    <article class="change-card" id="card-files">
+      <div class="card-header">
+        <span class="card-type-badge badge-infra">📋 FILE SUMMARY</span>
+        <div>
+          <h2 class="card-title">Bảng Thống Kê Các File Mã Nguồn & Tài Liệu Trọng Yếu</h2>
+          <div class="card-subtitle">Tổng hợp từ git diff <code>c8e831b..5fad458</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="file-table-wrap">
+          <table class="model-table">
+            <thead>
+              <tr>
+                <th>Đường dẫn file</th>
+                <th>Phân hệ</th>
+                <th>Loại thay đổi</th>
+                <th>Mô tả chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Quanlyquanan/Features/Main/frmMain.Designer.vb</code></td>
+                <td>Main</td>
+                <td><span style="color: #27AE60; font-weight: bold;">New (+1060)</span></td>
+                <td>Khai báo toàn bộ control Header, Sidebar, Dashboard và Tag RBAC</td>
+              </tr>
+              <tr>
+                <td><code>Quanlyquanan/Features/Main/frmMain.vb</code></td>
+                <td>Main</td>
+                <td><span style="color: #27AE60; font-weight: bold;">New (+337)</span></td>
+                <td>Logic nạp Session, Timer đồng hồ, nhúng Form con, xử lý Đăng xuất</td>
+              </tr>
+              <tr>
+                <td><code>Quanlyquanan/Features/Auth/frmDangNhap.vb</code></td>
+                <td>Auth</td>
+                <td><span style="color: #2980B9; font-weight: bold;">Update (+129)</span></td>
+                <td>Giao diện đăng nhập, gọi AuthBUS và đấu nối luồng chuyển tiếp sang frmMain</td>
+              </tr>
+              <tr>
+                <td><code>Quanlyquanan/Core/Helpers/PhanQuyenHelper.vb</code></td>
+                <td>Core</td>
+                <td><span style="color: #2980B9; font-weight: bold;">Update (+92)</span></td>
+                <td>Bộ máy quét đệ quy thuộc tính Tag và áp dụng phân quyền tự động</td>
+              </tr>
+              <tr>
+                <td><code>Quanlyquanan/Core/Database/KetNoiCSDL.vb</code></td>
+                <td>Core</td>
+                <td><span style="color: #2980B9; font-weight: bold;">Update (+89)</span></td>
+                <td>Quản lý SqlConnection tới Docker SQL Server (IP 172.20.218.246:1433)</td>
+              </tr>
+              <tr>
+                <td><code>docs/features/main/frmMain_mockup.html</code></td>
+                <td>Docs</td>
+                <td><span style="color: #27AE60; font-weight: bold;">New (+960)</span></td>
+                <td>Bản mockup HTML tương tác trực quan tích hợp RBAC Simulator</td>
+              </tr>
+              <tr>
+                <td><code>docs/QUY_TRINH_ORDER_MON.md</code></td>
+                <td>Docs</td>
+                <td><span style="color: #27AE60; font-weight: bold;">New (+107)</span></td>
+                <td>Đặc tả chi tiết quy trình gọi món, hủy món, chuyển/gộp bàn (Sequence Diagram)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ── 5. FOOTER ── -->
+  <footer class="footer">
+    <div style="max-width: 1140px; margin: 0 auto;">
+      <p style="font-weight: 700; color: white; margin-bottom: 6px;">ĐỒ ÁN: LẬP TRÌNH ỨNG DỤNG QUẢN LÝ 1 — HỆ THỐNG QUẢN LÝ QUÁN ĂN</p>
+      <p style="margin-bottom: 14px;">Bản quyền mã nguồn thuộc về nhóm sinh viên thực hiện · Năm học 2026</p>
+      <div style="font-size: 11.5px; color: #64748B;">
+        Release Tag: <strong>v0.2.0</strong> · Base: <code>c8e831b</code> · Head: <code>5fad458</code> · Trạng thái Build: <strong>0 Errors, 0 Warnings</strong>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
