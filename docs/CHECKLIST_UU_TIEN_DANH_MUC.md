@@ -46,8 +46,8 @@
 ### MÀN HÌNH 2: MH MÓN ĂN (`frmMonAn`)
 > **Mục tiêu:** Quản lý danh sách món ăn & thức uống (`MA_Ma`, `MA_Ten`, `MA_DanhMuc`, `MA_DonGia`, `MA_HetMon`, `MA_MoTa`, `MA_Xoa`).
 
-- [ ] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/menu/mon_an/`)**
-  - [ ] Tạo tài liệu đặc tả `MON_AN_SPRINT.md` và file mockup `frmMonAn_mockup_v1_0.html` để PO duyệt.
+- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/menu/mon_an/`)**
+  - [x] Tạo tài liệu đặc tả `MON_AN_SPRINT.md` và file mockup `frmMonAn_mockup_v1_0.html` để PO duyệt.
 - [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmMonAn.Designer.vb`)**
   - [ ] Thiết kế bố cục: Bộ lọc theo `Danh mục` + Từ khóa + Trạng thái (`Còn món` / `Hết món`), khung chi tiết (`Tên món`, `ComboBox Danh mục`, `Đơn giá VNĐ`, `CheckBox Báo hết món`, `Mô tả`), các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới` và lưới `DataGridView` định dạng tiền tệ `#,##0 đ`.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMonAn.vb`)**

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup v1.0 — frmMonAn (Màn hình Quản lý Món ăn &amp; Thức uống)</title>
+  <style>
+    :root {
+      --bg-page: #0f172a;
+      --bg-form: #f5f6fa;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #1e293b;
+      --text-sub: #64748b;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #ea580c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg-page); color: #f8fafc; padding: 20px; }
+
+    /* Top Review Bar */
+    .review-toolbar {
+      max-width: 1120px;
+      margin: 0 auto 16px auto;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .review-toolbar .badge-ver {
+      background: #16a34a;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.4px;
+    }
+    .review-toolbar .scenario-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .scenario-btn {
+      background: #334155;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .scenario-btn:hover, .scenario-btn.active {
+      background: #3b82f6;
+      color: #fff;
+      border-color: #60a5fa;
+    }
+
+    /* WinForms Window Shell */
+    .winforms-window {
+      max-width: 1120px;
+      min-height: 680px;
+      margin: 0 auto;
+      background: var(--bg-form);
+      color: var(--text-main);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+      border: 2px solid #475569;
+      display: flex;
+      flex-direction: column;
+    }
+    .titlebar {
+      background: #1e293b;
+      color: #f8fafc;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      font-size: 12.5px;
+      user-select: none;
+    }
+    .titlebar-controls span {
+      display: inline-block;
+      width: 28px;
+      text-align: center;
+      line-height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .titlebar-controls span.close:hover { background: #ef4444; }
+
+    /* Form Header (pnlHeader) */
+    .pnl-header {
+      background: #ffffff;
+      height: 68px;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-left h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .header-left p {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-header-nav {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn-header-close {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* KPI Row (tlpKpiRow) */
+    .tlp-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 14px 24px 0 24px;
+    }
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 4px solid #2563eb;
+    }
+    .kpi-card.green { border-left-color: #16a34a; }
+    .kpi-card.orange { border-left-color: #ea580c; }
+    .kpi-card .kpi-label { font-size: 11.5px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; }
+    .kpi-card .kpi-val { font-size: 21px; font-weight: 800; color: #0f172a; margin-top: 2px; }
+    .kpi-card .kpi-sub { font-size: 11.5px; color: var(--text-sub); }
+
+    /* Main Split Content (tlpMainContent 38% : 62%) */
+    .tlp-main-content {
+      display: grid;
+      grid-template-columns: 38% 1fr;
+      gap: 16px;
+      padding: 14px 24px 20px 24px;
+      flex: 1;
+    }
+    .card-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Form Controls */
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 36% 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .form-group { margin-bottom: 12px; }
+    .form-group label, .form-row-2 label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+    .req { color: #dc2626; }
+    .form-control {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+    }
+    .form-control:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
+    .form-control[readonly] { background: #f1f5f9; color: #64748b; font-weight: 700; }
+    textarea.form-control { resize: none; height: 64px; }
+
+    .hetmon-box {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 6px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .hetmon-box label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #9a3412;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0;
+    }
+    .hetmon-box input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #dc2626;
+      cursor: pointer;
+    }
+
+    .status-banner {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .status-banner.success { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .status-banner.error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+    .status-banner.info { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+
+    /* 2x2 Action Buttons (tlpButtons) */
+    .tlp-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .btn-action {
+      padding: 10px 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      color: #ffffff;
+      transition: opacity 0.15s;
+    }
+    .btn-action:hover { opacity: 0.92; }
+    .btn-add { background: #16a34a; }
+    .btn-update { background: #2563eb; }
+    .btn-delete { background: #dc2626; }
+    .btn-reset { background: #475569; }
+
+    /* Right Panel: Multi-Filter Bar + DataGridView */
+    .filter-bar {
+      display: grid;
+      grid-template-columns: 32% 24% 1fr auto;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .btn-reload {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 0 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
+
+    .dgv-wrapper {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      overflow-y: auto;
+      max-height: 410px;
+      flex: 1;
+      background: #f8fafc;
+    }
+    table.dgv {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.8px;
+      background: #fff;
+    }
+    table.dgv thead {
+      background: #1e293b;
+      color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    table.dgv th {
+      padding: 9px 10px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    table.dgv td {
+      padding: 8.5px 10px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #1e293b;
+    }
+    table.dgv tbody tr { cursor: pointer; transition: background 0.1s; }
+    table.dgv tbody tr:hover { background: #f1f5f9; }
+    table.dgv tbody tr.selected {
+      background: #dbeafe;
+      font-weight: 600;
+    }
+    .pill-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+    .pill-status.available { background: #dcfce7; color: #15803d; }
+    .pill-status.out { background: #fee2e2; color: #b91c1c; }
+
+    /* Spec Annotation Footer */
+    .spec-notes {
+      max-width: 1120px;
+      margin: 16px auto 0 auto;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+    .spec-notes h3 { color: #60a5fa; font-size: 14px; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <!-- Thanh điều khiển kịch bản test dành cho PO -->
+  <div class="review-toolbar">
+    <div>
+      <span class="badge-ver">MOCKUP v1.0 — BƯỚC 1/5</span>
+      <strong style="margin-left: 8px; font-size: 14px;">Màn hình 2: Quản lý Món ăn &amp; Thức uống (<code>frmMonAn</code>)</strong>
+    </div>
+    <div class="scenario-btns">
+      <button class="scenario-btn active" onclick="resetSeedData()">1. Nạp 16 Món chuẩn</button>
+      <button class="scenario-btn" onclick="simulateFilterOut()">2. Lọc món "Tạm hết món"</button>
+      <button class="scenario-btn" onclick="simulateAddDish()">3. Thử Thêm "Lẩu Cá Kèo Lá Giang"</button>
+      <button class="scenario-btn" onclick="simulateToggleSoldOut()">4. Thử Báo Hết Món nhanh</button>
+      <button class="scenario-btn" onclick="simulateBlockedDeleteActiveOrder()">5. Thử Xóa món đang phục vụ tại Bàn 02 (Chặn)</button>
+    </div>
+  </div>
+
+  <!-- Cửa sổ WinForms frmMonAn -->
+  <div class="winforms-window">
+    <div class="titlebar">
+      <div>🍜 Quản lý Món ăn &amp; Thức uống — Quán Ăn Gia Đình Hương Việt (frmMonAn)</div>
+      <div class="titlebar-controls">
+        <span>—</span>
+        <span>☐</span>
+        <span class="close">✕</span>
+      </div>
+    </div>
+
+    <!-- pnlHeader -->
+    <div class="pnl-header">
+      <div class="header-left">
+        <h1>🍜 QUẢN LÝ MÓN ĂN &amp; THỨC UỐNG</h1>
+        <p>Thiết lập thực đơn, định giá bán VNĐ và kiểm soát trạng thái Còn món / Hết món (Quyền: <code>CQ_QUAN_LY_THUC_DON</code>)</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-header-nav" onclick="alert('Mở màn hình frmDanhMuc (Quản lý Danh mục) và tự động làm mới ComboBox Danh mục sau khi đóng!')">📂 Quản lý Danh mục</button>
+        <button class="btn-header-close">✖ Đóng (ESC)</button>
+      </div>
+    </div>
+
+    <!-- tlpKpiRow -->
+    <div class="tlp-kpi-row">
+      <div class="kpi-card">
+        <div>
+          <div class="kpi-label">Tổng số Món trong Thực đơn</div>
+          <div class="kpi-val" id="kpiTotalDishes">16 món</div>
+          <div class="kpi-sub">Thuộc 5 danh mục (<code>MA_Xoa = 0</code>)</div>
+        </div>
+        <div style="font-size: 28px;">🍲</div>
+      </div>
+      <div class="kpi-card green">
+        <div>
+          <div class="kpi-label">Đang phục vụ (Còn món)</div>
+          <div class="kpi-val" id="kpiAvailableDishes" style="color:#16a34a;">15 món</div>
+          <div class="kpi-sub">Sẵn sàng nhận order tại bàn (<code>MA_HetMon = 0</code>)</div>
+        </div>
+        <div style="font-size: 28px;">🟢</div>
+      </div>
+      <div class="kpi-card orange">
+        <div>
+          <div class="kpi-label">Tạm hết nguyên liệu (Hết món)</div>
+          <div class="kpi-val" id="kpiOutDishes" style="color:#ea580c;">1 món</div>
+          <div class="kpi-sub">Cảnh báo khóa gọi món trên POS (<code>MA_HetMon = 1</code>)</div>
+        </div>
+        <div style="font-size: 28px;">🔴</div>
+      </div>
+    </div>
+
+    <!-- tlpMainContent (38% Form : 62% Grid) -->
+    <div class="tlp-main-content">
+      <!-- Cột trái: Thông tin chi tiết Món ăn -->
+      <div class="card-panel">
+        <div class="card-title">
+          <span>📝 Thông tin Món ăn / Thức uống</span>
+          <span id="lblModeBadge" style="font-size: 11.5px; background:#eff6ff; color:#1d4ed8; padding:2px 8px; border-radius:4px;">Chế độ: Đang chọn #1</span>
+        </div>
+
+        <div id="statusBanner" class="status-banner info">ℹ️ Chọn 1 món trên bảng để sửa hoặc bấm [🔄 Làm mới ô nhập] để thêm món mới.</div>
+
+        <div class="form-row-2">
+          <div>
+            <label>Mã món (<code>MA_Ma</code>)</label>
+            <input type="text" id="txtMaMon" class="form-control" readonly value="#1" />
+          </div>
+          <div>
+            <label>Nhóm danh mục (<code>MA_DanhMuc</code>) <span class="req">*</span></label>
+            <select id="cboDanhMuc" class="form-control"></select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tên món ăn / thức uống (<code>MA_Ten</code>) <span class="req">*</span></label>
+          <input type="text" id="txtTenMon" class="form-control" maxlength="100" placeholder="VD: Lẩu Thái Tomyum hải sản..." />
+        </div>
+
+        <div class="form-group">
+          <label>Đơn giá bán VNĐ (<code>MA_DonGia</code> — <code>NumericUpDown</code>) <span class="req">*</span></label>
+          <input type="number" id="nudDonGia" class="form-control" min="0" step="1000" value="45000" style="font-weight:700; color:#1d4ed8;" />
+        </div>
+
+        <div class="hetmon-box">
+          <label>
+            <input type="checkbox" id="chkHetMon" />
+            <span>🔴 Báo tạm hết món (<code>MA_HetMon = 1</code> — Ngừng nhận order)</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Mô tả thành phần / Định lượng (<code>MA_MoTa</code>)</label>
+          <textarea id="txtMoTa" class="form-control" maxlength="255" placeholder="Mô tả nguyên liệu, khẩu phần hoặc ghi chú phục vụ..."></textarea>
+        </div>
+
+        <div class="tlp-buttons">
+          <button class="btn-action btn-add" onclick="handleAdd()">➕ Thêm món mới</button>
+          <button class="btn-action btn-update" onclick="handleUpdate()">💾 Lưu cập nhật</button>
+          <button class="btn-action btn-delete" onclick="handleDelete()">🗑️ Xóa món ăn</button>
+          <button class="btn-action btn-reset" onclick="handleClearForm()">🔄 Làm mới ô nhập</button>
+        </div>
+      </div>
+
+      <!-- Cột phải: Bộ lọc đa chiều & Lưới DataGridView -->
+      <div class="card-panel">
+        <div class="card-title">
+          <span>📋 Danh sách Thực đơn Món ăn &amp; Thức uống (<code>dgvMonAn</code>)</span>
+          <span id="lblResultCount" style="font-size: 12px; color:#64748b; font-weight:normal;">Hiển thị 16 / 16 món</span>
+        </div>
+
+        <div class="filter-bar">
+          <select id="cboLocDanhMuc" class="form-control" onchange="renderGrid()"></select>
+          <select id="cboLocTrangThai" class="form-control" onchange="renderGrid()">
+            <option value="-1">-- Tất cả trạng thái --</option>
+            <option value="0">🟢 Còn món (Đang bán)</option>
+            <option value="1">🔴 Tạm hết món</option>
+          </select>
+          <input type="text" id="txtTimKiem" class="form-control" placeholder="🔍 Tìm tên món hoặc mô tả..." oninput="renderGrid()" />
+          <button class="btn-reload" onclick="resetFilters()">Tải lại</button>
+        </div>
+
+        <div class="dgv-wrapper">
+          <table class="dgv">
+            <thead>
+              <tr>
+                <th style="width: 10%; text-align:center;">Mã</th>
+                <th style="width: 34%;">Tên món ăn / thức uống</th>
+                <th style="width: 22%;">Danh mục</th>
+                <th style="width: 18%; text-align:right;">Đơn giá</th>
+                <th style="width: 16%; text-align:center;">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="dgvBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ghi chú kỹ thuật cho PO review -->
+  <div class="spec-notes">
+    <h3>📌 Điểm nhấn Nghiệp vụ &amp; Liên kết Dữ liệu trên <code>frmMonAn v1.0</code>:</h3>
+    <ul>
+      <li><strong>Liên kết trực tiếp từ <code>frmDanhMuc</code>:</strong> <code>cboDanhMuc</code> (khi thêm/sửa) và <code>cboLocDanhMuc</code> (trên thanh bộ lọc) nạp trực tiếp danh sách nhóm thực đơn từ <code>DanhMucBUS</code>.</li>
+      <li><strong>Định dạng tiền tệ chuẩn VNĐ (<code>#,##0 đ</code>):</strong> Cột <strong>Đơn giá</strong> căn phải, định dạng rõ dấu phân cách hàng nghìn; ô nhập dùng <code>NumericUpDown</code> chống nhập chữ hoặc số âm.</li>
+      <li><strong>Bảo vệ Hóa đơn Đang phục vụ:</strong> Khi xóa món ăn, hệ thống kiểm tra món đó có đang nằm trong các bàn đang ăn (<code>HoaDon.HD_TrangThai = 0</code> — VD: Bàn 02 đang đợi <em>Lẩu Thái Tomyum</em>, Bàn 03 đang dùng <em>Cơm tấm sườn nướng</em>) hay không. Nếu có, chặn xóa và gợi ý dùng cờ <strong>Tạm hết món</strong>.</li>
+    </ul>
+  </div>
+
+  <script>
+    const categories = [
+      { id: 1, name: "Món Khai Vị & Gỏi" },
+      { id: 2, name: "Món Chính - Cơm & Mì/Phở" },
+      { id: 3, name: "Món Lẩu & Nướng Tại Bàn" },
+      { id: 4, name: "Thức Uống & Giải Khát" },
+      { id: 5, name: "Tráng Miệng" }
+    ];
+
+    const initialDishes = [
+      { id: 1,  name: "Gỏi cuốn tôm thịt (Phần 4 cuốn)",       catId: 1, price: 45000,  soldOut: false, activeOrders: 1, desc: "Tôm sú tươi, thịt ba rọi luộc, bún tươi, rau sống chấm tương đậu phộng" },
+      { id: 2,  name: "Chả giò hải sản Hương Việt (6 cuốn)",   catId: 1, price: 65000,  soldOut: false, activeOrders: 0, desc: "Nhân tôm, mực, thịt cua chiên giòn rụm kèm rau sống" },
+      { id: 3,  name: "Gỏi ngó sen tôm thịt + Bánh phồng tôm", catId: 1, price: 89000,  soldOut: false, activeOrders: 0, desc: "Ngó sen giòn trộn chua ngọt với tôm sú và thịt ba chỉ" },
+      { id: 4,  name: "Cơm tấm sườn nướng bì chả trứng",       catId: 2, price: 65000,  soldOut: false, activeOrders: 1, desc: "Sườn cốt lết ướp mật ong nướng than hoa kèm bì, chả hấp" },
+      { id: 5,  name: "Phở bò tái nạm gầu đặc biệt",           catId: 2, price: 70000,  soldOut: false, activeOrders: 0, desc: "Nước dùng ninh xương ống bò 12 tiếng, thịt bò tươi mềm" },
+      { id: 6,  name: "Bún bò Huế giò heo chả cua",            catId: 2, price: 65000,  soldOut: false, activeOrders: 0, desc: "Chuẩn vị cố đô với khoanh giò heo, bắp bò và chả cua tươi" },
+      { id: 7,  name: "Cơm chiên hải sản hoàng kim (Đĩa lớn)", catId: 2, price: 115000, soldOut: false, activeOrders: 0, desc: "Cơm chiên trứng muối hạt tơi vàng ươm cùng tôm, mực tươi" },
+      { id: 8,  name: "Mì xào giòn hải sản rau củ",            catId: 2, price: 95000,  soldOut: false, activeOrders: 0, desc: "Mì trứng chiên giòn rưới sốt hải sản cải thìa, nấm đông cô" },
+      { id: 9,  name: "Lẩu Thái Tomyum hải sản (Nồi 4 người)", catId: 3, price: 260000, soldOut: false, activeOrders: 1, desc: "Tôm sú, mực ống, nghêu, cá phi lê, nấm kim châm và bún tươi" },
+      { id: 10, name: "Bò lúc lắc khoai tây chiên + Bánh mì",  catId: 3, price: 145000, soldOut: false, activeOrders: 0, desc: "Thăn bò Úc áp chảo sốt tiêu đen ăn kèm khoai tây chiên" },
+      { id: 11, name: "Sườn non nướng tảng sốt BBQ",           catId: 3, price: 185000, soldOut: true,  activeOrders: 0, desc: "Món bán chạy - Tạm hết nguyên liệu trong ca để test cảnh báo Hết Món" },
+      { id: 12, name: "Trà đào cam sả (Ly lớn)",               catId: 4, price: 39000,  soldOut: false, activeOrders: 1, desc: "Trà đen ủ lạnh kết hợp đào miếng giòn, cam vàng và sả tươi" },
+      { id: 13, name: "Trà tắc mật ong nha đam",               catId: 4, price: 32000,  soldOut: false, activeOrders: 1, desc: "Thanh mát giải nhiệt với nha đam hạt lựu nấu đường phèn" },
+      { id: 14, name: "Cà phê sữa đá pha phin truyền thống",   catId: 4, price: 29000,  soldOut: false, activeOrders: 1, desc: "Hạt Robusta Buôn Ma Thuột rang mộc đậm đà" },
+      { id: 15, name: "Nước ép cam tươi nguyên chất",          catId: 4, price: 42000,  soldOut: false, activeOrders: 0, desc: "Cam sành vắt tươi 100% không pha nước" },
+      { id: 16, name: "Bánh flan trứng sữa caramel (Phần 2 cái)", catId: 5, price: 28000, soldOut: false, activeOrders: 1, desc: "Bánh flan nhà làm mềm mịn thơm mùi cà phê và caramel" }
+    ];
+
+    let dishes = JSON.parse(JSON.stringify(initialDishes));
+    let selectedId = 1;
+
+    function initDropdowns() {
+      const cboForm = document.getElementById("cboDanhMuc");
+      const cboFilter = document.getElementById("cboLocDanhMuc");
+      cboForm.innerHTML = "";
+      cboFilter.innerHTML = '<option value="0">-- Tất cả danh mục (5 nhóm) --</option>';
+      categories.forEach(c => {
+        cboForm.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+        cboFilter.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+      });
+    }
+
+    function formatVND(val) {
+      return Number(val || 0).toLocaleString("vi-VN") + " đ";
+    }
+
+    function showBanner(msg, type) {
+      const el = document.getElementById("statusBanner");
+      el.className = "status-banner " + type;
+      el.innerHTML = msg;
+    }
+
+    function updateKpis() {
+      const total = dishes.length;
+      const available = dishes.filter(d => !d.soldOut).length;
+      const out = dishes.filter(d => d.soldOut).length;
+      document.getElementById("kpiTotalDishes").textContent = total + " món";
+      document.getElementById("kpiAvailableDishes").textContent = available + " món";
+      document.getElementById("kpiOutDishes").textContent = out + " món";
+    }
+
+    function renderGrid() {
+      const catFilter = parseInt(document.getElementById("cboLocDanhMuc").value || "0", 10);
+      const statusFilter = parseInt(document.getElementById("cboLocTrangThai").value || "-1", 10);
+      const kw = document.getElementById("txtTimKiem").value.trim().toLowerCase();
+
+      const filtered = dishes.filter(d => {
+        if (catFilter > 0 && d.catId !== catFilter) return false;
+        if (statusFilter === 0 && d.soldOut) return false;
+        if (statusFilter === 1 && !d.soldOut) return false;
+        if (kw && !d.name.toLowerCase().includes(kw) && !d.desc.toLowerCase().includes(kw)) return false;
+        return true;
+      });
+
+      document.getElementById("lblResultCount").textContent = `Hiển thị ${filtered.length} / ${dishes.length} món`;
+
+      const tbody = document.getElementById("dgvBody");
+      tbody.innerHTML = "";
+
+      filtered.forEach(d => {
+        const catObj = categories.find(c => c.id === d.catId);
+        const tr = document.createElement("tr");
+        if (d.id === selectedId) tr.className = "selected";
+        tr.onclick = () => selectDish(d.id);
+        const statusHtml = d.soldOut
+          ? '<span class="pill-status out">🔴 Hết món</span>'
+          : '<span class="pill-status available">🟢 Còn món</span>';
+        tr.innerHTML = `
+          <td style="text-align:center; font-weight:700;">#${d.id}</td>
+          <td style="font-weight:600; color:#0f172a;">${d.name}</td>
+          <td style="color:#475569;">${catObj ? catObj.name : ""}</td>
+          <td style="text-align:right; font-weight:700; color:#1d4ed8;">${formatVND(d.price)}</td>
+          <td style="text-align:center;">${statusHtml}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updateKpis();
+    }
+
+    function selectDish(id) {
+      selectedId = id;
+      const item = dishes.find(d => d.id === id);
+      if (!item) return;
+      document.getElementById("txtMaMon").value = "#" + item.id;
+      document.getElementById("cboDanhMuc").value = item.catId;
+      document.getElementById("txtTenMon").value = item.name;
+      document.getElementById("nudDonGia").value = item.price;
+      document.getElementById("chkHetMon").checked = item.soldOut;
+      document.getElementById("txtMoTa").value = item.desc;
+      document.getElementById("lblModeBadge").textContent = "Chế độ: Đang chọn #" + item.id;
+      renderGrid();
+    }
+
+    function handleClearForm() {
+      selectedId = null;
+      document.getElementById("txtMaMon").value = "Tự động (IDENTITY)";
+      document.getElementById("txtTenMon").value = "";
+      document.getElementById("nudDonGia").value = 45000;
+      document.getElementById("chkHetMon").checked = false;
+      document.getElementById("txtMoTa").value = "";
+      document.getElementById("lblModeBadge").textContent = "Chế độ: Thêm mới";
+      document.getElementById("txtTenMon").focus();
+      showBanner("ℹ️ Đã làm mới ô nhập. Chọn Danh mục, nhập Tên món, Đơn giá rồi bấm [➕ Thêm món mới].", "info");
+      renderGrid();
+    }
+
+    function handleAdd() {
+      const name = document.getElementById("txtTenMon").value.trim();
+      const catId = parseInt(document.getElementById("cboDanhMuc").value, 10);
+      const price = parseFloat(document.getElementById("nudDonGia").value);
+      const soldOut = document.getElementById("chkHetMon").checked;
+      const desc = document.getElementById("txtMoTa").value.trim();
+
+      if (!name) {
+        showBanner("❌ Lỗi: Vui lòng nhập Tên món ăn / thức uống!", "error");
+        return;
+      }
+      if (isNaN(price) || price < 0) {
+        showBanner("❌ Lỗi: Đơn giá bán phải lớn hơn hoặc bằng 0 đ!", "error");
+        return;
+      }
+      if (dishes.some(d => d.name.toLowerCase() === name.toLowerCase())) {
+        showBanner(`❌ Lỗi: Món "${name}" đã tồn tại trong thực đơn!`, "error");
+        return;
+      }
+
+      const nextId = dishes.length > 0 ? Math.max(...dishes.map(d => d.id)) + 1 : 1;
+      dishes.push({ id: nextId, name, catId, price, soldOut, activeOrders: 0, desc });
+      selectDish(nextId);
+      showBanner(`✅ Đã thêm món mới "#${nextId} - ${name}" (${formatVND(price)}) thành công!`, "success");
+    }
+
+    function handleUpdate() {
+      if (!selectedId) {
+        showBanner("⚠️ Vui lòng chọn một món ăn trên bảng trước khi bấm Lưu cập nhật!", "error");
+        return;
+      }
+      const name = document.getElementById("txtTenMon").value.trim();
+      const catId = parseInt(document.getElementById("cboDanhMuc").value, 10);
+      const price = parseFloat(document.getElementById("nudDonGia").value);
+      const soldOut = document.getElementById("chkHetMon").checked;
+      const desc = document.getElementById("txtMoTa").value.trim();
+
+      if (!name) {
+        showBanner("❌ Lỗi: Tên món ăn không được để trống!", "error");
+        return;
+      }
+      if (isNaN(price) || price < 0) {
+        showBanner("❌ Lỗi: Đơn giá bán phải lớn hơn hoặc bằng 0 đ!", "error");
+        return;
+      }
+      if (dishes.some(d => d.id !== selectedId && d.name.toLowerCase() === name.toLowerCase())) {
+        showBanner(`❌ Lỗi: Tên món "${name}" bị trùng với một món khác trong thực đơn!`, "error");
+        return;
+      }
+
+      const item = dishes.find(d => d.id === selectedId);
+      item.name = name;
+      item.catId = catId;
+      item.price = price;
+      item.soldOut = soldOut;
+      item.desc = desc;
+      renderGrid();
+      showBanner(`✅ Đã cập nhật món "#${selectedId} - ${name}" (${soldOut ? "Tạm hết món" : "Còn món"}) thành công!`, "success");
+    }
+
+    function handleDelete() {
+      if (!selectedId) {
+        showBanner("⚠️ Vui lòng chọn món ăn cần xóa trên bảng!", "error");
+        return;
+      }
+      const item = dishes.find(d => d.id === selectedId);
+      if (item.activeOrders > 0) {
+        showBanner(`🚫 Không thể xóa món "${item.name}" vì đang có ${item.activeOrders} bàn đang phục vụ gọi món này! Bạn có thể tích [Báo tạm hết món] để ngừng nhận thêm order.`, "error");
+        return;
+      }
+      dishes = dishes.filter(d => d.id !== selectedId);
+      showBanner(`🗑️ Đã xóa mềm (MA_Xoa = 1) món "${item.name}" khỏi thực đơn hiện hành!`, "success");
+      if (dishes.length > 0) selectDish(dishes[0].id);
+      else handleClearForm();
+    }
+
+    function resetFilters() {
+      document.getElementById("cboLocDanhMuc").value = "0";
+      document.getElementById("cboLocTrangThai").value = "-1";
+      document.getElementById("txtTimKiem").value = "";
+      renderGrid();
+      showBanner("ℹ️ Đã đặt lại bộ lọc và hiển thị toàn bộ danh sách món ăn.", "info");
+    }
+
+    // Kịch bản tự động cho PO review
+    function resetSeedData() {
+      dishes = JSON.parse(JSON.stringify(initialDishes));
+      resetFilters();
+      selectDish(1);
+      showBanner("ℹ️ Đã nạp 16 món ăn & thức uống gốc từ seed-data.sql (15 Còn món, 1 Hết món).", "info");
+    }
+
+    function simulateFilterOut() {
+      document.getElementById("cboLocDanhMuc").value = "0";
+      document.getElementById("cboLocTrangThai").value = "1";
+      document.getElementById("txtTimKiem").value = "";
+      renderGrid();
+      selectDish(11);
+      showBanner("🔍 Đang lọc các món có trạng thái [🔴 Tạm hết món] (#11 - Sườn non nướng tảng sốt BBQ).", "info");
+    }
+
+    function simulateAddDish() {
+      resetFilters();
+      handleClearForm();
+      document.getElementById("cboDanhMuc").value = "3";
+      document.getElementById("txtTenMon").value = "Lẩu cá kèo lá giang (Nồi lớn)";
+      document.getElementById("nudDonGia").value = 235000;
+      document.getElementById("chkHetMon").checked = false;
+      document.getElementById("txtMoTa").value = "Cá kèo tươi sống nấu lá giang chua thanh kèm bún và rau đắng";
+      handleAdd();
+    }
+
+    function simulateToggleSoldOut() {
+      resetFilters();
+      selectDish(5);
+      document.getElementById("chkHetMon").checked = true;
+      handleUpdate();
+    }
+
+    function simulateBlockedDeleteActiveOrder() {
+      resetFilters();
+      selectDish(9); // Lẩu Thái Tomyum đang phục vụ ở Bàn 02 (Hóa đơn #5)
+      handleDelete();
+    }
+
+    initDropdowns();
+    selectDish(1);
+  </script>
+</body>
+</html>
