@@ -114,7 +114,7 @@
   - [ ] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa.
 
 - [ ] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*
-  - [ ] Quản lý Danh mục món (`frmDanhMuc`): Thêm / Sửa / Xóa nhóm thực đơn.
+  - [x] Quản lý Danh mục món (`frmDanhMuc`): Thêm / Sửa / Xóa nhóm thực đơn *(Đã hoàn thành 24/24 test cases tại [`report_0_2_3.html`](release_report/report_0_2_3.html))*.
   - [ ] Quản lý Món ăn & Thức uống (`frmMonAn`): Khởi tạo/chỉnh sửa món ăn, nước uống (tên, danh mục, giá bán, mô tả, đánh dấu còn/hết món).
 
 - [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**

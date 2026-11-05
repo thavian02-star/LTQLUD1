@@ -11,7 +11,7 @@
 
 | STT | Màn hình theo yêu cầu ưu tiên | Tên Form (`VB.NET`) | Bảng CSDL liên quan | Quyền RBAC (`Q_Tag`) | Ánh xạ mục trùng trong `CHECKLIST_DO_AN.md` | Trạng thái |
 | :-: | :--- | :--- | :--- | :--- | :--- | :-: |
-| **1** | **MH Danh mục** | `frmDanhMuc` | `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Quản lý danh mục món)* | `[ ]` Chờ làm |
+| **1** | **MH Danh mục** | `frmDanhMuc` | `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Quản lý danh mục món)* | `[x]` **Đã xong (`v0.2.3`)** |
 | **2** | **MH Món ăn** | `frmMonAn` | `MonAn`, `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Khởi tạo/chỉnh sửa món ăn, nước uống)* | `[ ]` Chờ làm |
 | **3** | **MH Ca (hiển thị danh sách)** | `frmCaLamViec` | `CaLamViec` | `CQ_XEP_LICH_LAM_VIEC` | Mục `3.5` — Quản lý Lịch làm việc *(Cấu hình/hiển thị danh sách ca & khung giờ)* | `[ ]` Chờ làm |
 | **4** | **MH Khu vực (Tầng trệt, Tầng 1, ...)** | `frmKhuVuc` | `KhuVuc` *(+ đồng bộ `Ban.B_KhuVuc`)* | `CQ_QUAN_LY_BAN` | Mục `3.5` — Quản lý Bàn ghế & Khu vực *(Tổ chức khu vực bàn)* | `[ ]` Chờ làm |
@@ -39,7 +39,7 @@
 - [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [x] Gắn sự kiện mở `frmDanhMuc` từ `frmMain` (phân quyền `CQ_QUAN_LY_THUC_DON`).
   - [x] Chạy bộ test tự động kiểm tra CRUD + Validation + Layout Geometry (`24/24 PASS = 100%`).
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đồng bộ `CHECKLIST_DO_AN.md`**
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_3.html`) & Đồng bộ `CHECKLIST_DO_AN.md`**
 
 ---
 
@@ -90,7 +90,7 @@
   - [ ] Ràng buộc nghiệp vụ: Không trùng tên khu vực, khi đổi tên khu vực tự động đồng bộ tên khu vực cho các bàn thuộc khu vực đó, chặn xóa khu vực đang có bàn hoạt động.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [ ] Chạy bộ test tự động kiểm tra CRUD Khu vực + ràng buộc toàn vẹn với bảng `Ban`.
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đồng bộ `CHECKLIST_DO_AN.md`**
+- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) cho `frmKhuVuc` & Đồng bộ `CHECKLIST_DO_AN.md`**
 
 ---
 
