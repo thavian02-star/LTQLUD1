@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.4 — Màn hình Quản lý Món ăn &amp; Thức uống (frmMonAn v1.0)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    /* Version Navigation Bar */
+    .version-nav {
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 12.5px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: #334155;
+      font-weight: 600;
+    }
+    .version-links a.active { background: var(--primary); color: #fff; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #fff;
+      padding: 30px 32px;
+      border-radius: 14px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .badge.blue { background: #2563eb; color: #fff; }
+    .badge.green { background: #16a34a; color: #fff; }
+    .badge.amber { background: #ea580c; color: #fff; }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .hero p { color: #cbd5e1; font-size: 14.5px; max-width: 960px; }
+
+    /* KPI Row */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      border-top: 4px solid var(--primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .kpi-box.green { border-top-color: var(--success); }
+    .kpi-box.amber { border-top-color: var(--warning); }
+    .kpi-box.purple { border-top-color: #7c3aed; }
+    .kpi-box .label { font-size: 12px; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+    .kpi-box .val { font-size: 28px; font-weight: 800; color: var(--text); margin: 4px 0; }
+    .kpi-box .sub { font-size: 12.5px; color: var(--muted); }
+
+    /* Section Card */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .section h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tables */
+    table.report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    table.report-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border);
+    }
+    table.report-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .pill-pass {
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      display: inline-block;
+    }
+    code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 12.5px;
+    }
+
+    /* Architecture Flow Diagram */
+    .arch-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .arch-step {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .arch-step h4 { font-size: 13.5px; color: #1d4ed8; margin-bottom: 6px; }
+    .arch-step p { font-size: 12.5px; color: #334155; }
+
+    /* Pure CSS WinForms Mockup Preview */
+    .winforms-preview {
+      border: 2px solid #334155;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f5f6fa;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      margin-top: 12px;
+    }
+    .wf-titlebar {
+      background: #1e293b;
+      color: #fff;
+      padding: 7px 14px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .wf-header {
+      background: #fff;
+      padding: 12px 20px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wf-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 12px 20px 4px;
+    }
+    .wf-kpi {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #2563eb;
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+    .wf-split {
+      display: grid;
+      grid-template-columns: 38% 1fr;
+      gap: 14px;
+      padding: 10px 20px 18px;
+    }
+    .wf-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 14px;
+    }
+    .wf-btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .wf-btn {
+      color: #fff;
+      text-align: center;
+      padding: 7px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Thanh điều hướng phiên bản Release Report -->
+    <div class="version-nav">
+      <div><strong>📊 HỆ THỐNG BÁO CÁO PHÁT HÀNH (RELEASE REPORTS)</strong></div>
+      <div class="version-links">
+        <a href="report_0_2_0.html">v0.2.0 (frmMain v1.0)</a>
+        <a href="report_0_2_1.html">v0.2.1 (frmDoiMatKhau)</a>
+        <a href="report_0_2_2.html">v0.2.2 (frmMain v1.1 Fix)</a>
+        <a href="report_0_2_3.html">v0.2.3 (MH 1: frmDanhMuc)</a>
+        <a href="report_0_2_4.html" class="active">v0.2.4 (MH 2: frmMonAn)</a>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-badges">
+        <span class="badge blue">RELEASE v0.2.4</span>
+        <span class="badge green">CHECKLIST ƯU TIÊN — MÀN HÌNH 2/5 (HOÀN TẤT CẶP THỰC ĐƠN)</span>
+        <span class="badge amber">28/28 TESTS PASS (100%)</span>
+      </div>
+      <h1>🍜 Màn Hình 2: Quản Lý Món Ăn &amp; Thức Uống (<code>frmMonAn v1.0</code>)</h1>
+      <p>
+        Hoàn tất trọn vẹn quy trình 5 bước phát triển màn hình thứ 2 trong cặp dữ liệu nền tảng <strong>Thực đơn (<code>DanhMuc</code> ➔ <code>MonAn</code>)</strong>, đồng thời đánh dấu hoàn thành <code>[x]</code> toàn bộ hạng mục <strong>Quản lý Thực đơn</strong> tại Mục 3.5 của <code>CHECKLIST_DO_AN.md</code>.
+        Tích hợp bộ lọc đa chiều (Danh mục + Trạng thái Còn/Hết món + Từ khóa), định dạng đơn giá chuẩn VNĐ (<code>#,##0 đ</code>), điều hướng liên hoàn 2 chiều <code>frmMonAn ↔ frmDanhMuc</code> và cơ chế bảo vệ các món đang phục vụ tại bàn (<code>HoaDon.HD_TrangThai = 0</code>).
+      </p>
+    </div>
+
+    <!-- 4 Thẻ KPI Tổng hợp -->
+    <div class="kpi-grid">
+      <div class="kpi-box green">
+        <div class="label">Kiểm thử Tự động Bước 4</div>
+        <div class="val">28 / 28 PASS</div>
+        <div class="sub">Đạt 100% (Layout + Filter + CRUD + RBAC)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Kiến trúc 3 Lớp Chuẩn</div>
+        <div class="val">5 Files VB</div>
+        <div class="sub"><code>DTO</code> • <code>DAO</code> • <code>BUS</code> • <code>frmMonAn</code></div>
+      </div>
+      <div class="kpi-box amber">
+        <div class="label">Dữ liệu Thực đơn Chuẩn</div>
+        <div class="val">16 Món ăn</div>
+        <div class="sub">15 Còn món • 1 Tạm hết (Trên 5 Danh mục)</div>
+      </div>
+      <div class="kpi-box purple">
+        <div class="label">Đồng bộ Checklist Tổng</div>
+        <div class="val">Mục 3.5 [x]</div>
+        <div class="sub">Hoàn tất 100% Quản lý Thực đơn (2/2 MH)</div>
+      </div>
+    </div>
+
+    <!-- Mục 1: Ma trận 5 bước triển khai Sprint -->
+    <div class="section">
+      <h2>1. Tiến Độ Thực Thi Quy Trình 5 Bước Chuẩn (Sprint <code>frmMonAn v1.0</code>)</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Bước</th>
+            <th style="width: 28%;">Hạng mục công việc</th>
+            <th style="width: 40%;">Kết quả bàn giao &amp; Artefacts</th>
+            <th style="width: 12%;">Commit</th>
+            <th style="width: 10%;">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bước 1</strong></td>
+            <td>Đặc tả Kỹ thuật &amp; Interactive HTML Mockup (<code>v1.0</code>)</td>
+            <td>Tạo <code>MON_AN_SPRINT.md</code> và <code>frmMonAn_mockup_v1_0.html</code> với 5 kịch bản mô phỏng trực quan trên trình duyệt.</td>
+            <td><code>ee85c6a</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 2</strong></td>
+            <td>Thiết kế Giao diện WinForms (<code>frmMonAn.Designer.vb</code>)</td>
+            <td>Xây dựng bố cục 3 tầng dọc (<code>pnlHeader</code>, <code>tlpKpiRow</code>, <code>tlpMainContent</code> 38%:62%), <code>NumericUpDown</code> giá bán và bảng <code>dgvMonAn</code> 5 cột.</td>
+            <td><code>5b29665</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 3</strong></td>
+            <td>Xây dựng Tầng <code>DTO</code> / <code>DAO</code> / <code>BUS</code> &amp; Logic <code>frmMonAn.vb</code></td>
+            <td>Hoàn thiện <code>MonAnDTO.vb</code>, <code>MonAnDAO.vb</code>, <code>MonAnBUS.vb</code> và xử lý đầy đủ sự kiện CRUD + Bộ lọc đa chiều + Báo hết món nhanh.</td>
+            <td><code>6511d56</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 4</strong></td>
+            <td>Kết nối Liên hoàn <code>frmMain ↔ frmMonAn ↔ frmDanhMuc</code> &amp; Test Tự động</td>
+            <td>Tích hợp điều hướng 2 chiều không đệ quy, tinh chỉnh <code>MinimumSize</code> và vượt qua <strong>28/28</strong> bài test tự động.</td>
+            <td><code>b6db26e</code></td>
+            <td><span class="pill-pass">28/28 PASS</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 5</strong></td>
+            <td>Báo cáo Phát hành <code>v0.2.4</code> &amp; Đồng bộ 2 Checklist</td>
+            <td>Xuất báo cáo <code>docs/release_report/report_0_2_4.html</code> và đánh dấu <code>[x]</code> hoàn thành Màn hình 2/5 + Mục 3.5 Thực đơn trong <code>CHECKLIST_DO_AN.md</code>.</td>
+            <td><em>Hiện tại</em></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mục 2: Kiến trúc 3 lớp & Liên kết Cha - Con Thực đơn -->
+    <div class="section">
+      <h2>2. Kiến Trúc 3 Lớp &amp; Cơ Chế Bảo Vệ Phiên Phục Vụ Tại Bàn</h2>
+      <div class="arch-flow">
+        <div class="arch-step">
+          <h4>1. Lớp Giao diện (GUI)</h4>
+          <p><code>Features/Menu/frmMonAn.vb</code><br/>Nạp 2 <code>List(Of DanhMucDTO)</code> độc lập cho <code>cboDanhMuc</code> và <code>cboLocDanhMuc</code>, định dạng tiền tệ <code>#,##0 đ</code> và tô màu trạng thái.</p>
+        </div>
+        <div class="arch-step">
+          <h4>2. Lớp Nghiệp vụ (BUS)</h4>
+          <p><code>Core/BUS/MonAnBUS.vb</code><br/>Kiểm tra <code>MA_Ten</code>, <code>MA_DonGia &gt;= 0</code>, khóa ngoại <code>MA_DanhMuc</code>, chống trùng tên và điều phối Soft-Delete Recovery.</p>
+        </div>
+        <div class="arch-step">
+          <h4>3. Lớp Truy xuất (DAO)</h4>
+          <p><code>Core/DAO/MonAnDAO.vb</code><br/>Truy vấn <code>INNER JOIN DanhMuc</code> với 3 tham số lọc (<code>@MaDM, @TrangThai, @TuKhoa</code>) và kiểm tra hóa đơn đang mở.</p>
+        </div>
+        <div class="arch-step">
+          <h4>4. Bảo vệ Bàn Đang Ăn</h4>
+          <p><code>DemSoLuotDangPhucVu()</code><br/>Chặn xóa mềm món đang có khách gọi tại Bàn 02 &amp; Bàn 03 (<code>HD_TrangThai = 0</code>), gợi ý dùng cờ <code>MA_HetMon = 1</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mục 3: Bản vẽ trực quan giao diện WinForms frmMonAn -->
+    <div class="section">
+      <h2>3. Mô Phỏng Trực Quan Giao Diện <code>frmMonAn v1.0</code> Đã Triển Khai</h2>
+      <div class="winforms-preview">
+        <div class="wf-titlebar">
+          <span>🍜 Quản lý Món ăn &amp; Thức uống — Quán Ăn Gia Đình Hương Việt (frmMonAn)</span>
+          <span>— &nbsp; ☐ &nbsp; ✕</span>
+        </div>
+        <div class="wf-header">
+          <div>
+            <div style="font-weight: 800; font-size: 15px; color: #0f172a;">🍜 QUẢN LÝ MÓN ĂN &amp; THỨC UỐNG</div>
+            <div style="font-size: 12px; color: #64748b;">Thiết lập thực đơn, định giá bán VNĐ và kiểm soát trạng thái Còn món / Hết món</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span style="background:#eff6ff; color:#1d4ed8; border:1px solid #93c5fd; padding:5px 12px; border-radius:5px; font-size:12px; font-weight:700;">📂 Quản lý Danh mục</span>
+            <span style="background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; padding:5px 12px; border-radius:5px; font-size:12px; font-weight:700;">✖ Đóng</span>
+          </div>
+        </div>
+        <div class="wf-kpis">
+          <div class="wf-kpi">
+            <div style="font-size:11px; color:#64748b; font-weight:700;">🍲 TỔNG SỐ MÓN TRONG THỰC ĐƠN</div>
+            <div style="font-size:18px; font-weight:800; color:#2563eb;">16 món</div>
+          </div>
+          <div class="wf-kpi" style="border-left-color:#16a34a;">
+            <div style="font-size:11px; color:#64748b; font-weight:700;">🟢 ĐANG PHỤC VỤ (CÒN MÓN)</div>
+            <div style="font-size:18px; font-weight:800; color:#16a34a;">15 món</div>
+          </div>
+          <div class="wf-kpi" style="border-left-color:#ea580c;">
+            <div style="font-size:11px; color:#64748b; font-weight:700;">🔴 TẠM HẾT NGUYÊN LIỆU (HẾT MÓN)</div>
+            <div style="font-size:18px; font-weight:800; color:#ea580c;">1 món</div>
+          </div>
+        </div>
+        <div class="wf-split">
+          <div class="wf-card">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+              <strong style="font-size:13px;">📝 Thông tin Món ăn / Thức uống</strong>
+              <span style="background:#eff6ff; color:#1d4ed8; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px;">Chế độ: Đang chọn #9</span>
+            </div>
+            <div style="background:#dbeafe; color:#1e40af; padding:6px 8px; border-radius:4px; font-size:11.5px; font-weight:600; margin-bottom:8px;">
+              ℹ️ Chọn 1 món trên bảng hoặc nhập thông tin món mới.
+            </div>
+            <div style="display:grid; grid-template-columns:34% 1fr; gap:8px; margin-bottom:8px;">
+              <div>
+                <div style="font-size:11px; font-weight:700;">Mã món:</div>
+                <div style="background:#f1f5f9; border:1px solid #cbd5e1; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:700; color:#64748b;">#9</div>
+              </div>
+              <div>
+                <div style="font-size:11px; font-weight:700;">Nhóm danh mục *:</div>
+                <div style="border:1px solid #cbd5e1; padding:4px 8px; border-radius:4px; font-size:12px;">Món Lẩu &amp; Nướng Tại Bàn ▾</div>
+              </div>
+            </div>
+            <div style="font-size:11px; font-weight:700;">Tên món ăn / thức uống (MA_Ten) *:</div>
+            <div style="border:1px solid #cbd5e1; padding:4px 8px; border-radius:4px; font-size:12px; margin-bottom:8px;">Lẩu Thái Tomyum hải sản (Nồi 4 người)</div>
+            <div style="font-size:11px; font-weight:700;">Đơn giá bán VNĐ (MA_DonGia) *:</div>
+            <div style="border:1px solid #cbd5e1; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:700; color:#1d4ed8; margin-bottom:8px;">260,000</div>
+            <div style="background:#fff7ed; border:1px solid #fed7aa; padding:5px 8px; border-radius:4px; font-size:11.5px; font-weight:700; color:#9a3412; margin-bottom:8px;">
+              ☐ 🔴 Báo tạm hết món (MA_HetMon = 1 — Ngừng nhận order)
+            </div>
+            <div style="font-size:11px; font-weight:700;">Mô tả thành phần / Định lượng:</div>
+            <div style="border:1px solid #cbd5e1; padding:4px 8px; border-radius:4px; font-size:11.5px; height:38px;">Tôm sú, mực ống, nghêu, cá phi lê, nấm kim châm và bún tươi</div>
+            <div class="wf-btn-grid">
+              <div class="wf-btn" style="background:#16a34a;">➕ Thêm món mới</div>
+              <div class="wf-btn" style="background:#2563eb;">💾 Lưu cập nhật</div>
+              <div class="wf-btn" style="background:#dc2626;">🗑️ Xóa món ăn</div>
+              <div class="wf-btn" style="background:#475569;">🔄 Làm mới ô nhập</div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div style="font-weight:700; font-size:13px; margin-bottom:8px;">📋 Danh sách Thực đơn Món ăn &amp; Thức uống (Hiển thị 16/16 món)</div>
+            <div style="display:grid; grid-template-columns:32% 24% 1fr auto; gap:6px; margin-bottom:10px;">
+              <div style="border:1px solid #cbd5e1; border-radius:4px; padding:4px 8px; font-size:11.5px;">-- Tất cả danh mục (5) -- ▾</div>
+              <div style="border:1px solid #cbd5e1; border-radius:4px; padding:4px 8px; font-size:11.5px;">-- Tất cả trạng thái -- ▾</div>
+              <div style="border:1px solid #cbd5e1; border-radius:4px; padding:4px 8px; font-size:11.5px; color:#64748b;">🔍 Tìm tên món hoặc mô tả...</div>
+              <div style="background:#f1f5f9; border:1px solid #cbd5e1; padding:4px 10px; border-radius:4px; font-size:11.5px; font-weight:700;">Tải lại</div>
+            </div>
+            <table class="report-table" style="font-size:12px;">
+              <thead>
+                <tr style="background:#1e293b; color:#fff;">
+                  <th style="background:#1e293b; color:#fff; text-align:center;">Mã</th>
+                  <th style="background:#1e293b; color:#fff;">Tên món ăn / thức uống</th>
+                  <th style="background:#1e293b; color:#fff;">Danh mục</th>
+                  <th style="background:#1e293b; color:#fff; text-align:right;">Đơn giá</th>
+                  <th style="background:#1e293b; color:#fff; text-align:center;">Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:center; font-weight:700;">#1</td>
+                  <td><strong>Gỏi cuốn tôm thịt (Phần 4 cuốn)</strong></td>
+                  <td>Món Khai Vị &amp; Gỏi</td>
+                  <td style="text-align:right; font-weight:700; color:#1d4ed8;">45,000 đ</td>
+                  <td style="text-align:center; color:#15803d; font-weight:700;">🟢 Còn món</td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:700;">#4</td>
+                  <td><strong>Cơm tấm sườn nướng bì chả trứng</strong></td>
+                  <td>Món Chính - Cơm &amp; Mì/Phở</td>
+                  <td style="text-align:right; font-weight:700; color:#1d4ed8;">65,000 đ</td>
+                  <td style="text-align:center; color:#15803d; font-weight:700;">🟢 Còn món</td>
+                </tr>
+                <tr style="background:#dbeafe; font-weight:600;">
+                  <td style="text-align:center; font-weight:700;">#9</td>
+                  <td><strong>Lẩu Thái Tomyum hải sản (Nồi 4 người)</strong></td>
+                  <td>Món Lẩu &amp; Nướng Tại Bàn</td>
+                  <td style="text-align:right; font-weight:700; color:#1d4ed8;">260,000 đ</td>
+                  <td style="text-align:center; color:#15803d; font-weight:700;">🟢 Còn món</td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:700;">#11</td>
+                  <td><strong>Sườn non nướng tảng sốt BBQ</strong></td>
+                  <td>Món Lẩu &amp; Nướng Tại Bàn</td>
+                  <td style="text-align:right; font-weight:700; color:#1d4ed8;">185,000 đ</td>
+                  <td style="text-align:center; color:#b91c1c; background:#fef2f2; font-weight:700;">🔴 Hết món</td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:700;">#12</td>
+                  <td><strong>Trà đào cam sả (Ly lớn)</strong></td>
+                  <td>Thức Uống &amp; Giải Khát</td>
+                  <td style="text-align:right; font-weight:700; color:#1d4ed8;">39,000 đ</td>
+                  <td style="text-align:center; color:#15803d; font-weight:700;">🟢 Còn món</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mục 4: Kết quả 28/28 kịch bản kiểm thử tự động -->
+    <div class="section">
+      <h2>4. Bảng Kết Quả Kiểm Thử Tự Động Bước 4 (28 / 28 PASS = 100%)</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 13%;">Mã Test</th>
+            <th style="width: 21%;">Nhóm kiểm thử</th>
+            <th style="width: 38%;">Mô tả kịch bản kiểm chứng</th>
+            <th style="width: 18%;">Số đo / Kết quả</th>
+            <th style="width: 10%;">Kết quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>MA-L01</code></td>
+            <td>Layout Geometry</td>
+            <td>Bố cục 3 tầng dọc không đè nhau (<code>pnlHeader &lt;= tlpKpiRow &lt;= tlpMainContent</code>)</td>
+            <td><code>68px &lt;= 68px, 148px &lt;= 148px</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-L02</code></td>
+            <td>KPI Cards</td>
+            <td>3 thẻ KPI chiều cao bằng nhau (<code>66px</code>) và tách biệt ngang</td>
+            <td><code>373 &lt; 389 &lt; 746</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-L03</code></td>
+            <td>Split-Layout 38:62</td>
+            <td><code>pnlFormCard</code> và <code>pnlGridCard</code> giữ đúng tỷ lệ <code>38:62</code>, cách nhau <code>16px</code></td>
+            <td><code>399px : 657px (Gap=16px)</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-L04</code></td>
+            <td>Z-Order GridCard</td>
+            <td><code>lblGridTitle</code> ➔ <code>pnlSearchBar</code> ➔ <code>dgvMonAn</code> không đè lên nhau</td>
+            <td><code>48px &lt;= 48px, 94px &lt;= 94px</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-L05</code></td>
+            <td>Filter Bar Geometry</td>
+            <td>4 control trên thanh bộ lọc (<code>cboLocDanhMuc, cboLocTrangThai, txtTimKiem, btnTaiLai</code>) tách biệt ngang</td>
+            <td><code>176 &lt; 182, 324 &lt; 330, 537 &lt; 543</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-L06..08</code></td>
+            <td>Form Anti-Overlap</td>
+            <td>Không đè nút ở cả kích thước mặc định (<code>1120×680</code>), nhỏ nhất (<code>1020×660</code>) và phóng đại</td>
+            <td><code>txtMoTa.Bottom(327) &lt;= Buttons.Top(347)</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-B01..02</code></td>
+            <td>Seed &amp; Dynamic FK</td>
+            <td>Nạp chuẩn <code>16 món</code> (<code>15 Còn, 1 Hết</code>) và nạp động <code>5 DanhMuc</code> vào 2 ComboBox</td>
+            <td><code>16 món / 5 nhóm</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-B03..06</code></td>
+            <td>Multi-Filter</td>
+            <td>Lọc theo Danh mục (<code>#1=3, #2=5, #4=4</code>), Trạng thái (<code>Hết=1</code>), Từ khóa (<code>"hải sản"=4</code>) &amp; Kết hợp (<code>=2</code>)</td>
+            <td><code>Chính xác 100%</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-B07..10</code></td>
+            <td>Validation</td>
+            <td>Chặn tên rỗng, chặn sai khóa ngoại <code>MA_DanhMuc</code>, chặn đơn giá âm (<code>&lt; 0</code>) và chặn trùng tên</td>
+            <td><code>ThanhCong = False</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-B11..12</code></td>
+            <td>INSERT &amp; UPDATE</td>
+            <td>Thêm món mới <code>235,000 đ</code> và cập nhật giá <code>249,000 đ</code> + bật cờ <code>MA_HetMon = True</code></td>
+            <td><code>ThanhCong = True</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-B13</code></td>
+            <td>Active Order Guard</td>
+            <td>Chặn xóa mềm món <code>#9 (Lẩu Thái Tomyum)</code> và <code>#4 (Cơm tấm)</code> đang phục vụ tại Bàn 02 &amp; Bàn 03</td>
+            <td><code>Chặn xóa &amp; gợi ý Hết món</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-B14..16</code></td>
+            <td>Soft-Delete &amp; Clean</td>
+            <td>Xóa mềm món test, tự động khôi phục ID khi thêm lại cùng tên &amp; dọn sạch bảo toàn 16 món gốc</td>
+            <td><code>RecoveredID == OriginalID</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td><code>MA-R01..04</code></td>
+            <td>Multi-Role RBAC</td>
+            <td>Kiểm tra quyền <code>CQ_QUAN_LY_THUC_DON</code> trên 4 vai trò (<code>chuquan, quanly, phucvu1, nhabep1</code>)</td>
+            <td><code>Chỉ chuquan = True</code></td>
+            <td><span class="pill-pass">PASS</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mục 5: Danh mục file bàn giao -->
+    <div class="section">
+      <h2>5. Danh Mục File Bàn Giao Trong Bản Phát Hành <code>v0.2.4</code></h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 42%;">Đường dẫn File</th>
+            <th style="width: 18%;">Phân lớp</th>
+            <th style="width: 40%;">Mô tả nội dung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Quanlyquanan/Core/DTO/MonAnDTO.vb</code></td>
+            <td>Core / DTO</td>
+            <td>Lớp thực thể ánh xạ bảng <code>MonAn</code> kết hợp <code>TenDanhMuc</code> và <code>TrangThaiText</code>.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Core/DAO/MonAnDAO.vb</code></td>
+            <td>Core / DAO</td>
+            <td>Truy vấn SQL tham số hóa, lọc đa chiều, kiểm tra <code>DemSoLuotDangPhucVu</code> và khôi phục xóa mềm.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Core/BUS/MonAnBUS.vb</code></td>
+            <td>Core / BUS</td>
+            <td>Kiểm tra ràng buộc nghiệp vụ giá bán, danh mục, chống trùng tên và bảo vệ hóa đơn đang mở.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Features/Menu/frmMonAn.Designer.vb</code></td>
+            <td>GUI / Designer</td>
+            <td>Giao diện WinForms bố cục <code>TableLayoutPanel</code> Split-Layout 38% : 62% kèm bộ lọc đa chiều.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Features/Menu/frmMonAn.vb</code></td>
+            <td>GUI / Logic</td>
+            <td>Xử lý sự kiện CRUD, lọc tức thì, định dạng tiền tệ VNĐ và điều hướng 2 chiều với <code>frmDanhMuc</code>.</td>
+          </tr>
+          <tr>
+            <td><code>docs/features/menu/mon_an/MON_AN_SPRINT.md</code></td>
+            <td>Documentation</td>
+            <td>Tài liệu đặc tả kỹ thuật &amp; tiến độ 5 bước Sprint <code>frmMonAn v1.0</code>.</td>
+          </tr>
+          <tr>
+            <td><code>docs/features/menu/mon_an/frmMonAn_mockup_v1_0.html</code></td>
+            <td>UI/UX Mockup</td>
+            <td>Bản mẫu HTML tương tác với 5 kịch bản mô phỏng nghiệp vụ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

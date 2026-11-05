@@ -12,7 +12,7 @@
 | STT | Màn hình theo yêu cầu ưu tiên | Tên Form (`VB.NET`) | Bảng CSDL liên quan | Quyền RBAC (`Q_Tag`) | Ánh xạ mục trùng trong `CHECKLIST_DO_AN.md` | Trạng thái |
 | :-: | :--- | :--- | :--- | :--- | :--- | :-: |
 | **1** | **MH Danh mục** | `frmDanhMuc` | `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Quản lý danh mục món)* | `[x]` **Đã xong (`v0.2.3`)** |
-| **2** | **MH Món ăn** | `frmMonAn` | `MonAn`, `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Khởi tạo/chỉnh sửa món ăn, nước uống)* | `[ ]` Chờ làm |
+| **2** | **MH Món ăn** | `frmMonAn` | `MonAn`, `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Khởi tạo/chỉnh sửa món ăn, nước uống)* | `[x]` **Đã xong (`v0.2.4`)** |
 | **3** | **MH Ca (hiển thị danh sách)** | `frmCaLamViec` | `CaLamViec` | `CQ_XEP_LICH_LAM_VIEC` | Mục `3.5` — Quản lý Lịch làm việc *(Cấu hình/hiển thị danh sách ca & khung giờ)* | `[ ]` Chờ làm |
 | **4** | **MH Khu vực (Tầng trệt, Tầng 1, ...)** | `frmKhuVuc` | `KhuVuc` *(+ đồng bộ `Ban.B_KhuVuc`)* | `CQ_QUAN_LY_BAN` | Mục `3.5` — Quản lý Bàn ghế & Khu vực *(Tổ chức khu vực bàn)* | `[ ]` Chờ làm |
 | **5** | **MH Bàn** | `frmBan` | `Ban`, `KhuVuc` | `CQ_QUAN_LY_BAN` | Mục `3.5` — Quản lý Bàn ghế (`frmQuanLyBan`: *Thêm/Sửa/Xóa bàn, STT, số người tối đa*) | `[ ]` Chờ làm |
@@ -56,7 +56,7 @@
 - [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [x] Mở từ `btnMenuThucDon` / `btnQuickThucDon` trên `frmMain` (hoặc điều hướng liên hoàn giữa `frmDanhMuc` ↔ `frmMonAn`).
   - [x] Chạy bộ test tự động kiểm tra CRUD + Filter theo Danh mục + Validation giá bán (`28/28 PASS = 100%`).
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đánh dấu `[x]` Mục 3.5 Quản lý Thực đơn trong `CHECKLIST_DO_AN.md`**
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_4.html`) & Đánh dấu `[x]` Mục 3.5 Quản lý Thực đơn trong `CHECKLIST_DO_AN.md`**
 
 ---
 

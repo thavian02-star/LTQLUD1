@@ -113,9 +113,9 @@
   - [ ] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn...
   - [ ] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa.
 
-- [ ] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*
+- [x] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Đã hoàn thành tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*
   - [x] Quản lý Danh mục món (`frmDanhMuc`): Thêm / Sửa / Xóa nhóm thực đơn *(Đã hoàn thành 24/24 test cases tại [`report_0_2_3.html`](release_report/report_0_2_3.html))*.
-  - [ ] Quản lý Món ăn & Thức uống (`frmMonAn`): Khởi tạo/chỉnh sửa món ăn, nước uống (tên, danh mục, giá bán, mô tả, đánh dấu còn/hết món).
+  - [x] Quản lý Món ăn & Thức uống (`frmMonAn`): Khởi tạo/chỉnh sửa món ăn, nước uống (tên, danh mục, giá bán, mô tả, đánh dấu còn/hết món) *(Đã hoàn thành 28/28 test cases tại [`report_0_2_4.html`](release_report/report_0_2_4.html))*.
 
 - [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**
   - [ ] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3*).
