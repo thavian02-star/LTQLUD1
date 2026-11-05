@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report — v0.2.1 · Quản Lý Quán Ăn (WinForms VB.NET)</title>
+  <style>
+    :root {
+      --primary: #2980B9;
+      --primary-light: #EBF5FB;
+      --primary-dark: #1F618D;
+      --green: #27AE60;
+      --green-light: #EAFAF1;
+      --red: #E74C3C;
+      --red-light: #FDEDEC;
+      --orange: #E67E22;
+      --orange-light: #FEF5E7;
+      --purple: #8E44AD;
+      --purple-light: #F4ECF7;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-500: #64748B;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #0F172A 0%, #1A365D 50%, #1F618D 100%);
+      color: white;
+      padding: 48px 40px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 50%;
+    }
+
+    .header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .header-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: #2ECC71;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: #CBD5E1;
+      max-width: 820px;
+      margin-bottom: 28px;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 13px;
+      color: #94A3B8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+
+    .header-meta-item strong {
+      color: white;
+      font-weight: 600;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .stats-bar-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.blue { background: var(--primary-light); color: var(--primary); }
+    .stat-icon.green { background: var(--green-light); color: var(--green); }
+    .stat-icon.red { background: var(--red-light); color: var(--red); }
+    .stat-icon.orange { background: var(--orange-light); color: var(--orange); }
+    .stat-icon.purple { background: var(--purple-light); color: var(--purple); }
+
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: var(--slate-500);
+      font-weight: 500;
+    }
+
+    /* ── TABLE OF CONTENTS (TOC) ── */
+    .toc-bar {
+      max-width: 1140px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+
+    .toc-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .toc-pill {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--slate-600);
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toc-pill:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      margin: 40px 0 20px;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--slate-200);
+    }
+
+    /* ── CHANGE CARD ── */
+    .change-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .change-card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--slate-100);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #FAFCFE;
+    }
+
+    .card-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 100px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .badge-feature { background: var(--primary-light); color: var(--primary-dark); }
+    .badge-fix { background: var(--red-light); color: var(--red); }
+    .badge-ux { background: var(--green-light); color: var(--green); }
+    .badge-rbac { background: var(--purple-light); color: var(--purple); }
+    .badge-infra { background: var(--orange-light); color: var(--orange); }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--slate-500);
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .card-body > * + * {
+      margin-top: 20px;
+    }
+
+    /* ── BEFORE / AFTER GRID ── */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .ba-grid { grid-template-columns: 1fr; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .ba-panel {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+    }
+
+    .ba-panel-header {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .ba-panel.before .ba-panel-header {
+      background: #FFF1F2;
+      color: #9F1239;
+      border-bottom: 1px solid #FECDD3;
+    }
+
+    .ba-panel.after .ba-panel-header {
+      background: #F0FDF4;
+      color: #15803D;
+      border-bottom: 1px solid #BBF7D0;
+    }
+
+    .ba-panel-body {
+      padding: 16px;
+      background: var(--slate-50);
+      font-size: 13px;
+    }
+
+    /* ── DESKTOP WINDOW MOCKUP ── */
+    .desktop-mockup {
+      background: #FFFFFF;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .mockup-titlebar {
+      height: 28px;
+      background: #1F618D;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .mockup-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-ctrl-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+    .ctrl-yellow { background: #F1C40F; }
+    .ctrl-green { background: #2ECC71; }
+    .ctrl-red { background: #E74C3C; }
+
+    /* ── CODE DIFF BLOCK ── */
+    .code-diff {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--slate-300);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .code-diff-header {
+      background: var(--slate-800);
+      color: var(--slate-300);
+      padding: 8px 14px;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font);
+    }
+
+    .code-diff-body {
+      background: #FFFFFF;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .diff-line {
+      padding: 2px 14px;
+      display: flex;
+      gap: 12px;
+      white-space: pre;
+    }
+
+    .diff-line.add {
+      background: #F0FDF4;
+      color: #166534;
+      border-left: 3px solid #22C55E;
+    }
+
+    .diff-line.del {
+      background: #FEF2F2;
+      color: #991B1B;
+      border-left: 3px solid #EF4444;
+    }
+
+    .diff-line.context {
+      color: var(--slate-600);
+    }
+
+    /* ── TABLE ── */
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+    }
+
+    .model-table th {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .model-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--slate-100);
+      color: var(--slate-700);
+    }
+
+    .model-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .model-table tr:hover td {
+      background: var(--slate-50);
+    }
+
+    code {
+      font-family: var(--mono);
+      background: var(--slate-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #0F172A;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--slate-900);
+      color: var(--slate-400);
+      text-align: center;
+      padding: 36px 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── 1. HEADER ── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-badge">
+        <span class="dot"></span>
+        <span>OFFICIAL RELEASE REPORT · v0.2.1</span>
+      </div>
+      <h1>Hệ Thống Quản Lý Quán Ăn — Phiên Bản v0.2.1</h1>
+      <p class="header-desc">
+        Báo cáo phát hành chính thức cho <strong>Sprint Đổi Mật Khẩu Tài Khoản (frmDoiMatKhau)</strong> và <strong>Kiểm Thử Nghiệm Thu Tự Động Đa Vai Trò (112/112 Test Cases Đạt 100%)</strong> trên nền tảng VB.NET Windows Forms (.NET 10.0) &amp; Microsoft SQL Server 2022 Docker.
+      </p>
+      <div class="header-meta">
+        <div class="header-meta-item">Phiên bản: <strong>v0.2.0 ➔ v0.2.1</strong></div>
+        <div class="header-meta-item">Commit range: <strong>127b14e .. f9b364a</strong></div>
+        <div class="header-meta-item">Ngày phát hành: <strong>05/11/2026</strong></div>
+        <div class="header-meta-item">Trạng thái Build: <strong>0 Warnings · 0 Errors</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 2. STATS BAR ── -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <div class="stat-icon blue">✨</div>
+        <div>
+          <div class="stat-num">1 Form Mới</div>
+          <div class="stat-label">frmDoiMatKhau (Modal)</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon green">✅</div>
+        <div>
+          <div class="stat-num">112 / 112</div>
+          <div class="stat-label">Test Cases Đạt (100%)</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon purple">🛡️</div>
+        <div>
+          <div class="stat-num">8 Kịch Bản</div>
+          <div class="stat-label">Ma Trận Kiểm Soát Lỗi</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon orange">📦</div>
+        <div>
+          <div class="stat-num">7 Commits</div>
+          <div class="stat-label">13 Files Thay Đổi</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon red">⚡</div>
+        <div>
+          <div class="stat-num">+2,640</div>
+          <div class="stat-label">Dòng Code &amp; Tài Liệu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. TABLE OF CONTENTS ── -->
+  <div class="toc-bar">
+    <ul class="toc-list">
+      <li><a class="toc-pill" href="#card-ui">🎨 1. Giao Diện frmDoiMatKhau (Before/After)</a></li>
+      <li><a class="toc-pill" href="#card-validation">🛡️ 2. Ma Trận Bắt Lỗi &amp; Bảo Mật RAM</a></li>
+      <li><a class="toc-pill" href="#card-wiring">🔗 3. Đấu Nối Modal Dialog Từ frmMain</a></li>
+      <li><a class="toc-pill" href="#card-testing">🧪 4. Nghiệm Thu 112/112 Test Cases</a></li>
+      <li><a class="toc-pill" href="#card-files">📋 5. Bảng Thống Kê Files</a></li>
+    </ul>
+  </div>
+
+  <!-- ── 4. MAIN CONTENT ── -->
+  <main class="main">
+
+    <div class="section-title">CHI TIẾT CÁC THAY ĐỔI TRỌNG YẾU (BEFORE / AFTER COMPARISON)</div>
+
+    <!-- CARD 1: GIAO DIỆN ĐỔI MẬT KHẨU (UI/UX BEFORE & AFTER) -->
+    <article class="change-card" id="card-ui">
+      <div class="card-header">
+        <span class="card-type-badge badge-feature">✨ FEATURE &amp; UI/UX</span>
+        <div>
+          <h2 class="card-title">Màn Hình Đổi Mật Khẩu (frmDoiMatKhau) — Cửa Sổ Modal Dialog Chuẩn Flat UI</h2>
+          <div class="card-subtitle">Commits: <code>8ca04aa</code>, <code>dbea4b7</code>, <code>ded745a</code> · Phân hệ: <code>Features/Auth/frmDoiMatKhau</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Hoàn thiện màn hình cá nhân đầu tiên trên Sidebar: <strong>Đổi Mật Khẩu (<code>frmDoiMatKhau</code>)</strong>. Thiết kế theo chuẩn <code>FixedDialog</code> (480x420 px), mở chính giữa cửa sổ <code>frmMain</code> (<code>CenterParent</code>), tự động nhận diện phiên người dùng từ <code>Session</code>, hỗ trợ phím tắt <code>Enter</code> (Lưu) và <code>Esc</code> (Hủy).
+        </p>
+
+        <div class="ba-grid">
+          <!-- BEFORE -->
+          <div class="ba-panel before">
+            <div class="ba-panel-header">❌ TRƯỚC (BEFORE — v0.2.0)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px; margin-bottom: 12px;">
+                <li>Chưa có Form giao diện <code>frmDoiMatKhau</code>.</li>
+                <li>Khi bấm nút <strong>🔑 Đổi Mật Khẩu</strong> trên Sidebar, ứng dụng chỉ bật một hộp thoại <code>MessageBox</code> thông báo tạm.</li>
+                <li>Người dùng không thể tự thay đổi mật khẩu cá nhân trên giao diện.</li>
+              </ul>
+
+              <!-- MOCKUP BEFORE: MESSAGEBOX PLACEHOLDER -->
+              <div class="desktop-mockup" style="max-width: 340px; margin: 28px auto; background: #F8FAFC;">
+                <div class="mockup-titlebar" style="background: #64748B;">
+                  <span>Thông Báo Cá Nhân</span>
+                  <div class="mockup-controls">
+                    <span class="mockup-ctrl-dot ctrl-red"></span>
+                  </div>
+                </div>
+                <div style="padding: 18px 16px; display: flex; gap: 12px; align-items: center; background: white;">
+                  <div style="font-size: 28px;">ℹ️</div>
+                  <div style="font-size: 11.5px; color: #334155;">
+                    <strong>Chức năng [Đổi Mật Khẩu]:</strong><br/>
+                    - Cho phép người dùng cập nhật mật khẩu mới và băm MD5 an toàn.
+                  </div>
+                </div>
+                <div style="background: #F1F5F9; padding: 8px 14px; text-align: right; border-top: 1px solid #E2E8F0;">
+                  <span style="background: #E2E8F0; border: 1px solid #94A3B8; padding: 3px 18px; border-radius: 3px; font-size: 11px; font-weight: 600;">OK</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AFTER -->
+          <div class="ba-panel after">
+            <div class="ba-panel-header">✅ SAU (AFTER — v0.2.1)</div>
+            <div class="ba-panel-body">
+              <ul style="padding-left: 18px; margin-bottom: 12px;">
+                <li>Hộp thoại <strong>Modal Dialog (480x420 px)</strong> đồng bộ màu thương hiệu <code>#2980B9</code>.</li>
+                <li>Hiển thị rõ tài khoản đang đăng nhập kèm huy hiệu vai trò tự động đổi màu.</li>
+                <li>3 trường mật khẩu bảo mật (<code>UseSystemPasswordChar = True</code>) + Checkbox bật/tắt hiển thị mật khẩu.</li>
+              </ul>
+
+              <!-- MOCKUP AFTER: FRMDOIMATKHAU MODAL DIALOG -->
+              <div class="desktop-mockup" style="max-width: 400px; margin: 0 auto; border: 1px solid #1F618D;">
+                <div class="mockup-titlebar" style="background: #1F618D;">
+                  <span>🔑 Đổi Mật Khẩu - Quản Lý Quán Ăn</span>
+                  <div class="mockup-controls">
+                    <span class="mockup-ctrl-dot ctrl-red"></span>
+                  </div>
+                </div>
+                <!-- Header -->
+                <div style="background: linear-gradient(135deg, #2980B9 0%, #1F618D 100%); color: white; padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
+                  <div style="font-size: 20px; background: rgba(255,255,255,0.15); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">🔐</div>
+                  <div>
+                    <div style="font-size: 12px; font-weight: 700;">ĐỔI MẬT KHẨU TÀI KHOẢN</div>
+                    <div style="font-size: 9.5px; color: #D6EAF8;">Nhập mật khẩu hiện tại và tạo mật khẩu mới để bảo mật</div>
+                  </div>
+                </div>
+                <!-- Body -->
+                <div style="padding: 12px 16px; background: white;">
+                  <!-- User Info Pill -->
+                  <div style="background: #F1F5F9; padding: 6px 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 10.5px; font-weight: 700; color: #1E293B;">👤 chuquan (Nguyễn Hoàng Nam)</span>
+                    <span style="background: #F39C12; color: white; font-size: 8.5px; font-weight: 700; padding: 2px 6px; border-radius: 8px;">CHỦ QUÁN</span>
+                  </div>
+                  <!-- Inputs -->
+                  <div style="font-size: 10px; font-weight: 700; color: #334155; margin-bottom: 2px;">Mật khẩu cũ (hiện tại) *</div>
+                  <div style="border: 1px solid #CBD5E1; padding: 4px 8px; border-radius: 4px; font-size: 10px; margin-bottom: 8px; color: #1E293B;">••••••</div>
+
+                  <div style="font-size: 10px; font-weight: 700; color: #334155; margin-bottom: 2px;">Mật khẩu mới * (ít nhất 6 ký tự)</div>
+                  <div style="border: 1px solid #2980B9; padding: 4px 8px; border-radius: 4px; font-size: 10px; margin-bottom: 8px; color: #1E293B; box-shadow: 0 0 0 2px rgba(41,128,185,0.12);">••••••••••</div>
+
+                  <div style="font-size: 10px; font-weight: 700; color: #334155; margin-bottom: 2px;">Xác nhận mật khẩu mới *</div>
+                  <div style="border: 1px solid #CBD5E1; padding: 4px 8px; border-radius: 4px; font-size: 10px; margin-bottom: 8px; color: #1E293B;">••••••••••</div>
+
+                  <div style="font-size: 10px; color: #475569; display: flex; align-items: center; gap: 5px;">
+                    <span>☑️</span> <span>Hiển thị tất cả mật khẩu</span>
+                  </div>
+                </div>
+                <!-- Footer -->
+                <div style="background: #F8FAFC; padding: 8px 16px; border-top: 1px solid #E2E8F0; display: flex; justify-content: flex-end; gap: 8px;">
+                  <span style="background: #E2E8F0; color: #475569; padding: 4px 12px; border-radius: 4px; font-size: 10px; font-weight: 700;">❌ Hủy Bỏ</span>
+                  <span style="background: #2980B9; color: white; padding: 4px 12px; border-radius: 4px; font-size: 10px; font-weight: 700;">💾 Lưu Mới</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 2: MA TRẬN KIỂM SOÁT LỖI & BẢO MẬT BỘ NHỚ RAM -->
+    <article class="change-card" id="card-validation">
+      <div class="card-header">
+        <span class="card-type-badge badge-rbac">🛡️ VALIDATION &amp; SECURITY</span>
+        <div>
+          <h2 class="card-title">Kiểm Soát Lỗi Đa Tầng (Defense in Depth) &amp; Dọn Sạch Chuỗi Nhạy Cảm Trong RAM</h2>
+          <div class="card-subtitle">Commit: <code>a785735</code> · File: <code>frmDoiMatKhau.vb</code>, <code>AuthBUS.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Áp dụng kiểm tra hợp lệ ở cả 2 tầng: <strong>Client-side (GUI)</strong> phản hồi tức thì không tốn truy vấn mạng và <strong>Business Layer (<code>AuthBUS.DoiMatKhau</code>)</strong> chặn mọi dữ liệu không hợp lệ trước khi băm MD5 xuống SQL Server. Khi xảy ra lỗi, con trỏ tự động <code>Focus()</code> và <code>SelectAll()</code> ngay tại ô nhập sai để người dùng gõ đè thuận tiện.
+        </p>
+
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Mã Lỗi</th>
+              <th>Tình Huống Kiểm Soát</th>
+              <th>Thông Điệp Cảnh Báo Hiển Thị</th>
+              <th>Hành Vi Giao Diện &amp; Bảo Mật</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ERR-00</code></td>
+              <td>Chưa đăng nhập (Session rỗng)</td>
+              <td><code>Chưa có tài khoản nào đăng nhập!</code></td>
+              <td>Chặn truy cập từ tầng <code>AuthBUS</code></td>
+            </tr>
+            <tr>
+              <td><code>ERR-01</code></td>
+              <td>Để trống mật khẩu cũ</td>
+              <td><code>⚠️ Vui lòng nhập mật khẩu cũ (hiện tại)!</code></td>
+              <td>Hiện nhãn đỏ, <code>txtMatKhauCu.Focus()</code></td>
+            </tr>
+            <tr>
+              <td><code>ERR-02</code></td>
+              <td>Để trống mật khẩu mới</td>
+              <td><code>⚠️ Vui lòng nhập mật khẩu mới!</code></td>
+              <td>Hiện nhãn đỏ, <code>txtMatKhauMoi.Focus()</code></td>
+            </tr>
+            <tr>
+              <td><code>ERR-03</code></td>
+              <td>Mật khẩu mới &lt; 6 ký tự</td>
+              <td><code>⚠️ Mật khẩu mới phải có ít nhất 6 ký tự!</code></td>
+              <td>Focus + <code>txtMatKhauMoi.SelectAll()</code></td>
+            </tr>
+            <tr>
+              <td><code>ERR-04</code></td>
+              <td>Mật khẩu mới trùng mật khẩu cũ</td>
+              <td><code>⚠️ Mật khẩu mới không được trùng với mật khẩu cũ!</code></td>
+              <td>Chặn tại cả GUI và <code>AuthBUS</code>, bôi đen ô mới</td>
+            </tr>
+            <tr>
+              <td><code>ERR-05</code></td>
+              <td>Xác nhận mật khẩu không khớp</td>
+              <td><code>⚠️ Mật khẩu mới và xác nhận mật khẩu không khớp!</code></td>
+              <td>Focus + <code>txtXacNhanMoi.SelectAll()</code></td>
+            </tr>
+            <tr>
+              <td><code>ERR-06</code></td>
+              <td>Mật khẩu cũ không đúng với CSDL</td>
+              <td><code>⚠️ Mật khẩu cũ không chính xác!</code></td>
+              <td>So khớp băm MD5 thất bại, bôi đen <code>txtMatKhauCu</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>frmDoiMatKhau.vb &amp; AuthBUS.vb — Kiểm tra trùng mật khẩu cũ &amp; Xóa sạch bộ nhớ RAM khi đóng Form</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line add">+ ' [AuthBUS.vb] Chặn mật khẩu mới trùng mật khẩu cũ ở tầng Business</div>
+            <div class="diff-line add">+ If matKhauMoiRaw.Trim() = matKhauCuRaw.Trim() Then</div>
+            <div class="diff-line add">+     thongBaoLoi = "Mật khẩu mới không được trùng với mật khẩu cũ!"</div>
+            <div class="diff-line add">+     Return False</div>
+            <div class="diff-line add">+ End If</div>
+            <div class="diff-line context"> </div>
+            <div class="diff-line add">+ ' [frmDoiMatKhau.vb] Tự động xóa sạch mật khẩu thô trong RAM khi đóng Form</div>
+            <div class="diff-line add">+ Private Sub frmDoiMatKhau_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed</div>
+            <div class="diff-line add">+     txtMatKhauCu.Clear()</div>
+            <div class="diff-line add">+     txtMatKhauMoi.Clear()</div>
+            <div class="diff-line add">+     txtXacNhanMoi.Clear()</div>
+            <div class="diff-line add">+ End Sub</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 3: ĐẤU NỐI TỪ FRMMAIN -->
+    <article class="change-card" id="card-wiring">
+      <div class="card-header">
+        <span class="card-type-badge badge-ux">🔗 LIFECYCLE &amp; WIRING</span>
+        <div>
+          <h2 class="card-title">Đấu Nối Mở Hộp Thoại Modal Dialog An Toàn Trong Khối Using Từ frmMain</h2>
+          <div class="card-subtitle">Commit: <code>832feaf</code> · File: <code>Quanlyquanan/Features/Main/frmMain.vb</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Cập nhật sự kiện <code>btnDoiMatKhau_Click</code> trên Sidebar của <code>frmMain</code>: sử dụng cấu trúc <code>Using ... End Using</code> kết hợp <code>ShowDialog(Me)</code> để truyền <code>frmMain</code> làm Owner Form, giúp hộp thoại luôn căn giữa cửa sổ chính và giải phóng ngay lập tức tài nguyên đồ họa (GDI Handles) ngay khi người dùng đóng hộp thoại.
+        </p>
+
+        <div class="code-diff">
+          <div class="code-diff-header">
+            <span>Quanlyquanan/Features/Main/frmMain.vb — Đấu nối sự kiện btnDoiMatKhau_Click</span>
+            <span>VB.NET</span>
+          </div>
+          <div class="code-diff-body">
+            <div class="diff-line context">  Private Sub btnDoiMatKhau_Click(sender As Object, e As EventArgs) Handles btnDoiMatKhau.Click</div>
+            <div class="diff-line context">      CapNhatButtonActive(btnDoiMatKhau)</div>
+            <div class="diff-line del">-     MessageBox.Show("Chức năng [Đổi Mật Khẩu]...", "Thông Báo Cá Nhân", MessageBoxButtons.OK, MessageBoxIcon.Information)</div>
+            <div class="diff-line add">+     Using fDoiMK As New Features.Auth.frmDoiMatKhau()</div>
+            <div class="diff-line add">+         fDoiMK.ShowDialog(Me)</div>
+            <div class="diff-line add">+     End Using</div>
+            <div class="diff-line context">  End Sub</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 4: KẾT QUẢ KIỂM THỬ NGHIỆM THU 112/112 TEST CASES -->
+    <article class="change-card" id="card-testing">
+      <div class="card-header">
+        <span class="card-type-badge badge-ux">🧪 AUTOMATED ACCEPTANCE TESTS</span>
+        <div>
+          <h2 class="card-title">Nghiệm Thu Tự Động Đa Vai Trò Kết Nối CSDL Docker SQL Server (112/112 Đạt 100%)</h2>
+          <div class="card-subtitle">Commits: <code>059ef5f</code>, <code>f9b364a</code> · CSDL: <code>172.20.218.246:1433 (QuanLyQuanAnDB)</code></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>
+          Thực thi bộ kiểm thử nghiệm thu tự động trên cả 4 vai trò mẫu (<code>chuquan</code>, <code>quanly</code>, <code>phucvu1</code>, <code>nhabep1</code>) kết nối trực tiếp tới container SQL Server 2022:
+          <strong>64/64 bài kiểm tra RBAC trên <code>frmMain</code></strong> và <strong>48/48 bài kiểm tra End-to-End trên <code>frmDoiMatKhau</code></strong> (bao gồm: đổi sang mật khẩu mới <code>NewPass@2026</code>, xác nhận từ chối mật khẩu cũ, đăng nhập bằng mật khẩu mới và khôi phục lại mật khẩu chuẩn <code>123456</code>).
+        </p>
+
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Hạng Mục Kiểm Thử Nghiệm Thu</th>
+              <th>👑 Chủ quán (<code>chuquan</code>)</th>
+              <th>👔 Quản lý (<code>quanly</code>)</th>
+              <th>🍽️ Phục vụ (<code>phucvu1</code>)</th>
+              <th>🍳 Nhà bếp (<code>nhabep1</code>)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Kiểm thử RBAC trên <code>frmMain</code> (16 tiêu chí/vai trò)</strong></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ 16/16 PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ 16/16 PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ 16/16 PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ 16/16 PASS</span></td>
+            </tr>
+            <tr>
+              <td><strong>2. Hiển thị Session &amp; Badge trên <code>frmDoiMatKhau</code></strong></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Nguyễn Hoàng Nam</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Trần Thị Thu Thảo</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Lê Minh Tuấn</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Võ Văn Hùng</span></td>
+            </tr>
+            <tr>
+              <td><strong>3. Ẩn/Hiện mật khẩu &amp; Xóa sạch RAM khi đóng Form</strong></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><strong>4. Đổi mật khẩu sang <code>NewPass@2026</code> trên SQL Server</strong></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><strong>5. Chặn mật khẩu cũ &amp; Đăng nhập bằng mật khẩu mới</strong></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ PASS</span></td>
+            </tr>
+            <tr>
+              <td><strong>6. Khôi phục mật khẩu mẫu <code>123456</code> (Idempotent)</strong></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Đã khôi phục</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Đã khôi phục</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Đã khôi phục</span></td>
+              <td><span style="color: #16A34A; font-weight: bold;">✅ Đã khôi phục</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- CARD 5: FILE SUMMARY TABLE -->
+    <article class="change-card" id="card-files">
+      <div class="card-header">
+        <span class="card-type-badge badge-infra">📋 FILE SUMMARY</span>
+        <div>
+          <h2 class="card-title">Bảng Thống Kê Các File Mã Nguồn &amp; Tài Liệu Thay Đổi Trong v0.2.1</h2>
+          <div class="card-subtitle">Tổng hợp từ git diff <code>127b14e..f9b364a</code> (7 commits · 13 files)</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>Đường dẫn file</th>
+              <th>Phân hệ</th>
+              <th>Loại thay đổi</th>
+              <th>Mô tả chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Quanlyquanan/Features/Auth/frmDoiMatKhau.Designer.vb</code></td>
+              <td>Auth</td>
+              <td><span style="color: #27AE60; font-weight: bold;">New (+327)</span></td>
+              <td>Thiết kế giao diện Modal Dialog Đổi mật khẩu (Header, Body, Footer, TabIndex)</td>
+            </tr>
+            <tr>
+              <td><code>Quanlyquanan/Features/Auth/frmDoiMatKhau.vb</code></td>
+              <td>Auth</td>
+              <td><span style="color: #27AE60; font-weight: bold;">New (+171)</span></td>
+              <td>Tầng xử lý sự kiện, kiểm tra lỗi Client-side, nạp Session và dọn dẹp RAM</td>
+            </tr>
+            <tr>
+              <td><code>Quanlyquanan/Features/Auth/frmDoiMatKhau.resx</code></td>
+              <td>Auth</td>
+              <td><span style="color: #27AE60; font-weight: bold;">New (+65)</span></td>
+              <td>Tài nguyên XML ResX Schema v2.0 của Form Đổi mật khẩu</td>
+            </tr>
+            <tr>
+              <td><code>Quanlyquanan/Features/Auth/AuthBUS.vb</code></td>
+              <td>Auth</td>
+              <td><span style="color: #2980B9; font-weight: bold;">Update (+5)</span></td>
+              <td>Bổ sung kiểm tra chặn mật khẩu mới trùng với mật khẩu cũ</td>
+            </tr>
+            <tr>
+              <td><code>Quanlyquanan/Features/Main/frmMain.vb</code></td>
+              <td>Main</td>
+              <td><span style="color: #2980B9; font-weight: bold;">Update (+6/-7)</span></td>
+              <td>Đấu nối sự kiện <code>btnDoiMatKhau_Click</code> mở hộp thoại trong khối <code>Using</code></td>
+            </tr>
+            <tr>
+              <td><code>docs/features/doi_mat_khau/frmDoiMatKhau_mockup.html</code></td>
+              <td>Docs</td>
+              <td><span style="color: #27AE60; font-weight: bold;">New (+770)</span></td>
+              <td>Mockup HTML tương tác trực quan mô phỏng đổi mật khẩu và đo độ mạnh mật khẩu</td>
+            </tr>
+            <tr>
+              <td><code>docs/features/doi_mat_khau/DOI_MAT_KHAU_UI_SPEC.md</code></td>
+              <td>Docs</td>
+              <td><span style="color: #27AE60; font-weight: bold;">New (+172)</span></td>
+              <td>Đặc tả chi tiết bố cục giao diện, bảng tọa độ Designer và ma trận 8 trạng thái lỗi</td>
+            </tr>
+            <tr>
+              <td><code>docs/features/doi_mat_khau/DOI_MAT_KHAU_SPRINT.md</code></td>
+              <td>Docs</td>
+              <td><span style="color: #27AE60; font-weight: bold;">New (+134)</span></td>
+              <td>Kế hoạch Sprint 5 bước, tiêu chuẩn nghiệm thu (DoD) và checklist tiến độ</td>
+            </tr>
+            <tr>
+              <td><code>docs/CHECKLIST_DO_AN.md</code></td>
+              <td>Docs</td>
+              <td><span style="color: #2980B9; font-weight: bold;">Update (+2/-2)</span></td>
+              <td>Cập nhật hoàn thành nghiệm thu <code>frmMain</code> (64/64) và <code>frmDoiMatKhau</code> (48/48)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ── 5. FOOTER ── -->
+  <footer class="footer">
+    <div style="max-width: 1140px; margin: 0 auto;">
+      <p style="font-weight: 700; color: white; margin-bottom: 6px;">ĐỒ ÁN: LẬP TRÌNH ỨNG DỤNG QUẢN LÝ 1 — HỆ THỐNG QUẢN LÝ QUÁN ĂN</p>
+      <p style="margin-bottom: 14px;">Bản quyền mã nguồn thuộc về nhóm sinh viên thực hiện · Năm học 2026</p>
+      <div style="font-size: 11.5px; color: #64748B;">
+        Release Tag: <strong>v0.2.1</strong> · Base: <code>127b14e</code> · Head: <code>f9b364a</code> · Trạng thái Build: <strong>0 Errors, 0 Warnings</strong> · Tests: <strong>112/112 Passed (100%)</strong>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
