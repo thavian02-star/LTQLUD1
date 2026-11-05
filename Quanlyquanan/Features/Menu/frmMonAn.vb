@@ -418,6 +418,11 @@ Namespace Features.Menu
         ''' Mở nhanh màn hình Quản lý Danh mục (frmDanhMuc) và tự động làm mới lại ComboBox Danh mục sau khi đóng.
         ''' </summary>
         Private Sub btnMoDanhMuc_Click(sender As Object, e As EventArgs) Handles btnMoDanhMuc.Click
+            If TypeOf Me.Owner Is frmDanhMuc Then
+                Me.Close()
+                Return
+            End If
+
             Dim maLocDMHienTai As Integer = LayMaDanhMucLoc()
             Dim maFormDMHienTai As Integer = LayMaDanhMucForm()
 

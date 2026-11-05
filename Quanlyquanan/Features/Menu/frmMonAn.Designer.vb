@@ -227,7 +227,7 @@ Namespace Features.Menu
             tlpKpiRow.Padding = New System.Windows.Forms.Padding(24, 10, 24, 4)
             tlpKpiRow.RowCount = 1
             tlpKpiRow.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0F))
-            tlpKpiRow.Size = New System.Drawing.Size(1120, 84)
+            tlpKpiRow.Size = New System.Drawing.Size(1120, 80)
             tlpKpiRow.TabIndex = 1
 
             ' Card KPI 1: Tổng số Món ăn
@@ -457,7 +457,7 @@ Namespace Features.Menu
             tlpButtons.RowCount = 2
             tlpButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0F))
             tlpButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0F))
-            tlpButtons.Size = New System.Drawing.Size(368, 84)
+            tlpButtons.Size = New System.Drawing.Size(368, 80)
 
             btnThem.BackColor = System.Drawing.Color.FromArgb(22, 163, 74)
             btnThem.Cursor = System.Windows.Forms.Cursors.Hand
@@ -668,7 +668,7 @@ Namespace Features.Menu
             Controls.Add(pnlHeader)
             Font = New System.Drawing.Font("Segoe UI", 9.0F)
             KeyPreview = True
-            MinimumSize = New System.Drawing.Size(1000, 620)
+            MinimumSize = New System.Drawing.Size(1020, 660)
             Name = "frmMonAn"
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
             Text = "Quản lý Món ăn & Thức uống — Quán Ăn Gia Đình Hương Việt"

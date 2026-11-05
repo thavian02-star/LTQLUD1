@@ -8,12 +8,10 @@ Namespace Core.Database
     ''' </summary>
     Public Class KetNoiCSDL
         ''' <summary>
-        ''' Chuỗi kết nối mặc định tới SQL Server 2022 Express chạy trên Docker.
-        '''  ipconfig getifaddr en0 
-        '''   172.20.218.246
+        ''' Chuỗi kết nối mặc định tới SQL Server 2022 Express chạy trên Docker (Host Gateway: 192.168.247.1).
         ''' </summary>
         Public Shared Property ConnectionString As String =
-            "Server=172.20.218.246,1433;Database=QuanLyQuanAnDB;User Id=sa;Password=password123!;TrustServerCertificate=True;Connect Timeout=15;"
+            "Server=192.168.247.1,1433;Database=QuanLyQuanAnDB;User Id=sa;Password=password123!;TrustServerCertificate=True;Connect Timeout=15;"
 
         ''' <summary>
         ''' Tạo và mở đối tượng SqlConnection mới.

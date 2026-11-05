@@ -53,9 +53,9 @@
 - [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMonAn.vb`)**
   - [x] Tạo `MonAnDTO.vb`, `MonAnDAO.vb`, `MonAnBUS.vb`.
   - [x] Ràng buộc nghiệp vụ: `MA_Ten` bắt buộc, `MA_DonGia >= 0`, `MA_DanhMuc` hợp lệ, hỗ trợ bật/tắt nhanh trạng thái `Hết món` (`MA_HetMon`), xóa mềm (`MA_Xoa = 1`).
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [ ] Mở từ `btnMenuThucDon` / `btnQuickThucDon` trên `frmMain` (hoặc điều hướng liên hoàn giữa `frmDanhMuc` ↔ `frmMonAn`).
-  - [ ] Chạy bộ test tự động kiểm tra CRUD + Filter theo Danh mục + Validation giá bán.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
+  - [x] Mở từ `btnMenuThucDon` / `btnQuickThucDon` trên `frmMain` (hoặc điều hướng liên hoàn giữa `frmDanhMuc` ↔ `frmMonAn`).
+  - [x] Chạy bộ test tự động kiểm tra CRUD + Filter theo Danh mục + Validation giá bán (`28/28 PASS = 100%`).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đánh dấu `[x]` Mục 3.5 Quản lý Thực đơn trong `CHECKLIST_DO_AN.md`**
 
 ---

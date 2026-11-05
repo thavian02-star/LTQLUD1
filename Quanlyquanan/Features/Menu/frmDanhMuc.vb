@@ -295,12 +295,15 @@ Namespace Features.Menu
 
         Private Sub btnMoMonAn_Click(sender As Object, e As EventArgs) Handles btnMoMonAn.Click
             MoTiepManHinhMonAn = True
-            MessageBox.Show(
-                "Đã lưu trạng thái Danh mục Thực đơn!" & Environment.NewLine &
-                "Hệ thống sẵn sàng chuyển sang Màn hình 2: Quản lý Món ăn (frmMonAn).",
-                "Điều hướng Thực đơn",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information)
+            If TypeOf Me.Owner Is frmMonAn Then
+                Me.Close()
+                Return
+            End If
+
+            Using fMonAn As New frmMonAn()
+                fMonAn.ShowDialog(Me)
+            End Using
+            TaiDanhSachDanhMuc(_maDangChon)
         End Sub
 
         Private Sub btnDong_Click(sender As Object, e As EventArgs) Handles btnDong.Click

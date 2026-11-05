@@ -237,8 +237,8 @@ Namespace Features.Main
 
         Private Sub btnQuanLyThucDon_Click(sender As Object, e As EventArgs) Handles btnQuanLyThucDon.Click, btnQuickThucDon.Click
             CapNhatButtonActive(btnQuanLyThucDon)
-            Using fDanhMuc As New Features.Menu.frmDanhMuc()
-                fDanhMuc.ShowDialog(Me)
+            Using fMonAn As New Features.Menu.frmMonAn()
+                fMonAn.ShowDialog(Me)
             End Using
             CapNhatButtonActive(Nothing)
         End Sub
