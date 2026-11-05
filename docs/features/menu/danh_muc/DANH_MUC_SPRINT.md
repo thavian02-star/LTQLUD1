@@ -89,6 +89,6 @@ Màn hình **Quản lý Danh mục món ăn (`frmDanhMuc`)** là màn hình nề
 
 - [x] **Bước 1: Phân tích nghiệp vụ, tạo Sprint Plan (`DANH_MUC_SPRINT.md`) & Interactive HTML Mockup (`frmDanhMuc_mockup_v1_0.html`) để PO review**
 - [x] **Bước 2: Thiết kế giao diện WinForms (`Features/Menu/frmDanhMuc.Designer.vb`)**
-- [ ] **Bước 3: Xây dựng tầng `DTO` (`DanhMucDTO.vb`), `DAO` (`DanhMucDAO.vb`), `BUS` (`DanhMucBUS.vb`) và xử lý sự kiện `frmDanhMuc.vb`**
+- [x] **Bước 3: Xây dựng tầng `DTO` (`DanhMucDTO.vb`), `DAO` (`DanhMucDAO.vb`), `BUS` (`DanhMucBUS.vb`) và xử lý sự kiện `frmDanhMuc.vb`**
 - [ ] **Bước 4: Kết nối vào `frmMain` (`btnMenuThucDon` / `btnQuickThucDon`) & Chạy bộ Kiểm thử tự động (CRUD + Validation + Anti-Overlap Layout + RBAC)**
 - [ ] **Bước 5: Tạo Release Report (`docs/release_report/report_0_2_3.html`) & Đánh dấu hoàn thành `[x]` trong `CHECKLIST_UU_TIEN_DANH_MUC.md` + `CHECKLIST_DO_AN.md`**
