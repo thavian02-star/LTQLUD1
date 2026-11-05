@@ -41,11 +41,12 @@ Namespace Features.Main
             PhanQuyenHelper.ApDungPhanQuyen(Me, anControl:=False)
 
             ' 4. Điều chỉnh hiển thị KPI Doanh thu: Chỉ Chủ quán có quyền xem
-            If Not Session.CoQuyen("CQ_BAO_CAO_THONG_KE") Then
-                pnlKpiDoanhThu.Visible = False
-            End If
+            pnlKpiDoanhThu.Visible = Session.CoQuyen("CQ_BAO_CAO_THONG_KE")
 
-            ' 5. Hiển thị Dashboard Home mặc định
+            ' 5. Bỏ chọn dòng mặc định trên danh sách Hoạt Động Gần Đây để tránh vệt xanh thừa
+            lstActivity.ClearSelected()
+
+            ' 6. Hiển thị Dashboard Home mặc định
             QuayLaiDashboardHome()
         End Sub
 
@@ -272,12 +273,25 @@ Namespace Features.Main
 
         ''' <summary>
         ''' Mở hộp thoại Đổi Mật Khẩu (Modal Dialog) cho tài khoản đang đăng nhập.
+        ''' Nếu đổi mật khẩu thành công (DialogResult.OK), tự động ghi nhận vào Hoạt Động Gần Đây.
         ''' </summary>
         Private Sub btnDoiMatKhau_Click(sender As Object, e As EventArgs) Handles btnDoiMatKhau.Click
             CapNhatButtonActive(btnDoiMatKhau)
             Using fDoiMK As New Features.Auth.frmDoiMatKhau()
-                fDoiMK.ShowDialog(Me)
+                If fDoiMK.ShowDialog(Me) = DialogResult.OK Then
+                    GhiNhatKyHoatDong($"Tài khoản '{Session.TenDangNhap}' đã cập nhật mật khẩu mới")
+                End If
             End Using
+        End Sub
+
+        ''' <summary>
+        ''' Ghi thêm một dòng sự kiện mới lên đầu danh sách "Hoạt Động Gần Đây" (lstActivity).
+        ''' </summary>
+        Public Sub GhiNhatKyHoatDong(noiDung As String)
+            If String.IsNullOrWhiteSpace(noiDung) Then Return
+            Dim mocThoiGian As String = DateTime.Now.ToString("HH:mm")
+            lstActivity.Items.Insert(0, $"• [{mocThoiGian}] {noiDung.Trim()}")
+            lstActivity.ClearSelected()
         End Sub
 
         ' ==============================================================

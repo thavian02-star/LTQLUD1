@@ -52,8 +52,11 @@ Namespace Core.Helpers
             For Each c As Control In controls
                 Dim tagStr As String = TryCast(c.Tag, String)
                 If Not String.IsNullOrWhiteSpace(tagStr) AndAlso LaTagPhanQuyen(tagStr) Then
-                    Dim duocPhep As Boolean = Session.CoQuyen(tagStr)
-                    If Not duocPhep Then
+                    Dim duocPhep As Boolean = (Session.MaVaiTro = 1) OrElse Session.CoQuyen(tagStr)
+                    If duocPhep Then
+                        c.Visible = True
+                        c.Enabled = True
+                    Else
                         If anControl Then
                             c.Visible = False
                         Else
