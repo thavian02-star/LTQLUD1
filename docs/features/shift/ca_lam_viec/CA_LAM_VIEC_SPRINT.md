@@ -86,8 +86,8 @@ Màn hình `frmCaLamViec` tuân thủ chuẩn **Split-Layout 38% : 62%** đồng
   - [x] Tạo file Mockup tương tác [`frmCaLamViec_mockup_v1_0.html`](frmCaLamViec_mockup_v1_0.html) với 4 kịch bản demo trực quan.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Shift/frmCaLamViec.Designer.vb`)**
   - [x] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmCaLamViec.vb`)**
-  - [ ] Tạo `CaLamViecDTO.vb`, `CaLamViecDAO.vb`, `CaLamViecBUS.vb` và hoàn thiện sự kiện trong `frmCaLamViec.vb`.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmCaLamViec.vb`)**
+  - [x] Tạo `CaLamViecDTO.vb`, `CaLamViecDAO.vb`, `CaLamViecBUS.vb` và hoàn thiện sự kiện trong `frmCaLamViec.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`CaLamViecVerifier`)**
   - [ ] Tích hợp mở `frmCaLamViec` từ `frmMain` và thực thi bộ kiểm thử tự động 24/24 tiêu chí (Layout Geometry + CRUD + FK Protection + RBAC).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_5.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.5`**
