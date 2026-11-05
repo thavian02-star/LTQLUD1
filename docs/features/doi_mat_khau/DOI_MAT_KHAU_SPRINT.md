@@ -130,5 +130,5 @@
 - [x] **Bước 1:** PO duyệt Bản đặc tả UI (`DOI_MAT_KHAU_UI_SPEC.md`) và Mockup HTML (`frmDoiMatKhau_mockup.html`).
 - [x] **Bước 2:** Tạo file thiết kế `frmDoiMatKhau.Designer.vb` và `frmDoiMatKhau.resx` — Đã biên dịch thành công (0 Warning, 0 Error).
 - [x] **Bước 3:** Viết code xử lý logic `frmDoiMatKhau.vb` (Validation, hiển thị mật khẩu, gọi BUS) — Đã hoàn thành & build thành công.
-- [ ] **Bước 4:** Đấu nối sự kiện mở form từ `btnDoiMatKhau` trên `frmMain`.
+- [x] **Bước 4:** Đấu nối sự kiện mở form từ `btnDoiMatKhau` trên `frmMain` (`fDoiMK.ShowDialog(Me)` trong khối `Using`).
 - [ ] **Bước 5:** Kiểm thử thực tế trên CSDL Docker và commit code theo quy chuẩn.

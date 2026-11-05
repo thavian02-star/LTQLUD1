@@ -270,15 +270,14 @@ Namespace Features.Main
             )
         End Sub
 
+        ''' <summary>
+        ''' Mở hộp thoại Đổi Mật Khẩu (Modal Dialog) cho tài khoản đang đăng nhập.
+        ''' </summary>
         Private Sub btnDoiMatKhau_Click(sender As Object, e As EventArgs) Handles btnDoiMatKhau.Click
             CapNhatButtonActive(btnDoiMatKhau)
-            MessageBox.Show(
-                "Chức năng [Đổi Mật Khẩu]:" & vbCrLf &
-                "- Cho phép người dùng cập nhật mật khẩu mới và băm MD5 an toàn.",
-                "Thông Báo Cá Nhân",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            Using fDoiMK As New Features.Auth.frmDoiMatKhau()
+                fDoiMK.ShowDialog(Me)
+            End Using
         End Sub
 
         ' ==============================================================
