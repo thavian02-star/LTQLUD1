@@ -101,6 +101,7 @@ docs/
     ├── report_0_2_2.html               ← Báo cáo phát hành phiên bản v0.2.2 (Sửa lỗi Z-Order & Tối ưu Responsive 60:40 trên frmMain v1.1)
     ├── report_0_2_3.html               ← Báo cáo phát hành phiên bản v0.2.3 (Màn hình 1/5: Quản lý Danh mục Thực đơn - frmDanhMuc v1.0)
     ├── report_0_2_4.html               ← Báo cáo phát hành phiên bản v0.2.4 (Màn hình 2/5: Quản lý Món ăn & Thức uống - frmMonAn v1.0)
+    ├── report_0_2_5.html               ← Báo cáo phát hành phiên bản v0.2.5 (Màn hình 3/5: Quản lý Danh sách Ca làm việc - frmCaLamViec v1.0)
     ├── report_0_3_0.html               ← (Dự kiến: Sơ đồ bàn & Gọi món)
     └── ...
 ```
