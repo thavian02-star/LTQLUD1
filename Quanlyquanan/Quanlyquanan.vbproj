@@ -24,6 +24,15 @@
     <EmbeddedResource Update="Features\Auth\frmDangNhap.resx">
       <DependentUpon>frmDangNhap.vb</DependentUpon>
     </EmbeddedResource>
+    <Compile Update="Features\Main\frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Features\Main\frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="Features\Main\frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

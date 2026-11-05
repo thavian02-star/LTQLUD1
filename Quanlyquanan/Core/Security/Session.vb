@@ -62,5 +62,12 @@ Namespace Core.Security
             HoTenNhanVien = String.Empty
             DanhSachQuyen.Clear()
         End Sub
+
+        ''' <summary>
+        ''' Bí danh tương đương hàm DangXuat.
+        ''' </summary>
+        Public Shared Sub Clear()
+            DangXuat()
+        End Sub
     End Class
 End Namespace

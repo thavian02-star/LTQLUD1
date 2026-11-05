@@ -129,8 +129,8 @@ Thực hiện đăng nhập lần lượt bằng 4 tài khoản mẫu để ki�
 ## 3. CHECKLIST THEO DÕI TIẾN ĐỘ SPRINT
 
 - [x] **Bước 1:** Hoàn thiện tài liệu đặc tả bố cục và ma trận Tag (DoD 1) (chi tiết tại [`MAIN_UI_VA_PHAN_QUYEN.md`](MAIN_UI_VA_PHAN_QUYEN.md)).
-- [ ] **Bước 2:** Tạo file `frmMain.Designer.vb` và `frmMain.resx` với đầy đủ component (DoD 2).
-- [ ] **Bước 3:** Viết code xử lý logic `frmMain.vb` (nạp Session, Timer, mở form con, phân quyền) (DoD 3, 4).
+- [x] **Bước 2:** Tạo file `frmMain.Designer.vb` và `frmMain.resx` với đầy đủ component (DoD 2).
+- [x] **Bước 3:** Viết code xử lý logic `frmMain.vb` (nạp Session, Timer, mở form con, phân quyền) (DoD 3, 4).
 - [ ] **Bước 4:** Cập nhật `frmDangNhap.vb` để mở `frmMain` sau khi xác thực thành công (DoD 5).
 - [ ] **Bước 5:** Chạy thử ứng dụng, kiểm thử đăng nhập 4 vai trò và xác nhận phân quyền hoạt động 100% (DoD 6, 7).
 - [ ] **Bước 6:** Commit mã nguồn lên Git và cập nhật tài liệu tổng kết.

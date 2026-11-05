@@ -7,7 +7,14 @@ Namespace Core.Helpers
     ''' </summary>
     Public Class PhanQuyenHelper
         ''' <summary>
-        ''' Quét toàn bộ Control trên Form, nếu Tag có tiền tố "Q_" và user không có quyền, tự động vô hiệu hóa hoặc ẩn.
+        ''' Phương thức tương đương hoặc bí danh gọi ApDungPhanQuyen.
+        ''' </summary>
+        Public Shared Sub PhanQuyenForm(targetForm As Form, Optional anControl As Boolean = False)
+            ApDungPhanQuyen(targetForm, anControl)
+        End Sub
+
+        ''' <summary>
+        ''' Quét toàn bộ Control trên Form, nếu Tag là mã quyền và user không có quyền, tự động vô hiệu hóa hoặc ẩn.
         ''' </summary>
         ''' <param name="targetForm">Form cần phân quyền</param>
         ''' <param name="anControl">True: Ẩn hẳn (Visible = False), False: Chỉ làm mờ (Enabled = False)</param>
@@ -25,10 +32,26 @@ Namespace Core.Helpers
             End If
         End Sub
 
+        ''' <summary>
+        ''' Kiểm tra xem chuỗi Tag có phải là một mã định danh quyền RBAC hay không.
+        ''' </summary>
+        Private Shared Function LaTagPhanQuyen(tagStr As String) As Boolean
+            If String.IsNullOrWhiteSpace(tagStr) Then Return False
+            Dim tagUpper As String = tagStr.Trim().ToUpper()
+            Return tagUpper.StartsWith("Q_") OrElse
+                   tagUpper.StartsWith("POS_") OrElse
+                   tagUpper.StartsWith("BEP_") OrElse
+                   tagUpper.StartsWith("B_") OrElse
+                   tagUpper.StartsWith("QL_") OrElse
+                   tagUpper.StartsWith("CQ_") OrElse
+                   tagUpper.StartsWith("CA_NHAN_") OrElse
+                   tagUpper.StartsWith("CHUNG_")
+        End Function
+
         Private Shared Sub DuyetControls(controls As Control.ControlCollection, anControl As Boolean)
             For Each c As Control In controls
                 Dim tagStr As String = TryCast(c.Tag, String)
-                If Not String.IsNullOrWhiteSpace(tagStr) AndAlso tagStr.StartsWith("Q_", StringComparison.OrdinalIgnoreCase) Then
+                If Not String.IsNullOrWhiteSpace(tagStr) AndAlso LaTagPhanQuyen(tagStr) Then
                     Dim duocPhep As Boolean = Session.CoQuyen(tagStr)
                     If Not duocPhep Then
                         If anControl Then
@@ -48,7 +71,7 @@ Namespace Core.Helpers
         Private Shared Sub DuyetMenuItems(items As ToolStripItemCollection, anControl As Boolean)
             For Each item As ToolStripItem In items
                 Dim tagStr As String = TryCast(item.Tag, String)
-                If Not String.IsNullOrWhiteSpace(tagStr) AndAlso tagStr.StartsWith("Q_", StringComparison.OrdinalIgnoreCase) Then
+                If Not String.IsNullOrWhiteSpace(tagStr) AndAlso LaTagPhanQuyen(tagStr) Then
                     Dim duocPhep As Boolean = Session.CoQuyen(tagStr)
                     If Not duocPhep Then
                         If anControl Then
