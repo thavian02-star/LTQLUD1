@@ -329,17 +329,17 @@ Namespace Features.Menu
             lblThongBao.BackColor = System.Drawing.Color.FromArgb(241, 245, 249)
             lblThongBao.Font = New System.Drawing.Font("Segoe UI", 8.75F, System.Drawing.FontStyle.Bold)
             lblThongBao.ForeColor = System.Drawing.Color.FromArgb(51, 65, 85)
-            lblThongBao.Location = New System.Drawing.Point(18, 46)
+            lblThongBao.Location = New System.Drawing.Point(18, 42)
             lblThongBao.Name = "lblThongBao"
             lblThongBao.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-            lblThongBao.Size = New System.Drawing.Size(342, 38)
+            lblThongBao.Size = New System.Drawing.Size(342, 34)
             lblThongBao.Text = "ℹ️ Chọn 1 dòng trên bảng hoặc nhập Tên danh mục mới."
             lblThongBao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
 
             lblMaDM.AutoSize = True
             lblMaDM.Font = New System.Drawing.Font("Segoe UI", 9.0F, System.Drawing.FontStyle.Bold)
             lblMaDM.ForeColor = System.Drawing.Color.FromArgb(51, 65, 85)
-            lblMaDM.Location = New System.Drawing.Point(18, 92)
+            lblMaDM.Location = New System.Drawing.Point(18, 82)
             lblMaDM.Name = "lblMaDM"
             lblMaDM.Text = "Mã danh mục (DM_Ma):"
 
@@ -347,7 +347,7 @@ Namespace Features.Menu
             txtMaDM.BackColor = System.Drawing.Color.FromArgb(241, 245, 249)
             txtMaDM.Font = New System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold)
             txtMaDM.ForeColor = System.Drawing.Color.FromArgb(100, 116, 139)
-            txtMaDM.Location = New System.Drawing.Point(18, 113)
+            txtMaDM.Location = New System.Drawing.Point(18, 102)
             txtMaDM.Name = "txtMaDM"
             txtMaDM.ReadOnly = True
             txtMaDM.Size = New System.Drawing.Size(342, 25)
@@ -356,13 +356,13 @@ Namespace Features.Menu
             lblTenDM.AutoSize = True
             lblTenDM.Font = New System.Drawing.Font("Segoe UI", 9.0F, System.Drawing.FontStyle.Bold)
             lblTenDM.ForeColor = System.Drawing.Color.FromArgb(51, 65, 85)
-            lblTenDM.Location = New System.Drawing.Point(18, 148)
+            lblTenDM.Location = New System.Drawing.Point(18, 134)
             lblTenDM.Name = "lblTenDM"
             lblTenDM.Text = "Tên danh mục thực đơn (DM_Ten) *:"
 
             txtTenDM.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             txtTenDM.Font = New System.Drawing.Font("Segoe UI", 10.0F)
-            txtTenDM.Location = New System.Drawing.Point(18, 169)
+            txtTenDM.Location = New System.Drawing.Point(18, 154)
             txtTenDM.MaxLength = 100
             txtTenDM.Name = "txtTenDM"
             txtTenDM.PlaceholderText = "VD: Món Khai Vị & Gỏi..."
@@ -371,26 +371,26 @@ Namespace Features.Menu
             lblMoTa.AutoSize = True
             lblMoTa.Font = New System.Drawing.Font("Segoe UI", 9.0F, System.Drawing.FontStyle.Bold)
             lblMoTa.ForeColor = System.Drawing.Color.FromArgb(51, 65, 85)
-            lblMoTa.Location = New System.Drawing.Point(18, 204)
+            lblMoTa.Location = New System.Drawing.Point(18, 186)
             lblMoTa.Name = "lblMoTa"
             lblMoTa.Text = "Mô tả nhóm thực đơn (DM_MoTa):"
 
             txtMoTa.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             txtMoTa.Font = New System.Drawing.Font("Segoe UI", 9.5F)
-            txtMoTa.Location = New System.Drawing.Point(18, 225)
+            txtMoTa.Location = New System.Drawing.Point(18, 206)
             txtMoTa.MaxLength = 255
             txtMoTa.Multiline = True
             txtMoTa.Name = "txtMoTa"
             txtMoTa.PlaceholderText = "Mô tả đặc điểm các món ăn trong danh mục này..."
             txtMoTa.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-            txtMoTa.Size = New System.Drawing.Size(342, 72)
+            txtMoTa.Size = New System.Drawing.Size(342, 60)
 
             pnlDishCountBadge.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             pnlDishCountBadge.BackColor = System.Drawing.Color.FromArgb(248, 250, 252)
             pnlDishCountBadge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-            pnlDishCountBadge.Location = New System.Drawing.Point(18, 306)
+            pnlDishCountBadge.Location = New System.Drawing.Point(18, 274)
             pnlDishCountBadge.Name = "pnlDishCountBadge"
-            pnlDishCountBadge.Size = New System.Drawing.Size(342, 34)
+            pnlDishCountBadge.Size = New System.Drawing.Size(342, 32)
 
             lblThongKeMon.Dock = System.Windows.Forms.DockStyle.Fill
             lblThongKeMon.Font = New System.Drawing.Font("Segoe UI", 9.0F, System.Drawing.FontStyle.Bold)
@@ -413,7 +413,7 @@ Namespace Features.Menu
             tlpButtons.RowCount = 2
             tlpButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0F))
             tlpButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0F))
-            tlpButtons.Size = New System.Drawing.Size(342, 94)
+            tlpButtons.Size = New System.Drawing.Size(342, 86)
 
             btnThem.BackColor = System.Drawing.Color.FromArgb(22, 163, 74)
             btnThem.Cursor = System.Windows.Forms.Cursors.Hand

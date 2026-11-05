@@ -237,14 +237,10 @@ Namespace Features.Main
 
         Private Sub btnQuanLyThucDon_Click(sender As Object, e As EventArgs) Handles btnQuanLyThucDon.Click, btnQuickThucDon.Click
             CapNhatButtonActive(btnQuanLyThucDon)
-            MessageBox.Show(
-                "Phân hệ [Quản Lý Thực Đơn, Danh Mục Món & Bàn Ghế] (Features/ThucDon)!" & vbCrLf &
-                "- Thêm, sửa, xóa món ăn, đơn giá, tình trạng còn/hết món." & vbCrLf &
-                "- Quản lý danh sách bàn và sức chứa tối đa.",
-                "Thông Báo Phân Hệ",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            Using fDanhMuc As New Features.Menu.frmDanhMuc()
+                fDanhMuc.ShowDialog(Me)
+            End Using
+            CapNhatButtonActive(Nothing)
         End Sub
 
         Private Sub btnBaoCao_Click(sender As Object, e As EventArgs) Handles btnBaoCao.Click, btnQuickBaoCao.Click

@@ -36,9 +36,9 @@
 - [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmDanhMuc.vb`)**
   - [x] Tạo `DanhMucDTO.vb`, `DanhMucDAO.vb`, `DanhMucBUS.vb`.
   - [x] Ràng buộc nghiệp vụ: Không để trống `DM_Ten`, kiểm tra trùng tên danh mục, xóa mềm (`DM_Xoa = 1`) và chặn xóa nếu danh mục đang chứa món ăn đang kinh doanh.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [ ] Gắn sự kiện mở `frmDanhMuc` từ `frmMain` (phân quyền `CQ_QUAN_LY_THUC_DON`).
-  - [ ] Chạy bộ test tự động kiểm tra CRUD + Validation + Layout Geometry.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
+  - [x] Gắn sự kiện mở `frmDanhMuc` từ `frmMain` (phân quyền `CQ_QUAN_LY_THUC_DON`).
+  - [x] Chạy bộ test tự động kiểm tra CRUD + Validation + Layout Geometry (`24/24 PASS = 100%`).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đồng bộ `CHECKLIST_DO_AN.md`**
 
 ---
