@@ -58,7 +58,7 @@ Namespace Features.Main
             lblStatusVersion = New ToolStripStatusLabel()
             pnlContent = New Panel()
             pnlDashboardHome = New Panel()
-            pnlDashboardRow = New Panel()
+            pnlDashboardRow = New TableLayoutPanel()
             pnlActivity = New Panel()
             lblActivityHeader = New Label()
             lstActivity = New ListBox()
@@ -520,8 +520,13 @@ Namespace Features.Main
             ' 
             ' pnlDashboardRow
             ' 
-            pnlDashboardRow.Controls.Add(pnlActivity)
-            pnlDashboardRow.Controls.Add(pnlQuickActions)
+            pnlDashboardRow.ColumnCount = 2
+            pnlDashboardRow.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 60F))
+            pnlDashboardRow.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 40F))
+            pnlDashboardRow.Controls.Add(pnlQuickActions, 0, 0)
+            pnlDashboardRow.Controls.Add(pnlActivity, 1, 0)
+            pnlDashboardRow.RowCount = 1
+            pnlDashboardRow.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
             pnlDashboardRow.Dock = DockStyle.Fill
             pnlDashboardRow.Location = New Point(0, 185)
             pnlDashboardRow.Name = "pnlDashboardRow"
@@ -532,25 +537,27 @@ Namespace Features.Main
             ' pnlActivity
             ' 
             pnlActivity.BackColor = Color.White
-            pnlActivity.Controls.Add(lblActivityHeader)
-            pnlActivity.Controls.Add(lstActivity)
+            pnlActivity.Controls.Add(lstActivity) ' Index 0: Dock = Fill (nam duoi Header)
+            pnlActivity.Controls.Add(lblActivityHeader) ' Index 1: Dock = Top (nam tren cung)
             pnlActivity.Dock = DockStyle.Fill
-            pnlActivity.Location = New Point(565, 15)
+            pnlActivity.Location = New Point(592, 15)
+            pnlActivity.Margin = New Padding(8, 0, 0, 0)
             pnlActivity.Name = "pnlActivity"
             pnlActivity.Padding = New Padding(16)
-            pnlActivity.Size = New Size(409, 406)
+            pnlActivity.Size = New Size(382, 406)
             pnlActivity.TabIndex = 1
             ' 
             ' lblActivityHeader
             ' 
-            lblActivityHeader.AutoSize = True
+            lblActivityHeader.AutoSize = False
             lblActivityHeader.Dock = DockStyle.Top
             lblActivityHeader.Font = New Font("Segoe UI", 10.5F, FontStyle.Bold)
             lblActivityHeader.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
             lblActivityHeader.Location = New Point(16, 16)
             lblActivityHeader.Name = "lblActivityHeader"
-            lblActivityHeader.Padding = New Padding(0, 0, 0, 12)
-            lblActivityHeader.Size = New Size(166, 31)
+            lblActivityHeader.Padding = New Padding(0, 0, 0, 8)
+            lblActivityHeader.Size = New Size(350, 32)
+            lblActivityHeader.TextAlign = ContentAlignment.MiddleLeft
             lblActivityHeader.TabIndex = 0
             lblActivityHeader.Text = "🔔 Hoạt Động Gần Đây"
             ' 
@@ -558,13 +565,14 @@ Namespace Features.Main
             ' 
             lstActivity.BorderStyle = BorderStyle.None
             lstActivity.Dock = DockStyle.Fill
-            lstActivity.Font = New Font("Segoe UI", 9F)
+            lstActivity.Font = New Font("Segoe UI", 9.5F)
+            lstActivity.ItemHeight = 20
             lstActivity.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
             lstActivity.FormattingEnabled = True
             lstActivity.Items.AddRange(New Object() {"• [16:48] Bàn 05 gọi thêm 2 Lẩu Hải Sản", "• [16:42] Bếp báo xong món Bò Lúc Lắc (Bàn 02)", "• [16:30] Bàn 01 thanh toán thành công: 620.000 đ", "• [16:00] NV Lê Văn Phục Vụ 1 chấm công vào ca chiều", "• [15:45] Quản lý duyệt 3 bảng chấm công ca trưa"})
-            lstActivity.Location = New Point(16, 16)
+            lstActivity.Location = New Point(16, 48)
             lstActivity.Name = "lstActivity"
-            lstActivity.Size = New Size(377, 374)
+            lstActivity.Size = New Size(350, 342)
             lstActivity.TabIndex = 1
             ' 
             ' pnlQuickActions
@@ -572,11 +580,12 @@ Namespace Features.Main
             pnlQuickActions.BackColor = Color.White
             pnlQuickActions.Controls.Add(tlpQuickButtons)
             pnlQuickActions.Controls.Add(lblQuickHeader)
-            pnlQuickActions.Dock = DockStyle.Left
+            pnlQuickActions.Dock = DockStyle.Fill
+            pnlQuickActions.Margin = New Padding(0, 0, 8, 0)
             pnlQuickActions.Location = New Point(0, 15)
             pnlQuickActions.Name = "pnlQuickActions"
             pnlQuickActions.Padding = New Padding(16)
-            pnlQuickActions.Size = New Size(565, 406)
+            pnlQuickActions.Size = New Size(576, 406)
             pnlQuickActions.TabIndex = 0
             ' 
             ' tlpQuickButtons
@@ -592,12 +601,12 @@ Namespace Features.Main
             tlpQuickButtons.Controls.Add(btnQuickThucDon, 1, 1)
             tlpQuickButtons.Controls.Add(btnQuickBaoCao, 2, 1)
             tlpQuickButtons.Dock = DockStyle.Fill
-            tlpQuickButtons.Location = New Point(16, 47)
+            tlpQuickButtons.Location = New Point(16, 48)
             tlpQuickButtons.Name = "tlpQuickButtons"
             tlpQuickButtons.RowCount = 2
             tlpQuickButtons.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
             tlpQuickButtons.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
-            tlpQuickButtons.Size = New Size(533, 343)
+            tlpQuickButtons.Size = New Size(544, 342)
             tlpQuickButtons.TabIndex = 1
             ' 
             ' btnQuickDatBan
@@ -710,14 +719,15 @@ Namespace Features.Main
             ' 
             ' lblQuickHeader
             ' 
-            lblQuickHeader.AutoSize = True
+            lblQuickHeader.AutoSize = False
             lblQuickHeader.Dock = DockStyle.Top
             lblQuickHeader.Font = New Font("Segoe UI", 10.5F, FontStyle.Bold)
             lblQuickHeader.ForeColor = Color.FromArgb(CByte(44), CByte(62), CByte(80))
             lblQuickHeader.Location = New Point(16, 16)
             lblQuickHeader.Name = "lblQuickHeader"
-            lblQuickHeader.Padding = New Padding(0, 0, 0, 12)
-            lblQuickHeader.Size = New Size(213, 31)
+            lblQuickHeader.Padding = New Padding(0, 0, 0, 8)
+            lblQuickHeader.Size = New Size(544, 32)
+            lblQuickHeader.TextAlign = ContentAlignment.MiddleLeft
             lblQuickHeader.TabIndex = 0
             lblQuickHeader.Text = "⚡ Thao Tác Nghiệp Vụ Nhanh"
             ' 
@@ -1034,7 +1044,7 @@ Namespace Features.Main
         Friend WithEvents pnlKpiDoanhThu As System.Windows.Forms.Panel
         Friend WithEvents lblKpiDoanhThuTitle As System.Windows.Forms.Label
         Friend WithEvents lblKpiDoanhThuValue As System.Windows.Forms.Label
-        Friend WithEvents pnlDashboardRow As System.Windows.Forms.Panel
+        Friend WithEvents pnlDashboardRow As System.Windows.Forms.TableLayoutPanel
         Friend WithEvents pnlQuickActions As System.Windows.Forms.Panel
         Friend WithEvents lblQuickHeader As System.Windows.Forms.Label
         Friend WithEvents tlpQuickButtons As System.Windows.Forms.TableLayoutPanel

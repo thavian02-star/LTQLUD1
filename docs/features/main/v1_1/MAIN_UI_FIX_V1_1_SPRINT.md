@@ -120,8 +120,8 @@ Khi chạy thực tế màn hình `frmMain` ở chế độ toàn màn hình (`W
 
 ## 3. CHECKLIST TIẾN ĐỘ SPRINT `frmMain v1.1`
 
-- [x] **Bước 1:** Phân tích nguyên nhân gốc rễ, lập kế hoạch Sprint `v1.1` và tạo Mockup tương tác [`frmMain_mockup_v1_1.html`](frmMain_mockup_v1_1.html) *(Đang trình PO duyệt)*.
-- [ ] **Bước 2:** Cập nhật `frmMain.Designer.vb` (Sửa Z-Order `pnlActivity` & chuyển `pnlDashboardRow` sang `TableLayoutPanel` 60% : 40%).
+- [x] **Bước 1:** Phân tích nguyên nhân gốc rễ, lập kế hoạch Sprint `v1.1` và tạo Mockup tương tác [`frmMain_mockup_v1_1.html`](frmMain_mockup_v1_1.html) *(Đã được PO duyệt)*.
+- [x] **Bước 2:** Cập nhật `frmMain.Designer.vb` (Sửa Z-Order `pnlActivity` & chuyển `pnlDashboardRow` sang `TableLayoutPanel` 60% : 40%).
 - [ ] **Bước 3:** Rà soát tương thích `frmMain.vb` & `PhanQuyenHelper.vb`.
 - [ ] **Bước 4:** Chạy kiểm thử tự động Tọa độ UI (Anti-Overlap & Responsive 60:40) + 64/64 RBAC Test Cases.
 - [ ] **Bước 5:** Commit code và cập nhật Release Report.
