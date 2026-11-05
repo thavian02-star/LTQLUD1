@@ -84,8 +84,8 @@ Màn hình `frmCaLamViec` tuân thủ chuẩn **Split-Layout 38% : 62%** đồng
 - [x] **Bước 1: Đặc tả Kỹ thuật & Interactive Mockup HTML (`docs/features/shift/ca_lam_viec/`)**
   - [x] Tạo tài liệu đặc tả [`CA_LAM_VIEC_SPRINT.md`](CA_LAM_VIEC_SPRINT.md).
   - [x] Tạo file Mockup tương tác [`frmCaLamViec_mockup_v1_0.html`](frmCaLamViec_mockup_v1_0.html) với 4 kịch bản demo trực quan.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Shift/frmCaLamViec.Designer.vb`)**
-  - [ ] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Shift/frmCaLamViec.Designer.vb`)**
+  - [x] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmCaLamViec.vb`)**
   - [ ] Tạo `CaLamViecDTO.vb`, `CaLamViecDAO.vb`, `CaLamViecBUS.vb` và hoàn thiện sự kiện trong `frmCaLamViec.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`CaLamViecVerifier`)**

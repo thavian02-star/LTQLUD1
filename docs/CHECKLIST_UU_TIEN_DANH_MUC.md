@@ -65,8 +65,8 @@
 
 - [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/shift/ca_lam_viec/`)**
   - [x] Tạo tài liệu đặc tả `CA_LAM_VIEC_SPRINT.md` và file mockup `frmCaLamViec_mockup_v1_0.html` để PO duyệt.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Shift/frmCaLamViec.Designer.vb`)**
-  - [ ] Thiết kế bố cục: Bảng danh sách ca làm việc (`DataGridView`) hiển thị rõ `Mã ca`, `Tên ca`, `Giờ bắt đầu`, `Giờ kết thúc`, `Số giờ làm`, `Lương mỗi ca (VNĐ)`, cùng khu vực thông tin chi tiết ca / cập nhật cấu hình ca (nếu là Chủ quán).
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Shift/frmCaLamViec.Designer.vb`)**
+  - [x] Thiết kế bố cục: Bảng danh sách ca làm việc (`DataGridView`) hiển thị rõ `Mã ca`, `Tên ca`, `Giờ bắt đầu`, `Giờ kết thúc`, `Số giờ làm`, `Lương mỗi ca (VNĐ)`, cùng khu vực thông tin chi tiết ca / cập nhật cấu hình ca (nếu là Chủ quán).
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmCaLamViec.vb`)**
   - [ ] Tạo `CaLamViecDTO.vb`, `CaLamViecDAO.vb`, `CaLamViecBUS.vb`.
   - [ ] Nạp danh sách ca từ bảng `CaLamViec`, tính tự động thời lượng ca (số giờ) và định dạng tiền lương.
