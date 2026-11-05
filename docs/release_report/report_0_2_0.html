@@ -882,6 +882,7 @@
                 <li>Khung App Shell toàn màn hình với Sidebar 250px nền xám đậm <code>#2C3E50</code>.</li>
                 <li>Đồng hồ số thời gian thực cập nhật từng giây <code>HH:mm:ss - Thứ X, dd/MM/yyyy</code>.</li>
                 <li>4 thẻ KPI trực quan: 🪑 Bàn phục vụ, 🍜 Món chờ nấu, 👨‍🍳 Nhân sự ca, 💰 Doanh thu.</li>
+                <li>Khối 2 cột dưới KPI (<code>pnlDashboardRow</code>): Cột trái <strong>⚡ Thao Tác Nghiệp Vụ Nhanh</strong> (6 nút tắt) &amp; Cột phải <strong>🔔 Hoạt Động Gần Đây</strong> (<code>lstActivity</code> theo dõi sự kiện quán).</li>
                 <li>Cơ chế <code>MoFormCon(childForm)</code> nhúng Form con toàn phần vào <code>pnlContent</code>.</li>
               </ul>
 
@@ -889,7 +890,7 @@
               <div class="mockup-main-shell" style="margin-top: 10px;">
                 <!-- TITLEBAR -->
                 <div class="mockup-titlebar" style="background: #1F618D;">
-                  <span>🍽️ Quản Lý Quán Ăn - [frmMain]</span>
+                  <span>🍽️ Hệ Thống Quản Lý Quán Ăn - [Màn Hình Chính]</span>
                   <div class="mockup-controls">
                     <span class="mockup-ctrl-dot ctrl-yellow"></span>
                     <span class="mockup-ctrl-dot ctrl-green"></span>
@@ -902,14 +903,14 @@
                   <div class="mockup-main-brand">
                     <span style="font-size: 14px;">🏪</span>
                     <div>
-                      <div style="font-size: 10px; font-weight: 700; line-height: 1.1;">QUẢN LÝ QUÁN ĂN</div>
-                      <div style="font-size: 7.5px; opacity: 0.85;">ĐIỀU HÀNH TẬP TRUNG</div>
+                      <div style="font-size: 10px; font-weight: 700; line-height: 1.1;">HỆ THỐNG QUẢN LÝ QUÁN ĂN</div>
+                      <div style="font-size: 7.5px; opacity: 0.85;">PHÂN HỆ ĐIỀU HÀNH &amp; BÁN HÀNG TẬP TRUNG</div>
                     </div>
                   </div>
                   <div class="mockup-main-meta">
                     <span style="background: rgba(0,0,0,0.25); padding: 2px 5px; border-radius: 8px; font-size: 8.5px;">🕒 17:00:00</span>
-                    <span style="background: rgba(255,255,255,0.2); padding: 2px 5px; border-radius: 8px; font-size: 8.5px; font-weight: 600;">👑 Nam (Chủ quán)</span>
-                    <span style="background: #E74C3C; color: white; padding: 2px 5px; border-radius: 3px; font-size: 8px; font-weight: bold;">🚪 Thoát</span>
+                    <span style="background: rgba(255,255,255,0.2); padding: 2px 5px; border-radius: 8px; font-size: 8.5px; font-weight: 600;">👑 Nguyễn Hoàng Nam (Chủ quán)</span>
+                    <span style="background: #E74C3C; color: white; padding: 2px 5px; border-radius: 3px; font-size: 8px; font-weight: bold;">🚪 Đăng xuất</span>
                   </div>
                 </div>
 
@@ -917,79 +918,98 @@
                 <div class="mockup-main-body">
                   <!-- SIDEBAR -->
                   <div class="mockup-main-sidebar">
-                    <div class="mockup-sb-cat">BÁN HÀNG</div>
+                    <div class="mockup-sb-cat">BÁN HÀNG &amp; BẾP</div>
                     <div class="mockup-sb-item active">
-                      <span>🍽️ Sơ Đồ Bàn</span>
-                      <span class="mockup-sb-badge">8/20</span>
+                      <span>🪑 Sơ Đồ Bàn &amp; Gọi Món</span>
                     </div>
                     <div class="mockup-sb-item">
-                      <span>🍳 Nhà Bếp</span>
-                      <span class="mockup-sb-badge" style="background: #E74C3C;">5</span>
+                      <span>🍳 Hàng Đợi Nhà Bếp</span>
                     </div>
 
-                    <div class="mockup-sb-cat">QUẢN LÝ</div>
+                    <div class="mockup-sb-cat">QUẢN LÝ &amp; ĐIỀU HÀNH</div>
                     <div class="mockup-sb-item"><span>🕒 Duyệt Chấm Công</span></div>
-                    <div class="mockup-sb-item"><span>👥 QL Nhân Viên</span></div>
-                    <div class="mockup-sb-item"><span>📋 Thực Đơn</span></div>
-                    <div class="mockup-sb-item"><span>📊 Báo Cáo</span></div>
+                    <div class="mockup-sb-item"><span>👥 Quản Lý Nhân Sự</span></div>
+                    <div class="mockup-sb-item"><span>📋 Quản Lý Thực Đơn</span></div>
+                    <div class="mockup-sb-item"><span>📊 Báo Cáo Thống Kê</span></div>
 
                     <div class="mockup-sb-cat">CÁ NHÂN</div>
-                    <div class="mockup-sb-item"><span>⏱️ Chấm Công Tôi</span></div>
+                    <div class="mockup-sb-item"><span>⏱️ Chấm Công Cá Nhân</span></div>
                     <div class="mockup-sb-item"><span>🔑 Đổi Mật Khẩu</span></div>
                   </div>
 
                   <!-- CONTENT WORKSPACE -->
                   <div class="mockup-main-content">
-                    <div class="mockup-welcome-banner">
-                      <strong>👋 Xin chào, Nam (Chủ quán)!</strong> Chúc bạn một ngày làm việc hiệu quả.
+                    <div class="mockup-welcome-banner" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <strong>👋 Xin chào, Nguyễn Hoàng Nam!</strong><br/>
+                        <span style="font-size: 8px; color: #64748B;">Hôm nay hệ thống hoạt động ổn định.</span>
+                      </div>
+                      <span style="background: #2980B9; color: white; padding: 3px 7px; border-radius: 4px; font-size: 8px; font-weight: 700; white-space: nowrap;">⚡ Mở Sơ Đồ Bàn</span>
                     </div>
 
                     <!-- 4 KPI CARDS -->
                     <div class="mockup-kpi-grid">
                       <div class="mockup-kpi-card" style="border-top-color: #2980B9;">
-                        <div class="mockup-kpi-val" style="color: #2980B9;">8/20</div>
-                        <div class="mockup-kpi-lbl">🪑 Bàn phục vụ</div>
+                        <div class="mockup-kpi-lbl">🪑 BÀN ĐANG PHỤC VỤ</div>
+                        <div class="mockup-kpi-val" style="color: #2980B9;">8 / 20</div>
                       </div>
                       <div class="mockup-kpi-card" style="border-top-color: #E67E22;">
-                        <div class="mockup-kpi-val" style="color: #E67E22;">5</div>
-                        <div class="mockup-kpi-lbl">🍜 Món chờ</div>
+                        <div class="mockup-kpi-lbl">🍜 MÓN CHỜ CHẾ BIẾN</div>
+                        <div class="mockup-kpi-val" style="color: #E67E22;">5 món</div>
                       </div>
                       <div class="mockup-kpi-card" style="border-top-color: #27AE60;">
-                        <div class="mockup-kpi-val" style="color: #27AE60;">6</div>
-                        <div class="mockup-kpi-lbl">👨‍🍳 Nhân sự</div>
+                        <div class="mockup-kpi-lbl">👨‍🍳 NHÂN SỰ TRONG CA</div>
+                        <div class="mockup-kpi-val" style="color: #27AE60;">6 NV</div>
                       </div>
                       <div class="mockup-kpi-card" style="border-top-color: #8E44AD;">
-                        <div class="mockup-kpi-val" style="color: #8E44AD; font-size: 9.5px;">4.85M</div>
-                        <div class="mockup-kpi-lbl">💰 Doanh thu</div>
+                        <div class="mockup-kpi-lbl">💰 DOANH THU TẠM TÍNH</div>
+                        <div class="mockup-kpi-val" style="color: #8E44AD; font-size: 9.5px;">4.850.000 đ</div>
                       </div>
                     </div>
 
-                    <!-- QUICK ACTIONS -->
-                    <div style="font-size: 9px; font-weight: bold; color: #475569; margin-top: 2px;">⚡ Thao Tác Nhanh</div>
-                    <div class="mockup-quick-grid">
-                      <div class="mockup-quick-btn">
-                        <span>➕</span>
-                        <span>Mở Bàn</span>
+                    <!-- BOTTOM ROW: QUICK ACTIONS (LEFT) + RECENT ACTIVITY (RIGHT) -->
+                    <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 6px; margin-top: 2px;">
+                      <!-- LEFT: pnlQuickActions -->
+                      <div style="background: white; border-radius: 5px; padding: 6px; border: 1px solid #E2E8F0;">
+                        <div style="font-size: 8.5px; font-weight: bold; color: #2C3E50; margin-bottom: 4px;">⚡ Thao Tác Nghiệp Vụ Nhanh</div>
+                        <div class="mockup-quick-grid">
+                          <div class="mockup-quick-btn">
+                            <span>🍽️</span>
+                            <span>Sơ Đồ Bàn</span>
+                          </div>
+                          <div class="mockup-quick-btn">
+                            <span>🍳</span>
+                            <span>Hàng Đợi Bếp</span>
+                          </div>
+                          <div class="mockup-quick-btn">
+                            <span>⏱️</span>
+                            <span>Chấm Công</span>
+                          </div>
+                          <div class="mockup-quick-btn">
+                            <span>🕒</span>
+                            <span>Duyệt Công</span>
+                          </div>
+                          <div class="mockup-quick-btn">
+                            <span>🍲</span>
+                            <span>Thực Đơn</span>
+                          </div>
+                          <div class="mockup-quick-btn">
+                            <span>📈</span>
+                            <span>Báo Cáo</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="mockup-quick-btn">
-                        <span>📝</span>
-                        <span>Order Món</span>
-                      </div>
-                      <div class="mockup-quick-btn">
-                        <span>🍳</span>
-                        <span>Chuyển Bếp</span>
-                      </div>
-                      <div class="mockup-quick-btn">
-                        <span>💳</span>
-                        <span>Thanh Toán</span>
-                      </div>
-                      <div class="mockup-quick-btn">
-                        <span>📈</span>
-                        <span>Báo Cáo</span>
-                      </div>
-                      <div class="mockup-quick-btn">
-                        <span>🔄</span>
-                        <span>Đổi Ca</span>
+
+                      <!-- RIGHT: pnlActivity (Hoạt Động Gần Đây) -->
+                      <div style="background: white; border-radius: 5px; padding: 6px; border: 1px solid #E2E8F0; display: flex; flex-direction: column;">
+                        <div style="font-size: 8.5px; font-weight: bold; color: #2C3E50; margin-bottom: 4px;">🔔 Hoạt Động Gần Đây</div>
+                        <div style="font-size: 7.5px; color: #334155; line-height: 1.45;">
+                          <div>• [16:48] Bàn 05 gọi 2 Lẩu Hải Sản</div>
+                          <div>• [16:42] Bếp xong Bò Lúc Lắc (Bàn 02)</div>
+                          <div>• [16:30] Bàn 01 thanh toán: 620.000 đ</div>
+                          <div>• [16:00] NV Phục Vụ 1 chấm công vào ca</div>
+                          <div>• [15:45] Quản lý duyệt 3 bảng công</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -997,8 +1017,8 @@
 
                 <!-- STATUSBAR -->
                 <div class="mockup-main-statusbar">
-                  <div><span style="color: #2ECC71;">●</span> SQL Docker: 172.20.218.246:1433</div>
-                  <div>v0.2.0</div>
+                  <div><span style="color: #2ECC71;">●</span> Đã kết nối CSDL: QuanLyQuanAnDB (Docker SQL Server)</div>
+                  <div style="color: #F1C40F;">Phiên: TK_001 (chuquan) | v1.0.0 (.NET 10)</div>
                 </div>
               </div>
             </div>
