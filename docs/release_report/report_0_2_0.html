@@ -400,6 +400,152 @@
       background: #F4F6F9;
     }
 
+    /* ── MAIN DESKTOP MOCKUP EXTENSIONS ── */
+    .mockup-main-shell {
+      border: 1px solid #1F618D;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      background: #F4F6F9;
+      font-size: 11px;
+    }
+    .mockup-main-header {
+      background: linear-gradient(90deg, #2980B9 0%, #1F618D 100%);
+      color: white;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .mockup-main-brand {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .mockup-main-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+    }
+    .mockup-main-body {
+      display: flex;
+      min-height: 260px;
+    }
+    .mockup-main-sidebar {
+      width: 140px;
+      background: #2C3E50;
+      color: #ECF0F1;
+      padding: 6px 0;
+      flex-shrink: 0;
+      border-right: 1px solid #1A252F;
+    }
+    .mockup-sb-cat {
+      font-size: 8px;
+      font-weight: 700;
+      color: #95A5A6;
+      text-transform: uppercase;
+      padding: 5px 8px 2px;
+      letter-spacing: 0.5px;
+    }
+    .mockup-sb-item {
+      padding: 4px 8px;
+      font-size: 9.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: default;
+      border-left: 3px solid transparent;
+      color: #ECF0F1;
+    }
+    .mockup-sb-item.active {
+      background: #34495E;
+      border-left-color: #3498DB;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .mockup-sb-badge {
+      background: #27AE60;
+      color: white;
+      font-size: 7.5px;
+      padding: 1px 4px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .mockup-main-content {
+      flex: 1;
+      padding: 8px;
+      background: #F4F6F9;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+    }
+    .mockup-welcome-banner {
+      background: white;
+      border-radius: 5px;
+      padding: 6px 10px;
+      border-left: 3px solid #2980B9;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      font-size: 10px;
+      color: #334155;
+    }
+    .mockup-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .mockup-kpi-card {
+      background: white;
+      padding: 5px 6px;
+      border-radius: 5px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      border-top: 2.5px solid #2980B9;
+    }
+    .mockup-kpi-val {
+      font-size: 11px;
+      font-weight: bold;
+      color: #2C3E50;
+    }
+    .mockup-kpi-lbl {
+      font-size: 8px;
+      color: #7F8C8D;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mockup-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+    .mockup-quick-btn {
+      background: white;
+      border: 1px solid #CBD5E1;
+      border-radius: 5px;
+      padding: 6px 4px;
+      text-align: center;
+      font-size: 9px;
+      font-weight: 600;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .mockup-main-statusbar {
+      background: #2C3E50;
+      color: #BDC3C7;
+      padding: 3px 8px;
+      font-size: 9px;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #1A252F;
+    }
+
     /* ── CODE DIFF BLOCK ── */
     .code-diff {
       border-radius: 10px;
@@ -703,24 +849,157 @@
           <div class="ba-panel before">
             <div class="ba-panel-header">❌ TRƯỚC (BEFORE)</div>
             <div class="ba-panel-body">
-              <ul style="padding-left: 18px;">
+              <ul style="padding-left: 18px; margin-bottom: 10px;">
                 <li>Chỉ có file <code>Form1.vb</code> mặc định rỗng của Visual Studio.</li>
-                <li>Không có thanh điều hướng menu.</li>
+                <li>Không có thanh điều hướng menu hay nhóm chức năng.</li>
                 <li>Không hiển thị thông tin ai đang đăng nhập, không có đồng hồ.</li>
                 <li>Không có vùng chứa để nhúng các Form con nghiệp vụ.</li>
               </ul>
+
+              <!-- VISUAL DESKTOP MOCKUP: FORM1 TRƯỚC -->
+              <div class="desktop-mockup" style="background: #F0F0F0; border: 1px solid #94A3B8; margin-top: 10px;">
+                <div class="mockup-titlebar" style="background: #E2E8F0; color: #1E293B; border-bottom: 1px solid #CBD5E1;">
+                  <span style="font-weight: 500;">Form1</span>
+                  <div style="font-size: 10px; color: #64748B; font-family: monospace; letter-spacing: 2px;">🗕 🗖 ✕</div>
+                </div>
+                <div style="min-height: 275px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #F8FAFC; border: 2px dashed #CBD5E1; margin: 12px; border-radius: 6px; padding: 20px; text-align: center;">
+                  <div style="font-size: 32px; margin-bottom: 8px;">📄</div>
+                  <div style="font-weight: 700; font-size: 12px; color: #475569;">Form1.vb — Visual Studio Blank Canvas</div>
+                  <div style="font-size: 11px; color: #94A3B8; max-width: 260px; margin-top: 4px;">Chưa có App Shell, thanh Header, Sidebar điều hướng, thẻ KPI thống kê hay phân quyền người dùng.</div>
+                </div>
+                <div style="background: #E2E8F0; padding: 4px 10px; font-size: 9.5px; color: #64748B; border-top: 1px solid #CBD5E1;">
+                  Trạng thái: Sẵn sàng (Trống rỗng)
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="ba-panel after">
             <div class="ba-panel-header">✅ SAU (AFTER)</div>
             <div class="ba-panel-body">
-              <ul style="padding-left: 18px;">
+              <ul style="padding-left: 18px; margin-bottom: 10px;">
                 <li>Khung App Shell toàn màn hình với Sidebar 250px nền xám đậm <code>#2C3E50</code>.</li>
                 <li>Đồng hồ số thời gian thực cập nhật từng giây <code>HH:mm:ss - Thứ X, dd/MM/yyyy</code>.</li>
                 <li>4 thẻ KPI trực quan: 🪑 Bàn phục vụ, 🍜 Món chờ nấu, 👨‍🍳 Nhân sự ca, 💰 Doanh thu.</li>
                 <li>Cơ chế <code>MoFormCon(childForm)</code> nhúng Form con toàn phần vào <code>pnlContent</code>.</li>
               </ul>
+
+              <!-- VISUAL DESKTOP MOCKUP: FRMMAIN SAU -->
+              <div class="mockup-main-shell" style="margin-top: 10px;">
+                <!-- TITLEBAR -->
+                <div class="mockup-titlebar" style="background: #1F618D;">
+                  <span>🍽️ Quản Lý Quán Ăn - [frmMain]</span>
+                  <div class="mockup-controls">
+                    <span class="mockup-ctrl-dot ctrl-yellow"></span>
+                    <span class="mockup-ctrl-dot ctrl-green"></span>
+                    <span class="mockup-ctrl-dot ctrl-red"></span>
+                  </div>
+                </div>
+
+                <!-- APP HEADER -->
+                <div class="mockup-main-header">
+                  <div class="mockup-main-brand">
+                    <span style="font-size: 14px;">🏪</span>
+                    <div>
+                      <div style="font-size: 10px; font-weight: 700; line-height: 1.1;">QUẢN LÝ QUÁN ĂN</div>
+                      <div style="font-size: 7.5px; opacity: 0.85;">ĐIỀU HÀNH TẬP TRUNG</div>
+                    </div>
+                  </div>
+                  <div class="mockup-main-meta">
+                    <span style="background: rgba(0,0,0,0.25); padding: 2px 5px; border-radius: 8px; font-size: 8.5px;">🕒 17:00:00</span>
+                    <span style="background: rgba(255,255,255,0.2); padding: 2px 5px; border-radius: 8px; font-size: 8.5px; font-weight: 600;">👑 Nam (Chủ quán)</span>
+                    <span style="background: #E74C3C; color: white; padding: 2px 5px; border-radius: 3px; font-size: 8px; font-weight: bold;">🚪 Thoát</span>
+                  </div>
+                </div>
+
+                <!-- APP BODY (SIDEBAR + CONTENT) -->
+                <div class="mockup-main-body">
+                  <!-- SIDEBAR -->
+                  <div class="mockup-main-sidebar">
+                    <div class="mockup-sb-cat">BÁN HÀNG</div>
+                    <div class="mockup-sb-item active">
+                      <span>🍽️ Sơ Đồ Bàn</span>
+                      <span class="mockup-sb-badge">8/20</span>
+                    </div>
+                    <div class="mockup-sb-item">
+                      <span>🍳 Nhà Bếp</span>
+                      <span class="mockup-sb-badge" style="background: #E74C3C;">5</span>
+                    </div>
+
+                    <div class="mockup-sb-cat">QUẢN LÝ</div>
+                    <div class="mockup-sb-item"><span>🕒 Duyệt Chấm Công</span></div>
+                    <div class="mockup-sb-item"><span>👥 QL Nhân Viên</span></div>
+                    <div class="mockup-sb-item"><span>📋 Thực Đơn</span></div>
+                    <div class="mockup-sb-item"><span>📊 Báo Cáo</span></div>
+
+                    <div class="mockup-sb-cat">CÁ NHÂN</div>
+                    <div class="mockup-sb-item"><span>⏱️ Chấm Công Tôi</span></div>
+                    <div class="mockup-sb-item"><span>🔑 Đổi Mật Khẩu</span></div>
+                  </div>
+
+                  <!-- CONTENT WORKSPACE -->
+                  <div class="mockup-main-content">
+                    <div class="mockup-welcome-banner">
+                      <strong>👋 Xin chào, Nam (Chủ quán)!</strong> Chúc bạn một ngày làm việc hiệu quả.
+                    </div>
+
+                    <!-- 4 KPI CARDS -->
+                    <div class="mockup-kpi-grid">
+                      <div class="mockup-kpi-card" style="border-top-color: #2980B9;">
+                        <div class="mockup-kpi-val" style="color: #2980B9;">8/20</div>
+                        <div class="mockup-kpi-lbl">🪑 Bàn phục vụ</div>
+                      </div>
+                      <div class="mockup-kpi-card" style="border-top-color: #E67E22;">
+                        <div class="mockup-kpi-val" style="color: #E67E22;">5</div>
+                        <div class="mockup-kpi-lbl">🍜 Món chờ</div>
+                      </div>
+                      <div class="mockup-kpi-card" style="border-top-color: #27AE60;">
+                        <div class="mockup-kpi-val" style="color: #27AE60;">6</div>
+                        <div class="mockup-kpi-lbl">👨‍🍳 Nhân sự</div>
+                      </div>
+                      <div class="mockup-kpi-card" style="border-top-color: #8E44AD;">
+                        <div class="mockup-kpi-val" style="color: #8E44AD; font-size: 9.5px;">4.85M</div>
+                        <div class="mockup-kpi-lbl">💰 Doanh thu</div>
+                      </div>
+                    </div>
+
+                    <!-- QUICK ACTIONS -->
+                    <div style="font-size: 9px; font-weight: bold; color: #475569; margin-top: 2px;">⚡ Thao Tác Nhanh</div>
+                    <div class="mockup-quick-grid">
+                      <div class="mockup-quick-btn">
+                        <span>➕</span>
+                        <span>Mở Bàn</span>
+                      </div>
+                      <div class="mockup-quick-btn">
+                        <span>📝</span>
+                        <span>Order Món</span>
+                      </div>
+                      <div class="mockup-quick-btn">
+                        <span>🍳</span>
+                        <span>Chuyển Bếp</span>
+                      </div>
+                      <div class="mockup-quick-btn">
+                        <span>💳</span>
+                        <span>Thanh Toán</span>
+                      </div>
+                      <div class="mockup-quick-btn">
+                        <span>📈</span>
+                        <span>Báo Cáo</span>
+                      </div>
+                      <div class="mockup-quick-btn">
+                        <span>🔄</span>
+                        <span>Đổi Ca</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- STATUSBAR -->
+                <div class="mockup-main-statusbar">
+                  <div><span style="color: #2ECC71;">●</span> SQL Docker: 172.20.218.246:1433</div>
+                  <div>v0.2.0</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
