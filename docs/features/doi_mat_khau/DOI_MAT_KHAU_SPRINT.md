@@ -127,8 +127,8 @@
 
 ## 3. CHECKLIST THEO DÕI TIẾN ĐỘ SPRINT
 
-- [ ] **Bước 1:** PO duyệt Bản đặc tả UI (`DOI_MAT_KHAU_UI_SPEC.md`) và Mockup HTML (`frmDoiMatKhau_mockup.html`).
-- [ ] **Bước 2:** Tạo file thiết kế `frmDoiMatKhau.Designer.vb` và `frmDoiMatKhau.resx`.
+- [x] **Bước 1:** PO duyệt Bản đặc tả UI (`DOI_MAT_KHAU_UI_SPEC.md`) và Mockup HTML (`frmDoiMatKhau_mockup.html`).
+- [x] **Bước 2:** Tạo file thiết kế `frmDoiMatKhau.Designer.vb` và `frmDoiMatKhau.resx` — Đã biên dịch thành công (0 Warning, 0 Error).
 - [ ] **Bước 3:** Viết code xử lý logic `frmDoiMatKhau.vb` (Validation, hiển thị mật khẩu, gọi BUS).
 - [ ] **Bước 4:** Đấu nối sự kiện mở form từ `btnDoiMatKhau` trên `frmMain`.
 - [ ] **Bước 5:** Kiểm thử thực tế trên CSDL Docker và commit code theo quy chuẩn.
