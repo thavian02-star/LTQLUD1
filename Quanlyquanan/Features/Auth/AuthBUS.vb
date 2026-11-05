@@ -99,6 +99,11 @@ Namespace Features.Auth
                 Return False
             End If
 
+            If matKhauMoiRaw.Trim() = matKhauCuRaw.Trim() Then
+                thongBaoLoi = "Mật khẩu mới không được trùng với mật khẩu cũ!"
+                Return False
+            End If
+
             ' Xác thực mật khẩu cũ có đúng không
             Dim matKhauCuMD5 As String = MaHoaMD5.BamMD5(matKhauCuRaw.Trim())
             Dim dto As TaiKhoanDTO = TaiKhoanDAO.KiemTraDangNhap(Session.TenDangNhap, matKhauCuMD5)
