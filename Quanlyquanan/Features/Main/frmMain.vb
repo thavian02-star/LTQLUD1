@@ -189,8 +189,8 @@ Namespace Features.Main
 
         Private Sub btnSoDoBan_Click(sender As Object, e As EventArgs) Handles btnSoDoBan.Click, btnQuickDatBan.Click, btnQuickOpenSoDoBan.Click
             CapNhatButtonActive(btnSoDoBan)
-            Using fKV As New Features.Table.frmKhuVuc()
-                fKV.ShowDialog(Me)
+            Using fBan As New Features.Table.frmBan()
+                fBan.ShowDialog(Me)
             End Using
             CapNhatButtonActive(Nothing)
         End Sub
@@ -201,6 +201,15 @@ Namespace Features.Main
         Public Sub MoQuanLyKhuVuc()
             Using fKV As New Features.Table.frmKhuVuc()
                 fKV.ShowDialog(Me)
+            End Using
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Quản lý Bàn ăn (frmBan)
+        ''' </summary>
+        Public Sub MoQuanLyBan()
+            Using fBan As New Features.Table.frmBan()
+                fBan.ShowDialog(Me)
             End Using
         End Sub
 

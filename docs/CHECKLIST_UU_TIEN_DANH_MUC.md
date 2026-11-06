@@ -104,9 +104,9 @@
 - [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
   - [x] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb`.
   - [x] Ràng buộc nghiệp vụ: `B_SoThuTu` duy nhất (`> 0`), `B_SoNguoiToiDa > 0`, không cho phép xóa bàn đang có khách phục vụ (`B_TrangThai <> 0`).
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [ ] Mở từ `btnMenuQuanLyBan` / `btnQuickQuanLyBan` trên `frmMain` (phân quyền `CQ_QUAN_LY_BAN`), hỗ trợ nút mở nhanh sang `frmKhuVuc`.
-  - [ ] Chạy bộ test tự động kiểm tra CRUD Bàn + Ràng buộc `B_SoThuTu` + `B_SoNguoiToiDa`.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
+  - [x] Mở từ `btnMenuQuanLyBan` / `btnQuickQuanLyBan` / `btnSoDoBan` trên `frmMain` (phân quyền `CQ_QUAN_LY_BAN`).
+  - [x] Chạy bộ test tự động kiểm tra CRUD Bàn + Ràng buộc `B_SoThuTu` + `B_SoNguoiToiDa` (`26/26 PASS = 100%`).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) & Đánh dấu `[x]` Mục 3.5 Quản lý Bàn ghế trong `CHECKLIST_DO_AN.md`**
 
 ---

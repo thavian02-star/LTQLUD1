@@ -317,125 +317,121 @@ Namespace Features.Table
             Me.pnlFormCard.BorderStyle = BorderStyle.FixedSingle
             Me.pnlFormCard.Dock = DockStyle.Fill
             Me.pnlFormCard.Margin = New Padding(0, 0, 8, 0)
-            Me.pnlFormCard.Padding = New Padding(16, 10, 16, 10)
+            Me.pnlFormCard.Padding = New Padding(16, 6, 16, 6)
 
             Me.lblFormTitle.AutoSize = True
             Me.lblFormTitle.Font = New Font("Segoe UI", 10.5!, FontStyle.Bold)
             Me.lblFormTitle.ForeColor = Color.FromArgb(26, 82, 118)
-            Me.lblFormTitle.Location = New Point(16, 10)
+            Me.lblFormTitle.Location = New Point(16, 8)
             Me.lblFormTitle.Text = "📝 THÔNG TIN CHI TIẾT BÀN"
 
             Me.lblModeBadge.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Right), AnchorStyles)
             Me.lblModeBadge.BackColor = Color.FromArgb(235, 245, 251)
             Me.lblModeBadge.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblModeBadge.ForeColor = Color.FromArgb(26, 82, 118)
-            Me.lblModeBadge.Location = New Point(236, 9)
+            Me.lblModeBadge.Location = New Point(236, 7)
             Me.lblModeBadge.Size = New Size(156, 22)
             Me.lblModeBadge.Text = "CHẾ ĐỘ: THÊM MỚI"
             Me.lblModeBadge.TextAlign = ContentAlignment.MiddleCenter
 
             Me.lblThongBao.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.lblThongBao.BackColor = Color.FromArgb(234, 242, 248)
-            Me.lblThongBao.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblThongBao.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblThongBao.ForeColor = Color.FromArgb(26, 82, 118)
-            Me.lblThongBao.Location = New Point(16, 36)
-            Me.lblThongBao.Padding = New Padding(6, 3, 6, 3)
-            Me.lblThongBao.Size = New Size(376, 32)
+            Me.lblThongBao.Location = New Point(16, 32)
+            Me.lblThongBao.Padding = New Padding(6, 2, 6, 2)
+            Me.lblThongBao.Size = New Size(376, 28)
             Me.lblThongBao.Text = "💡 Chọn một bàn bên phải để xem / chỉnh sửa hoặc thêm mới."
             Me.lblThongBao.TextAlign = ContentAlignment.MiddleLeft
 
-            ' Mã bàn
+            ' Hàng 1: Mã bàn & Số thứ tự
             Me.lblMaBan.AutoSize = True
-            Me.lblMaBan.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblMaBan.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblMaBan.ForeColor = Color.FromArgb(52, 73, 94)
-            Me.lblMaBan.Location = New Point(16, 72)
+            Me.lblMaBan.Location = New Point(16, 64)
             Me.lblMaBan.Text = "Mã bàn (Tự động):"
 
-            Me.txtMaBan.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.txtMaBan.BackColor = Color.FromArgb(238, 242, 246)
             Me.txtMaBan.Font = New Font("Segoe UI", 9.0!, FontStyle.Bold)
             Me.txtMaBan.ForeColor = Color.FromArgb(93, 109, 126)
-            Me.txtMaBan.Location = New Point(16, 90)
+            Me.txtMaBan.Location = New Point(16, 80)
             Me.txtMaBan.ReadOnly = True
-            Me.txtMaBan.Size = New Size(376, 23)
+            Me.txtMaBan.Size = New Size(180, 23)
             Me.txtMaBan.Text = "(Tự động)"
 
-            ' Số thứ tự bàn
             Me.lblSoThuTu.AutoSize = True
-            Me.lblSoThuTu.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblSoThuTu.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblSoThuTu.ForeColor = Color.FromArgb(52, 73, 94)
-            Me.lblSoThuTu.Location = New Point(16, 118)
-            Me.lblSoThuTu.Text = "Số thứ tự bàn (* Duy nhất):"
+            Me.lblSoThuTu.Location = New Point(210, 64)
+            Me.lblSoThuTu.Text = "Số thứ tự (* Duy nhất):"
 
             Me.nudSoThuTu.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.nudSoThuTu.Font = New Font("Segoe UI", 9.0!, FontStyle.Bold)
-            Me.nudSoThuTu.Location = New Point(16, 136)
+            Me.nudSoThuTu.Location = New Point(210, 80)
             Me.nudSoThuTu.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
             Me.nudSoThuTu.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-            Me.nudSoThuTu.Size = New Size(376, 23)
+            Me.nudSoThuTu.Size = New Size(182, 23)
             Me.nudSoThuTu.Value = New Decimal(New Integer() {1, 0, 0, 0})
 
-            ' Tên bàn
+            ' Hàng 2: Tên bàn & Khu vực
             Me.lblTenBan.AutoSize = True
-            Me.lblTenBan.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblTenBan.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblTenBan.ForeColor = Color.FromArgb(52, 73, 94)
-            Me.lblTenBan.Location = New Point(16, 164)
+            Me.lblTenBan.Location = New Point(16, 108)
             Me.lblTenBan.Text = "Tên bàn ăn (*):"
 
-            Me.txtTenBan.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.txtTenBan.Font = New Font("Segoe UI", 9.0!, FontStyle.Regular)
-            Me.txtTenBan.Location = New Point(16, 182)
+            Me.txtTenBan.Location = New Point(16, 124)
             Me.txtTenBan.MaxLength = 50
-            Me.txtTenBan.Size = New Size(376, 23)
+            Me.txtTenBan.Size = New Size(180, 23)
 
-            ' Khu vực bàn
             Me.lblKhuVuc.AutoSize = True
-            Me.lblKhuVuc.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblKhuVuc.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblKhuVuc.ForeColor = Color.FromArgb(52, 73, 94)
-            Me.lblKhuVuc.Location = New Point(16, 210)
+            Me.lblKhuVuc.Location = New Point(210, 108)
             Me.lblKhuVuc.Text = "Khu vực bố trí bàn (*):"
 
             Me.cboKhuVuc.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.cboKhuVuc.Font = New Font("Segoe UI", 9.0!, FontStyle.Regular)
             Me.cboKhuVuc.FormattingEnabled = True
-            Me.cboKhuVuc.Location = New Point(16, 228)
-            Me.cboKhuVuc.Size = New Size(376, 23)
+            Me.cboKhuVuc.Location = New Point(210, 124)
+            Me.cboKhuVuc.Size = New Size(182, 23)
 
-            ' Sức chứa tối đa & Trạng thái (2 control)
+            ' Hàng 3: Sức chứa tối đa & Trạng thái
             Me.lblSoNguoiToiDa.AutoSize = True
-            Me.lblSoNguoiToiDa.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblSoNguoiToiDa.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblSoNguoiToiDa.ForeColor = Color.FromArgb(52, 73, 94)
-            Me.lblSoNguoiToiDa.Location = New Point(16, 256)
-            Me.lblSoNguoiToiDa.Text = "Sức chứa tối đa (người) (*):"
+            Me.lblSoNguoiToiDa.Location = New Point(16, 152)
+            Me.lblSoNguoiToiDa.Text = "Sức chứa tối đa (*):"
 
             Me.nudSoNguoiToiDa.Font = New Font("Segoe UI", 9.0!, FontStyle.Bold)
-            Me.nudSoNguoiToiDa.Location = New Point(16, 274)
+            Me.nudSoNguoiToiDa.Location = New Point(16, 168)
             Me.nudSoNguoiToiDa.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
             Me.nudSoNguoiToiDa.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
             Me.nudSoNguoiToiDa.Size = New Size(180, 23)
             Me.nudSoNguoiToiDa.Value = New Decimal(New Integer() {4, 0, 0, 0})
 
             Me.lblTrangThai.AutoSize = True
-            Me.lblTrangThai.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblTrangThai.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblTrangThai.ForeColor = Color.FromArgb(52, 73, 94)
-            Me.lblTrangThai.Location = New Point(210, 256)
+            Me.lblTrangThai.Location = New Point(210, 152)
             Me.lblTrangThai.Text = "Trạng thái phục vụ:"
 
             Me.cboTrangThai.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.cboTrangThai.DropDownStyle = ComboBoxStyle.DropDownList
             Me.cboTrangThai.Font = New Font("Segoe UI", 9.0!, FontStyle.Regular)
-            Me.cboTrangThai.Location = New Point(210, 274)
+            Me.cboTrangThai.Location = New Point(210, 168)
             Me.cboTrangThai.Size = New Size(182, 23)
 
-            ' Badge thông tin Hóa đơn
+            ' Hàng 4: Badge thông tin Hóa đơn
             Me.pnlHoaDonBadge.Anchor = CType(((AnchorStyles.Top Or AnchorStyles.Left) Or AnchorStyles.Right), AnchorStyles)
             Me.pnlHoaDonBadge.BackColor = Color.FromArgb(244, 246, 247)
             Me.pnlHoaDonBadge.BorderStyle = BorderStyle.FixedSingle
-            Me.pnlHoaDonBadge.Location = New Point(16, 308)
-            Me.pnlHoaDonBadge.Size = New Size(376, 28)
+            Me.pnlHoaDonBadge.Location = New Point(16, 198)
+            Me.pnlHoaDonBadge.Size = New Size(376, 26)
 
             Me.lblHoaDonInfo.Dock = DockStyle.Fill
-            Me.lblHoaDonInfo.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblHoaDonInfo.Font = New Font("Segoe UI", 8.25!, FontStyle.Bold)
             Me.lblHoaDonInfo.ForeColor = Color.FromArgb(44, 62, 80)
             Me.lblHoaDonInfo.Text = "🧾 Phiên phục vụ: Bàn trống"
             Me.lblHoaDonInfo.TextAlign = ContentAlignment.MiddleLeft
@@ -446,7 +442,7 @@ Namespace Features.Table
             Me.tlpButtons.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0!))
             Me.tlpButtons.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0!))
             Me.tlpButtons.Dock = DockStyle.Bottom
-            Me.tlpButtons.Height = 78
+            Me.tlpButtons.Height = 72
             Me.tlpButtons.RowCount = 2
             Me.tlpButtons.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0!))
             Me.tlpButtons.RowStyles.Add(New RowStyle(SizeType.Percent, 50.0!))

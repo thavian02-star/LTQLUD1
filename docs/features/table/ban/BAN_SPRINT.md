@@ -105,6 +105,6 @@ Màn hình **Quản lý Danh sách Bàn Ăn (`frmBan`)** là nơi cấu hình to
   - [x] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
 - [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
   - [x] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb` và hoàn thiện sự kiện trong `frmBan.vb`.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`BanVerifier`)**
-  - [ ] Tích hợp mở `frmBan` từ `frmMain` và thực thi bộ kiểm thử tự động toàn diện (Layout + Filter + CRUD + FK Protection + RBAC).
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`BanVerifier`)**
+  - [x] Tích hợp mở `frmBan` từ `frmMain` và thực thi bộ kiểm thử tự động toàn diện 26/26 tiêu chí (Layout + Filter + CRUD + FK Protection + RBAC) đạt 100% PASS.
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_6.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.6`**
