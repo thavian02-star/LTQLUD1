@@ -97,8 +97,8 @@
 ### MÀN HÌNH 5: MH BÀN (`frmBan`)
 > **Mục tiêu:** Quản lý danh sách Bàn ăn (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_KhuVuc`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
 
-- [ ] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/table/ban/`)**
-  - [ ] Tạo tài liệu đặc tả `BAN_SPRINT.md` và file mockup `frmBan_mockup_v1_0.html` để PO duyệt.
+- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/table/ban/`)**
+  - [x] Tạo tài liệu đặc tả `BAN_SPRINT.md` và file mockup `frmBan_mockup_v1_0.html` để PO duyệt.
 - [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmBan.Designer.vb`)**
   - [ ] Thiết kế bố cục: Bộ lọc theo `Khu vực` + `Trạng thái bàn`, khung nhập liệu (`Số thứ tự bàn`, `Tên bàn`, `ComboBox Khu vực` lấy từ `MH Khu vực`, `Số người tối đa` bằng `NumericUpDown`, `Trạng thái`), các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới` và lưới `DataGridView`.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**

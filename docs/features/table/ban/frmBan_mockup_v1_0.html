@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup UI v1.0 - Quản Lý Bàn Ăn (frmBan)</title>
+    <style>
+        :root {
+            --navy: #1A5276;
+            --navy-dark: #154360;
+            --bg-body: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --border-color: #DCDFE6;
+            --text-main: #2C3E50;
+            --text-muted: #6C757D;
+            --green: #27AE60;
+            --blue: #2980B9;
+            --red: #C0392B;
+            --orange: #E67E22;
+            --purple: #8E44AD;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #E5E9F0; padding: 18px; color: var(--text-main); }
+
+        .demo-toolbar {
+            max-width: 1140px; margin: 0 auto 14px auto; background: #fff; border: 1px solid #cbd5e1;
+            border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .demo-toolbar span { font-size: 13px; font-weight: 700; color: var(--navy); }
+        .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .demo-btn {
+            border: 1px solid #cbd5e1; background: #f8fafc; color: #1e293b; padding: 6px 11px;
+            font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.15s;
+        }
+        .demo-btn:hover, .demo-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+        .winform-window {
+            max-width: 1140px; margin: 0 auto; background: var(--bg-body);
+            border: 2px solid #1A5276; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+        }
+        .titlebar {
+            background: #0f2f44; color: #fff; padding: 6px 14px; font-size: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar {
+            background: var(--navy); color: #fff; padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar h1 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+        .header-bar p { font-size: 12px; color: #AED6F1; }
+        .btn-close-form {
+            background: var(--red); color: #fff; border: none; padding: 8px 16px;
+            border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12.5px;
+        }
+
+        .kpi-row {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+            padding: 12px 16px 4px 16px;
+        }
+        .kpi-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 10px 14px; border-left: 5px solid var(--navy);
+        }
+        .kpi-card.green { border-left-color: var(--green); }
+        .kpi-card.orange { border-left-color: var(--orange); }
+        .kpi-card.purple { border-left-color: var(--purple); }
+        .kpi-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-val { font-size: 19px; font-weight: 800; margin-top: 3px; color: var(--navy); }
+        .kpi-card.green .kpi-val { color: var(--green); }
+        .kpi-card.orange .kpi-val { color: #D35400; }
+        .kpi-card.purple .kpi-val { color: var(--purple); }
+
+        .main-split {
+            display: grid; grid-template-columns: 38% 62%; gap: 14px;
+            padding: 10px 16px 16px 16px;
+        }
+        .panel-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 16px; display: flex; flex-direction: column;
+        }
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+        }
+        .panel-head h2 { font-size: 14.5px; color: var(--navy); font-weight: 700; }
+        .mode-badge {
+            font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px;
+            background: #EBF5FB; color: var(--navy);
+        }
+        .alert-box {
+            padding: 8px 11px; border-radius: 4px; font-size: 12px; font-weight: 600;
+            margin-bottom: 11px; background: #EAF2F8; color: #1A5276; border-left: 4px solid #2980B9;
+        }
+        .alert-box.success { background: #E8F8F5; color: #1E8449; border-left-color: #27AE60; }
+        .alert-box.error { background: #FDEDEC; color: #B03A2E; border-left-color: #C0392B; }
+
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; color: #34495E; }
+        .form-control {
+            width: 100%; padding: 7px 10px; font-size: 13px; border: 1px solid #CBD5E1; border-radius: 4px;
+        }
+        .form-control[readonly] { background: #EDF0F2; color: #566573; font-weight: 700; }
+        .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .badge-info-box {
+            background: #F4F6F7; border: 1px solid #D5DBDB; border-radius: 4px;
+            padding: 7px 10px; font-size: 12px; font-weight: 600; color: #2C3E50;
+            margin-bottom: 10px;
+        }
+
+        .btn-grid {
+            margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 10px;
+        }
+        .btn-action {
+            padding: 9px 10px; border: none; border-radius: 4px; font-size: 12.5px; font-weight: 700;
+            cursor: pointer; color: #fff;
+        }
+        .btn-add { background: var(--green); }
+        .btn-update { background: var(--blue); }
+        .btn-delete { background: var(--red); }
+        .btn-reset { background: #5D6D7E; }
+
+        .filter-bar {
+            display: flex; gap: 8px; background: #F0F3F6; padding: 8px 10px; border-radius: 5px;
+            margin-bottom: 10px; align-items: center; flex-wrap: wrap;
+        }
+        .filter-bar select, .filter-bar input {
+            padding: 5px 8px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 12px;
+        }
+        .filter-bar input { flex: 1; min-width: 140px; }
+        .btn-sm { padding: 5px 10px; border: none; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        thead th {
+            background: var(--navy); color: #fff; padding: 8px 9px; text-align: left; font-size: 12px;
+        }
+        tbody tr { border-bottom: 1px solid #E5E7EB; cursor: pointer; }
+        tbody tr:hover { background: #F1F5F9; }
+        tbody tr.selected { background: #D6EAF8; font-weight: 700; }
+        td { padding: 8px 9px; }
+        .text-center { text-align: center; }
+
+        /* Status Badges */
+        .badge-status {
+            display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;
+        }
+        .status-0 { background: #E8F8F5; color: #117864; } /* Trống */
+        .status-1 { background: #EBF5FB; color: #1B4F72; } /* Có khách */
+        .status-2 { background: #FEF9E7; color: #B7950B; } /* Đang đợi món */
+        .status-3 { background: #F4ECF7; color: #6C3483; } /* Món đã xong */
+    </style>
+</head>
+<body>
+
+    <div class="demo-toolbar">
+        <span>🎛️ KỊCH BẢN DEMO TƯƠNG TÁC (frmBan v1.0):</span>
+        <div class="demo-btns">
+            <button class="demo-btn active" onclick="scenarioSeed()">1. Nạp 12 Bàn Chuẩn (Seed Data)</button>
+            <button class="demo-btn" onclick="scenarioFilterArea()">2. Lọc "Phòng VIP Máy lạnh"</button>
+            <button class="demo-btn" onclick="scenarioBlockDeleteBusy()">3. Chặn xóa Bàn 02 (Đang đợi món)</button>
+            <button class="demo-btn" onclick="scenarioAddTable13()">4. Thêm "Bàn 13 (Sân Thượng)"</button>
+            <button class="demo-btn" onclick="scenarioDuplicateSTT()">5. Chặn trùng Số thứ tự</button>
+        </div>
+    </div>
+
+    <div class="winform-window">
+        <div class="titlebar">
+            <span>🪑 Quản Lý Danh Sách Bàn Ăn — Quán Ăn Hương Việt (v0.2.6)</span>
+            <span>_ □ ✕</span>
+        </div>
+
+        <div class="header-bar">
+            <div>
+                <h1>🪑 QUẢN LÝ DANH SÁCH BÀN ĂN</h1>
+                <p>Danh mục chuẩn (5/5) • Thiết lập số thứ tự, khu vực, sức chứa và quản lý trạng thái bàn phục vụ</p>
+            </div>
+            <button class="btn-close-form">✖ Đóng (ESC)</button>
+        </div>
+
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-title">TỔNG SỐ BÀN</div>
+                <div class="kpi-val" id="kpiTotalTables">12 bàn</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-title">BÀN ĐANG TRỐNG</div>
+                <div class="kpi-val" id="kpiEmptyTables">10 bàn</div>
+            </div>
+            <div class="kpi-card orange">
+                <div class="kpi-title">BÀN ĐANG PHỤC VỤ</div>
+                <div class="kpi-val" id="kpiBusyTables">2 bàn</div>
+            </div>
+            <div class="kpi-card purple">
+                <div class="kpi-title">TỔNG SỨC CHỨA</div>
+                <div class="kpi-val" id="kpiTotalSeats">70 chỗ ngồi</div>
+            </div>
+        </div>
+
+        <div class="main-split">
+            <!-- CỘT TRÁI 38% -->
+            <div class="panel-card">
+                <div class="panel-head">
+                    <h2>📝 THÔNG TIN CHI TIẾT BÀN</h2>
+                    <span class="mode-badge" id="modeBadge">CHẾ ĐỘ: CẬP NHẬT</span>
+                </div>
+
+                <div class="alert-box" id="alertBox">
+                    💡 Đang chọn [Bàn 01] — Khu vực Tầng trệt (2 chỗ ngồi).
+                </div>
+
+                <div class="two-cols">
+                    <div class="form-group">
+                        <label>Mã bàn (Tự động):</label>
+                        <input type="text" class="form-control" id="txtMaBan" value="1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Số thứ tự (*):</label>
+                        <input type="number" class="form-control" id="nudSoThuTu" value="1" min="1" max="999">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tên bàn ăn (*):</label>
+                    <input type="text" class="form-control" id="txtTenBan" value="Bàn 01" maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <label>Khu vực bàn (*):</label>
+                    <select class="form-control" id="cboKhuVuc">
+                        <option value="Tầng trệt" selected>Tầng trệt</option>
+                        <option value="Lầu 1 (Máy lạnh)">Lầu 1 (Máy lạnh)</option>
+                        <option value="Phòng VIP Máy lạnh">Phòng VIP Máy lạnh</option>
+                        <option value="Sân vườn thoáng mát">Sân vườn thoáng mát</option>
+                    </select>
+                </div>
+
+                <div class="two-cols">
+                    <div class="form-group">
+                        <label>Sức chứa tối đa (*):</label>
+                        <input type="number" class="form-control" id="nudSoNguoiToiDa" value="2" min="1" max="50">
+                    </div>
+                    <div class="form-group">
+                        <label>Trạng thái hiện tại:</label>
+                        <select class="form-control" id="cboTrangThai">
+                            <option value="0" selected>0 - Bàn Trống</option>
+                            <option value="1">1 - Có khách</option>
+                            <option value="2">2 - Đang đợi món</option>
+                            <option value="3">3 - Món đã xong</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="badge-info-box" id="pnlHoaDonBadge">
+                    🧾 Phiên phục vụ: <span id="lblHoaDonInfo">Không có hóa đơn đang mở (Bàn trống)</span>
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn-action btn-add" onclick="scenarioAddTable13()">➕ Thêm bàn mới</button>
+                    <button class="btn-action btn-update" onclick="saveCurrentTable()">💾 Lưu cập nhật</button>
+                    <button class="btn-action btn-delete" onclick="scenarioBlockDeleteBusy()">🗑️ Xóa bàn</button>
+                    <button class="btn-action btn-reset" onclick="resetForm()">🔄 Làm mới</button>
+                </div>
+            </div>
+
+            <!-- CỘT PHẢI 62% -->
+            <div class="panel-card">
+                <div class="panel-head">
+                    <h2>📋 DANH SÁCH BÀN ĂN THEO KHU VỰC & TRẠNG THÁI</h2>
+                </div>
+
+                <div class="filter-bar">
+                    <span style="font-weight:700;font-size:11.5px;">Khu vực:</span>
+                    <select id="cboLocKhuVuc" onchange="renderTable()">
+                        <option value="">-- Tất cả khu vực --</option>
+                        <option value="Tầng trệt">Tầng trệt</option>
+                        <option value="Lầu 1 (Máy lạnh)">Lầu 1 (Máy lạnh)</option>
+                        <option value="Phòng VIP Máy lạnh">Phòng VIP Máy lạnh</option>
+                        <option value="Sân vườn thoáng mát">Sân vườn thoáng mát</option>
+                    </select>
+
+                    <span style="font-weight:700;font-size:11.5px;">Trạng thái:</span>
+                    <select id="cboLocTrangThai" onchange="renderTable()">
+                        <option value="-1">-- Tất cả trạng thái --</option>
+                        <option value="0">0 - Bàn Trống</option>
+                        <option value="1">1 - Có khách</option>
+                        <option value="2">2 - Đang đợi món</option>
+                        <option value="3">3 - Món đã xong</option>
+                    </select>
+
+                    <input type="text" id="txtTimKiem" placeholder="🔍 Tên bàn, STT..." oninput="renderTable()">
+                    <button class="btn-sm" style="background:#5D6D7E" onclick="resetFilter()">↻ Tải lại</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:45px">STT</th>
+                            <th style="width:110px">Tên bàn</th>
+                            <th style="width:150px">Khu vực</th>
+                            <th class="text-center" style="width:75px">Sức chứa</th>
+                            <th class="text-center" style="width:110px">Trạng thái</th>
+                            <th>Hóa đơn phục vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tables = [];
+        let selectedId = 1;
+
+        const STATUS_TEXT = [
+            { text: "Bàn Trống", cls: "status-0" },
+            { text: "Có khách", cls: "status-1" },
+            { text: "Đang đợi món", cls: "status-2" },
+            { text: "Món đã xong", cls: "status-3" }
+        ];
+
+        function initSeed() {
+            tables = [
+                { id: 1, stt: 1, name: "Bàn 01", area: "Tầng trệt", seats: 2, status: 0, invoice: null },
+                { id: 2, stt: 2, name: "Bàn 02", area: "Tầng trệt", seats: 4, status: 2, invoice: "HĐ #5 (Phục vụ Tuấn)" },
+                { id: 3, stt: 3, name: "Bàn 03", area: "Tầng trệt", seats: 4, status: 3, invoice: "HĐ #6 (Phục vụ Ánh)" },
+                { id: 4, stt: 4, name: "Bàn 04", area: "Tầng trệt", seats: 4, status: 0, invoice: null },
+                { id: 5, stt: 5, name: "Bàn 05", area: "Tầng trệt", seats: 6, status: 0, invoice: null },
+                { id: 6, stt: 6, name: "Bàn 06", area: "Lầu 1 (Máy lạnh)", seats: 4, status: 0, invoice: null },
+                { id: 7, stt: 7, name: "Bàn 07", area: "Lầu 1 (Máy lạnh)", seats: 6, status: 0, invoice: null },
+                { id: 8, stt: 8, name: "Bàn 08", area: "Lầu 1 (Máy lạnh)", seats: 8, status: 0, invoice: null },
+                { id: 9, stt: 9, name: "Bàn 09 (VIP 1)", area: "Phòng VIP Máy lạnh", seats: 10, status: 0, invoice: null },
+                { id: 10, stt: 10, name: "Bàn 10 (VIP 2)", area: "Phòng VIP Máy lạnh", seats: 12, status: 0, invoice: null },
+                { id: 11, stt: 11, name: "Bàn 11", area: "Sân vườn thoáng mát", seats: 4, status: 0, invoice: null },
+                { id: 12, stt: 12, name: "Bàn 12", area: "Sân vườn thoáng mát", seats: 8, status: 0, invoice: null }
+            ];
+            selectedId = 1;
+        }
+
+        function renderTable() {
+            const area = document.getElementById('cboLocKhuVuc').value;
+            const status = Number(document.getElementById('cboLocTrangThai').value);
+            const kw = document.getElementById('txtTimKiem').value.trim().toLowerCase();
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            let emptyCount = tables.filter(t => t.status === 0).length;
+            let busyCount = tables.filter(t => t.status !== 0).length;
+            let totalSeats = tables.reduce((sum, t) => sum + t.seats, 0);
+
+            document.getElementById('kpiTotalTables').textContent = `${tables.length} bàn`;
+            document.getElementById('kpiEmptyTables').textContent = `${emptyCount} bàn`;
+            document.getElementById('kpiBusyTables').textContent = `${busyCount} bàn`;
+            document.getElementById('kpiTotalSeats').textContent = `${totalSeats} chỗ ngồi`;
+
+            const filtered = tables.filter(t => {
+                if (area && t.area !== area) return false;
+                if (status !== -1 && t.status !== status) return false;
+                if (kw && !t.name.toLowerCase().includes(kw) && !t.stt.toString().includes(kw) && !t.area.toLowerCase().includes(kw)) return false;
+                return true;
+            });
+
+            filtered.forEach(t => {
+                const tr = document.createElement('tr');
+                if (t.id === selectedId) tr.className = 'selected';
+                tr.onclick = () => selectTable(t.id);
+                const sObj = STATUS_TEXT[t.status] || { text: "Không rõ", cls: "" };
+                tr.innerHTML = `
+                    <td class="text-center font-bold">${t.stt}</td>
+                    <td><strong>${t.name}</strong></td>
+                    <td>${t.area}</td>
+                    <td class="text-center">${t.seats} người</td>
+                    <td class="text-center"><span class="badge-status ${sObj.cls}">${sObj.text}</span></td>
+                    <td>${t.invoice ? `<span style="color:#C0392B;font-weight:700">🔴 ${t.invoice}</span>` : '<span style="color:#7F8C8D">Trống</span>'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function selectTable(id) {
+            selectedId = id;
+            const t = tables.find(x => x.id === id);
+            if (!t) return;
+            document.getElementById('txtMaBan').value = t.id;
+            document.getElementById('nudSoThuTu').value = t.stt;
+            document.getElementById('txtTenBan').value = t.name;
+            document.getElementById('cboKhuVuc').value = t.area;
+            document.getElementById('nudSoNguoiToiDa').value = t.seats;
+            document.getElementById('cboTrangThai').value = t.status;
+            document.getElementById('modeBadge').textContent = `CHẾ ĐỘ: CẬP NHẬT (#${t.id})`;
+
+            const lblHD = document.getElementById('lblHoaDonInfo');
+            if (t.invoice) {
+                lblHD.innerHTML = `<strong style="color:#C0392B">${t.invoice} — Không thể xóa khi đang phục vụ!</strong>`;
+            } else {
+                lblHD.textContent = 'Không có hóa đơn đang mở (Bàn trống)';
+            }
+
+            setAlert(`💡 Đang chọn [${t.name}] (STT ${t.stt}) — Khu vực ${t.area} (${t.seats} chỗ ngồi).`, '');
+            renderTable();
+        }
+
+        function resetForm() {
+            selectedId = 0;
+            const nextSTT = tables.length ? Math.max(...tables.map(t => t.stt)) + 1 : 1;
+            document.getElementById('txtMaBan').value = '(Tự động)';
+            document.getElementById('nudSoThuTu').value = nextSTT;
+            document.getElementById('txtTenBan').value = `Bàn ${nextSTT < 10 ? '0' + nextSTT : nextSTT}`;
+            document.getElementById('cboKhuVuc').value = 'Tầng trệt';
+            document.getElementById('nudSoNguoiToiDa').value = 4;
+            document.getElementById('cboTrangThai').value = 0;
+            document.getElementById('modeBadge').textContent = 'CHẾ ĐỘ: THÊM MỚI';
+            document.getElementById('lblHoaDonInfo').textContent = 'Chưa có hóa đơn (Bàn mới)';
+            setAlert('✨ Đã làm mới biểu mẫu. Nhập số thứ tự, tên bàn, khu vực và sức chứa để thêm mới.', '');
+            renderTable();
+        }
+
+        function resetFilter() {
+            document.getElementById('cboLocKhuVuc').value = '';
+            document.getElementById('cboLocTrangThai').value = '-1';
+            document.getElementById('txtTimKiem').value = '';
+            renderTable();
+        }
+
+        function setAlert(msg, type) {
+            const box = document.getElementById('alertBox');
+            box.className = 'alert-box ' + (type || '');
+            box.textContent = msg;
+        }
+
+        function scenarioSeed() {
+            initSeed();
+            resetFilter();
+            selectTable(1);
+        }
+
+        function scenarioFilterArea() {
+            document.getElementById('cboLocKhuVuc').value = 'Phòng VIP Máy lạnh';
+            document.getElementById('cboLocTrangThai').value = '-1';
+            document.getElementById('txtTimKiem').value = '';
+            renderTable();
+            selectTable(9);
+            setAlert('🔍 Đang lọc khu vực "Phòng VIP Máy lạnh" (Có 2 bàn: Bàn 09 và Bàn 10).', '');
+        }
+
+        function scenarioBlockDeleteBusy() {
+            selectTable(2);
+            setAlert('⛔ Không thể xóa "Bàn 02" vì bàn đang phục vụ (Trạng thái: Đang đợi món) và có Hóa đơn #5 đang mở!', 'error');
+        }
+
+        function scenarioAddTable13() {
+            const nextId = tables.length ? Math.max(...tables.map(t => t.id)) + 1 : 13;
+            const t13 = { id: nextId, stt: 13, name: "Bàn 13 (Sân Thượng)", area: "Tầng trệt", seats: 6, status: 0, invoice: null };
+            tables.push(t13);
+            resetFilter();
+            selectTable(nextId);
+            setAlert('✅ Đã thêm mới "Bàn 13 (Sân Thượng)" thành công!', 'success');
+        }
+
+        function scenarioDuplicateSTT() {
+            resetForm();
+            document.getElementById('nudSoThuTu').value = 2; // trùng với Bàn 02
+            document.getElementById('txtTenBan').value = "Bàn Trùng STT";
+            setAlert('⛔ Lỗi ràng buộc: Số thứ tự bàn [2] đã được sử dụng cho "Bàn 02"! Vui lòng chọn số thứ tự khác.', 'error');
+        }
+
+        function saveCurrentTable() {
+            const t = tables.find(x => x.id === selectedId);
+            if (!t) return;
+            t.stt = Number(document.getElementById('nudSoThuTu').value);
+            t.name = document.getElementById('txtTenBan').value;
+            t.area = document.getElementById('cboKhuVuc').value;
+            t.seats = Number(document.getElementById('nudSoNguoiToiDa').value);
+            t.status = Number(document.getElementById('cboTrangThai').value);
+            renderTable();
+            setAlert(`✅ Đã cập nhật thành công "${t.name}"!`, 'success');
+        }
+
+        initSeed();
+        selectTable(1);
+    </script>
+</body>
+</html>
