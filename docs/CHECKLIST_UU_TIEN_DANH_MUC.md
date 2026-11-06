@@ -83,8 +83,8 @@
 - [x] **Bước 1: Đặc tả Nghiệp vụ, CSDL `KhuVuc`, UI/UX & Mockup HTML (`docs/features/table/khu_vuc/`)**
   - [x] Bổ sung bảng `KhuVuc` (`KV_Ma`, `KV_Ten`, `KV_MoTa`, `KV_Xoa`) vào `create-database.sql` & `seed-data.sql` (đảm bảo Idempotent 100% và đồng bộ với cột `B_KhuVuc` của bảng `Ban`).
   - [x] Tạo tài liệu đặc tả `KHU_VUC_SPRINT.md` và file mockup `frmKhuVuc_mockup_v1_0.html` để PO duyệt.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmKhuVuc.Designer.vb`)**
-  - [ ] Thiết kế bố cục: Khung nhập `Tên khu vực` (*Tầng trệt, Tầng 1...*), `Mô tả / Ghi chú`, các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới`, và lưới `DataGridView` hiển thị danh sách khu vực kèm số lượng bàn hiện có trong từng khu vực.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmKhuVuc.Designer.vb`)**
+  - [x] Thiết kế bố cục: Khung nhập `Tên khu vực` (*Tầng trệt, Tầng 1...*), `Mô tả / Ghi chú`, các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới`, và lưới `DataGridView` hiển thị danh sách khu vực kèm số lượng bàn hiện có trong từng khu vực.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
   - [ ] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb`.
   - [ ] Ràng buộc nghiệp vụ: Không trùng tên khu vực, khi đổi tên khu vực tự động đồng bộ tên khu vực cho các bàn thuộc khu vực đó, chặn xóa khu vực đang có bàn hoạt động.

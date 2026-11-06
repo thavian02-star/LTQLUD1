@@ -84,8 +84,8 @@ Màn hình `frmKhuVuc` tuân thủ chuẩn **Split-Layout 38% : 62%** đồng b�
   - [x] Tạo tài liệu đặc tả [`KHU_VUC_SPRINT.md`](KHU_VUC_SPRINT.md).
   - [x] Tạo file Mockup tương tác [`frmKhuVuc_mockup_v1_0.html`](frmKhuVuc_mockup_v1_0.html) với 4 kịch bản demo trực quan.
   - [x] Bổ sung bảng `KhuVuc` trong `create-database.sql` & `seed-data.sql` và cập nhật trực tiếp lên SQL Server Docker.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Table/frmKhuVuc.Designer.vb`)**
-  - [ ] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Table/frmKhuVuc.Designer.vb`)**
+  - [x] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
   - [ ] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb` và hoàn thiện sự kiện trong `frmKhuVuc.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`KhuVucVerifier`)**
