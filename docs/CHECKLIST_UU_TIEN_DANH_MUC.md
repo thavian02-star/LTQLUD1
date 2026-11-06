@@ -85,9 +85,9 @@
   - [x] Tạo tài liệu đặc tả `KHU_VUC_SPRINT.md` và file mockup `frmKhuVuc_mockup_v1_0.html` để PO duyệt.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmKhuVuc.Designer.vb`)**
   - [x] Thiết kế bố cục: Khung nhập `Tên khu vực` (*Tầng trệt, Tầng 1...*), `Mô tả / Ghi chú`, các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới`, và lưới `DataGridView` hiển thị danh sách khu vực kèm số lượng bàn hiện có trong từng khu vực.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
-  - [ ] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb`.
-  - [ ] Ràng buộc nghiệp vụ: Không trùng tên khu vực, khi đổi tên khu vực tự động đồng bộ tên khu vực cho các bàn thuộc khu vực đó, chặn xóa khu vực đang có bàn hoạt động.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
+  - [x] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb`.
+  - [x] Ràng buộc nghiệp vụ: Không trùng tên khu vực, khi đổi tên khu vực tự động đồng bộ tên khu vực cho các bàn thuộc khu vực đó, chặn xóa khu vực đang có bàn hoạt động.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [ ] Chạy bộ test tự động kiểm tra CRUD Khu vực + ràng buộc toàn vẹn với bảng `Ban`.
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) cho `frmKhuVuc` & Đồng bộ `CHECKLIST_DO_AN.md`**

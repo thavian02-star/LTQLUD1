@@ -86,8 +86,8 @@ Màn hình `frmKhuVuc` tuân thủ chuẩn **Split-Layout 38% : 62%** đồng b�
   - [x] Bổ sung bảng `KhuVuc` trong `create-database.sql` & `seed-data.sql` và cập nhật trực tiếp lên SQL Server Docker.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Table/frmKhuVuc.Designer.vb`)**
   - [x] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
-  - [ ] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb` và hoàn thiện sự kiện trong `frmKhuVuc.vb`.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
+  - [x] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb` và hoàn thiện sự kiện trong `frmKhuVuc.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`KhuVucVerifier`)**
   - [ ] Tích hợp mở `frmKhuVuc` từ `frmMain` và thực thi bộ kiểm thử tự động 24/24 tiêu chí (Layout Geometry + CRUD + FK Protection + Cascade Sync + RBAC).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_6.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.6`**
