@@ -287,8 +287,21 @@ END
 GO
 
 -- ==============================================================
--- NHÓM 4: DỮ LIỆU BÀN ĂN & THỰC ĐƠN (3 BẢNG)
+-- NHÓM 4: DỮ LIỆU BÀN ĂN & THỰC ĐƠN (4 BẢNG)
 -- ==============================================================
+
+-- 4.0. Bảng KhuVuc (4 khu vực chuẩn đồng bộ trực tiếp với các bàn trong bảng Ban)
+IF NOT EXISTS (SELECT 1 FROM KhuVuc)
+BEGIN
+    SET IDENTITY_INSERT KhuVuc ON;
+    INSERT INTO KhuVuc (KV_Ma, KV_Ten, KV_MoTa, KV_Xoa) VALUES
+        (1, N'Tầng trệt',          N'Khu vực sảnh chính tầng trệt, không gian mở năng động, gần quầy thu ngân', 0),
+        (2, N'Lầu 1 (Máy lạnh)',   N'Khu vực tầng 1 phòng lạnh mát mẻ, yên tĩnh, phù hợp gia đình & bạn bè', 0),
+        (3, N'Phòng VIP Máy lạnh', N'Phòng riêng máy lạnh cao cấp dành cho tiệc riêng tư, hội họp đối tác', 0),
+        (4, N'Sân vườn thoáng mát', N'Khu vực sân vườn ngoài trời nhiều cây xanh, thoáng mát tự nhiên ban đêm', 0);
+    SET IDENTITY_INSERT KhuVuc OFF;
+END
+GO
 
 -- 4.1. Bảng Ban (12 bàn chia theo 3 khu vực thực tế: Tầng trệt, Lầu 1 - Máy lạnh, Sân vườn)
 IF NOT EXISTS (SELECT 1 FROM Ban)

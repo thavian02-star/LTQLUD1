@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup UI v1.0 - Quản Lý Khu Vực Bàn Ăn (frmKhuVuc)</title>
+    <style>
+        :root {
+            --navy: #1A5276;
+            --navy-dark: #154360;
+            --bg-body: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --border-color: #DCDFE6;
+            --text-main: #2C3E50;
+            --text-muted: #6C757D;
+            --green: #27AE60;
+            --blue: #2980B9;
+            --red: #C0392B;
+            --orange: #E67E22;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #E5E9F0; padding: 18px; color: var(--text-main); }
+
+        .demo-toolbar {
+            max-width: 1120px; margin: 0 auto 14px auto; background: #fff; border: 1px solid #cbd5e1;
+            border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .demo-toolbar span { font-size: 13px; font-weight: 700; color: var(--navy); }
+        .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .demo-btn {
+            border: 1px solid #cbd5e1; background: #f8fafc; color: #1e293b; padding: 6px 11px;
+            font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.15s;
+        }
+        .demo-btn:hover, .demo-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+        .winform-window {
+            max-width: 1120px; margin: 0 auto; background: var(--bg-body);
+            border: 2px solid #1A5276; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+        }
+        .titlebar {
+            background: #0f2f44; color: #fff; padding: 6px 14px; font-size: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar {
+            background: var(--navy); color: #fff; padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar h1 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+        .header-bar p { font-size: 12px; color: #AED6F1; }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+        .btn-nav-ban {
+            background: #2980B9; color: #fff; border: 1px solid #1B4F72; padding: 7px 14px;
+            border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12px;
+        }
+        .btn-close-form {
+            background: var(--red); color: #fff; border: none; padding: 7px 14px;
+            border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12px;
+        }
+
+        .kpi-row {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+            padding: 12px 16px 4px 16px;
+        }
+        .kpi-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 11px 16px; border-left: 5px solid var(--navy);
+        }
+        .kpi-card.green { border-left-color: var(--green); }
+        .kpi-card.orange { border-left-color: var(--orange); }
+        .kpi-title { font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-val { font-size: 20px; font-weight: 800; margin-top: 4px; color: var(--navy); }
+        .kpi-card.green .kpi-val { color: var(--green); }
+        .kpi-card.orange .kpi-val { color: #D35400; }
+
+        .main-split {
+            display: grid; grid-template-columns: 38% 62%; gap: 14px;
+            padding: 10px 16px 16px 16px;
+        }
+        .panel-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 16px; display: flex; flex-direction: column;
+        }
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+        }
+        .panel-head h2 { font-size: 14.5px; color: var(--navy); font-weight: 700; }
+        .mode-badge {
+            font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px;
+            background: #EBF5FB; color: var(--navy);
+        }
+        .alert-box {
+            padding: 8px 11px; border-radius: 4px; font-size: 12px; font-weight: 600;
+            margin-bottom: 12px; background: #EAF2F8; color: #1A5276; border-left: 4px solid #2980B9;
+        }
+        .alert-box.success { background: #E8F8F5; color: #1E8449; border-left-color: #27AE60; }
+        .alert-box.error { background: #FDEDEC; color: #B03A2E; border-left-color: #C0392B; }
+
+        .form-group { margin-bottom: 11px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; color: #34495E; }
+        .form-control {
+            width: 100%; padding: 7px 10px; font-size: 13px; border: 1px solid #CBD5E1; border-radius: 4px;
+        }
+        .form-control[readonly] { background: #EDF0F2; color: #566573; font-weight: 700; }
+        textarea.form-control { resize: none; height: 75px; font-family: inherit; }
+
+        .badge-box {
+            background: #F4F6F7; border: 1px dashed #BDC3C7; border-radius: 4px;
+            padding: 8px 10px; margin: 10px 0 16px 0; font-size: 12px; color: #2C3E50; font-weight: 600;
+        }
+
+        .crud-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto;
+        }
+        .btn-crud {
+            padding: 9px; font-size: 12.5px; font-weight: 700; border-radius: 4px; border: none;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-add { background: var(--green); color: #fff; }
+        .btn-add:hover { background: #229954; }
+        .btn-edit { background: var(--blue); color: #fff; }
+        .btn-edit:hover { background: #2471A3; }
+        .btn-del { background: var(--red); color: #fff; }
+        .btn-del:hover { background: #A93226; }
+        .btn-refresh { background: #7F8C8D; color: #fff; }
+        .btn-refresh:hover { background: #707B7C; }
+
+        .search-bar {
+            display: flex; gap: 8px; margin-bottom: 12px;
+        }
+        .search-bar input {
+            flex: 1; padding: 7px 10px; font-size: 13px; border: 1px solid #CBD5E1; border-radius: 4px;
+        }
+        .btn-search {
+            background: var(--navy); color: #fff; border: none; padding: 0 14px;
+            font-size: 12.5px; font-weight: 600; border-radius: 4px; cursor: pointer;
+        }
+        .btn-reload {
+            background: #64748B; color: #fff; border: none; padding: 0 12px;
+            font-size: 12.5px; font-weight: 600; border-radius: 4px; cursor: pointer;
+        }
+
+        .table-wrap {
+            border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; flex: 1;
+        }
+        table.dgv {
+            width: 100%; border-collapse: collapse; font-size: 12.5px;
+        }
+        table.dgv th {
+            background: #EAECEE; color: #2C3E50; font-weight: 700; padding: 9px 10px;
+            text-align: left; border-bottom: 2px solid #D5D8DC;
+        }
+        table.dgv td {
+            padding: 8px 10px; border-bottom: 1px solid #EAEDED; vertical-align: middle;
+        }
+        table.dgv tr:hover { background: #EBF5FB; cursor: pointer; }
+        table.dgv tr.selected { background: #D4E6F1; font-weight: 600; }
+        .badge-ban {
+            background: #E8F8F5; color: #1E8449; font-weight: 700; padding: 2px 7px;
+            border-radius: 10px; font-size: 11.5px; display: inline-block;
+        }
+        .badge-cho {
+            background: #EBF5FB; color: #1B4F72; font-weight: 700; padding: 2px 7px;
+            border-radius: 10px; font-size: 11.5px; display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Toolbar điều hướng các kịch bản kiểm thử -->
+    <div class="demo-toolbar">
+        <span>🎮 KỊCH BẢN MÔ PHỎNG NGHIỆP VỤ (SCENARIOS):</span>
+        <div class="demo-btns">
+            <button class="demo-btn active" onclick="chuyenKichBan(1)">1. Dữ liệu chuẩn (4 KV / 12 bàn)</button>
+            <button class="demo-btn" onclick="chuyenKichBan(2)">2. Thêm mới khu vực Rooftop</button>
+            <button class="demo-btn" onclick="chuyenKichBan(3)">3. Sửa tên &amp; Cascade Update bàn</button>
+            <button class="demo-btn" onclick="chuyenKichBan(4)">4. Chặn xóa KV có bàn (FK Guard)</button>
+        </div>
+    </div>
+
+    <!-- Cửa sổ mô phỏng WinForms frmKhuVuc -->
+    <div class="winform-window">
+        <!-- Title bar -->
+        <div class="titlebar">
+            <span>🏢 Hệ Thống Quản Lý Quán Ăn Hương Việt — [Quản Lý Khu Vực Bàn]</span>
+            <span>_ □ ✕</span>
+        </div>
+
+        <!-- Tầng 1: Header Bar -->
+        <div class="header-bar">
+            <div>
+                <h1>🏢 QUẢN LÝ KHU VỰC BÀN ĂN</h1>
+                <p>Danh mục chuẩn (4/5) • Phân loại không gian sảnh, phòng VIP, sân vườn &amp; đồng bộ sơ đồ bàn</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-nav-ban" onclick="alert('Mở nhanh sang Màn hình Quản lý Bàn (frmBan)!')">🪑 Quản lý Bàn</button>
+                <button class="btn-close-form" onclick="alert('Đóng Form Quản lý Khu vực')">✖ Đóng</button>
+            </div>
+        </div>
+
+        <!-- Tầng 2: 3 Thẻ KPI Thống kê -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-title">Tổng số khu vực hoạt động</div>
+                <div class="kpi-val" id="kpiTongKV">4 khu vực</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-title">Tổng số bàn đã bố trí</div>
+                <div class="kpi-val" id="kpiTongBan">12 bàn</div>
+            </div>
+            <div class="kpi-card orange">
+                <div class="kpi-title">Tổng sức chứa khách tối đa</div>
+                <div class="kpi-val" id="kpiTongCho">72 chỗ ngồi</div>
+            </div>
+        </div>
+
+        <!-- Tầng 3: Split-Layout 38% : 62% -->
+        <div class="main-split">
+            <!-- Cột trái (38%): Form nhập liệu -->
+            <div class="panel-card">
+                <div class="panel-head">
+                    <h2>📝 THÔNG TIN KHU VỰC</h2>
+                    <span class="mode-badge" id="badgeCheDo">CHẾ ĐỘ: CẬP NHẬT</span>
+                </div>
+
+                <div class="alert-box" id="msgBox">
+                    💡 Chọn một khu vực từ danh sách bên phải để xem thông tin chi tiết.
+                </div>
+
+                <div class="form-group">
+                    <label>Mã khu vực (Tự động):</label>
+                    <input type="text" id="txtMaKV" class="form-control" value="1" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Tên khu vực (*):</label>
+                    <input type="text" id="txtTenKV" class="form-control" value="Tầng trệt" maxlength="50" placeholder="VD: Tầng trệt, Lầu 1, Sân vườn...">
+                </div>
+
+                <div class="form-group">
+                    <label>Mô tả không gian &amp; Tiện ích:</label>
+                    <textarea id="txtMoTa" class="form-control" placeholder="Mô tả vị trí, không gian máy lạnh, cảnh quan...">Khu vực sảnh chính tầng trệt, không gian mở năng động, gần quầy thu ngân</textarea>
+                </div>
+
+                <div class="badge-box" id="pnlThongKeBanBadge">
+                    🪑 Số bàn hiện có: <strong>5 bàn</strong> &nbsp;|&nbsp; 👥 Sức chứa: <strong>20 chỗ</strong>
+                </div>
+
+                <div class="crud-grid">
+                    <button class="btn-crud btn-add" onclick="xuLyThem()">➕ Thêm mới</button>
+                    <button class="btn-crud btn-edit" onclick="xuLyCapNhat()">💾 Cập nhật</button>
+                    <button class="btn-crud btn-del" onclick="xuLyXoa()">🗑️ Xóa khu vực</button>
+                    <button class="btn-crud btn-refresh" onclick="xuLyLamMoi()">🔄 Làm mới</button>
+                </div>
+            </div>
+
+            <!-- Cột phải (62%): Danh sách DataGridView -->
+            <div class="panel-card">
+                <div class="panel-head">
+                    <h2>📋 DANH SÁCH KHU VỰC BÀN ĂN</h2>
+                    <span style="font-size: 12px; color: var(--text-muted);">Hiển thị: <strong>4</strong> khu vực</span>
+                </div>
+
+                <div class="search-bar">
+                    <input type="text" id="txtTimKiem" placeholder="🔍 Tìm theo tên khu vực, tiện ích không gian..." onkeyup="timKiem(this.value)">
+                    <button class="btn-search" onclick="timKiem(document.getElementById('txtTimKiem').value)">Tìm kiếm</button>
+                    <button class="btn-reload" onclick="taiLai()">Tải lại</button>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="dgv" id="tblKhuVuc">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">Mã KV</th>
+                                <th style="width: 170px;">Tên khu vực</th>
+                                <th>Mô tả không gian</th>
+                                <th style="width: 100px; text-align: center;">Số bàn</th>
+                                <th style="width: 110px; text-align: center;">Tổng chỗ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyKhuVuc">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let danhSachKhuVuc = [
+            { ma: 1, ten: "Tầng trệt", moTa: "Khu vực sảnh chính tầng trệt, không gian mở năng động, gần quầy thu ngân", soBan: 5, tongCho: 20 },
+            { ma: 2, ten: "Lầu 1 (Máy lạnh)", moTa: "Khu vực tầng 1 phòng lạnh mát mẻ, yên tĩnh, phù hợp gia đình & bạn bè", soBan: 3, tongCho: 18 },
+            { ma: 3, ten: "Phòng VIP Máy lạnh", moTa: "Phòng riêng máy lạnh cao cấp dành cho tiệc riêng tư, hội họp đối tác", soBan: 2, tongCho: 22 },
+            { ma: 4, ten: "Sân vườn thoáng mát", moTa: "Khu vực sân vườn ngoài trời nhiều cây xanh, thoáng mát tự nhiên ban đêm", soBan: 2, tongCho: 12 }
+        ];
+
+        let selectedId = 1;
+
+        function renderTable(data = danhSachKhuVuc) {
+            const tbody = document.getElementById('tbodyKhuVuc');
+            tbody.innerHTML = '';
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                if (item.ma === selectedId) tr.className = 'selected';
+                tr.onclick = () => chonDong(item.ma);
+                tr.innerHTML = `
+                    <td style="font-weight: 700; color: #1A5276;">#${item.ma}</td>
+                    <td style="font-weight: 600;">${item.ten}</td>
+                    <td style="color: #555;">${item.moTa || '—'}</td>
+                    <td style="text-align: center;"><span class="badge-ban">${item.soBan} bàn</span></td>
+                    <td style="text-align: center;"><span class="badge-cho">${item.tongCho} chỗ</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+            capNhatKpi();
+        }
+
+        function chonDong(id) {
+            selectedId = id;
+            const item = danhSachKhuVuc.find(k => k.ma === id);
+            if (!item) return;
+
+            document.getElementById('txtMaKV').value = item.ma;
+            document.getElementById('txtTenKV').value = item.ten;
+            document.getElementById('txtMoTa').value = item.moTa || '';
+            document.getElementById('badgeCheDo').innerText = 'CHẾ ĐỘ: CẬP NHẬT';
+            document.getElementById('badgeCheDo').style.background = '#EBF5FB';
+            document.getElementById('badgeCheDo').style.color = '#1A5276';
+
+            document.getElementById('pnlThongKeBanBadge').innerHTML = 
+                `🪑 Số bàn hiện có: <strong>${item.soBan} bàn</strong> &nbsp;|&nbsp; 👥 Sức chứa: <strong>${item.tongCho} chỗ</strong>`;
+
+            const msgBox = document.getElementById('msgBox');
+            msgBox.className = 'alert-box';
+            msgBox.innerHTML = `Đang chọn khu vực <strong>${item.ten}</strong> (Mã #${item.ma}). Có ${item.soBan} bàn trực thuộc.`;
+
+            renderTable();
+        }
+
+        function capNhatKpi() {
+            const tongKV = danhSachKhuVuc.length;
+            const tongBan = danhSachKhuVuc.reduce((s, x) => s + x.soBan, 0);
+            const tongCho = danhSachKhuVuc.reduce((s, x) => s + x.tongCho, 0);
+
+            document.getElementById('kpiTongKV').innerText = `${tongKV} khu vực`;
+            document.getElementById('kpiTongBan').innerText = `${tongBan} bàn`;
+            document.getElementById('kpiTongCho').innerText = `${tongCho} chỗ ngồi`;
+        }
+
+        function xuLyLamMoi() {
+            selectedId = 0;
+            document.getElementById('txtMaKV').value = '(Tự sinh)';
+            document.getElementById('txtTenKV').value = '';
+            document.getElementById('txtMoTa').value = '';
+            document.getElementById('badgeCheDo').innerText = 'CHẾ ĐỘ: THÊM MỚI';
+            document.getElementById('badgeCheDo').style.background = '#E8F8F5';
+            document.getElementById('badgeCheDo').style.color = '#1E8449';
+            document.getElementById('pnlThongKeBanBadge').innerHTML = '🪑 Số bàn hiện có: <strong>0 bàn</strong> &nbsp;|&nbsp; 👥 Sức chứa: <strong>0 chỗ</strong>';
+
+            const msgBox = document.getElementById('msgBox');
+            msgBox.className = 'alert-box';
+            msgBox.innerHTML = '✨ Sẵn sàng thêm khu vực mới. Nhập Tên khu vực và bấm [➕ Thêm mới].';
+            renderTable();
+        }
+
+        function xuLyThem() {
+            const ten = document.getElementById('txtTenKV').value.trim();
+            const moTa = document.getElementById('txtMoTa').value.trim();
+            const msgBox = document.getElementById('msgBox');
+
+            if (!ten) {
+                msgBox.className = 'alert-box error';
+                msgBox.innerHTML = '❌ Lỗi: Tên khu vực không được để trống!';
+                return;
+            }
+            if (danhSachKhuVuc.some(k => k.ten.toLowerCase() === ten.toLowerCase())) {
+                msgBox.className = 'alert-box error';
+                msgBox.innerHTML = `❌ Lỗi: Tên khu vực "${ten}" đã tồn tại! Vui lòng chọn tên khác.`;
+                return;
+            }
+
+            const newId = Math.max(...danhSachKhuVuc.map(k => k.ma), 0) + 1;
+            const newKv = { ma: newId, ten, moTa, soBan: 0, tongCho: 0 };
+            danhSachKhuVuc.push(newKv);
+
+            msgBox.className = 'alert-box success';
+            msgBox.innerHTML = `✅ Thêm khu vực mới thành công: <strong>${ten}</strong> (Mã #${newId})!`;
+            chonDong(newId);
+        }
+
+        function xuLyCapNhat() {
+            const msgBox = document.getElementById('msgBox');
+            if (selectedId === 0) {
+                msgBox.className = 'alert-box error';
+                msgBox.innerHTML = '❌ Vui lòng chọn khu vực cần cập nhật từ danh sách!';
+                return;
+            }
+
+            const ten = document.getElementById('txtTenKV').value.trim();
+            const moTa = document.getElementById('txtMoTa').value.trim();
+            if (!ten) {
+                msgBox.className = 'alert-box error';
+                msgBox.innerHTML = '❌ Lỗi: Tên khu vực không được để trống!';
+                return;
+            }
+
+            const item = danhSachKhuVuc.find(k => k.ma === selectedId);
+            if (item) {
+                const tenCu = item.ten;
+                item.ten = ten;
+                item.moTa = moTa;
+                msgBox.className = 'alert-box success';
+                msgBox.innerHTML = `✅ Cập nhật khu vực thành công! Đã tự động đồng bộ tên mới <strong>"${ten}"</strong> cho các bàn thuộc khu vực "${tenCu}".`;
+                renderTable();
+            }
+        }
+
+        function xuLyXoa() {
+            const msgBox = document.getElementById('msgBox');
+            if (selectedId === 0) {
+                msgBox.className = 'alert-box error';
+                msgBox.innerHTML = '❌ Vui lòng chọn khu vực cần xóa!';
+                return;
+            }
+
+            const item = danhSachKhuVuc.find(k => k.ma === selectedId);
+            if (item && item.soBan > 0) {
+                msgBox.className = 'alert-box error';
+                msgBox.innerHTML = `⛔ BẢO VỆ KHÓA NGOẠI: Không thể xóa khu vực <strong>"${item.ten}"</strong> vì đang có <strong>${item.soBan} bàn</strong> hoạt động! Vui lòng chuyển bàn sang khu vực khác trước khi xóa.`;
+                return;
+            }
+
+            if (confirm(`Bạn có chắc chắn muốn xóa khu vực "${item.ten}"?`)) {
+                danhSachKhuVuc = danhSachKhuVuc.filter(k => k.ma !== selectedId);
+                msgBox.className = 'alert-box success';
+                msgBox.innerHTML = `✅ Đã xóa khu vực <strong>"${item.ten}"</strong> thành công!`;
+                xuLyLamMoi();
+            }
+        }
+
+        function timKiem(keyword) {
+            const kw = keyword.toLowerCase().trim();
+            const filtered = danhSachKhuVuc.filter(k => 
+                k.ten.toLowerCase().includes(kw) || (k.moTa && k.moTa.toLowerCase().includes(kw))
+            );
+            renderTable(filtered);
+        }
+
+        function taiLai() {
+            document.getElementById('txtTimKiem').value = '';
+            renderTable(danhSachKhuVuc);
+        }
+
+        function chuyenKichBan(kb) {
+            const btns = document.querySelectorAll('.demo-btn');
+            btns.forEach((b, idx) => {
+                if (idx === kb - 1) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+
+            if (kb === 1) {
+                chonDong(1);
+            } else if (kb === 2) {
+                xuLyLamMoi();
+                document.getElementById('txtTenKV').value = "Tầng thượng (Rooftop)";
+                document.getElementById('txtMoTa').value = "Không gian sân thượng thoáng đãng view thành phố về đêm, phục vụ đồ uống & nướng BBQ";
+                const msgBox = document.getElementById('msgBox');
+                msgBox.className = 'alert-box';
+                msgBox.innerHTML = '💡 Kịch bản 2: Bấm nút [➕ Thêm mới] để tạo khu vực "Tầng thượng (Rooftop)".';
+            } else if (kb === 3) {
+                chonDong(2);
+                document.getElementById('txtTenKV').value = "Tầng 1 (Máy lạnh cao cấp)";
+                const msgBox = document.getElementById('msgBox');
+                msgBox.className = 'alert-box';
+                msgBox.innerHTML = '💡 Kịch bản 3: Sửa tên khu vực và bấm [💾 Cập nhật] để kiểm chứng đồng bộ tên bàn trong bảng Ban.';
+            } else if (kb === 4) {
+                chonDong(3);
+                xuLyXoa();
+            }
+        }
+
+        // Khởi động
+        renderTable();
+        chonDong(1);
+    </script>
+</body>
+</html>

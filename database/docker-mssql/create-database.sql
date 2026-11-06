@@ -272,8 +272,20 @@ END
 GO
 
 -- ==============================================================
--- NHÓM 4: BẢNG BÀN ĂN & THỰC ĐƠN (3 BẢNG)
+-- NHÓM 4: BẢNG BÀN ĂN & THỰC ĐƠN (4 BẢNG)
 -- ==============================================================
+
+-- 4.0. Bảng KhuVuc (Phân loại khu vực bàn: Tầng trệt, Lầu 1, Phòng VIP, Sân vườn...)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'KhuVuc')
+BEGIN
+    CREATE TABLE KhuVuc (
+        KV_Ma INT IDENTITY(1,1) PRIMARY KEY,
+        KV_Ten NVARCHAR(50) NOT NULL UNIQUE,
+        KV_MoTa NVARCHAR(255) NULL,
+        KV_Xoa BIT DEFAULT 0
+    );
+END
+GO
 
 -- 4.1. Bảng Ban (Số thứ tự bàn, khu vực, số người tối đa, 4 trạng thái bàn)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Ban')
