@@ -75,13 +75,13 @@ Namespace Features.Table
         End Sub
 
         ''' <summary>
-        ''' Kiểm tra quyền quản lý khu vực bàn ăn (CQ_QUAN_LY_BAN hoặc Chủ quán)
+        ''' Kiểm tra quyền quản lý khu vực bàn ăn (CQ_QUAN_LY_BAN hoặc Chủ quán / Quản lý)
         ''' </summary>
-        Private Function CoQuyenQuanLyKhuVuc() As Boolean
+        Public Function CoQuyenQuanLyKhuVuc() As Boolean
             If Session.MaTaiKhoan <= 0 Then
                 Return True ' Cho phép bộ kiểm thử tự động thực thi khi chưa khởi tạo Session
             End If
-            Return Session.CoQuyen("CQ_QUAN_LY_BAN") OrElse Session.MaVaiTro = 1
+            Return Session.CoQuyen("CQ_QUAN_LY_BAN") OrElse Session.MaVaiTro = 1 OrElse Session.MaVaiTro = 2
         End Function
 
         Public Sub ApDungPhanQuyen()

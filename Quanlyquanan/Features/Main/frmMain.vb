@@ -189,14 +189,19 @@ Namespace Features.Main
 
         Private Sub btnSoDoBan_Click(sender As Object, e As EventArgs) Handles btnSoDoBan.Click, btnQuickDatBan.Click, btnQuickOpenSoDoBan.Click
             CapNhatButtonActive(btnSoDoBan)
-            MessageBox.Show(
-                "Phân hệ [Sơ Đồ Bàn Ăn & Gọi Món] (Features/BanAn_GoiMon) đang sẵn sàng để triển khai ở Sprint tiếp theo!" & vbCrLf &
-                "- Hiển thị trạng thái các bàn: Trống, Có khách, Chờ món, Món đã xong." & vbCrLf &
-                "- Gọi món, chuyển bàn, gộp bàn và in hóa đơn thanh toán.",
-                "Thông Báo Phân Hệ",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            Using fKV As New Features.Table.frmKhuVuc()
+                fKV.ShowDialog(Me)
+            End Using
+            CapNhatButtonActive(Nothing)
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Quản lý Khu vực bàn ăn (frmKhuVuc)
+        ''' </summary>
+        Public Sub MoQuanLyKhuVuc()
+            Using fKV As New Features.Table.frmKhuVuc()
+                fKV.ShowDialog(Me)
+            End Using
         End Sub
 
         Private Sub btnNhaBep_Click(sender As Object, e As EventArgs) Handles btnNhaBep.Click, btnQuickNhaBep.Click
