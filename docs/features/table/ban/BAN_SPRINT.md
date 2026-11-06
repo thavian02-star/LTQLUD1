@@ -103,8 +103,8 @@ Màn hình **Quản lý Danh sách Bàn Ăn (`frmBan`)** là nơi cấu hình to
   - [x] Tạo file Mockup tương tác [`frmBan_mockup_v1_0.html`](frmBan_mockup_v1_0.html) với 5 kịch bản mô phỏng trực quan.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Table/frmBan.Designer.vb`)**
   - [x] Thiết kế 3 tầng + Split-Layout 38:62 chống cắt chữ / chống đè control ở cả kích thước Minimum và FullHD.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
-  - [ ] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb` và hoàn thiện sự kiện trong `frmBan.vb`.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
+  - [x] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb` và hoàn thiện sự kiện trong `frmBan.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`BanVerifier`)**
   - [ ] Tích hợp mở `frmBan` từ `frmMain` và thực thi bộ kiểm thử tự động toàn diện (Layout + Filter + CRUD + FK Protection + RBAC).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_6.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.6`**

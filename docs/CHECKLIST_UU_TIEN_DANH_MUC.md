@@ -101,9 +101,9 @@
   - [x] Tạo tài liệu đặc tả `BAN_SPRINT.md` và file mockup `frmBan_mockup_v1_0.html` để PO duyệt.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmBan.Designer.vb`)**
   - [x] Thiết kế bố cục: Bộ lọc theo `Khu vực` + `Trạng thái bàn`, khung nhập liệu (`Số thứ tự bàn`, `Tên bàn`, `ComboBox Khu vực` lấy từ các khu vực hiện có / cấu hình, `Số người tối đa` bằng `NumericUpDown`, `Trạng thái`), các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới` và lưới `DataGridView`.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
-  - [ ] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb`.
-  - [ ] Ràng buộc nghiệp vụ: `B_SoThuTu` duy nhất (`> 0`), `B_SoNguoiToiDa > 0`, không cho phép xóa bàn đang có khách phục vụ (`B_TrangThai <> 0`).
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
+  - [x] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb`.
+  - [x] Ràng buộc nghiệp vụ: `B_SoThuTu` duy nhất (`> 0`), `B_SoNguoiToiDa > 0`, không cho phép xóa bàn đang có khách phục vụ (`B_TrangThai <> 0`).
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [ ] Mở từ `btnMenuQuanLyBan` / `btnQuickQuanLyBan` trên `frmMain` (phân quyền `CQ_QUAN_LY_BAN`), hỗ trợ nút mở nhanh sang `frmKhuVuc`.
   - [ ] Chạy bộ test tự động kiểm tra CRUD Bàn + Ràng buộc `B_SoThuTu` + `B_SoNguoiToiDa`.
