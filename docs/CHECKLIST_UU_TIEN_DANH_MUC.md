@@ -90,7 +90,7 @@
   - [x] Ràng buộc nghiệp vụ: Không trùng tên khu vực, khi đổi tên khu vực tự động đồng bộ tên khu vực cho các bàn thuộc khu vực đó, chặn xóa khu vực đang có bàn hoạt động.
 - [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
   - [x] Chạy bộ test tự động kiểm tra CRUD Khu vực + ràng buộc toàn vẹn với bảng `Ban` (`24/24 PASS = 100%`).
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/`) cho `frmKhuVuc` & Đồng bộ `CHECKLIST_DO_AN.md`**
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_6.html`) cho `frmKhuVuc` & Đồng bộ `CHECKLIST_DO_AN.md`**
 
 ---
 

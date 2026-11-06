@@ -110,7 +110,7 @@
   - [ ] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên.
   - [ ] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái nghỉ việc, xóa lịch làm việc tương lai, đánh dấu thu hồi trang phục/dụng cụ.
 - [ ] **Quản lý Bàn ghế & Khu vực (`frmKhuVuc`, `frmBan` / `frmQuanLyBan`):** *(Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 4 & MH 5)*
-  - [ ] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn...
+  - [x] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn... *(Đã hoàn thành 24/24 test cases tại [`report_0_2_6.html`](release_report/report_0_2_6.html))*
   - [ ] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa.
 
 - [x] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Đã hoàn thành tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*

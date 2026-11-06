@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Phát Hành v0.2.6 — Màn Hình 4: Quản Lý Khu Vực Bàn Ăn (frmKhuVuc)</title>
+  <style>
+    :root {
+      --primary: #1a5276;
+      --primary-dark: #154360;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: #ffffff; border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 18px; margin-bottom: 20px; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      font-size: 12.5px; font-weight: 600; text-decoration: none; padding: 4px 10px;
+      border-radius: 6px; border: 1px solid var(--border); color: var(--primary); background: #f1f5f9;
+    }
+    .version-links a.active {
+      background: var(--primary); color: #fff; border-color: var(--primary);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%);
+      color: #ffffff; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(26, 82, 118, 0.25);
+    }
+    .hero-badges { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .badge {
+      display: inline-block; font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 999px; letter-spacing: 0.5px;
+    }
+    .badge.blue { background: #bae6fd; color: #0369a1; }
+    .badge.green { background: #bbf7d0; color: #15803d; }
+    .badge.amber { background: #fef08a; color: #854d0e; }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .hero p { font-size: 14.5px; opacity: 0.92; max-width: 950px; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .kpi-box.green { border-left: 5px solid var(--success); }
+    .kpi-box.blue { border-left: 5px solid var(--primary); }
+    .kpi-box.orange { border-left: 5px solid var(--warning); }
+    .kpi-box.purple { border-left: 5px solid #8e44ad; }
+    .kpi-box .label { font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
+    .kpi-box .val { font-size: 24px; font-weight: 800; color: var(--text); margin-top: 4px; }
+    .kpi-box .sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .section {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .section h2 { font-size: 17px; font-weight: 800; color: var(--primary); margin-bottom: 14px; }
+    .section h3 { font-size: 14.5px; font-weight: 700; color: #1e293b; margin: 16px 0 8px 0; }
+    .section p { font-size: 14px; margin-bottom: 10px; color: #334155; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+    .compare-card { border-radius: 8px; padding: 14px 18px; border: 1px solid; }
+    .compare-card.before { background: #fff1f2; border-color: #fecdd3; }
+    .compare-card.after { background: #f0fdf4; border-color: #bbf7d0; }
+    .compare-card h3 { font-size: 14.5px; margin-bottom: 10px; }
+    .compare-card ul { padding-left: 18px; font-size: 13.5px; }
+    .compare-card li { margin-bottom: 6px; }
+
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+    table.report-table th, table.report-table td {
+      border: 1px solid var(--border); padding: 9px 12px; text-align: left;
+    }
+    table.report-table th { background: #f1f5f9; font-weight: 700; color: #1e293b; }
+    table.report-table tr:nth-child(even) { background: #f8fafc; }
+    .pill-pass {
+      background: #dcfce7; color: #166534; font-weight: 700; padding: 2px 9px;
+      border-radius: 999px; font-size: 11.5px; display: inline-block;
+    }
+    code {
+      background: #f1f5f9; padding: 2px 6px; border-radius: 4px;
+      font-family: Consolas, monospace; font-size: 12.5px; color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Thanh điều hướng phiên bản Release Report -->
+    <div class="version-nav">
+      <div><strong>📊 HỆ THỐNG BÁO CÁO PHÁT HÀNH (RELEASE REPORTS)</strong></div>
+      <div class="version-links">
+        <a href="report_0_2_0.html">v0.2.0 (frmMain v1.0)</a>
+        <a href="report_0_2_1.html">v0.2.1 (frmDoiMatKhau)</a>
+        <a href="report_0_2_2.html">v0.2.2 (frmMain v1.1 Fix)</a>
+        <a href="report_0_2_3.html">v0.2.3 (MH 1: frmDanhMuc)</a>
+        <a href="report_0_2_4.html">v0.2.4 (MH 2: frmMonAn)</a>
+        <a href="report_0_2_5.html">v0.2.5 (MH 3: frmCaLamViec)</a>
+        <a href="report_0_2_6.html" class="active">v0.2.6 (MH 4: frmKhuVuc)</a>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-badges">
+        <span class="badge blue">RELEASE v0.2.6</span>
+        <span class="badge green">CHECKLIST ƯU TIÊN — MÀN HÌNH 4/5 (QUẢN LÝ KHU VỰC BÀN)</span>
+        <span class="badge amber">24/24 TESTS PASS (100%)</span>
+      </div>
+      <h1>🏢 Màn Hình 4: Quản Lý Khu Vực Bàn Ăn (<code>frmKhuVuc v1.0</code>)</h1>
+      <p>
+        Hoàn tất trọn vẹn quy trình 5 bước chuẩn (5-Step Sprint Workflow) cho màn hình thứ 4 trong <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code>:
+        Chuẩn hóa CSDL <code>KhuVuc</code> Idempotent 100%, đồng bộ trực tiếp với <code>Ban.B_KhuVuc</code> (<em>Tầng trệt</em>, <em>Lầu 1 (Máy lạnh)</em>, <em>Phòng VIP Máy lạnh</em>, <em>Sân vườn thoáng mát</em>),
+        bố cục Split-Layout 38%:62% chống đè control, tự động tính tổng số bàn &amp; tổng chỗ ngồi qua <code>LEFT JOIN Ban</code>, bảo vệ khóa ngoại (FK Protection),
+        cơ chế Cascade Update tên khu vực và khôi phục xóa mềm thông minh (Soft-Delete Recovery).
+      </p>
+    </div>
+
+    <!-- 4 Thẻ KPI Tổng hợp -->
+    <div class="kpi-grid">
+      <div class="kpi-box green">
+        <div class="label">Kiểm thử Tự động Bước 4</div>
+        <div class="val">24 / 24 PASS</div>
+        <div class="sub">Đạt 100% (8 Layout + 12 CRUD/FK + 4 RBAC)</div>
+      </div>
+      <div class="kpi-box blue">
+        <div class="label">Tổng số khu vực hoạt động</div>
+        <div class="val">4 khu vực</div>
+        <div class="sub">Tầng trệt, Lầu 1, Phòng VIP, Sân vườn</div>
+      </div>
+      <div class="kpi-box orange">
+        <div class="label">Tổng số bàn đã bố trí</div>
+        <div class="val">12 bàn ăn</div>
+        <div class="sub">Đếm từ bảng Ban (LEFT JOIN Ban.B_Xoa=0)</div>
+      </div>
+      <div class="kpi-box purple">
+        <div class="label">Tổng sức chứa khách tối đa</div>
+        <div class="val">72 chỗ ngồi</div>
+        <div class="sub">SUM(Ban.B_SoNguoiToiDa) toàn quán</div>
+      </div>
+    </div>
+
+    <!-- Mục 1: Tiến độ 5 bước Sprint -->
+    <div class="section">
+      <h2>1. Tiến Độ Thực Hiện 5 Bước Chuẩn (5-Step Sprint Workflow)</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Bước</th>
+            <th style="width: 25%;">Tên hạng mục</th>
+            <th style="width: 45%;">Mô tả chi tiết &amp; Sản phẩm bàn giao</th>
+            <th style="width: 10%;">Git Commit</th>
+            <th style="width: 10%;">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bước 1</strong></td>
+            <td>Chuẩn hóa CSDL, Đặc tả Kỹ thuật &amp; HTML Mockup (<code>v1.0</code>)</td>
+            <td>Bổ sung bảng <code>KhuVuc</code> (Idempotent 100%) vào <code>create-database.sql</code> &amp; <code>seed-data.sql</code>, thực thi lên Docker SQL Server, tạo <code>KHU_VUC_SPRINT.md</code> và <code>frmKhuVuc_mockup_v1_0.html</code>.</td>
+            <td><code>9f92488</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 2</strong></td>
+            <td>Thiết kế Giao diện WinForms (<code>frmKhuVuc.Designer.vb</code>)</td>
+            <td>Xây dựng bố cục 3 tầng dọc (<code>pnlHeader</code>, <code>tlpKpiRow</code>, <code>tlpMainContent</code> 38%:62%), badge thống kê số bàn/chỗ ngồi và <code>dgvKhuVuc</code> 5 cột chuẩn.</td>
+            <td><code>a0fc5d0</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 3</strong></td>
+            <td>Xây dựng Tầng <code>DTO</code> / <code>DAO</code> / <code>BUS</code> &amp; Logic <code>frmKhuVuc.vb</code></td>
+            <td>Truy vấn <code>LEFT JOIN Ban</code> tính số bàn và sức chứa, kiểm tra trùng tên, Cascade Update đồng bộ tên bàn, chặn xóa khi có bàn và khôi phục xóa mềm.</td>
+            <td><code>9d7810e</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 4</strong></td>
+            <td>Tích hợp <code>frmMain</code> &amp; Kiểm thử Tự động (<code>KhuVucVerifier</code>)</td>
+            <td>Kết nối điều hướng từ <code>frmMain</code> (phân quyền <code>CQ_QUAN_LY_BAN</code>) và vượt qua <strong>24/24 test cases (100% PASS)</strong>.</td>
+            <td><code>0bc35f3</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 5</strong></td>
+            <td>Release Report <code>v0.2.6</code>, Đồng bộ 2 Checklist &amp; Git Tag</td>
+            <td>Xuất bản <code>report_0_2_6.html</code>, đánh dấu <code>[x]</code> trên <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code> &amp; Mục 3.5 <code>CHECKLIST_DO_AN.md</code>, gắn tag <code>v0.2.6</code>.</td>
+            <td><code>HEAD (v0.2.6)</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mục 2: So sánh Trước & Sau -->
+    <div class="section">
+      <h2>2. So Sánh Trực Quan Trước &amp; Sau Khi Phát Hành <code>v0.2.6</code></h2>
+      <div class="compare-grid">
+        <div class="compare-card before">
+          <h3>❌ TRƯỚC (v0.2.5)</h3>
+          <ul>
+            <li>Khi bấm vào nút Sơ đồ bàn / Đặt bàn trên <code>frmMain</code>, hệ thống chỉ hiển thị hộp thoại <code>MessageBox</code> thông báo tạm thời.</li>
+            <li>Chưa có bảng <code>KhuVuc</code> trong CSDL; các khu vực bàn chỉ được lưu dưới dạng chuỗi tự do trong cột <code>Ban.B_KhuVuc</code>, dễ bị phân mảnh dữ liệu.</li>
+            <li>Chưa có màn hình quản lý các khu vực phục vụ (Tầng trệt, Lầu 1, Phòng VIP, Sân vườn) và chưa có số liệu thống kê tổng sức chứa khách theo không gian.</li>
+          </ul>
+        </div>
+        <div class="compare-card after">
+          <h3>✅ SAU (v0.2.6 — <code>frmKhuVuc v1.0</code>)</h3>
+          <ul>
+            <li>Mở trực tiếp màn hình <code>frmKhuVuc</code> theo bố cục <strong>Split-Layout 38% : 62%</strong> đồng bộ chuẩn toàn hệ thống.</li>
+            <li>Hiển thị 3 thẻ KPI thời gian thực: <strong>4 khu vực hoạt động</strong>, <strong>12 bàn đã bố trí</strong>, <strong>72 chỗ ngồi tối đa</strong>.</li>
+            <li>Tự động thống kê số bàn &amp; sức chứa qua <code>LEFT JOIN Ban</code>, tự động đồng bộ tên khu vực mới xuống các bàn (Cascade Update), chặn xóa khu vực đang có bàn hoạt động (FK Protection) và khôi phục xóa mềm thông minh.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mục 3: Ma trận 24/24 kết quả kiểm thử tự động -->
+    <div class="section">
+      <h2>3. Kết Quả Kiểm Thử Tự Động Toàn Diện (<code>KhuVucVerifier</code> — 24/24 PASS)</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 11%;">Mã Test</th>
+            <th style="width: 34%;">Nội dung kiểm thử</th>
+            <th style="width: 43%;">Số liệu đo thực tế (Runtime Telemetry)</th>
+            <th style="width: 12%;">Kết quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>KV-L01</code></td><td>Khởi tạo Form &amp; Kích thước chuẩn</td><td><code>ClientSize={Width=1080, Height=660}, MinimumSize={Width=1000, Height=640}</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L02</code></td><td>Bố cục 3 tầng dọc không đè nhau</td><td><code>Header.Height=68 (Bottom=68), Kpi.Height=78 (Bottom=146), MainContent.Dock=Fill</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L03</code></td><td>3 thẻ KPI cân đối 33.33% mỗi cột</td><td><code>KpiColumns=['33.33', '33.33', '33.34'] (pnlKpiTongKhuVuc, pnlKpiTongBan, pnlKpiTongCho)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L04</code></td><td>Tỷ lệ Split-Layout 38% (Form) : 62% (Grid)</td><td><code>FormCol=38.0%, GridCol=62.0% (Tỷ lệ chuẩn 38:62)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L05</code></td><td>Chống đè Control trên <code>pnlFormCard</code> (Default &amp; MinimumSize)</td><td><code>txtMoTa.Bottom=281px, pnlThongKeBanBadge.Bottom=324px &le; tlpButtons.Top&ge;400px (Khoảng cách &ge; 76px)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L06</code></td><td>Cụm 4 nút CRUD (2x2) hiển thị đầy đủ kích thước</td><td><code>tlpButtons 2x2: btnThem, btnCapNhat, btnXoa, btnLamMoi (Dock=Fill)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L07</code></td><td>Bảng <code>dgvKhuVuc</code> có đủ 5 cột chuẩn</td><td><code>Columns.Count=5 (Mã KV, Tên khu vực, Mô tả không gian, Số bàn hiện có, Tổng chỗ ngồi)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-L08</code></td><td>Responsive co giãn ở độ phân giải lớn giữ nguyên tỷ lệ 38:62</td><td><code>TableLayoutPanel động với Percent=38% : 62% co giãn hoàn hảo ở FullHD (1920x1080)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B01</code></td><td>Nạp đúng 4 Khu vực chuẩn từ Seed Data</td><td><code>Count=4 ('Tầng trệt', 'Lầu 1 (Máy lạnh)', 'Phòng VIP Máy lạnh', 'Sân vườn thoáng mát')</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B02</code></td><td>Đếm số bàn thực tế từng khu vực qua <code>LEFT JOIN Ban</code></td><td><code>Tầng trệt: 5 bàn, Lầu 1: 3 bàn, VIP: 2 bàn, Sân vườn: 2 bàn (Tổng 12 bàn)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B03</code></td><td>Tổng sức chứa khách tối đa qua <code>SUM(Ban.B_SoNguoiToiDa)</code></td><td><code>Tổng chỗ ngồi toàn quán = 72 chỗ (Tầng trệt=20, Lầu 1=18, VIP=22, Sân vườn=12)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B04</code></td><td>Tìm kiếm theo từ khóa <code>"VIP"</code></td><td><code>FilteredCount=1 (Khu vực Phòng VIP Máy lạnh)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B05</code></td><td>Chặn thêm khu vực khi Tên khu vực để trống</td><td><code>Validation: 'Tên khu vực không được để trống!' (ThanhCong = False)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B06</code></td><td>Chặn thêm khu vực khi Tên khu vực vượt quá 50 ký tự</td><td><code>Validation: 'Tên khu vực không được vượt quá 50 ký tự!' (ThanhCong = False)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B07</code></td><td>Chặn thêm trùng tên với khu vực đang hoạt động</td><td><code>Tên 'Tầng trệt' đã tồn tại -> Chặn duplicate (ThanhCong = False)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B08</code></td><td>Bảo vệ Khóa ngoại: Chặn xóa khu vực đang có bàn hoạt động</td><td><code>Tầng trệt đang có 5 bàn -> Chặn xóa mềm &amp; Báo lỗi toàn vẹn</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B09</code></td><td>Thêm mới khu vực test <code>"Tầng thượng (Rooftop Test)"</code></td><td><code>Thêm thành công khu vực mới với Mã KV #8</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B10</code></td><td>Cập nhật thông tin khu vực test &amp; Cascade Update</td><td><code>Tên mới='Tầng thượng (Rooftop VIP)', Mô tả mới='Khu VIP sân thượng cao cấp'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B11</code></td><td>Xóa mềm khu vực test &amp; Khôi phục tự động đúng <code>KV_Ma</code> cũ</td><td><code>OriginalID=8 == RestoredID=8 (Soft-Delete Recovery OK)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-B12</code></td><td>Tự làm sạch dữ liệu kiểm thử (Self-Cleaning)</td><td><code>Đã dọn dẹp khu vực test #8, bảng KhuVuc trả về đúng 4 khu vực gốc</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-R01</code></td><td>Phân quyền RBAC cho Chủ quán (<code>chuquan</code> - Role 1)</td><td><code>CoQuyen=True, btnThem.Enabled=True, btnCapNhat.Enabled=True, Badge='CHẾ ĐỘ: THÊM MỚI'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-R02</code></td><td>Phân quyền RBAC cho Quản lý (<code>quanly</code> - Role 2)</td><td><code>CoQuyen=True, btnThem.Enabled=True, btnCapNhat.Enabled=True, Badge='CHẾ ĐỘ: THÊM MỚI'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-R03</code></td><td>Phân quyền RBAC cho Phục vụ (<code>phucvu1</code> - Role 3)</td><td><code>CoQuyen=False, btnThem.Enabled=False, btnCapNhat.Enabled=False, Badge='CHẾ ĐỘ: CHỈ XEM'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>KV-R04</code></td><td>Phân quyền RBAC cho Nhà bếp (<code>nhabep1</code> - Role 4)</td><td><code>CoQuyen=False, btnThem.Enabled=False, btnCapNhat.Enabled=False, Badge='CHẾ ĐỘ: CHỈ XEM'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mục 4: Danh mục file bàn giao -->
+    <div class="section">
+      <h2>4. Danh Mục File Bàn Giao Trong Bản Phát Hành <code>v0.2.6</code></h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 42%;">Đường dẫn File</th>
+            <th style="width: 18%;">Phân lớp</th>
+            <th style="width: 40%;">Mô tả nội dung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>database/docker-mssql/create-database.sql</code></td>
+            <td>Database / DDL</td>
+            <td>Bổ sung bảng <code>KhuVuc</code> (<code>KV_Ma</code>, <code>KV_Ten</code>, <code>KV_MoTa</code>, <code>KV_Xoa</code>) đảm bảo Idempotent 100%.</td>
+          </tr>
+          <tr>
+            <td><code>database/docker-mssql/seed-data.sql</code></td>
+            <td>Database / Seed</td>
+            <td>Nạp dữ liệu 4 khu vực chuẩn (Tầng trệt, Lầu 1, Phòng VIP, Sân vườn) đồng bộ với bảng <code>Ban</code>.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Core/DTO/KhuVucDTO.vb</code></td>
+            <td>Core / DTO</td>
+            <td>Lớp thực thể ánh xạ bảng <code>KhuVuc</code> kết hợp <code>SoLuongBan</code> và <code>TongSucChua</code>.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Core/DAO/KhuVucDAO.vb</code></td>
+            <td>Core / DAO</td>
+            <td>Truy vấn SQL tham số hóa, tính số bàn qua <code>LEFT JOIN Ban</code>, Cascade Update và khôi phục xóa mềm.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Core/BUS/KhuVucBUS.vb</code></td>
+            <td>Core / BUS</td>
+            <td>Kiểm tra ràng buộc nghiệp vụ, chống trùng tên, bảo vệ khóa ngoại (FK Protection) và xử lý xóa mềm.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Features/Table/frmKhuVuc.Designer.vb</code></td>
+            <td>GUI / Designer</td>
+            <td>Giao diện WinForms bố cục <code>TableLayoutPanel</code> Split-Layout 38% : 62% kèm 3 thẻ KPI.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Features/Table/frmKhuVuc.vb</code></td>
+            <td>GUI / Logic</td>
+            <td>Xử lý sự kiện CRUD, tìm kiếm tức thì, phân quyền <code>CQ_QUAN_LY_BAN</code> và điều hướng sang MH Bàn.</td>
+          </tr>
+          <tr>
+            <td><code>Quanlyquanan/Features/Main/frmMain.vb</code></td>
+            <td>GUI / Main</td>
+            <td>Tích hợp mở <code>frmKhuVuc</code> từ thanh Sidebar &amp; các nút Thao tác nhanh (Quick Actions).</td>
+          </tr>
+          <tr>
+            <td><code>docs/features/table/khu_vuc/KHU_VUC_SPRINT.md</code></td>
+            <td>Documentation</td>
+            <td>Tài liệu đặc tả kỹ thuật &amp; tiến độ 5 bước Sprint <code>frmKhuVuc v1.0</code>.</td>
+          </tr>
+          <tr>
+            <td><code>docs/features/table/khu_vuc/frmKhuVuc_mockup_v1_0.html</code></td>
+            <td>UI/UX Mockup</td>
+            <td>Bản mẫu HTML tương tác với 4 kịch bản mô phỏng nghiệp vụ thực tế.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>
