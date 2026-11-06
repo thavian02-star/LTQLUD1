@@ -2,7 +2,7 @@
 
 > **Phân hệ:** Quản lý Bàn Ăn & Không Gian (`Features/Table`)  
 > **Màn hình ưu tiên:** Màn hình 5 / 5 thuộc [`docs/CHECKLIST_UU_TIEN_DANH_MUC.md`](../../../CHECKLIST_UU_TIEN_DANH_MUC.md)  
-> **Phiên bản mục tiêu:** `v0.2.6`  
+> **Phiên bản mục tiêu:** `v0.2.7`  
 > **Bảng CSDL chính:** `Ban` (Liên kết khóa ngoại từ `HoaDon.HD_MaBan`)  
 > **Phân quyền RBAC:** Quyền cấu hình Bàn ghế dành cho `Chủ quán` & `Quản lý` (`CQ_QUAN_LY_BAN`); nhân viên Phục vụ/Nhà bếp chỉ có quyền xem trạng thái bàn.
 
@@ -22,7 +22,7 @@ Màn hình **Quản lý Danh sách Bàn Ăn (`frmBan`)** là nơi cấu hình to
   1. **Tổng số bàn hoạt động:** Số lượng bàn trong quán (`12 bàn`).
   2. **Bàn đang trống:** Số bàn sẵn sàng đón khách (`10 bàn`).
   3. **Bàn đang phục vụ:** Số bàn có khách / đang đợi món / món đã xong (`2 bàn`).
-  4. **Tổng sức chứa khách:** Tổng số chỗ ngồi phục vụ tối đa (`70 chỗ`).
+  4. **Tổng sức chứa khách:** Tổng số chỗ ngồi phục vụ tối đa (`72 chỗ`).
 - **Bộ lọc đa chiều & Tìm kiếm nhanh:**
   - Lọc theo **Khu vực bàn** (*Tất cả khu vực*, *Tầng trệt*, *Lầu 1 (Máy lạnh)*, *Phòng VIP Máy lạnh*, *Sân vườn thoáng mát*).
   - Lọc theo **Trạng thái bàn** (*Tất cả*, *Trống*, *Có khách*, *Đang đợi món*, *Món đã xong*).
@@ -76,7 +76,7 @@ Màn hình **Quản lý Danh sách Bàn Ăn (`frmBan`)** là nơi cấu hình to
   - `pnlKpiTongBan`: **TỔNG SỐ BÀN** (`12 bàn`).
   - `pnlKpiBanTrong`: **BÀN ĐANG TRỐNG** (`10 bàn`).
   - `pnlKpiDangPhucVu`: **BÀN ĐANG PHỤC VỤ** (`2 bàn`).
-  - `pnlKpiSucChua`: **TỔNG SỨC CHỨA** (`70 chỗ ngồi`).
+  - `pnlKpiSucChua`: **TỔNG SỨC CHỨA** (`72 chỗ ngồi`).
 - **Tầng 3 — Nội dung chính (`tlpMainContent`, `Dock = Fill`, 2 cột `38% : 62%`):**
   - **Cột Trái (`pnlFormCard` - 38%):**
     - Tiêu đề `"📝 THÔNG TIN CHI TIẾT BÀN"` + Badge trạng thái (`"CHẾ ĐỘ: THÊM MỚI"` / `"CHẾ ĐỘ: CẬP NHẬT"` / `"CHẾ ĐỘ: CHỈ XEM"`).
@@ -107,4 +107,7 @@ Màn hình **Quản lý Danh sách Bàn Ăn (`frmBan`)** là nơi cấu hình to
   - [x] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb` và hoàn thiện sự kiện trong `frmBan.vb`.
 - [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`BanVerifier`)**
   - [x] Tích hợp mở `frmBan` từ `frmMain` và thực thi bộ kiểm thử tự động toàn diện 26/26 tiêu chí (Layout + Filter + CRUD + FK Protection + RBAC) đạt 100% PASS.
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_6.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.6`**
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_7.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.7`**
+  - [x] Xuất bản báo cáo phát hành trực quan `report_0_2_7.html` và tích hợp thanh điều hướng 8 phiên bản.
+  - [x] Đánh dấu hoàn thành `[x]` Màn hình 5 trên `CHECKLIST_UU_TIEN_DANH_MUC.md` & Mục 3.5 Quản lý Bàn ghế trên `CHECKLIST_DO_AN.md`.
+  - [x] Gắn Git Tag `v0.2.7`.

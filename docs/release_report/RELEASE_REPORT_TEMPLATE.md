@@ -102,6 +102,8 @@ docs/
     ├── report_0_2_3.html               ← Báo cáo phát hành phiên bản v0.2.3 (Màn hình 1/5: Quản lý Danh mục Thực đơn - frmDanhMuc v1.0)
     ├── report_0_2_4.html               ← Báo cáo phát hành phiên bản v0.2.4 (Màn hình 2/5: Quản lý Món ăn & Thức uống - frmMonAn v1.0)
     ├── report_0_2_5.html               ← Báo cáo phát hành phiên bản v0.2.5 (Màn hình 3/5: Quản lý Danh sách Ca làm việc - frmCaLamViec v1.0)
+    ├── report_0_2_6.html               ← Báo cáo phát hành phiên bản v0.2.6 (Màn hình 4/5: Quản lý Khu vực bàn ăn - frmKhuVuc v1.0)
+    ├── report_0_2_7.html               ← Báo cáo phát hành phiên bản v0.2.7 (Màn hình 5/5: Quản lý Danh sách Bàn ăn - frmBan v1.0)
     ├── report_0_3_0.html               ← (Dự kiến: Sơ đồ bàn & Gọi món)
     └── ...
 ```

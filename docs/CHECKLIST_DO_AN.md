@@ -109,10 +109,9 @@
   - [ ] Chọn nhiều **Trình độ vi tính** (Word, Excel, Cài phần mềm, Khác) và cho phép thêm/sửa danh mục trình độ vi tính.
   - [ ] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên.
   - [ ] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái nghỉ việc, xóa lịch làm việc tương lai, đánh dấu thu hồi trang phục/dụng cụ.
-- [ ] **Quản lý Bàn ghế & Khu vực (`frmKhuVuc`, `frmBan` / `frmQuanLyBan`):** *(Ưu tiên thực hiện tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 4 & MH 5)*
-  - [x] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn... *(Đã hoàn thành 24/24 test cases tại [`report_0_2_6.html`](release_report/report_0_2_6.html))*
-  - [ ] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa.
-
+- [x] **Quản lý Bàn ghế & Khu vực (rmKhuVuc, rmBan / rmQuanLyBan):** *(Đã hoàn thành trọn vẹn cả MH 4 & MH 5)*
+  - [x] Quản lý Khu vực bàn (rmKhuVuc): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn... *(Đã hoàn thành 24/24 test cases tại [eport_0_2_6.html](release_report/report_0_2_6.html))*
+  - [x] Tổ chức bàn ghế (rmBan): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa *(Đã hoàn thành 26/26 test cases tại [eport_0_2_7.html](release_report/report_0_2_7.html))*.
 - [x] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Đã hoàn thành tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*
   - [x] Quản lý Danh mục món (`frmDanhMuc`): Thêm / Sửa / Xóa nhóm thực đơn *(Đã hoàn thành 24/24 test cases tại [`report_0_2_3.html`](release_report/report_0_2_3.html))*.
   - [x] Quản lý Món ăn & Thức uống (`frmMonAn`): Khởi tạo/chỉnh sửa món ăn, nước uống (tên, danh mục, giá bán, mô tả, đánh dấu còn/hết món) *(Đã hoàn thành 28/28 test cases tại [`report_0_2_4.html`](release_report/report_0_2_4.html))*.

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.7 — Màn hình Quản lý Danh sách Bàn ăn (frmBan v1.0)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: var(--dark); color: #fff; padding: 12px 20px; border-radius: 10px;
+      margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1; text-decoration: none; font-size: 12.5px; padding: 5px 12px;
+      border-radius: 6px; background: #334155; font-weight: 600;
+    }
+    .version-links a.active { background: var(--primary); color: #fff; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1a5276 0%, #0f172a 100%);
+      color: #fff; padding: 30px 32px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .badge.blue { background: #3b82f6; color: #fff; }
+    .badge.green { background: #22c55e; color: #052e16; }
+    .badge.amber { background: #f59e0b; color: #451a03; }
+    .hero h1 { font-size: 26px; margin-bottom: 8px; }
+    .hero p { color: #cbd5e1; font-size: 14.5px; max-width: 980px; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; border-left: 5px solid var(--primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+    .kpi-box.green { border-left-color: var(--success); }
+    .kpi-box.amber { border-left-color: var(--warning); }
+    .kpi-box.purple { border-left-color: #7c3aed; }
+    .kpi-box .label { font-size: 12px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .kpi-box .val { font-size: 24px; font-weight: 800; margin: 4px 0; color: var(--text); }
+    .kpi-box .sub { font-size: 12.5px; color: var(--muted); }
+
+    .section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 26px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .section h2 {
+      font-size: 18px; margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid #f1f5f9; display: flex; align-items: center; gap: 8px;
+    }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .compare-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .compare-card.before { background: #fff1f2; border-color: #fecdd3; }
+    .compare-card.after { background: #f0fdf4; border-color: #bbf7d0; }
+    .compare-card h3 { font-size: 14.5px; margin-bottom: 10px; }
+    .compare-card ul { padding-left: 18px; font-size: 13.5px; }
+    .compare-card li { margin-bottom: 6px; }
+
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+    table.report-table th, table.report-table td {
+      border: 1px solid var(--border); padding: 9px 12px; text-align: left;
+    }
+    table.report-table th { background: #f1f5f9; font-weight: 700; color: #1e293b; }
+    table.report-table tr:nth-child(even) { background: #f8fafc; }
+    .pill-pass {
+      background: #dcfce7; color: #166534; font-weight: 700; padding: 2px 9px;
+      border-radius: 999px; font-size: 11.5px; display: inline-block;
+    }
+    code {
+      background: #f1f5f9; padding: 2px 6px; border-radius: 4px;
+      font-family: Consolas, monospace; font-size: 12.5px; color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Thanh điều hướng phiên bản Release Report -->
+    <div class="version-nav">
+      <div><strong>📊 HỆ THỐNG BÁO CÁO PHÁT HÀNH (RELEASE REPORTS)</strong></div>
+      <div class="version-links">
+        <a href="report_0_2_0.html">v0.2.0 (frmMain v1.0)</a>
+        <a href="report_0_2_1.html">v0.2.1 (frmDoiMatKhau)</a>
+        <a href="report_0_2_2.html">v0.2.2 (frmMain v1.1 Fix)</a>
+        <a href="report_0_2_3.html">v0.2.3 (MH 1: frmDanhMuc)</a>
+        <a href="report_0_2_4.html">v0.2.4 (MH 2: frmMonAn)</a>
+        <a href="report_0_2_5.html">v0.2.5 (MH 3: frmCaLamViec)</a>
+        <a href="report_0_2_6.html" class="active">v0.2.7 (MH 5: frmBan)</a>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-badges">
+        <span class="badge blue">RELEASE v0.2.7</span>
+        <span class="badge green">CHECKLIST ƯU TIÊN — MÀN HÌNH 5/5 (QUẢN LÝ BÀN ĂN)</span>
+        <span class="badge amber">26/26 TESTS PASS (100%)</span>
+      </div>
+      <h1>🪑 Màn Hình 5: Quản Lý Danh Sách Bàn Ăn (<code>frmBan v1.0</code>)</h1>
+      <p>
+        Hoàn tất trọn vẹn quy trình 5 bước phát triển màn hình thứ 5 trong <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code>:
+        Quản lý danh sách bàn ăn toàn diện theo 4 khu vực (<em>Tầng trệt, Lầu 1 (Máy lạnh), Phòng VIP Máy lạnh, Sân vườn thoáng mát</em>),
+        phản ánh trạng thái bàn phục vụ thời gian thực (<em>Trống, Có khách, Đang đợi món, Món đã xong</em>),
+        tra cứu hóa đơn đang phục vụ (<code>LEFT JOIN HoaDon</code>), kiểm tra ràng buộc số thứ tự duy nhất &amp; tự động khôi phục xóa mềm,
+        bảo vệ toàn vẹn dữ liệu ngăn xóa bàn đang có khách/hóa đơn, và đồng bộ hoàn thành <code>[x]</code> vào cả 2 Checklist dự án.
+      </p>
+    </div>
+
+    <!-- 4 Thẻ KPI Tổng hợp -->
+    <div class="kpi-grid">
+      <div class="kpi-box green">
+        <div class="label">Kiểm thử Tự động Bước 4</div>
+        <div class="val">26 / 26 PASS</div>
+        <div class="sub">Đạt 100% (8 Layout + 14 Data/CRUD/FK + 4 RBAC)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Kiến trúc 3 Lớp Chuẩn</div>
+        <div class="val">5 Files VB</div>
+        <div class="sub"><code>BanDTO</code> • <code>BanDAO</code> • <code>BanBUS</code> • <code>frmBan</code></div>
+      </div>
+      <div class="kpi-box amber">
+        <div class="label">Không gian Bàn & Sức chứa</div>
+        <div class="val">12 Bàn / 72 Chỗ</div>
+        <div class="sub">10 bàn trống • 2 bàn phục vụ (HĐ #5, HĐ #6)</div>
+      </div>
+      <div class="kpi-box purple">
+        <div class="label">Tiến độ Checklist Ưu tiên</div>
+        <div class="val">5 / 5 Màn hình (100%)</div>
+        <div class="sub">Đã xong trọn vẹn: <code>frmDanhMuc</code>, <code>frmMonAn</code>, <code>frmCaLamViec</code>, <code>frmKhuVuc</code>, <code>frmBan</code></div>
+      </div>
+    </div>
+
+    <!-- Mục 1: Ma trận 5 bước triển khai Sprint -->
+    <div class="section">
+      <h2>1. Tiến Độ Thực Thi Quy Trình 5 Bước Chuẩn (Sprint <code>frmBan v1.0</code>)</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Bước</th>
+            <th style="width: 28%;">Hạng mục công việc</th>
+            <th style="width: 40%;">Kết quả bàn giao &amp; Artefacts</th>
+            <th style="width: 12%;">Commit</th>
+            <th style="width: 10%;">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bước 1</strong></td>
+            <td>Đặc tả Kỹ thuật &amp; Interactive HTML Mockup (<code>v1.0</code>)</td>
+            <td>Tạo <code>BAN_SPRINT.md</code> và <code>frmBan_mockup_v1_0.html</code> với 5 kịch bản mô phỏng trực quan.</td>
+            <td><code>5183cb7</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 2</strong></td>
+            <td>Thiết kế Giao diện WinForms (<code>frmBan.Designer.vb</code>)</td>
+            <td>Xây dựng bố cục 3 tầng dọc (<code>pnlHeader</code>, <code>tlpKpiRow</code> 4 thẻ, <code>tlpMainContent</code> 38%:62%), cấu trúc 3 hàng nhập liệu đôi chống đè control và <code>dgvBan</code> 7 cột.</td>
+            <td><code>ae51c03</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 3</strong></td>
+            <td>Xây dựng Tầng <code>DTO</code> / <code>DAO</code> / <code>BUS</code> &amp; Logic <code>frmBan.vb</code></td>
+            <td>Thực thi truy vấn <code>LEFT JOIN HoaDon</code> lấy hóa đơn hoạt động, kiểm tra trùng STT, bảo vệ khóa ngoại bàn đang phục vụ và khôi phục xóa mềm thông minh.</td>
+            <td><code>641d52c</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 4</strong></td>
+            <td>Tích hợp <code>frmMain</code> &amp; Kiểm thử Tự động (<code>BanVerifier</code>)</td>
+            <td>Kết nối điều hướng từ <code>frmMain</code> (<code>btnSoDoBan_Click</code>) và vượt qua <strong>26/26 test cases (100% PASS)</strong>.</td>
+            <td><code>e500a74</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 5</strong></td>
+            <td>Release Report <code>v0.2.7</code>, Đồng bộ 2 Checklist &amp; Git Tag</td>
+            <td>Xuất bản <code>report_0_2_6.html</code>, đánh dấu <code>[x]</code> trên <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code> &amp; <code>CHECKLIST_DO_AN.md</code>, gắn tag <code>v0.2.7</code>.</td>
+            <td><code>HEAD (v0.2.7)</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mục 2: So sánh Trước & Sau -->
+    <div class="section">
+      <h2>2. So Sánh Trực Quan Trước &amp; Sau Khi Phát Hành <code>v0.2.7</code></h2>
+      <div class="compare-grid">
+        <div class="compare-card before">
+          <h3>❌ TRƯỚC (v0.2.7)</h3>
+          <ul>
+            <li>Khi bấm vào nút Sơ đồ bàn / Quản lý bàn trên <code>frmMain</code>, hệ thống chỉ hiển thị thông báo hộp thoại <code>MessageBox</code> tạm thời.</li>
+            <li>Chưa có giao diện trực quan hiển thị danh sách 12 bàn ăn, số thứ tự, khu vực, sức chứa hoặc trạng thái phục vụ thời gian thực.</li>
+            <li>Chưa có các lớp <code>BanDTO</code>, <code>BanDAO</code>, <code>BanBUS</code> để phục vụ phân hệ Bán hàng (POS), Đặt món, Chuyển bàn, Gộp bàn.</li>
+            <li>Chưa có cơ chế bảo vệ ngăn chặn việc vô tình xóa bàn đang có khách hoặc đang gắn hóa đơn chưa thanh toán.</li>
+          </ul>
+        </div>
+        <div class="compare-card after">
+          <h3>✅ SAU (v0.2.7 — <code>frmBan v1.0</code>)</h3>
+          <ul>
+            <li>Mở trực tiếp màn hình <code>frmBan</code> theo bố cục <strong>Split-Layout 38% : 62%</strong> chuẩn mực, chống tràn và co giãn mượt mà.</li>
+            <li>Hiển thị 4 thẻ KPI thời gian thực: <strong>12 bàn tổng cộng</strong>, <strong>10 bàn đang trống</strong>, <strong>2 bàn đang phục vụ</strong>, <strong>72 chỗ ngồi</strong>.</li>
+            <li>Bộ lọc đa chiều theo Khu vực và Trạng thái kết hợp tìm kiếm tức thời theo tên bàn, số thứ tự, khu vực.</li>
+            <li>Hiển thị thông tin Hóa đơn đang phục vụ (VD: <em>HĐ #5 — 3 món</em>, <em>HĐ #6 — 2 món</em>) ngay trên badge và bảng lưới.</li>
+            <li>Kiểm tra chặt chẽ: STT duy nhất, sức chứa &gt; 0, chặn xóa bàn đang có khách/hóa đơn, tự động khôi phục bàn đã xóa mềm, và phân quyền RBAC nghiêm ngặt cho Chủ quán.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mục 3: Ma trận 26/26 kết quả kiểm thử tự động -->
+    <div class="section">
+      <h2>3. Kết Quả Kiểm Thử Tự Động Toàn Diện (<code>BanVerifier</code> — 26/26 PASS)</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="width: 11%;">Mã Test</th>
+            <th style="width: 33%;">Nội dung kiểm thử</th>
+            <th style="width: 44%;">Số liệu đo thực tế (Runtime Telemetry)</th>
+            <th style="width: 12%;">Kết quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>BA-L01</code></td><td>Khởi tạo Form &amp; Kích thước chuẩn</td><td><code>ClientSize={Width=1120, Height=680}, MinimumSize={Width=1020, Height=640}</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L02</code></td><td>Bố cục 3 tầng dọc không đè nhau</td><td><code>Header.Bottom=68, Kpi.Top=68, Kpi.Bottom=146, Main.Top=146</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L03</code></td><td>4 thẻ KPI cân đối 25% mỗi cột</td><td><code>Kpi1.W=267, Kpi2.W=268, Kpi3.W=268, Kpi4.W=267</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L04</code></td><td>Tỷ lệ Split-Layout 38% (Form) : 62% (Grid)</td><td><code>FormW=408, GridW=662, Ratio=38.1%</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L05</code></td><td>Chống đè Control trên <code>pnlFormCard</code> (Default &amp; MinimumSize)</td><td><code>pnlHoaDonBadge.Bottom=224 &le; tlpButtons.Top=275 (Khoảng hở an toàn = 51px)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L06</code></td><td>Cụm 4 nút CRUD (2x2) hiển thị đầy đủ kích thước</td><td><code>btnThem={Width=183, Height=35}, btnCapNhat={Width=183, Height=35}</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L07</code></td><td>Bảng <code>dgvBan</code> có đủ 7 cột chuẩn</td><td><code>Columns.Count=7 (Mã bàn, STT, Tên bàn, Khu vực, Sức chứa, Trạng thái, Hóa đơn)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-L08</code></td><td>Responsive co giãn ở độ phân giải lớn giữ nguyên tỷ lệ 38:62</td><td><code>FormW=591, GridW=959, Ratio=38.1%</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B01</code></td><td>Nạp đúng 12 Bàn ăn chuẩn từ Seed Data</td><td><code>Count=12 (Bàn 01..12 qua 4 khu vực chuẩn)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B02</code></td><td>Tính toán chính xác 4 chỉ số KPI tổng hợp</td><td><code>TongBan=12, BanTrong=10, BanDangPhucVu=2, TongSucChua=72 chỗ</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B03</code></td><td>Lọc danh sách theo Khu vực (<code>"Tầng trệt"</code>)</td><td><code>FilteredCount=5 (Bàn 01..05)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B04</code></td><td>Lọc danh sách theo Trạng thái (<code>Trống</code> và <code>Đang phục vụ</code>)</td><td><code>CountTrong=10, CountPhucVu=2 (Bàn 02, Bàn 03)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B05</code></td><td>Tìm kiếm theo từ khóa (<code>"VIP"</code>)</td><td><code>FilteredCount=2 ('Bàn 09 (VIP 1)', 'Bàn 10 (VIP 2)')</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B06</code></td><td>Chặn thêm bàn khi Tên bàn để trống</td><td><code>Tên bàn ăn không được để trống!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B07</code></td><td>Chặn thêm bàn khi Số thứ tự &le; 0 hoặc trùng với bàn đang hoạt động</td><td><code>Số thứ tự 2 đã tồn tại cho "Bàn 02"!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B08</code></td><td>Chặn thêm bàn khi Sức chứa tối đa &le; 0</td><td><code>Sức chứa tối đa phải lớn hơn 0!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B09</code></td><td>Bảo vệ Khóa ngoại / Trạng thái: Chặn xóa Bàn 02 đang phục vụ</td><td><code>Bàn đang có hóa đơn #5 chưa thanh toán! Không thể xóa bàn!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B10</code></td><td>Thêm mới <code>"Bàn 13"</code> (STT=13, Sân vườn, 6 người)</td><td><code>MaBanMoi > 0, Thêm mới thành công</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B11</code></td><td>Cập nhật thông tin Bàn 13 (<code>"Bàn 13 VIP Sân Vườn"</code>, 8 người)</td><td><code>TenMoi='Bàn 13 VIP Sân Vườn', SucChuaMoi=8</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B12</code></td><td>Xóa mềm Bàn 13 (<code>B_Xoa=1</code>) &amp; Xác nhận ẩn khỏi danh sách</td><td><code>Delete Success, Danh sách còn 12 bàn</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B13</code></td><td>Khôi phục tự động Bàn 13 khi thêm lại cùng STT (Soft-Delete Recovery)</td><td><code>RestoredMaBan == OriginalMaBan (Soft-Delete Recovery OK)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-B14</code></td><td>Tự làm sạch dữ liệu kiểm thử (Self-Cleaning) trả về đúng 12 bàn gốc</td><td><code>FinalCount=12</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-R01</code></td><td>Phân quyền RBAC cho Chủ quán (<code>chuquan</code> - Role 1)</td><td><code>CoQuyen=True, btnThem.Enabled=True, Badge='CHẾ ĐỘ: THÊM MỚI'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-R02</code></td><td>Phân quyền RBAC cho Quản lý (<code>quanly</code> - Role 2)</td><td><code>CoQuyen=False (Theo seed-data), btnThem.Enabled=False, Badge='CHẾ ĐỘ: CHỈ XEM'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-R03</code></td><td>Phân quyền RBAC cho Phục vụ (<code>phucvu1</code> - Role 3)</td><td><code>CoQuyen=False, btnThem.Enabled=False, Badge='CHẾ ĐỘ: CHỈ XEM'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>BA-R04</code></td><td>Phân quyền RBAC cho Nhà bếp (<code>nhabep1</code> - Role 4)</td><td><code>CoQuyen=False, btnThem.Enabled=False, Badge='CHẾ ĐỘ: CHỈ XEM'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>
