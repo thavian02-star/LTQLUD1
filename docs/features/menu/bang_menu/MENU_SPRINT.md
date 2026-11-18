@@ -108,7 +108,7 @@ flowchart LR
   - [x] Xây dựng bố cục 3 tầng dọc + Split-Layout 40:60 và TabControl 2 danh sách.
 - [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
   - [x] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb` và hoàn thiện logic trong `frmMenu.vb`.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`MenuVerifier`)**
-  - [ ] Tích hợp mở `frmMenu` từ `frmMain.vb`.
-  - [ ] Chạy bộ kiểm thử tự động Layout + CRUD + Gán món + RBAC.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`MenuVerifier`)**
+  - [x] Tích hợp mở `frmMenu` từ `frmMain.vb`.
+  - [x] Chạy bộ kiểm thử tự động Layout + CRUD + Gán món + RBAC (54/54 PASS - 100%).
 - [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_9.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.9`**

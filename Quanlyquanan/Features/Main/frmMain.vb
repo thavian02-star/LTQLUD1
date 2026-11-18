@@ -242,6 +242,15 @@ Namespace Features.Main
             End Using
         End Sub
 
+        ''' <summary>
+        ''' Má»Ÿ trá»±c tiáº¿p mÃ n hÃ¬nh Quáº£n lÃ½ Báº£ng Thá»±c ÄÆ¡n Kinh Doanh (frmMenu - MH 7/9)
+        ''' </summary>
+        Public Sub MoQuanLyMenu()
+            Using fMenu As New Features.Menu.frmMenu()
+                fMenu.ShowDialog(Me)
+            End Using
+        End Sub
+
         Private Sub btnQuanLyNhanSu_Click(sender As Object, e As EventArgs) Handles btnQuanLyNhanSu.Click
             CapNhatButtonActive(btnQuanLyNhanSu)
             MoQuanLyNhanVien()
