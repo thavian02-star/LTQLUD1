@@ -1,119 +1,185 @@
-# CHECKLIST ƯU TIÊN: 5 MÀN HÌNH DANH MỤC NỀN TẢNG (MASTER DATA)
+# CHECKLIST ƯU TIÊN: 9 MÀN HÌNH DANH MỤC NỀN TẢNG (MASTER DATA & CHUỖI NHÀ HÀNG)
 
 **Dự án:** Hệ thống Quản lý Quán ăn (`Quanlyquanan`)  
 **Công nghệ:** VB.NET Windows Forms (.NET 10.0) + SQL Server 2022 (Docker)  
 **Liên kết Checklist tổng:** [`docs/CHECKLIST_DO_AN.md`](CHECKLIST_DO_AN.md)  
-**Quy tắc đồng bộ:** Đây là 5 màn hình danh mục nền tảng (Master Data) được ưu tiên triển khai trước. Khi hoàn thành từng màn hình tại checklist này, các hạng mục tương ứng tại **Mục 3.5** của [`docs/CHECKLIST_DO_AN.md`](CHECKLIST_DO_AN.md) sẽ được đánh dấu `[x]` hoàn thành để không phải làm lại khi quay về luồng checklist chung.
+**Quy tắc đồng bộ:** Đây là 9 màn hình danh mục nền tảng (Master Data) cấu thành toàn bộ dữ liệu hoạt động cho hệ thống quán ăn / chuỗi nhà hàng. Khi hoàn thành từng màn hình tại checklist này, các hạng mục tương ứng tại **Mục 3.5** của [`docs/CHECKLIST_DO_AN.md`](CHECKLIST_DO_AN.md) sẽ được đánh dấu `[x]` hoàn thành để không phải làm lại khi quay về luồng checklist chung.
 
 ---
 
-## 1. BẢNG ÁNH XẠ ĐỒNG BỘ VỚI CHECKLIST CHUNG (`CHECKLIST_DO_AN.md`)
+## 1. BẢNG TỔNG HỢP TIẾN ĐỘ 9 MÀN HÌNH DANH MỤC
 
-| STT | Màn hình theo yêu cầu ưu tiên | Tên Form (`VB.NET`) | Bảng CSDL liên quan | Quyền RBAC (`Q_Tag`) | Ánh xạ mục trùng trong `CHECKLIST_DO_AN.md` | Trạng thái |
+| STT | Màn hình theo yêu cầu | Tên Form (`VB.NET`) | Bảng CSDL liên quan | Quyền RBAC (`Q_Tag`) | Định nghĩa & Ý nghĩa nghiệp vụ | Trạng thái |
 | :-: | :--- | :--- | :--- | :--- | :--- | :-: |
-| **1** | **MH Danh mục** | `frmDanhMuc` | `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Quản lý danh mục món)* | `[x]` **Đã xong (`v0.2.3`)** |
-| **2** | **MH Món ăn** | `frmMonAn` | `MonAn`, `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Mục `3.5` — Quản lý Thực đơn *(Khởi tạo/chỉnh sửa món ăn, nước uống)* | `[x]` **Đã xong (`v0.2.4`)** |
-| **3** | **MH Ca (hiển thị danh sách)** | `frmCaLamViec` | `CaLamViec` | `CQ_XEP_LICH_LAM_VIEC` | Mục `3.5` — Quản lý Lịch làm việc *(Cấu hình/hiển thị danh sách ca & khung giờ)* | `[x]` **Đã xong (`v0.2.5`)** |
-| **4** | **MH Khu vực (Tầng trệt, Tầng 1, ...)** | `frmKhuVuc` | `KhuVuc` *(+ đồng bộ `Ban.B_KhuVuc`)* | `CQ_QUAN_LY_BAN` | Mục `3.5` — Quản lý Bàn ghế & Khu vực *(Tổ chức khu vực bàn)* | `[x]` **Đã xong (`v0.2.6`)** |
-| **5** | **MH Bàn** | `frmBan` | `Ban`, `KhuVuc` | `CQ_QUAN_LY_BAN` | Mục `3.5` — Quản lý Bàn ghế (`frmQuanLyBan`: *Thêm/Sửa/Xóa bàn, STT, số người tối đa*) | `[x]` **Đã xong (`v0.2.7`)** |
-
-> **Lý do thứ tự triển khai (1 → 5):**
-> - **Cặp Thực đơn (`1. MH Danh mục` → `2. MH Món ăn`):** Phải có `DanhMuc` trước để `ComboBox` Danh mục trên `frmMonAn` nạp dữ liệu khóa ngoại (`MA_DanhMuc`).
-> - **Độc lập (`3. MH Ca làm việc`):** Hiển thị danh sách ca làm việc (`Ca Sáng`, `Ca Chiều Tối`, giờ bắt đầu/kết thúc, lương mỗi ca).
-> - **Cặp Không gian bàn (`4. MH Khu vực` → `5. MH Bàn`):** Phải có danh mục `KhuVuc` (*Tầng trệt, Tầng 1, Phòng VIP, Sân vườn...*) trước để `ComboBox` Khu vực trên `frmBan` chọn đúng khu vực chuẩn hóa.
-
----
-
-## 2. CHECKLIST CHI TIẾT TỪNG MÀN HÌNH (QUY TRÌNH 5 BƯỚC CHUẨN)
-
-### MÀN HÌNH 1: MH DANH MỤC (`frmDanhMuc`)
-> **Mục tiêu:** Quản lý các nhóm phân loại thực đơn (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa` — VD: *Món Khai Vị & Gỏi, Món Chính, Món Lẩu & Nướng, Thức Uống, Tráng Miệng*).
-
-- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/menu/danh_muc/`)**
-  - [x] Tạo tài liệu đặc tả `DANH_MUC_SPRINT.md` và file mockup `frmDanhMuc_mockup_v1_0.html` để PO duyệt.
-- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmDanhMuc.Designer.vb`)**
-  - [x] Thiết kế bố cục: Khung nhập liệu (`Mã DM`, `Tên danh mục`, `Mô tả`), thanh tìm kiếm nhanh, các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới`, và lưới `DataGridView` hiển thị danh sách danh mục kèm tổng số món ăn thuộc từng danh mục.
-- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmDanhMuc.vb`)**
-  - [x] Tạo `DanhMucDTO.vb`, `DanhMucDAO.vb`, `DanhMucBUS.vb`.
-  - [x] Ràng buộc nghiệp vụ: Không để trống `DM_Ten`, kiểm tra trùng tên danh mục, xóa mềm (`DM_Xoa = 1`) và chặn xóa nếu danh mục đang chứa món ăn đang kinh doanh.
-- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [x] Gắn sự kiện mở `frmDanhMuc` từ `frmMain` (phân quyền `CQ_QUAN_LY_THUC_DON`).
-  - [x] Chạy bộ test tự động kiểm tra CRUD + Validation + Layout Geometry (`24/24 PASS = 100%`).
-- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_3.html`) & Đồng bộ `CHECKLIST_DO_AN.md`**
+| **1** | **MH Danh mục** | `frmDanhMuc` | `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Phân loại nhóm món (Khai vị, Món chính, Món nướng, Tráng miệng, Nước uống...). | `[x]` **Đã xong (`v0.2.3`)** |
+| **2** | **MH Món ăn** | `frmMonAn` | `MonAn`, `DanhMuc` | `CQ_QUAN_LY_THUC_DON` | Thư viện toàn bộ các món ăn & thức uống (tên, đơn giá gốc, mô tả, bật/tắt hết món). | `[x]` **Đã xong (`v0.2.4`)** |
+| **3** | **MH Ca (hiển thị danh sách)** | `frmCaLamViec` | `CaLamViec` | `CQ_XEP_LICH_LAM_VIEC` | Cấu hình danh sách các ca làm việc trong ngày (giờ vào/ra, thời lượng, mức lương ca). | `[x]` **Đã xong (`v0.2.5`)** |
+| **4** | **MH Khu vực: tầng trệt, tầng 1, ...** | `frmKhuVuc` | `KhuVuc` *(đồng bộ `Ban.B_KhuVuc`)* | `CQ_QUAN_LY_BAN` | Phân chia không gian bàn (Tầng trệt, Tầng 1, VIP, Sân vườn), Cascade Update sang Bàn. | `[x]` **Đã xong (`v0.2.6`)** |
+| **5** | **MH Bàn** | `frmBan` | `Ban`, `KhuVuc` | `CQ_QUAN_LY_BAN` | Quản lý 12 bàn ăn, số thứ tự, sức chứa (72 chỗ), trạng thái phục vụ và liên kết hóa đơn. | `[x]` **Đã xong (`v0.2.7`)** |
+| **6** | **MH Nhân viên** | `frmNhanVien` | `NhanVien`, `TrinhDoViTinh`, `DungCuTrangPhuc` | `CQ_QUAN_LY_NHAN_SU` | Quản lý hồ sơ nhân viên (SĐT, CCCD, chức vụ, trình độ vi tính, cấp phát đồng phục, tài khoản). | `[ ]` **Tiếp theo (MH 6)** |
+| **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[ ]` Chờ làm (MH 7) |
+| **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[ ]` Chờ làm (MH 8) |
+| **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[ ]` Chờ làm (MH 9) |
 
 ---
 
-### MÀN HÌNH 2: MH MÓN ĂN (`frmMonAn`)
-> **Mục tiêu:** Quản lý danh sách món ăn & thức uống (`MA_Ma`, `MA_Ten`, `MA_DanhMuc`, `MA_DonGia`, `MA_HetMon`, `MA_MoTa`, `MA_Xoa`).
+## 2. PHÂN TÍCH BRAINSTORMING: LÀM RÕ BẢN CHẤT CỤM "DANH MỤC — MÓN ĂN — MENU — CHI NHÁNH — MENU CHI NHÁNH"
 
-- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/menu/mon_an/`)**
-  - [x] Tạo tài liệu đặc tả `MON_AN_SPRINT.md` và file mockup `frmMonAn_mockup_v1_0.html` để PO duyệt.
-- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmMonAn.Designer.vb`)**
-  - [x] Thiết kế bố cục: Bộ lọc theo `Danh mục` + Từ khóa + Trạng thái (`Còn món` / `Hết món`), khung chi tiết (`Tên món`, `ComboBox Danh mục`, `Đơn giá VNĐ`, `CheckBox Báo hết món`, `Mô tả`), các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới` và lưới `DataGridView` định dạng tiền tệ `#,##0 đ`.
-- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMonAn.vb`)**
-  - [x] Tạo `MonAnDTO.vb`, `MonAnDAO.vb`, `MonAnBUS.vb`.
-  - [x] Ràng buộc nghiệp vụ: `MA_Ten` bắt buộc, `MA_DonGia >= 0`, `MA_DanhMuc` hợp lệ, hỗ trợ bật/tắt nhanh trạng thái `Hết món` (`MA_HetMon`), xóa mềm (`MA_Xoa = 1`).
-- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [x] Mở từ `btnMenuThucDon` / `btnQuickThucDon` trên `frmMain` (hoặc điều hướng liên hoàn giữa `frmDanhMuc` ↔ `frmMonAn`).
-  - [x] Chạy bộ test tự động kiểm tra CRUD + Filter theo Danh mục + Validation giá bán (`28/28 PASS = 100%`).
-- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_4.html`) & Đánh dấu `[x]` Mục 3.5 Quản lý Thực đơn trong `CHECKLIST_DO_AN.md`**
+Trong mô hình thực tế của ngành F&B và quản trị chuỗi quán ăn (tương tự các hệ thống ERP như Golden Gate, RedSun, iPOS, CukCuk):
 
----
+```mermaid
+flowchart TD
+    subgraph CoreMasterData ["1. KHO DỮ LIỆU GỐC (MASTER ITEM POOL)"]
+        DM["📁 Danh Mục (Category)<br>Khai vị, Món chính, Lẩu, Tráng miệng..."]
+        MA["🍲 Món Ăn (Dish Master Pool)<br>Thư viện 100+ món mà đầu bếp có thể nấu"]
+        DM -->|1 phân loại n món| MA
+    end
 
-### MÀN HÌNH 3: MH CA LÀM VIỆC — HIỂN THỊ DANH SÁCH (`frmCaLamViec`)
-> **Mục tiêu:** Hiển thị trực quan danh sách các ca làm việc trong ngày (`CA_Ma`, `CA_Ten`, `CA_GioBatDau`, `CA_GioKetThuc`, `CA_LuongMoiCa`, `CA_Xoa` — VD: *Ca 1 (Ca Sáng) 08:00–15:00, Ca 2 (Ca Chiều Tối) 15:00–22:00*) kèm thông tin khung giờ và định mức lương mỗi ca.
+    subgraph MenuDesign ["2. THIẾT KẾ BẢNG THỰC ĐƠN (MENU MASTER)"]
+        MN["📋 Menu (Bảng Thực Đơn)<br>Menu Alacarte Ngày, Buffet Trưa 199k, Set Lễ Tết..."]
+        MMA["🔗 Menu_MonAn (Chi tiết món trong Menu)<br>Món nào nằm trong Menu nào + Giá niêm yết theo Menu"]
+        MA --> MMA
+        MN --> MMA
+    end
 
-- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/shift/ca_lam_viec/`)**
-  - [x] Tạo tài liệu đặc tả `CA_LAM_VIEC_SPRINT.md` và file mockup `frmCaLamViec_mockup_v1_0.html` để PO duyệt.
-- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Shift/frmCaLamViec.Designer.vb`)**
-  - [x] Thiết kế bố cục: Bảng danh sách ca làm việc (`DataGridView`) hiển thị rõ `Mã ca`, `Tên ca`, `Giờ bắt đầu`, `Giờ kết thúc`, `Số giờ làm`, `Lương mỗi ca (VNĐ)`, cùng khu vực thông tin chi tiết ca / cập nhật cấu hình ca (nếu là Chủ quán).
-- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmCaLamViec.vb`)**
-  - [x] Tạo `CaLamViecDTO.vb`, `CaLamViecDAO.vb`, `CaLamViecBUS.vb`.
-  - [x] Nạp danh sách ca từ bảng `CaLamViec`, tính tự động thời lượng ca (số giờ) và định dạng tiền lương.
-- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [x] Kết nối vào nhóm chức năng Lịch & Ca làm việc trên `frmMain`.
-  - [x] Kiểm thử tự động truy vấn danh sách ca & hiển thị UI (`24/24 PASS = 100%`).
-- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_5.html`) & Đánh dấu `[x]` mục danh sách ca trong `CHECKLIST_DO_AN.md`**
+    subgraph BranchDistribution ["3. PHÂN BỔ THỰC ĐƠN THEO CHI NHÁNH (MULTI-BRANCH POS)"]
+        CN["🏢 Chi Nhánh (Branch)<br>CN 1 - Quận 1, CN 2 - Thủ Đức, CN 3 - Đà Nẵng..."]
+        CNM["🏬 ChiNhanh_Menu (Menu Chi Nhánh)<br>Cấu hình CN nào bán Menu nào & Tình trạng mở bán tại cơ sở"]
+        CN --> CNM
+        MN --> CNM
+    end
+```
 
----
-
-### MÀN HÌNH 4: MH KHU VỰC — TẦNG TRỆT, TẦNG 1, ... (`frmKhuVuc`)
-> **Mục tiêu:** Quản lý danh sách Khu vực bố trí bàn trong quán (*Tầng trệt, Tầng 1 / Lầu 1 (Máy lạnh), Phòng VIP Máy lạnh, Sân vườn thoáng mát...*).
-
-- [x] **Bước 1: Đặc tả Nghiệp vụ, CSDL `KhuVuc`, UI/UX & Mockup HTML (`docs/features/table/khu_vuc/`)**
-  - [x] Bổ sung bảng `KhuVuc` (`KV_Ma`, `KV_Ten`, `KV_MoTa`, `KV_Xoa`) vào `create-database.sql` & `seed-data.sql` (đảm bảo Idempotent 100% và đồng bộ với cột `B_KhuVuc` của bảng `Ban`).
-  - [x] Tạo tài liệu đặc tả `KHU_VUC_SPRINT.md` và file mockup `frmKhuVuc_mockup_v1_0.html` để PO duyệt.
-- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmKhuVuc.Designer.vb`)**
-  - [x] Thiết kế bố cục: Khung nhập `Tên khu vực` (*Tầng trệt, Tầng 1...*), `Mô tả / Ghi chú`, các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới`, và lưới `DataGridView` hiển thị danh sách khu vực kèm số lượng bàn hiện có trong từng khu vực.
-- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmKhuVuc.vb`)**
-  - [x] Tạo `KhuVucDTO.vb`, `KhuVucDAO.vb`, `KhuVucBUS.vb`.
-  - [x] Ràng buộc nghiệp vụ: Không trùng tên khu vực, khi đổi tên khu vực tự động đồng bộ tên khu vực cho các bàn thuộc khu vực đó, chặn xóa khu vực đang có bàn hoạt động.
-- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [x] Chạy bộ test tự động kiểm tra CRUD Khu vực + ràng buộc toàn vẹn với bảng `Ban` (`24/24 PASS = 100%`).
-- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_6.html`) cho `frmKhuVuc` & Đồng bộ `CHECKLIST_DO_AN.md`**
+### Làm rõ câu hỏi: "MH Menu" khác gì "MH Danh mục" & "MH Món ăn"?
+1. **`MH Danh mục` (Category):** Là sự phân chia nhóm thức ăn theo tính chất ẩm thực (Ví dụ: Nhóm Khai vị, Nhóm Món nướng, Nhóm Thức uống).
+2. **`MH Món ăn` (Dish Pool):** Là danh mục từng món độc lập do nhà bếp chế biến kèm công thức, giá gốc và mô tả nguyên liệu.
+3. **`MH Menu` (Menu Board / Catalog):** Là **Bảng thực đơn thương mại**. Quán có 100 món, nhưng không phải lúc nào cũng bán hết 100 món cùng một lúc. Người quản lý sẽ tạo ra các bảng Menu:
+   - *Menu Cơm trưa văn phòng (11h00 - 14h00):* Gồm 15 món cơm được chọn lọc.
+   - *Menu Buffet nướng (Buổi tối):* Gồm 30 món nướng, tính theo giá vé.
+   - *Menu Tiệc Tết:* Gồm các set món cố định.
+   $\rightarrow$ `MH Menu` là nơi thiết kế các bảng thực đơn này và chọn những món ăn nào nằm trong thực đơn đó!
+4. **`MH Chi nhánh` (Branch Master):** Quản lý chuỗi địa điểm kinh doanh của thương hiệu.
+5. **`MH Menu chi nhánh` (Branch Menu Assignment):** Mỗi chi nhánh có đặc thù mặt bằng, nguyên liệu và đối tượng khách hàng khác nhau. Màn hình này cho phép:
+   - Chi nhánh Quận 1: Bán Menu Alacarte + Menu Buffet.
+   - Chi nhánh Ngoại thành: Chỉ bán Menu Alacarte, tắt Menu Buffet.
+   - Cho phép điều chỉnh bật/tắt phục vụ từng món tại từng chi nhánh theo thời gian thực (hết hàng cục bộ).
 
 ---
 
-### MÀN HÌNH 5: MH BÀN (`frmBan`)
-> **Mục tiêu:** Quản lý danh sách Bàn ăn (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_KhuVuc`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
+## 3. CHECKLIST CHI TIẾT 9 MÀN HÌNH (QUY TRÌNH 5 BƯỚC CHUẨN)
 
-- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/table/ban/`)**
-  - [x] Tạo tài liệu đặc tả `BAN_SPRINT.md` và file mockup `frmBan_mockup_v1_0.html` để PO duyệt.
-- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Table/frmBan.Designer.vb`)**
-  - [x] Thiết kế bố cục: Bộ lọc theo `Khu vực` + `Trạng thái bàn`, khung nhập liệu (`Số thứ tự bàn`, `Tên bàn`, `ComboBox Khu vực` lấy từ các khu vực hiện có / cấu hình, `Số người tối đa` bằng `NumericUpDown`, `Trạng thái`), các nút `Thêm`, `Sửa`, `Xóa`, `Làm mới` và lưới `DataGridView`.
-- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmBan.vb`)**
-  - [x] Tạo `BanDTO.vb`, `BanDAO.vb`, `BanBUS.vb`.
-  - [x] Ràng buộc nghiệp vụ: `B_SoThuTu` duy nhất (`> 0`), `B_SoNguoiToiDa > 0`, không cho phép xóa bàn đang có khách phục vụ (`B_TrangThai <> 0`).
-- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [x] Mở từ `btnMenuQuanLyBan` / `btnQuickQuanLyBan` / `btnSoDoBan` trên `frmMain` (phân quyền `CQ_QUAN_LY_BAN`).
-  - [x] Chạy bộ test tự động kiểm tra CRUD Bàn + Ràng buộc `B_SoThuTu` + `B_SoNguoiToiDa` (`26/26 PASS = 100%`).
-- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_7.html`) & Đánh dấu `[x]` Mục 3.5 Quản lý Bàn ghế trong `CHECKLIST_DO_AN.md`**
+### MÀN HÌNH 1: MH DANH MỤC (`frmDanhMuc`) — `[x] HOÀN TẤT`
+- [x] **Bước 1:** Đặc tả `DANH_MUC_SPRINT.md` & Mockup HTML `frmDanhMuc_mockup_v1_0.html`.
+- [x] **Bước 2:** Form Designer `frmDanhMuc.Designer.vb` (Split-Layout 38:62).
+- [x] **Bước 3:** Tầng `DTO` / `DAO` / `BUS` và xử lý nghiệp vụ `frmDanhMuc.vb`.
+- [x] **Bước 4:** Tích hợp `frmMain` & Chạy `DanhMucVerifier` (24/24 PASS).
+- [x] **Bước 5:** Báo cáo phát hành `report_0_2_3.html`, đồng bộ Checklist & Tag `v0.2.3`.
 
 ---
 
-## 3. LỘ TRÌNH SAU KHI HOÀN TẤT 5 MÀN HÌNH ƯU TIÊN
-Sau khi hoàn thành cả 5 màn hình trên (`[x] 5/5`), dự án sẽ quay lại thực hiện tiếp [`docs/CHECKLIST_DO_AN.md`](CHECKLIST_DO_AN.md):
-1. Tiếp tục từ **Mục 3.2**: `frmChamCongCaNhan` (Màn hình Cá nhân & Chấm công).
-2. Sang **Mục 3.3**: Phân hệ Nhân viên phục vụ (`frmSoDoBan`, Gọi món, Chuyển/Gộp bàn, Thanh toán) — *lúc này đã có sẵn toàn bộ dữ liệu chuẩn từ 5 màn hình `DanhMuc`, `MonAn`, `CaLamViec`, `KhuVuc`, `Ban`!*
-3. Sang **Mục 3.4**: Phân hệ Nhà bếp (`frmNhaBep`).
-4. Sang **Mục 3.5**: Các mục `Quản lý Bàn ghế`, `Quản lý Thực đơn`, `Danh sách ca` đã được đánh dấu `[x]` hoàn thành từ Checklist ưu tiên này, chỉ cần làm tiếp các màn hình còn lại (`frmQuanLyNhanVien`, `frmQuanLyLichLamViec`, `frmDuyetChamCong`, `frmBaoCao`).
+### MÀN HÌNH 2: MH MÓN ĂN (`frmMonAn`) — `[x] HOÀN TẤT`
+- [x] **Bước 1:** Đặc tả `MON_AN_SPRINT.md` & Mockup HTML `frmMonAn_mockup_v1_0.html`.
+- [x] **Bước 2:** Form Designer `frmMonAn.Designer.vb` (Định dạng tiền tệ, lọc danh mục).
+- [x] **Bước 3:** Tầng `DTO` / `DAO` / `BUS` và xử lý nghiệp vụ `frmMonAn.vb` (bật/tắt hết món, giá bán).
+- [x] **Bước 4:** Tích hợp `frmMain` & Chạy `MonAnVerifier` (28/28 PASS).
+- [x] **Bước 5:** Báo cáo phát hành `report_0_2_4.html`, đồng bộ Checklist & Tag `v0.2.4`.
+
+---
+
+### MÀN HÌNH 3: MH CA LÀM VIỆC (`frmCaLamViec`) — `[x] HOÀN TẤT`
+- [x] **Bước 1:** Đặc tả `CA_LAM_VIEC_SPRINT.md` & Mockup HTML `frmCaLamViec_mockup_v1_0.html`.
+- [x] **Bước 2:** Form Designer `frmCaLamViec.Designer.vb` (Chọn giờ `HH:mm`, bảng 6 cột).
+- [x] **Bước 3:** Tầng `DTO` / `DAO` / `BUS` và xử lý nghiệp vụ `frmCaLamViec.vb` (tính giờ làm, mức lương ca).
+- [x] **Bước 4:** Tích hợp `frmMain` & Chạy `CaLamViecVerifier` (24/24 PASS).
+- [x] **Bước 5:** Báo cáo phát hành `report_0_2_5.html`, đồng bộ Checklist & Tag `v0.2.5`.
+
+---
+
+### MÀN HÌNH 4: MH KHU VỰC (`frmKhuVuc`) — `[x] HOÀN TẤT`
+- [x] **Bước 1:** Đặc tả `KHU_VUC_SPRINT.md`, CSDL `KhuVuc` & Mockup HTML `frmKhuVuc_mockup_v1_0.html`.
+- [x] **Bước 2:** Form Designer `frmKhuVuc.Designer.vb` (Thống kê số bàn & chỗ ngồi mỗi khu vực).
+- [x] **Bước 3:** Tầng `DTO` / `DAO` / `BUS` và xử lý nghiệp vụ `frmKhuVuc.vb` (Cascade Update sang Bàn, chặn xóa khu vực có bàn).
+- [x] **Bước 4:** Tích hợp `frmMain` & Chạy `KhuVucVerifier` (24/24 PASS).
+- [x] **Bước 5:** Báo cáo phát hành `report_0_2_6.html`, đồng bộ Checklist & Tag `v0.2.6`.
+
+---
+
+### MÀN HÌNH 5: MH BÀN (`frmBan`) — `[x] HOÀN TẤT`
+- [x] **Bước 1:** Đặc tả `BAN_SPRINT.md` & Mockup HTML `frmBan_mockup_v1_0.html`.
+- [x] **Bước 2:** Form Designer `frmBan.Designer.vb` (Split-Layout 38:62, layout 2 cột chống overlap).
+- [x] **Bước 3:** Tầng `DTO` / `DAO` / `BUS` và xử lý nghiệp vụ `frmBan.vb` (`LEFT JOIN HoaDon`, STT duy nhất, bảo vệ bàn phục vụ).
+- [x] **Bước 4:** Tích hợp `frmMain` & Chạy `BanVerifier` (26/26 PASS).
+- [x] **Bước 5:** Báo cáo phát hành `report_0_2_7.html`, đồng bộ Checklist & Tag `v0.2.7`.
+
+---
+
+### MÀN HÌNH 6: MH NHÂN VIÊN (`frmNhanVien`) — `[ ] TIẾP THEO`
+> **Mục tiêu:** Quản lý toàn diện danh sách nhân viên quán ăn (`NhanVien`, `TrinhDoViTinh`, `NhanVien_ViTinh`, `DungCuTrangPhuc`, `NhanVien_DungCu`, `TaiKhoan`).
+
+- [ ] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/staff/nhan_vien/`)**
+  - [ ] Tạo tài liệu đặc tả `NHAN_VIEN_SPRINT.md` và file mockup `frmNhanVien_mockup_v1_0.html`.
+- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Staff/frmNhanVien.Designer.vb`)**
+  - [ ] Bố cục Split-Layout 38%:62%: Họ tên, Giới tính, Ngày sinh, SĐT, CCCD, Vị trí (Phục vụ, Pha chế, Bếp, Quản lý), Trình độ vi tính (Multi-select / CheckList), Dụng cụ cấp phát, Tài khoản liên kết.
+- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmNhanVien.vb`)**
+  - [ ] Tạo `NhanVienDTO.vb`, `NhanVienDAO.vb`, `NhanVienBUS.vb`.
+  - [ ] Ràng buộc nghiệp vụ: Kiểm tra trùng CCCD, SĐT hợp lệ, tự động liên kết tạo tài khoản đăng nhập khi tuyển dụng, xóa mềm (`NV_Xoa = 1`), thu hồi dụng cụ khi nghỉ việc.
+- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
+  - [ ] Mở từ menu Nhân sự trên `frmMain` (phân quyền `CQ_QUAN_LY_NHAN_SU`).
+  - [ ] Chạy bộ kiểm thử tự động Layout + CRUD + RBAC.
+- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_8.html`) & Đồng bộ Checklist**
+
+---
+
+### MÀN HÌNH 7: MH MENU — BẢNG THỰC ĐƠN KINH DOANH (`frmMenu`) — `[ ] CHỜ LÀM`
+> **Mục tiêu:** Quản lý danh sách các Bảng thực đơn bán hàng (`Menu`) và gán món ăn vào thực đơn (`Menu_MonAn`).
+
+- [ ] **Bước 1: CSDL Bổ sung `Menu`, `Menu_MonAn`, Đặc tả & Mockup HTML (`docs/features/menu/bang_menu/`)**
+  - [ ] Thêm bảng `Menu` (`MN_Ma`, `MN_Ten`, `MN_LoaiMenu`, `MN_MoTa`, `MN_TrangThai`, `MN_Xoa`).
+  - [ ] Thêm bảng `Menu_MonAn` (`MMA_Ma`, `MMA_MaMenu`, `MMA_MaMonAn`, `MMA_DonGia`, `MMA_ThuTuHienThi`, `MMA_Xoa`).
+  - [ ] Tạo tài liệu đặc tả `MENU_SPRINT.md` và file mockup `frmMenu_mockup_v1_0.html`.
+- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmMenu.Designer.vb`)**
+  - [ ] Giao diện Master-Detail: Bên trái quản lý thông tin Bảng thực đơn, bên phải quản lý danh sách các món thuộc thực đơn (hỗ trợ chọn món nhanh từ kho `MonAn`, tùy chỉnh giá theo Menu).
+- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
+  - [ ] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb`.
+  - [ ] Nghiệp vụ: Chặn trùng tên Menu, bảo vệ xóa Menu đang được áp dụng tại Chi nhánh.
+- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động**
+- [ ] **Bước 5: Báo cáo Phát hành (`report_0_2_9.html`) & Đồng bộ Checklist**
+
+---
+
+### MÀN HÌNH 8: MH CHI NHÁNH (`frmChiNhanh`) — `[ ] CHỜ LÀM`
+> **Mục tiêu:** Quản lý danh sách các cơ sở / chi nhánh của chuỗi nhà hàng (`ChiNhanh`).
+
+- [ ] **Bước 1: CSDL Bổ sung `ChiNhanh`, Đặc tả & Mockup HTML (`docs/features/branch/chi_nhanh/`)**
+  - [ ] Thêm bảng `ChiNhanh` (`CN_Ma`, `CN_Ten`, `CN_DiaChi`, `CN_SoDienThoai`, `CN_NguoiQuanLy`, `CN_TrangThai`, `CN_Xoa`).
+  - [ ] Tạo `CHI_NHANH_SPRINT.md` và file mockup `frmChiNhanh_mockup_v1_0.html`.
+- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Branch/frmChiNhanh.Designer.vb`)**
+  - [ ] Bố cục Split-Layout 38%:62%: Mã CN, Tên CN, Địa chỉ, Hotline, ComboBox chọn Người quản lý (từ bảng `NhanVien`), Trạng thái hoạt động.
+- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmChiNhanh.vb`)**
+  - [ ] Tạo `ChiNhanhDTO.vb`, `ChiNhanhDAO.vb`, `ChiNhanhBUS.vb`.
+  - [ ] Nghiệp vụ: Kiểm tra trùng tên/địa chỉ chi nhánh, bảo vệ xóa chi nhánh đang có nhân viên hoặc hóa đơn.
+- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động**
+- [ ] **Bước 5: Báo cáo Phát hành (`report_0_2_10.html`) & Đồng bộ Checklist**
+
+---
+
+### MÀN HÌNH 9: MH MENU CHI NHÁNH (`frmMenuChiNhanh`) — `[ ] CHỜ LÀM`
+> **Mục tiêu:** Phân bổ bảng thực đơn áp dụng theo từng chi nhánh (`ChiNhanh_Menu`).
+
+- [ ] **Bước 1: CSDL Bổ sung `ChiNhanh_Menu`, Đặc tả & Mockup HTML (`docs/features/branch/menu_chi_nhanh/`)**
+  - [ ] Thêm bảng `ChiNhanh_Menu` (`CNM_Ma`, `CNM_MaChiNhanh`, `CNM_MaMenu`, `CNM_NgayBatDau`, `CNM_NgayKetThuc`, `CNM_TrangThai`, `CNM_Xoa`).
+  - [ ] Tạo `MENU_CHI_NHANH_SPRINT.md` và file mockup `frmMenuChiNhanh_mockup_v1_0.html`.
+- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Branch/frmMenuChiNhanh.Designer.vb`)**
+  - [ ] Lưới ma trận chọn Chi nhánh $\rightarrow$ Gán Menu được áp dụng, ngày bắt đầu/kết thúc, bật/tắt phục vụ món theo chi nhánh.
+- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenuChiNhanh.vb`)**
+- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động**
+- [ ] **Bước 5: Báo cáo Phát hành (`report_0_2_11.html`) & Đồng bộ Checklist**
+
+---
+
+## 4. LỘ TRÌNH SAU KHI HOÀN TẤT 9 MÀN HÌNH NỀN TẢNG
+Sau khi hoàn thành toàn bộ 9 màn hình danh mục (`[x] 9/9`), toàn bộ dữ liệu nền tảng (Master Data) của chuỗi nhà hàng đã sẵn sàng 100%:
+1. **Phân hệ Nhân sự & Chấm công:** `frmChamCongCaNhan`, `frmQuanLyLichLamViec`, `frmDuyetChamCong`.
+2. **Phân hệ POS & Phục vụ:** `frmSoDoBan` (Sơ đồ bàn thời gian thực theo từng Chi nhánh & Khu vực), Gọi món theo Menu chi nhánh, Chuyển bàn, Gộp bàn, Thanh toán & In hóa đơn (`frmThanhToan`).
+3. **Phân hệ Bếp / Pha chế:** `frmNhaBep` (Hàng đợi món FIFO theo thời gian thực).
+4. **Phân hệ Báo cáo:** `frmBaoCao` (Doanh thu theo Chi nhánh, theo Menu, theo Món, theo Ca làm việc).

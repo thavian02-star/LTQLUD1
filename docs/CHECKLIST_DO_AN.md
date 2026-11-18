@@ -43,10 +43,16 @@
   - [x] `CaLamViec` (`CA_Ma`, `CA_Ten`, `CA_GioBatDau`, `CA_GioKetThuc`, `CA_LuongMoiCa`, `CA_Xoa`).
   - [x] `LichLamViec` (`LLV_Ma`, `LLV_MaNV`, `LLV_MaCa`, `LLV_NgayLam`, `LLV_TrangThai`, `LLV_Xoa`).
   - [x] `ChamCong` (`CC_Ma`, `CC_MaLich`, `CC_MaNV`, `CC_GioBatDau`, `CC_GioKetThuc`, `CC_DaDuyet`, `CC_Xoa`).
-- [x] **Nhóm bảng Bàn ăn & Thực đơn:**
-  - [x] `Ban` (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
+- [x] **Nhóm bảng Bàn ăn & Thực đơn Nền tảng:**
+  - [x] `KhuVuc` (`KV_Ma`, `KV_Ten`, `KV_MoTa`, `KV_Xoa`).
+  - [x] `Ban` (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_KhuVuc`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
   - [x] `DanhMuc` (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa`).
   - [x] `MonAn` (`MA_Ma`, `MA_Ten`, `MA_DanhMuc`, `MA_DonGia`, `MA_HetMon`, `MA_MoTa`, `MA_Xoa`).
+- [ ] **Nhóm bảng Mở rộng Chuỗi Chi Nhánh & Bảng Thực Đơn:**
+  - [ ] `ChiNhanh` (`CN_Ma`, `CN_Ten`, `CN_DiaChi`, `CN_SoDienThoai`, `CN_NguoiQuanLy`, `CN_TrangThai`, `CN_Xoa`).
+  - [ ] `Menu` (`MN_Ma`, `MN_Ten`, `MN_LoaiMenu`, `MN_MoTa`, `MN_TrangThai`, `MN_Xoa`).
+  - [ ] `Menu_MonAn` (`MMA_Ma`, `MMA_MaMenu`, `MMA_MaMonAn`, `MMA_DonGia`, `MMA_ThuTuHienThi`, `MMA_Xoa`).
+  - [ ] `ChiNhanh_Menu` (`CNM_Ma`, `CNM_MaChiNhanh`, `CNM_MaMenu`, `CNM_NgayBatDau`, `CNM_NgayKetThuc`, `CNM_TrangThai`, `CNM_Xoa`).
 - [x] **Nhóm bảng Phục vụ, Gọi món & Hóa đơn:**
   - [x] `HoaDon` (`HD_Ma`, `HD_MaBan`, `HD_MaNVPhucVu`, `HD_SoLuongKhach`, `HD_ThoiGianVao`, `HD_ThoiGianThanhToan`, `HD_TongTien`, `HD_TrangThai`, `HD_Xoa`).
   - [x] `ChiTietHoaDon` (`CTHD_Ma`, `CTHD_MaHoaDon`, `CTHD_MaMonAn`, `CTHD_SoLuong`, `CTHD_DonGia`, `CTHD_GhiChu`, `CTHD_ThoiGianGoi`, `CTHD_TrangThaiMon`, `CTHD_Xoa`).
@@ -102,20 +108,25 @@
   - [ ] Hiển thị rõ: Số bàn, Tên món, Số lượng, Ghi chú của khách, Thời gian đặt.
   - [ ] Nút **Hoàn thành món**: Cập nhật trạng thái món sang *Đã nấu xong* và tự động cập nhật trạng thái bàn tương ứng sang *Món đã xong* để nhân viên phục vụ biết mang ra.
 
-### 3.5. Phân hệ Quản lý & Chủ quán
-> 📌 **Lưu ý đồng bộ tiến độ:** 5 màn hình danh mục nền tảng (`MH Danh mục`, `MH Món ăn`, `MH Ca làm việc`, `MH Khu vực`, `MH Bàn`) được tách ra triển khai ưu tiên trước tại [`docs/CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md). Khi hoàn thành tại checklist ưu tiên, các mục tương ứng bên dưới sẽ được đánh dấu `[x]` để không phải thực hiện lại.
-- [ ] **Quản lý Nhân sự (`frmQuanLyNhanVien`):**
-  - [ ] Thêm / Sửa nhân viên với đầy đủ thông tin: Họ tên, giới tính, ngày sinh, vị trí dự tuyển (Phục vụ, Pha chế, Quản lý, Tiếp tân), SĐT, địa chỉ, CMND, ngày vào làm.
-  - [ ] Chọn nhiều **Trình độ vi tính** (Word, Excel, Cài phần mềm, Khác) và cho phép thêm/sửa danh mục trình độ vi tính.
-  - [ ] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên.
-  - [ ] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái nghỉ việc, xóa lịch làm việc tương lai, đánh dấu thu hồi trang phục/dụng cụ.
-- [x] **Quản lý Bàn ghế & Khu vực (rmKhuVuc, rmBan / rmQuanLyBan):** *(Đã hoàn thành trọn vẹn cả MH 4 & MH 5)*
-  - [x] Quản lý Khu vực bàn (rmKhuVuc): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn... *(Đã hoàn thành 24/24 test cases tại [eport_0_2_6.html](release_report/report_0_2_6.html))*
-  - [x] Tổ chức bàn ghế (rmBan): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa *(Đã hoàn thành 26/26 test cases tại [eport_0_2_7.html](release_report/report_0_2_7.html))*.
-- [x] **Quản lý Thực đơn (`frmDanhMuc`, `frmMonAn` / `frmQuanLyThucDon`):** *(Đã hoàn thành tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 1 & MH 2)*
+### 3.5. Phân hệ Quản lý & Chủ quán (Hệ thống 9 Màn hình Danh mục & Quản trị Chuỗi)
+> 📌 **Lưu ý đồng bộ tiến độ:** Hệ thống 9 màn hình danh mục nền tảng (Master Data) được quản lý tập trung và chi tiết tại [`docs/CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md). Khi hoàn thành từng màn hình tại checklist danh mục, các mục tương ứng bên dưới sẽ được tự động đánh dấu `[x]` hoàn thành.
+- [ ] **Quản lý Nhân sự (`frmNhanVien` / `frmQuanLyNhanVien` — MH 6 / 9):**
+  - [ ] Thêm / Sửa nhân viên: Họ tên, giới tính, ngày sinh, vị trí làm việc (Phục vụ, Pha chế, Bếp, Quản lý), SĐT, địa chỉ, CCCD, ngày vào làm.
+  - [ ] Chọn nhiều **Trình độ vi tính** (Word, Excel, Cài phần mềm, Khác) và cập nhật bảng `NhanVien_ViTinh`.
+  - [ ] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên (`NhanVien_DungCu`).
+  - [ ] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái, xóa lịch làm việc tương lai, đánh dấu thu hồi trang phục/dụng cụ, khóa tài khoản.
+- [x] **Quản lý Bàn ghế & Khu vực (`frmKhuVuc`, `frmBan` — MH 4 & MH 5 / 9):** *(Đã hoàn thành trọn vẹn cả 2 màn hình)*
+  - [x] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn... *(Đã hoàn thành 24/24 test cases tại [`report_0_2_6.html`](release_report/report_0_2_6.html))*
+  - [x] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa *(Đã hoàn thành 26/26 test cases tại [`report_0_2_7.html`](release_report/report_0_2_7.html))*.
+- [x] **Quản lý Thực đơn Nền tảng (`frmDanhMuc`, `frmMonAn` — MH 1 & MH 2 / 9):** *(Đã hoàn thành cả 2 màn hình)*
   - [x] Quản lý Danh mục món (`frmDanhMuc`): Thêm / Sửa / Xóa nhóm thực đơn *(Đã hoàn thành 24/24 test cases tại [`report_0_2_3.html`](release_report/report_0_2_3.html))*.
   - [x] Quản lý Món ăn & Thức uống (`frmMonAn`): Khởi tạo/chỉnh sửa món ăn, nước uống (tên, danh mục, giá bán, mô tả, đánh dấu còn/hết món) *(Đã hoàn thành 28/28 test cases tại [`report_0_2_4.html`](release_report/report_0_2_4.html))*.
-
+- [ ] **Quản lý Bảng Thực Đơn Bán Hàng (`frmMenu` — MH 7 / 9):**
+  - [ ] Tạo & quản lý các gói thực đơn kinh doanh (Alacarte ngày, Buffet trưa, Set tiệc lễ tết...).
+  - [ ] Gán danh sách món ăn từ kho `MonAn` vào `Menu_MonAn` kèm đơn giá niêm yết theo menu.
+- [ ] **Quản lý Chi Nhánh & Menu Chi Nhánh (`frmChiNhanh`, `frmMenuChiNhanh` — MH 8 & MH 9 / 9):**
+  - [ ] Quản lý danh mục Chi nhánh chuỗi nhà hàng (`frmChiNhanh`): Tên, địa chỉ, hotline, người quản lý cơ sở.
+  - [ ] Phân bổ bảng thực đơn theo chi nhánh (`frmMenuChiNhanh`): Thiết lập chi nhánh nào bán menu nào, giá bán áp dụng theo khu vực chi nhánh, bật/tắt phục vụ món tại chỗ.
 - [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**
   - [x] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Đã hoàn thành 24/24 test cases tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3 & [`report_0_2_5.html`](release_report/report_0_2_5.html)*).
   - [ ] Xem & chỉnh sửa lịch làm việc chung của tất cả nhân viên trong tuần (7 ngày/tuần, xem ca nào trống, ca nào có bao nhiêu nhân viên, thêm/xóa nhân viên vào ca).
