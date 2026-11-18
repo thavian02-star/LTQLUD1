@@ -3,6 +3,7 @@
 **Dự án:** Hệ thống Quản lý Quán ăn (`Quanlyquanan`)  
 **Công nghệ:** VB.NET Windows Forms (.NET 10.0) + SQL Server 2022 (Docker)  
 **Liên kết Checklist tổng:** [`docs/CHECKLIST_DO_AN.md`](CHECKLIST_DO_AN.md)  
+**Bản Demo Trực quan Toàn Hệ thống:** [`docs/demo_system.html`](demo_system.html) *(Xem trước & kiểm tra full chức năng trước khi chạy project)*  
 **Quy tắc đồng bộ:** Đây là 9 màn hình danh mục nền tảng (Master Data) cấu thành toàn bộ dữ liệu hoạt động cho hệ thống quán ăn / chuỗi nhà hàng. Khi hoàn thành từng màn hình tại checklist này, các hạng mục tương ứng tại **Mục 3.5** của [`docs/CHECKLIST_DO_AN.md`](CHECKLIST_DO_AN.md) sẽ được đánh dấu `[x]` hoàn thành để không phải làm lại khi quay về luồng checklist chung.
 
 ---

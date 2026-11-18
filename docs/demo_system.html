@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hệ Thống Quán Ăn Hương Việt — Bản Demo HTML Full Chức Năng (Interactive Master Hub)</title>
+  <style>
+    :root {
+      --navy-dark: #0f172a;
+      --navy: #1a5276;
+      --navy-light: #2980b9;
+      --navy-sidebar: #1e293b;
+      --sidebar-hover: #334155;
+      --sidebar-active: #2563eb;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --green: #16a34a;
+      --amber: #f59e0b;
+      --red: #dc2626;
+      --purple: #8e24aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* TOP HEADER BAR */
+    .top-header {
+      background: var(--navy-dark); color: #fff; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 18px; border-bottom: 2px solid var(--navy-light); flex-shrink: 0;
+    }
+    .brand-area { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      background: linear-gradient(135deg, #f59e0b, #d97706); width: 34px; height: 34px;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: #fff; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.4);
+    }
+    .brand-title h1 { font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
+    .brand-title p { font-size: 11px; color: #94a3b8; }
+
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .role-badge {
+      background: #334155; border: 1px solid #475569; border-radius: 6px;
+      padding: 4px 10px; font-size: 12px; display: flex; align-items: center; gap: 6px;
+    }
+    .role-badge select {
+      background: transparent; color: #fff; border: none; font-size: 12px;
+      font-weight: 600; outline: none; cursor: pointer;
+    }
+    .header-btn {
+      background: #334155; color: #fff; border: 1px solid #475569;
+      padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: 0.2s; text-decoration: none; display: flex; align-items: center; gap: 6px;
+    }
+    .header-btn:hover { background: #475569; border-color: #64748b; }
+    .header-btn.highlight { background: #2563eb; border-color: #3b82f6; }
+    .header-btn.highlight:hover { background: #1d4ed8; }
+
+    /* MAIN CONTAINER (SIDEBAR + WORKSPACE) */
+    .main-body { display: flex; flex: 1; height: calc(100vh - 56px); overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 280px; background: var(--navy-sidebar); color: #cbd5e1;
+      display: flex; flex-direction: column; border-right: 1px solid #334155;
+      flex-shrink: 0; overflow-y: auto; user-select: none;
+    }
+    .sidebar-section-title {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      color: #94a3b8; padding: 14px 16px 6px 16px; letter-spacing: 0.6px;
+    }
+    .nav-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 16px; font-size: 13px; color: #cbd5e1; text-decoration: none;
+      cursor: pointer; transition: 0.15s; border-left: 3px solid transparent;
+    }
+    .nav-item:hover { background: var(--sidebar-hover); color: #fff; }
+    .nav-item.active {
+      background: rgba(37, 99, 235, 0.18); color: #fff; font-weight: 600;
+      border-left-color: #3b82f6;
+    }
+    .nav-item-left { display: flex; align-items: center; gap: 10px; }
+    .nav-item .tag-pill {
+      font-size: 10px; padding: 2px 6px; border-radius: 999px; font-weight: 700;
+    }
+    .tag-pill.done { background: #166534; color: #dcfce7; }
+    .tag-pill.next { background: #854d0e; color: #fef9c3; }
+    .tag-pill.wait { background: #475569; color: #cbd5e1; }
+
+    /* WORKSPACE */
+    .workspace {
+      flex: 1; display: flex; flex-direction: column; background: #e2e8f0;
+      overflow: hidden; position: relative;
+    }
+
+    /* WORKSPACE TOP CONTROL BAR */
+    .screen-toolbar {
+      background: #ffffff; border-bottom: 1px solid var(--border);
+      padding: 8px 18px; display: flex; justify-content: space-between;
+      align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.04); flex-shrink: 0;
+    }
+    .screen-meta { display: flex; align-items: center; gap: 12px; }
+    .screen-title { font-size: 15px; font-weight: 700; color: var(--navy-dark); }
+    .screen-badge {
+      font-size: 11px; padding: 3px 8px; border-radius: 999px;
+      font-weight: 700; text-transform: uppercase;
+    }
+    .screen-badge.green { background: #dcfce7; color: #166534; }
+    .screen-badge.blue { background: #dbeafe; color: #1e40af; }
+    .screen-badge.amber { background: #fef3c7; color: #92400e; }
+
+    .screen-actions { display: flex; gap: 8px; align-items: center; }
+    .action-btn {
+      background: #f8fafc; border: 1px solid var(--border); color: #334155;
+      padding: 5px 11px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 5px;
+      transition: 0.15s;
+    }
+    .action-btn:hover { background: #e2e8f0; color: #0f172a; }
+    .action-btn.primary { background: var(--navy-light); color: #fff; border-color: var(--navy-light); }
+    .action-btn.primary:hover { background: var(--navy); }
+
+    /* IFRAME CONTAINER */
+    .iframe-container {
+      flex: 1; width: 100%; height: 100%; position: relative;
+      background: #cbd5e1; overflow: hidden;
+    }
+    iframe.screen-frame {
+      width: 100%; height: 100%; border: none; display: block;
+      background: #ffffff;
+    }
+
+    /* PREVIEW CARD (FOR UPCOMING SCREENS) */
+    .preview-card-wrap {
+      width: 100%; height: 100%; overflow-y: auto; padding: 30px;
+      display: flex; justify-content: center; align-items: flex-start;
+    }
+    .preview-card {
+      max-width: 900px; width: 100%; background: #ffffff;
+      border: 1px solid var(--border); border-radius: 12px; padding: 30px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .preview-card h2 { font-size: 22px; color: var(--navy-dark); margin-bottom: 8px; }
+    .preview-card p.sub { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+    .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+    .spec-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .spec-box h4 { font-size: 13px; color: var(--navy-light); text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+    .spec-box ul { padding-left: 18px; font-size: 13px; line-height: 1.6; color: #334155; }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; background: #0f172a;
+      color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25); display: none; z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER CHÍNH -->
+  <header class="top-header">
+    <div class="brand-area">
+      <div class="brand-logo">HV</div>
+      <div class="brand-title">
+        <h1>QUÁN ĂN HƯƠNG VIỆT — INTERACTIVE SYSTEM DEMO HUB</h1>
+        <p>Bản Mô Phỏng HTML Toàn Diện • Trải Nghiệm &amp; Kiểm Thử Giao Diện Trước Khi Chạy .NET</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="role-badge">
+        <span>👤 Vai trò:</span>
+        <select id="roleSelector" onchange="doiVaiTro(this.value)">
+          <option value="1">Chủ quán (Toàn quyền)</option>
+          <option value="2">Quản lý nhà hàng</option>
+          <option value="3">Nhân viên Phục vụ</option>
+          <option value="4">Đầu bếp chính</option>
+        </select>
+      </div>
+      <a href="release_report/report_0_2_8.html" class="header-btn" target="_blank">
+        📊 Xem Report v0.2.8
+      </a>
+      <a href="CHECKLIST_UU_TIEN_DANH_MUC.md" class="header-btn highlight" target="_blank">
+        📋 Dual Checklist
+      </a>
+    </div>
+  </header>
+
+  <!-- BODY: SIDEBAR + WORKSPACE -->
+  <div class="main-body">
+
+    <!-- CỘT ĐIỀU HƯỚNG TRÁI (SIDEBAR) -->
+    <nav class="sidebar">
+      <div class="sidebar-section-title">🖥️ MÀN HÌNH CHÍNH &amp; HỆ THỐNG</div>
+      <a class="nav-item" onclick="taiManHinh('frmMain')">
+        <div class="nav-item-left">
+          <span>🏠</span> <span>Giao diện chính (frmMain)</span>
+        </div>
+        <span class="tag-pill done">v1.1</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmDoiMatKhau')">
+        <div class="nav-item-left">
+          <span>🔐</span> <span>Đổi mật khẩu</span>
+        </div>
+        <span class="tag-pill done">v0.2.1</span>
+      </a>
+
+      <div class="sidebar-section-title">📂 HỆ THỐNG 9 MÀN HÌNH MASTER DATA</div>
+      <a class="nav-item" onclick="taiManHinh('frmDanhMuc')">
+        <div class="nav-item-left">
+          <span>📁</span> <span>1. Danh mục món</span>
+        </div>
+        <span class="tag-pill done">v0.2.3</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmMonAn')">
+        <div class="nav-item-left">
+          <span>🍲</span> <span>2. Thư viện Món ăn</span>
+        </div>
+        <span class="tag-pill done">v0.2.4</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmCaLamViec')">
+        <div class="nav-item-left">
+          <span>⏰</span> <span>3. Ca làm việc</span>
+        </div>
+        <span class="tag-pill done">v0.2.5</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmKhuVuc')">
+        <div class="nav-item-left">
+          <span>🗺️</span> <span>4. Khu vực bàn</span>
+        </div>
+        <span class="tag-pill done">v0.2.6</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmBan')">
+        <div class="nav-item-left">
+          <span>🪑</span> <span>5. Quản lý Bàn ăn</span>
+        </div>
+        <span class="tag-pill done">v0.2.7</span>
+      </a>
+      <a class="nav-item active" onclick="taiManHinh('frmNhanVien')">
+        <div class="nav-item-left">
+          <span>👥</span> <span>6. Hồ sơ Nhân sự</span>
+        </div>
+        <span class="tag-pill done">v0.2.8</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmMenu')">
+        <div class="nav-item-left">
+          <span>📋</span> <span>7. Bảng Thực đơn</span>
+        </div>
+        <span class="tag-pill next">Tiếp theo</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmChiNhanh')">
+        <div class="nav-item-left">
+          <span>🏢</span> <span>8. Chuỗi Chi nhánh</span>
+        </div>
+        <span class="tag-pill wait">Chờ làm</span>
+      </a>
+      <a class="nav-item" onclick="taiManHinh('frmMenuChiNhanh')">
+        <div class="nav-item-left">
+          <span>📑</span> <span>9. Menu Chi nhánh</span>
+        </div>
+        <span class="tag-pill wait">Chờ làm</span>
+      </a>
+
+      <div class="sidebar-section-title">📊 BÁO CÁO PHÁT HÀNH TƯƠNG ỨNG</div>
+      <a class="nav-item" href="release_report/report_0_2_8.html" target="_blank">
+        <div class="nav-item-left">
+          <span>📄</span> <span>Release Report v0.2.8</span>
+        </div>
+        <span class="tag-pill done">31/31</span>
+      </a>
+      <a class="nav-item" href="release_report/report_0_2_7.html" target="_blank">
+        <div class="nav-item-left">
+          <span>📄</span> <span>Release Report v0.2.7</span>
+        </div>
+        <span class="tag-pill done">26/26</span>
+      </a>
+      <a class="nav-item" href="release_report/report_0_2_6.html" target="_blank">
+        <div class="nav-item-left">
+          <span>📄</span> <span>Release Report v0.2.6</span>
+        </div>
+        <span class="tag-pill done">24/24</span>
+      </a>
+      <a class="nav-item" href="release_report/report_0_2_4.html" target="_blank">
+        <div class="nav-item-left">
+          <span>📄</span> <span>Release Report v0.2.4</span>
+        </div>
+        <span class="tag-pill done">28/28</span>
+      </a>
+    </nav>
+
+    <!-- VÙNG LÀM VIỆC CHÍNH (WORKSPACE) -->
+    <main class="workspace">
+
+      <!-- THANH ĐIỀU KHIỂN MÀN HÌNH ĐANG XEM -->
+      <div class="screen-toolbar">
+        <div class="screen-meta">
+          <div class="screen-title" id="lblScreenTitle">👥 Màn hình 6/9: Quản lý Danh sách Nhân sự (frmNhanVien v1.0)</div>
+          <span class="screen-badge green" id="lblScreenBadge">31/31 PASS • v0.2.8</span>
+        </div>
+
+        <div class="screen-actions">
+          <button class="action-btn" onclick="lamMoiIframe()" title="Tải lại giao diện màn hình">
+            🔄 Làm mới
+          </button>
+          <a class="action-btn" id="btnOpenNewTab" href="features/staff/nhan_vien/frmNhanVien_mockup_v1_0.html" target="_blank" title="Mở trang Mockup riêng ở tab mới">
+            ↗️ Mở Tab riêng
+          </a>
+          <a class="action-btn primary" id="btnOpenReport" href="release_report/report_0_2_8.html" target="_blank" title="Xem Báo cáo phát hành của màn hình này">
+            📊 Xem Báo Cáo
+          </a>
+        </div>
+      </div>
+
+      <!-- KHUNG HIỂN THỊ IFRAME HOẶC PREVIEW -->
+      <div class="iframe-container" id="frameContainer">
+        <iframe id="activeFrame" class="screen-frame" src="features/staff/nhan_vien/frmNhanVien_mockup_v1_0.html"></iframe>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toastNotice">Thông báo</div>
+
+  <script>
+    // BẢNG CẤU HÌNH CÁC MÀN HÌNH TRONG TOÀN HỆ THỐNG
+    const SCREENS = {
+      frmNhanVien: {
+        title: "👥 Màn hình 6/9: Quản lý Danh sách Nhân sự (frmNhanVien v1.0)",
+        badge: "31/31 PASS • v0.2.8",
+        badgeClass: "green",
+        url: "features/staff/nhan_vien/frmNhanVien_mockup_v1_0.html",
+        report: "release_report/report_0_2_8.html"
+      },
+      frmBan: {
+        title: "🪑 Màn hình 5/9: Quản lý Danh sách Bàn ăn (frmBan v1.0)",
+        badge: "26/26 PASS • v0.2.7",
+        badgeClass: "green",
+        url: "features/table/ban/frmBan_mockup_v1_0.html",
+        report: "release_report/report_0_2_7.html"
+      },
+      frmKhuVuc: {
+        title: "🗺️ Màn hình 4/9: Quản lý Khu vực bàn ăn (frmKhuVuc v1.0)",
+        badge: "24/24 PASS • v0.2.6",
+        badgeClass: "green",
+        url: "features/table/khu_vuc/frmKhuVuc_mockup_v1_0.html",
+        report: "release_report/report_0_2_6.html"
+      },
+      frmCaLamViec: {
+        title: "⏰ Màn hình 3/9: Quản lý Ca làm việc (frmCaLamViec v1.0)",
+        badge: "18/18 PASS • v0.2.5",
+        badgeClass: "green",
+        url: "features/shift/ca_lam_viec/frmCaLamViec_mockup_v1_0.html",
+        report: "release_report/report_0_2_5.html"
+      },
+      frmMonAn: {
+        title: "🍲 Màn hình 2/9: Thư viện Món ăn & Nước uống (frmMonAn v1.0)",
+        badge: "28/28 PASS • v0.2.4",
+        badgeClass: "green",
+        url: "features/menu/mon_an/frmMonAn_mockup_v1_0.html",
+        report: "release_report/report_0_2_4.html"
+      },
+      frmDanhMuc: {
+        title: "📁 Màn hình 1/9: Quản lý Danh mục món (frmDanhMuc v1.0)",
+        badge: "24/24 PASS • v0.2.3",
+        badgeClass: "green",
+        url: "features/menu/danh_muc/frmDanhMuc_mockup_v1_0.html",
+        report: "release_report/report_0_2_3.html"
+      },
+      frmMain: {
+        title: "🏠 Giao diện chính hệ thống WinForms (frmMain v1.1)",
+        badge: "TỔNG QUAN • v1.1",
+        badgeClass: "blue",
+        url: "features/main/v1_1/frmMain_mockup_v1_1.html",
+        report: "release_report/report_0_2_2.html"
+      },
+      frmDoiMatKhau: {
+        title: "🔐 Chức năng Đổi mật khẩu tài khoản (frmDoiMatKhau)",
+        badge: "BẢO MẬT • v0.2.1",
+        badgeClass: "blue",
+        url: "features/doi_mat_khau/frmDoiMatKhau_mockup.html",
+        report: "release_report/report_0_2_1.html"
+      },
+      frmMenu: {
+        title: "📋 Màn hình 7/9: Bảng thực đơn kinh doanh (frmMenu — Đang triển khai)",
+        badge: "TIẾP THEO • SPRINT MH 7",
+        badgeClass: "amber",
+        isUpcoming: true,
+        desc: "Quản lý các Bảng thực đơn bán hàng (Menu Alacarte, Buffet, Set tiệc) và bảng quan hệ Menu_MonAn phân bổ món ăn vào thực đơn.",
+        tables: ["Menu (MN_Ma, MN_Ten, MN_LoaiMenu, MN_MoTa, MN_TrangThai)", "Menu_MonAn (MMA_Ma, MMA_MaMenu, MMA_MaMonAn, MMA_DonGia)"]
+      },
+      frmChiNhanh: {
+        title: "🏢 Màn hình 8/9: Quản lý Chuỗi Chi nhánh (frmChiNhanh — Chờ làm)",
+        badge: "KẾ HOẠCH • MH 8",
+        badgeClass: "amber",
+        isUpcoming: true,
+        desc: "Quản lý danh mục các cơ sở/chi nhánh nhà hàng: Mã cơ sở, Tên chi nhánh, Địa chỉ, Hotline, Quản lý phụ trách chi nhánh.",
+        tables: ["ChiNhanh (CN_Ma, CN_Ten, CN_DiaChi, CN_Hotline, CN_MaQuanLy, CN_Xoa)"]
+      },
+      frmMenuChiNhanh: {
+        title: "📑 Màn hình 9/9: Phân bổ Menu cho Chi nhánh (frmMenuChiNhanh — Chờ làm)",
+        badge: "KẾ HOẠCH • MH 9",
+        badgeClass: "amber",
+        isUpcoming: true,
+        desc: "Mô hình phân phối thực đơn đa chi nhánh: Xác định chi nhánh nào bán Menu nào, khoảng thời gian áp dụng và giá điều chỉnh vùng miền.",
+        tables: ["ChiNhanh_Menu (CNM_Ma, CNM_MaChiNhanh, CNM_MaMenu, CNM_NgayBatDau, CNM_NgayKetThuc, CNM_Xoa)"]
+      }
+    };
+
+    let currentScreenKey = 'frmNhanVien';
+
+    function taiManHinh(key) {
+      if (!SCREENS[key]) return;
+      currentScreenKey = key;
+      const s = SCREENS[key];
+
+      // Đổi active sidebar
+      document.querySelectorAll('.sidebar .nav-item').forEach(el => el.classList.remove('active'));
+      const foundLink = Array.from(document.querySelectorAll('.sidebar .nav-item')).find(el => el.getAttribute('onclick')?.includes(key));
+      if (foundLink) foundLink.classList.add('active');
+
+      // Cập nhật Toolbar Header
+      document.getElementById('lblScreenTitle').innerText = s.title;
+      const badgeEl = document.getElementById('lblScreenBadge');
+      badgeEl.innerText = s.badge;
+      badgeEl.className = 'screen-badge ' + s.badgeClass;
+
+      const btnNewTab = document.getElementById('btnOpenNewTab');
+      const btnReport = document.getElementById('btnOpenReport');
+      const container = document.getElementById('frameContainer');
+
+      if (s.isUpcoming) {
+        btnNewTab.style.display = 'none';
+        btnReport.style.display = 'none';
+
+        // Hiển thị Card giới thiệu kiến trúc màn hình sắp làm
+        container.innerHTML = `
+          <div class="preview-card-wrap">
+            <div class="preview-card">
+              <h2>${s.title}</h2>
+              <p class="sub">${s.desc}</p>
+
+              <div class="spec-grid">
+                <div class="spec-box">
+                  <h4>Cấu trúc Cơ sở dữ liệu</h4>
+                  <ul>
+                    ${s.tables.map(t => `<li><code>${t}</code></li>`).join('')}
+                  </ul>
+                </div>
+                <div class="spec-box">
+                  <h4>Quy trình 5 Bước Thực hiện</h4>
+                  <ul>
+                    <li><strong>Bước 1:</strong> Bổ sung CSDL, Đặc tả SPRINT &amp; Mockup HTML</li>
+                    <li><strong>Bước 2:</strong> Thiết kế WinForms Designer</li>
+                    <li><strong>Bước 3:</strong> Xây dựng DTO, DAO, BUS &amp; Code-behind</li>
+                    <li><strong>Bước 4:</strong> Tích hợp frmMain &amp; Bộ kiểm thử tự động</li>
+                    <li><strong>Bước 5:</strong> Báo cáo Release Report &amp; Git Tag</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px; display: flex; gap: 12px;">
+                <a href="CHECKLIST_UU_TIEN_DANH_MUC.md" target="_blank" class="action-btn primary" style="padding: 8px 16px;">
+                  📋 Xem Chi Tiết Tại Dual Checklist
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        btnNewTab.style.display = 'inline-flex';
+        btnNewTab.href = s.url;
+
+        if (s.report) {
+          btnReport.style.display = 'inline-flex';
+          btnReport.href = s.report;
+        } else {
+          btnReport.style.display = 'none';
+        }
+
+        container.innerHTML = `<iframe id="activeFrame" class="screen-frame" src="${s.url}"></iframe>`;
+      }
+
+      hienToast(`Đã chuyển sang: ${s.title}`);
+    }
+
+    function lamMoiIframe() {
+      const frame = document.getElementById('activeFrame');
+      if (frame) {
+        frame.src = frame.src;
+        hienToast("Đã làm mới màn hình hiện tại!");
+      }
+    }
+
+    function doiVaiTro(roleVal) {
+      const roles = {
+        "1": "Chủ quán (Toàn quyền quản trị)",
+        "2": "Quản lý (Quản trị vận hành & nhân sự)",
+        "3": "Nhân viên Phục vụ (Chỉ bán hàng, chỉ xem danh mục)",
+        "4": "Đầu bếp chính (Chỉ xem bếp & món)"
+      };
+      hienToast(`Đã chuyển sang vai trò: ${roles[roleVal]}`);
+    }
+
+    function hienToast(msg) {
+      const t = document.getElementById('toastNotice');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2400);
+    }
+
+    // Đọc tham số URL ?screen=... khi khởi động
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const scr = params.get('screen');
+      if (scr && SCREENS[scr]) {
+        taiManHinh(scr);
+      }
+    });
+  </script>
+</body>
+</html>
