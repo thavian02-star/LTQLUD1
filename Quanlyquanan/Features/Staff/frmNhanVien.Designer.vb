@@ -80,13 +80,15 @@ Namespace Features.Staff
         Friend WithEvents lblDiaChi As Label
         Friend WithEvents txtDiaChi As TextBox
 
-        ' Hàng 6: Học vấn + Trạng thái
+        ' Hàng 6: Học vấn + Tài khoản
         Friend WithEvents lblHocVan As Label
         Friend WithEvents cboHocVan As ComboBox
+        Friend WithEvents lblTaiKhoan As Label
+        Friend WithEvents cboTaiKhoan As ComboBox
+
+        ' Hàng 7: Trạng thái + Kỹ năng vi tính
         Friend WithEvents lblTrangThai As Label
         Friend WithEvents cboTrangThai As ComboBox
-
-        ' Hàng 7: Kỹ năng vi tính
         Friend WithEvents lblViTinh As Label
         Friend WithEvents clbViTinh As CheckedListBox
 
@@ -182,6 +184,8 @@ Namespace Features.Staff
 
             Me.lblHocVan = New Label()
             Me.cboHocVan = New ComboBox()
+            Me.lblTaiKhoan = New Label()
+            Me.cboTaiKhoan = New ComboBox()
             Me.lblTrangThai = New Label()
             Me.cboTrangThai = New ComboBox()
 
@@ -467,6 +471,8 @@ Namespace Features.Staff
 
             Me.pnlFormCard.Controls.Add(Me.lblHocVan)
             Me.pnlFormCard.Controls.Add(Me.cboHocVan)
+            Me.pnlFormCard.Controls.Add(Me.lblTaiKhoan)
+            Me.pnlFormCard.Controls.Add(Me.cboTaiKhoan)
             Me.pnlFormCard.Controls.Add(Me.lblTrangThai)
             Me.pnlFormCard.Controls.Add(Me.cboTrangThai)
 
@@ -677,7 +683,7 @@ Namespace Features.Staff
             Me.txtDiaChi.Size = New Size(436, 23)
             Me.txtDiaChi.TabIndex = 20
 
-            ' HÀNG 6: Học vấn (Col 1) + Trạng thái (Col 2)
+            ' HÀNG 6: Học vấn (Col 1) + Tài khoản liên kết (Col 2)
             Me.lblHocVan.AutoSize = True
             Me.lblHocVan.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
             Me.lblHocVan.Location = New Point(12, 283)
@@ -695,31 +701,47 @@ Namespace Features.Staff
             Me.cboHocVan.Size = New Size(190, 23)
             Me.cboHocVan.TabIndex = 22
 
+            Me.lblTaiKhoan.AutoSize = True
+            Me.lblTaiKhoan.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
+            Me.lblTaiKhoan.Location = New Point(212, 283)
+            Me.lblTaiKhoan.Name = "lblTaiKhoan"
+            Me.lblTaiKhoan.Size = New Size(106, 15)
+            Me.lblTaiKhoan.TabIndex = 23
+            Me.lblTaiKhoan.Text = "Tài khoản liên kết:"
+
+            Me.cboTaiKhoan.DropDownStyle = ComboBoxStyle.DropDownList
+            Me.cboTaiKhoan.Font = New Font("Segoe UI", 8.5!)
+            Me.cboTaiKhoan.FormattingEnabled = True
+            Me.cboTaiKhoan.Location = New Point(212, 300)
+            Me.cboTaiKhoan.Name = "cboTaiKhoan"
+            Me.cboTaiKhoan.Size = New Size(236, 23)
+            Me.cboTaiKhoan.TabIndex = 24
+
+            ' HÀNG 7: Trạng thái (Col 1) + Kỹ năng vi tính (Col 2)
             Me.lblTrangThai.AutoSize = True
             Me.lblTrangThai.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
-            Me.lblTrangThai.Location = New Point(212, 283)
+            Me.lblTrangThai.Location = New Point(12, 328)
             Me.lblTrangThai.Name = "lblTrangThai"
             Me.lblTrangThai.Size = New Size(66, 15)
-            Me.lblTrangThai.TabIndex = 23
+            Me.lblTrangThai.TabIndex = 25
             Me.lblTrangThai.Text = "Trạng thái:"
 
             Me.cboTrangThai.DropDownStyle = ComboBoxStyle.DropDownList
             Me.cboTrangThai.Font = New Font("Segoe UI", 8.5!)
             Me.cboTrangThai.FormattingEnabled = True
             Me.cboTrangThai.Items.AddRange(New Object() {"Đang làm việc", "Đã nghỉ việc"})
-            Me.cboTrangThai.Location = New Point(212, 300)
+            Me.cboTrangThai.Location = New Point(12, 345)
             Me.cboTrangThai.Name = "cboTrangThai"
-            Me.cboTrangThai.Size = New Size(236, 23)
-            Me.cboTrangThai.TabIndex = 24
+            Me.cboTrangThai.Size = New Size(190, 23)
+            Me.cboTrangThai.TabIndex = 26
 
-            ' HÀNG 7: Kỹ năng vi tính
             Me.lblViTinh.AutoSize = True
             Me.lblViTinh.Font = New Font("Segoe UI", 8.5!, FontStyle.Bold)
-            Me.lblViTinh.Location = New Point(12, 328)
+            Me.lblViTinh.Location = New Point(212, 328)
             Me.lblViTinh.Name = "lblViTinh"
-            Me.lblViTinh.Size = New Size(187, 15)
-            Me.lblViTinh.TabIndex = 25
-            Me.lblViTinh.Text = "Trình độ vi tính (Tích chọn nhiều):"
+            Me.lblViTinh.Size = New Size(140, 15)
+            Me.lblViTinh.TabIndex = 27
+            Me.lblViTinh.Text = "Kỹ năng vi tính (chọn):"
 
             Me.clbViTinh.CheckOnClick = True
             Me.clbViTinh.Font = New Font("Segoe UI", 8.5!)
@@ -730,10 +752,10 @@ Namespace Features.Staff
                 "Cài đặt & Sử dụng phần mềm POS bán hàng",
                 "Khác (Thiết kế Canva, Quản lý Fanpage)"
             })
-            Me.clbViTinh.Location = New Point(12, 345)
+            Me.clbViTinh.Location = New Point(212, 345)
             Me.clbViTinh.Name = "clbViTinh"
-            Me.clbViTinh.Size = New Size(436, 58)
-            Me.clbViTinh.TabIndex = 26
+            Me.clbViTinh.Size = New Size(236, 58)
+            Me.clbViTinh.TabIndex = 28
 
             ' HÀNG 8: Badge Đồng phục & Tài khoản
             Me.pnlUniformBadge.BackColor = Color.FromArgb(244, 246, 247)

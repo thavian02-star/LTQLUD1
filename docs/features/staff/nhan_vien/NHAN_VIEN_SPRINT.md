@@ -109,8 +109,8 @@ Màn hình `frmNhanVien` tuân thủ chuẩn **Split-Layout 40% : 60%** chuyên 
   - [x] Tạo file Mockup tương tác [`frmNhanVien_mockup_v1_0.html`](frmNhanVien_mockup_v1_0.html) với 5 kịch bản mô phỏng trực quan.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Staff/frmNhanVien.Designer.vb`)**
   - [x] Thiết kế 3 tầng + Split-Layout 42:58 chống tràn, bố cục thẻ nhập liệu chuyên nghiệp.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmNhanVien.vb`)**
-  - [ ] Tạo `NhanVienDTO.vb`, `NhanVienDAO.vb`, `NhanVienBUS.vb` và hoàn thiện logic trong `frmNhanVien.vb`.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmNhanVien.vb`)**
+  - [x] Tạo `NhanVienDTO.vb`, `NhanVienDAO.vb`, `NhanVienBUS.vb` và hoàn thiện logic trong `frmNhanVien.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`NhanVienVerifier`)**
   - [ ] Tích hợp mở `frmNhanVien` từ menu Quản lý trên `frmMain.vb`.
   - [ ] Xây dựng test suite tự động kiểm tra Layout + CRUD + Validation + RBAC.
