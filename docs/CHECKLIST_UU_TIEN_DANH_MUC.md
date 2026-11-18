@@ -16,8 +16,8 @@
 | **3** | **MH Ca (hiển thị danh sách)** | `frmCaLamViec` | `CaLamViec` | `CQ_XEP_LICH_LAM_VIEC` | Cấu hình danh sách các ca làm việc trong ngày (giờ vào/ra, thời lượng, mức lương ca). | `[x]` **Đã xong (`v0.2.5`)** |
 | **4** | **MH Khu vực: tầng trệt, tầng 1, ...** | `frmKhuVuc` | `KhuVuc` *(đồng bộ `Ban.B_KhuVuc`)* | `CQ_QUAN_LY_BAN` | Phân chia không gian bàn (Tầng trệt, Tầng 1, VIP, Sân vườn), Cascade Update sang Bàn. | `[x]` **Đã xong (`v0.2.6`)** |
 | **5** | **MH Bàn** | `frmBan` | `Ban`, `KhuVuc` | `CQ_QUAN_LY_BAN` | Quản lý 12 bàn ăn, số thứ tự, sức chứa (72 chỗ), trạng thái phục vụ và liên kết hóa đơn. | `[x]` **Đã xong (`v0.2.7`)** |
-| **6** | **MH Nhân viên** | `frmNhanVien` | `NhanVien`, `TrinhDoViTinh`, `DungCuTrangPhuc` | `CQ_QUAN_LY_NHAN_SU` | Quản lý hồ sơ nhân viên (SĐT, CCCD, chức vụ, trình độ vi tính, cấp phát đồng phục, tài khoản). | `[ ]` **Tiếp theo (MH 6)** |
-| **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[ ]` Chờ làm (MH 7) |
+| **6** | **MH Nhân viên** | `frmNhanVien` | `NhanVien`, `TrinhDoViTinh`, `DungCuTrangPhuc` | `CQ_QUAN_LY_NHAN_SU` | Quản lý hồ sơ nhân viên (SĐT, CCCD, chức vụ, trình độ vi tính, cấp phát đồng phục, tài khoản). | `[x]` **Đã xong (`v0.2.8`)** |
+| **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[ ]` **Tiếp theo (MH 7)** |
 | **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[ ]` Chờ làm (MH 8) |
 | **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[ ]` Chờ làm (MH 9) |
 
@@ -113,24 +113,24 @@ flowchart TD
 
 ---
 
-### MÀN HÌNH 6: MH NHÂN VIÊN (`frmNhanVien`) — `[ ] TIẾP THEO`
+### MÀN HÌNH 6: MH NHÂN VIÊN (`frmNhanVien`) — `[x] HOÀN TẤT (v0.2.8 — 31/31 PASS)`
 > **Mục tiêu:** Quản lý toàn diện danh sách nhân viên quán ăn (`NhanVien`, `TrinhDoViTinh`, `NhanVien_ViTinh`, `DungCuTrangPhuc`, `NhanVien_DungCu`, `TaiKhoan`).
 
-- [ ] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/staff/nhan_vien/`)**
-  - [ ] Tạo tài liệu đặc tả `NHAN_VIEN_SPRINT.md` và file mockup `frmNhanVien_mockup_v1_0.html`.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Staff/frmNhanVien.Designer.vb`)**
-  - [ ] Bố cục Split-Layout 38%:62%: Họ tên, Giới tính, Ngày sinh, SĐT, CCCD, Vị trí (Phục vụ, Pha chế, Bếp, Quản lý), Trình độ vi tính (Multi-select / CheckList), Dụng cụ cấp phát, Tài khoản liên kết.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmNhanVien.vb`)**
-  - [ ] Tạo `NhanVienDTO.vb`, `NhanVienDAO.vb`, `NhanVienBUS.vb`.
-  - [ ] Ràng buộc nghiệp vụ: Kiểm tra trùng CCCD, SĐT hợp lệ, tự động liên kết tạo tài khoản đăng nhập khi tuyển dụng, xóa mềm (`NV_Xoa = 1`), thu hồi dụng cụ khi nghỉ việc.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
-  - [ ] Mở từ menu Nhân sự trên `frmMain` (phân quyền `CQ_QUAN_LY_NHAN_SU`).
-  - [ ] Chạy bộ kiểm thử tự động Layout + CRUD + RBAC.
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_8.html`) & Đồng bộ Checklist**
+- [x] **Bước 1: Đặc tả Nghiệp vụ, UI/UX & Mockup HTML (`docs/features/staff/nhan_vien/`)**
+  - [x] Tạo tài liệu đặc tả `NHAN_VIEN_SPRINT.md` và file mockup `frmNhanVien_mockup_v1_0.html` với 5 kịch bản mô phỏng.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Staff/frmNhanVien.Designer.vb`)**
+  - [x] Bố cục Split-Layout 42%:58%: Họ tên, Giới tính, Ngày sinh, SĐT, CCCD, Vị trí (Phục vụ, Pha chế, Bếp, Quản lý), Trình độ vi tính (CheckedListBox), Cấp phát đồng phục, Tài khoản liên kết.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmNhanVien.vb`)**
+  - [x] Tạo `NhanVienDTO.vb`, `NhanVienDAO.vb`, `NhanVienBUS.vb`.
+  - [x] Ràng buộc nghiệp vụ: Kiểm tra trùng CCCD, SĐT hợp lệ, gán tài khoản đăng nhập, xóa mềm (`NV_Xoa = 1`), thu hồi dụng cụ khi nghỉ việc / khôi phục làm việc.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (Automated Verification)**
+  - [x] Mở từ menu Nhân sự trên `frmMain` (hàm `MoQuanLyNhanVien()`, phân quyền `CQ_QUAN_LY_NHAN_VIEN`).
+  - [x] Chạy bộ kiểm thử tự động Layout + DTO Binding + Validation + Uniform Logic + RBAC: **31/31 PASS (100%)**.
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_8.html`) & Đồng bộ Checklist**
 
 ---
 
-### MÀN HÌNH 7: MH MENU — BẢNG THỰC ĐƠN KINH DOANH (`frmMenu`) — `[ ] CHỜ LÀM`
+### MÀN HÌNH 7: MH MENU — BẢNG THỰC ĐƠN KINH DOANH (`frmMenu`) — `[ ] TIẾP THEO`
 > **Mục tiêu:** Quản lý danh sách các Bảng thực đơn bán hàng (`Menu`) và gán món ăn vào thực đơn (`Menu_MonAn`).
 
 - [ ] **Bước 1: CSDL Bổ sung `Menu`, `Menu_MonAn`, Đặc tả & Mockup HTML (`docs/features/menu/bang_menu/`)**

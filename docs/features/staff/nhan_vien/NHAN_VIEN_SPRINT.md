@@ -114,4 +114,7 @@ Màn hình `frmNhanVien` tuân thủ chuẩn **Split-Layout 40% : 60%** chuyên 
 - [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`NhanVienVerifier`)**
   - [x] Tích hợp mở `frmNhanVien` từ menu Quản lý trên `frmMain.vb` (`MoQuanLyNhanVien()`, `btnQuanLyNhanSu_Click`).
   - [x] Xây dựng test suite tự động kiểm tra Layout + DTO Binding + Validation + Uniform Logic + RBAC: **31/31 PASS (100%)**.
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_8.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.8`**
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_8.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.8`**
+  - [x] Tạo Release Report [`report_0_2_8.html`](../../../docs/release_report/report_0_2_8.html) ghi nhận toàn diện 31/31 PASS.
+  - [x] Đồng bộ trạng thái hoàn thành Màn hình 6/9 trên `CHECKLIST_UU_TIEN_DANH_MUC.md` và `CHECKLIST_DO_AN.md`.
+  - [x] Tạo annotated tag `v0.2.8` trên Git repository.

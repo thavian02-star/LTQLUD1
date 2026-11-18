@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.8 — Màn hình Quản lý Danh sách Nhân sự (frmNhanVien v1.0)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #1a5276;
+      --primary-light: #2980b9;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: var(--dark); color: #fff; padding: 12px 20px; border-radius: 10px;
+      margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1; text-decoration: none; font-size: 12.5px; padding: 5px 12px;
+      border-radius: 6px; background: #334155; font-weight: 600; transition: background 0.2s;
+    }
+    .version-links a.active { background: var(--primary-light); color: #fff; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1a5276 0%, #0f172a 100%);
+      color: #fff; padding: 30px 32px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .badge.blue { background: #3b82f6; color: #fff; }
+    .badge.green { background: #22c55e; color: #052e16; }
+    .badge.amber { background: #f59e0b; color: #451a03; }
+    .hero h1 { font-size: 26px; margin-bottom: 8px; }
+    .hero p { color: #cbd5e1; font-size: 14.5px; max-width: 980px; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+    .kpi-box .label { font-size: 12px; color: var(--muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+    .kpi-box .val { font-size: 26px; font-weight: 800; color: var(--primary); }
+    .kpi-box .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 26px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .section h2 {
+      font-size: 18px; margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid #f1f5f9; display: flex; align-items: center; gap: 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f8fafc; font-weight: 700; color: #475569; }
+    tr:hover td { background: #f8fafc; }
+
+    .pill-pass {
+      background: #dcfce7; color: #166534; font-weight: 700; padding: 2px 9px;
+      border-radius: 999px; font-size: 11.5px; display: inline-block;
+    }
+    code {
+      background: #f1f5f9; padding: 2px 6px; border-radius: 4px;
+      font-family: Consolas, monospace; font-size: 12.5px; color: #0f172a;
+    }
+    .feature-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+    .feature-list li {
+      background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; font-size: 13.5px;
+    }
+    .feature-list li strong { color: var(--primary); display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Thanh điều hướng phiên bản Release Report -->
+    <div class="version-nav">
+      <div><strong>📊 HỆ THỐNG BÁO CÁO PHÁT HÀNH (RELEASE REPORTS)</strong></div>
+      <div class="version-links">
+        <a href="report_0_2_0.html">v0.2.0 (frmMain v1.0)</a>
+        <a href="report_0_2_1.html">v0.2.1 (frmDoiMatKhau)</a>
+        <a href="report_0_2_2.html">v0.2.2 (frmMain v1.1 Fix)</a>
+        <a href="report_0_2_3.html">v0.2.3 (MH 1: frmDanhMuc)</a>
+        <a href="report_0_2_4.html">v0.2.4 (MH 2: frmMonAn)</a>
+        <a href="report_0_2_5.html">v0.2.5 (MH 3: frmCaLamViec)</a>
+        <a href="report_0_2_6.html">v0.2.6 (MH 4: frmKhuVuc)</a>
+        <a href="report_0_2_7.html">v0.2.7 (MH 5: frmBan)</a>
+        <a href="report_0_2_8.html" class="active">v0.2.8 (MH 6: frmNhanVien)</a>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-badges">
+        <span class="badge blue">RELEASE v0.2.8</span>
+        <span class="badge green">ROADMAP 9 MÀN HÌNH — MÀN HÌNH 6/9 (QUẢN LÝ NHÂN SỰ)</span>
+        <span class="badge amber">31/31 TESTS PASS (100%)</span>
+      </div>
+      <h1>👥 Màn Hình 6/9: Quản Lý Danh Sách Nhân Sự (<code>frmNhanVien v1.0</code>)</h1>
+      <p>
+        Hoàn tất trọn vẹn quy trình 5 bước phát triển màn hình thứ 6 trong <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code> và <code>CHECKLIST_DO_AN.md</code>:
+        Quản lý hồ sơ nhân viên toàn diện, tích hợp chọn nhiều kỹ năng vi tính (<code>TrinhDoViTinh</code> / <code>NhanVien_ViTinh</code>),
+        kiểm soát cấp phát và thu hồi đồng phục khi nghỉ việc (<code>DungCuTrangPhuc</code> / <code>NhanVien_DungCu</code>),
+        gán tài khoản đăng nhập (<code>TaiKhoan</code>), phân quyền RBAC và tích hợp trực tiếp vào <code>frmMain.vb</code>.
+      </p>
+    </div>
+
+    <!-- 4 KPI Thống Kê Chính -->
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="label">Kết Quả Kiểm Thử</div>
+        <div class="val">31 / 31 PASS</div>
+        <div class="sub">Đạt 100% (10 Layout + 5 DTO + 8 BUS + 4 Logic + 4 RBAC)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Kiến Trúc 3 Tầng Chuẩn</div>
+        <div class="val">5 Files VB</div>
+        <div class="sub">NhanVienDTO, NhanVienDAO, NhanVienBUS, frmNhanVien (Designer & Code)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Bố Cục Giao Diện</div>
+        <div class="val">Split 42% : 58%</div>
+        <div class="sub">3 Tầng dọc (Header 68px, 4 KPI 78px, Main Content chống tràn)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Seed Data Telemetry</div>
+        <div class="val">7 Nhân sự</div>
+        <div class="sub">6 Đang làm việc, 1 Đã nghỉ việc, 4 Kỹ năng vi tính chuẩn</div>
+      </div>
+    </div>
+
+    <!-- Quy Trình 5 Bước Đã Hoàn Thành -->
+    <div class="section">
+      <h2>📋 QUY TRÌNH 5 BƯỚC PHÁT TRIỂN CHUẨN MỰC (100% HOÀN THÀNH)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 120px;">Bước</th>
+            <th style="width: 280px;">Nhiệm vụ</th>
+            <th>Mô tả chi tiết &amp; Sản phẩm bàn giao</th>
+            <th style="width: 140px;">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bước 1</strong></td>
+            <td>Đặc tả Kỹ thuật &amp; Interactive HTML Mockup (<code>v1.0</code>)</td>
+            <td>Tạo <code>NHAN_VIEN_SPRINT.md</code> và <code>frmNhanVien_mockup_v1_0.html</code> với 5 kịch bản mô phỏng trực quan.</td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 2</strong></td>
+            <td>Thiết kế Giao diện WinForms (<code>frmNhanVien.Designer.vb</code>)</td>
+            <td>Xây dựng bố cục 3 tầng dọc (<code>pnlHeader</code>, <code>tlpKpiRow</code> 4 thẻ, <code>tlpMainContent</code> 42%:58%), cấu trúc lưới nhập liệu 2 cột cân đối, CheckedListBox vi tính và <code>dgvNhanVien</code> 8 cột.</td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 3</strong></td>
+            <td>Tầng Dữ liệu &amp; Nghiệp vụ (<code>DTO / DAO / BUS / Code-Behind</code>)</td>
+            <td>Hiện thực hóa <code>NhanVienDTO.vb</code>, <code>NhanVienDAO.vb</code> (giao dịch an toàn, đồng bộ kỹ năng vi tính, kiểm tra nợ đồng phục), <code>NhanVienBUS.vb</code> (validation CCCD, SĐT, tuổi) và <code>frmNhanVien.vb</code>.</td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 4</strong></td>
+            <td>Tích hợp <code>frmMain</code> &amp; Kiểm thử tự động</td>
+            <td>Khai báo <code>MoQuanLyNhanVien()</code> trên <code>frmMain.vb</code>; xây dựng bộ kiểm thử tự động <code>NhanVienVerifier</code> đạt 31/31 PASS (100%).</td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bước 5</strong></td>
+            <td>Báo cáo Phát hành, Đồng bộ 2 Checklist &amp; Tag <code>v0.2.8</code></td>
+            <td>Tạo Release Report <code>report_0_2_8.html</code>, cập nhật thanh điều hướng, đồng bộ <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code> và <code>CHECKLIST_DO_AN.md</code>, tạo tag Git <code>v0.2.8</code>.</td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tính Năng Nổi Bật -->
+    <div class="section">
+      <h2>✨ CÁC ĐẶC ĐIỂM KỸ THUẬT NỔI BẬT TRÊN MÀN HÌNH frmNhanVien</h2>
+      <ul class="feature-list">
+        <li>
+          <strong>1. Quản lý hồ sơ nhân viên đầy đủ</strong>
+          Họ tên, Giới tính, Ngày sinh, CCCD (12 số chuẩn), Vị trí chuyên môn, Số điện thoại, Email, Địa chỉ, Trình độ học vấn và Ngày vào làm.
+        </li>
+        <li>
+          <strong>2. Kỹ năng vi tính đa lựa chọn</strong>
+          CheckedListBox liên kết bảng trung gian <code>NhanVien_ViTinh</code> cho phép chọn nhiều kỹ năng: Word, Excel, POS, Khác.
+        </li>
+        <li>
+          <strong>3. Kiểm soát cấp phát &amp; Thu hồi đồng phục</strong>
+          Badge trực quan hiển thị số lượng đồng phục/dụng cụ nhân viên đang giữ. Cảnh báo tự động hoàn trả khi nhân viên thôi việc.
+        </li>
+        <li>
+          <strong>4. Liên kết tài khoản đăng nhập (RBAC)</strong>
+          ComboBox tài khoản lọc thông minh chỉ hiển thị tài khoản chưa ai gán hoặc tài khoản đang thuộc về chính nhân sự đó.
+        </li>
+        <li>
+          <strong>5. Nghiệp vụ Thôi việc &amp; Khôi phục linh hoạt</strong>
+          Nút thao tác thông minh tự chuyển đổi giữa "Thôi việc &amp; Thu hồi" và "Khôi phục làm việc" tùy theo trạng thái hồ sơ.
+        </li>
+        <li>
+          <strong>6. Bộ lọc và tìm kiếm đa chiều</strong>
+          Lọc kết hợp theo Vị trí chức danh, Trạng thái làm việc và Tìm kiếm tức thời theo Tên / CCCD / SĐT / Tài khoản.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bảng Chi Tiết Kết Quả Kiểm Thử Tự Động -->
+    <div class="section">
+      <h2>🧪 BẢNG KẾT QUẢ KIỂM THỬ TỰ ĐỘNG (31/31 PASS - 100%)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 100px;">Mã Test</th>
+            <th style="width: 380px;">Nội dung kiểm tra</th>
+            <th>Kỳ vọng &amp; Kết quả thực tế</th>
+            <th style="width: 100px;">Kết quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>NV-U01</code></td><td>Khởi tạo Form &amp; Kích thước chuẩn</td><td><code>ClientSize={Width=1160, Height=700}</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U02</code></td><td>Kích thước tối thiểu chống vỡ giao diện</td><td><code>MinimumSize={Width=1060, Height=660}</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U03</code></td><td>Vị trí xuất hiện giữa màn hình cha</td><td><code>StartPosition=CenterParent</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U04</code></td><td>Bố cục Tầng 1 Header Panel</td><td><code>pnlHeader.Dock=DockStyle.Top (Height=68px)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U05</code></td><td>Bố cục Tầng 2: 4 thẻ KPI thống kê</td><td><code>lblKpiTongNVVal, lblKpiDangLamVal, lblKpiNghiViecVal, lblKpiCoTaiKhoanVal đầy đủ</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U06</code></td><td>Bố cục Tầng 3: Split-Layout 42% : 58%</td><td><code>tlpMainContent.ColumnCount=2 (42% Form : 58% Grid)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U07</code></td><td>Cột trái (42%): Đầy đủ các trường hồ sơ</td><td><code>txtMaNV, txtHoTen, cboViTri, txtCMND, cboTaiKhoan, clbViTinh, pnlUniformBadge đầy đủ</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U08</code></td><td>Cụm 4 nút CRUD thao tác nhanh</td><td><code>btnThem, btnCapNhat, btnThoiViec, btnLamMoi hiển thị hoàn chỉnh</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U09</code></td><td>Cột phải (58%): DataGridView 8 cột dữ liệu</td><td><code>colMaNV, colHoTen, colGioiTinh, colViTri, colDienThoai, colCMND, colTrangThai, colTaiKhoan</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-U10</code></td><td>Badge trạng thái thao tác &amp; Nhãn thông báo</td><td><code>lblModeBadge, lblThongBao hiển thị phản hồi trực quan</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-D01</code></td><td>DTO Binding Alias: NV_Ma</td><td><code>NV_Ma ánh xạ đồng bộ với MaNV</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-D02</code></td><td>DTO Binding Alias: NV_HoTen</td><td><code>NV_HoTen ánh xạ đồng bộ với HoTen</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-D03</code></td><td>DTO GioiTinhHienThi: Giới tính Nam</td><td><code>GioiTinh=True trả về 'Nam'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-D04</code></td><td>DTO GioiTinhHienThi: Giới tính Nữ</td><td><code>GioiTinh=False trả về 'Nữ'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-D05</code></td><td>DTO Trạng thái công tác: IsDangLamViec</td><td><code>TrangThai='Đang làm việc' trả về True</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V01</code></td><td>Validation: Họ tên rỗng</td><td><code>Họ và tên nhân viên không được để trống!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V02</code></td><td>Validation: Họ tên quá ngắn (&lt; 2 ký tự)</td><td><code>Họ và tên nhân viên phải có độ dài từ 2 đến 100 ký tự!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V03</code></td><td>Validation: Số CCCD rỗng</td><td><code>Số Căn cước công dân (CCCD/CMND) không được để trống!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V04</code></td><td>Validation: CCCD không đúng 9 hoặc 12 số</td><td><code>Số CCCD/CMND phải là dãy số gồm 9 hoặc 12 chữ số hợp lệ!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V05</code></td><td>Validation: Số điện thoại sai định dạng</td><td><code>Số điện thoại không hợp lệ (phải bắt đầu bằng số 0 và có 10-11 chữ số)!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V06</code></td><td>Validation: Email sai định dạng</td><td><code>Địa chỉ Email không đúng định dạng chuẩn!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V07</code></td><td>Validation: Dưới 15 tuổi (Luật Lao Động)</td><td><code>Nhân viên chưa đủ độ tuổi lao động tối thiểu (15 tuổi)!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-V08</code></td><td>Validation: Hồ sơ hợp lệ được thông qua</td><td><code>Dữ liệu hợp lệ.</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-M01</code></td><td>Badge Đồng phục: Đang giữ đồ</td><td><code>Chuỗi hiển thị cảnh báo: 'Đang giữ 3 món'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-M02</code></td><td>Badge Đồng phục: Đã hoàn trả hết</td><td><code>Chuỗi hiển thị an toàn: 'Đã hoàn tất'</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-M03</code></td><td>Bảo vệ thao tác: Chặn thôi việc khi chưa chọn nhân viên</td><td><code>Vui lòng chọn một nhân viên để thực hiện thôi việc!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-M04</code></td><td>Bảo vệ thao tác: Chặn khôi phục khi chưa chọn nhân viên</td><td><code>Vui lòng chọn một nhân viên để khôi phục!</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-R01</code></td><td>Phân quyền RBAC cho Chủ quán (Role 1)</td><td><code>CoQuyen=True, Cho phép Thêm/Sửa/Thôi việc</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-R02</code></td><td>Phân quyền RBAC cho Quản lý (Role 2)</td><td><code>CoQuyen=True, Cho phép Thêm/Sửa/Thôi việc</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-R03</code></td><td>Phân quyền RBAC cho Phục vụ (Role 3)</td><td><code>CoQuyen=False, Chế độ Chỉ xem (ReadOnly)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+          <tr><td><code>NV-R04</code></td><td>Phân quyền RBAC cho Đầu bếp (Role 4)</td><td><code>CoQuyen=False, Chế độ Chỉ xem (ReadOnly)</code></td><td><span class="pill-pass">PASS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

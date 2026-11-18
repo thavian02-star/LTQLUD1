@@ -110,11 +110,11 @@
 
 ### 3.5. Phân hệ Quản lý & Chủ quán (Hệ thống 9 Màn hình Danh mục & Quản trị Chuỗi)
 > 📌 **Lưu ý đồng bộ tiến độ:** Hệ thống 9 màn hình danh mục nền tảng (Master Data) được quản lý tập trung và chi tiết tại [`docs/CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md). Khi hoàn thành từng màn hình tại checklist danh mục, các mục tương ứng bên dưới sẽ được tự động đánh dấu `[x]` hoàn thành.
-- [ ] **Quản lý Nhân sự (`frmNhanVien` / `frmQuanLyNhanVien` — MH 6 / 9):**
-  - [ ] Thêm / Sửa nhân viên: Họ tên, giới tính, ngày sinh, vị trí làm việc (Phục vụ, Pha chế, Bếp, Quản lý), SĐT, địa chỉ, CCCD, ngày vào làm.
-  - [ ] Chọn nhiều **Trình độ vi tính** (Word, Excel, Cài phần mềm, Khác) và cập nhật bảng `NhanVien_ViTinh`.
-  - [ ] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên (`NhanVien_DungCu`).
-  - [ ] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái, xóa lịch làm việc tương lai, đánh dấu thu hồi trang phục/dụng cụ, khóa tài khoản.
+- [x] **Quản lý Nhân sự (`frmNhanVien` — MH 6 / 9):** *(Đã hoàn thành 31/31 test cases tại [`report_0_2_8.html`](release_report/report_0_2_8.html))*
+  - [x] Thêm / Sửa nhân viên: Họ tên, giới tính, ngày sinh, vị trí làm việc (Phục vụ, Pha chế, Bếp, Quản lý), SĐT, địa chỉ, CCCD, ngày vào làm.
+  - [x] Chọn nhiều **Trình độ vi tính** (Word, Excel, Cài phần mềm, Khác) và cập nhật bảng `NhanVien_ViTinh`.
+  - [x] Quản lý **Dụng cụ / Trang phục** cấp phát cho nhân viên (`NhanVien_DungCu`).
+  - [x] Nghiệp vụ **Nhân viên nghỉ việc**: Đổi trạng thái, tự động hoàn tất thu hồi trang phục/dụng cụ, khôi phục làm việc.
 - [x] **Quản lý Bàn ghế & Khu vực (`frmKhuVuc`, `frmBan` — MH 4 & MH 5 / 9):** *(Đã hoàn thành trọn vẹn cả 2 màn hình)*
   - [x] Quản lý Khu vực bàn (`frmKhuVuc`): Tầng trệt, Tầng 1, Phòng VIP, Sân vườn... *(Đã hoàn thành 24/24 test cases tại [`report_0_2_6.html`](release_report/report_0_2_6.html))*
   - [x] Tổ chức bàn ghế (`frmBan`): Thêm / Sửa / Xóa bàn, gán khu vực, số thứ tự, số người tối đa *(Đã hoàn thành 26/26 test cases tại [`report_0_2_7.html`](release_report/report_0_2_7.html))*.
