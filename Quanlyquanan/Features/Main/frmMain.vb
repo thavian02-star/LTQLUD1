@@ -1,4 +1,4 @@
-Imports System.Drawing
+﻿Imports System.Drawing
 Imports System.Windows.Forms
 Imports Quanlyquanan.Core.Helpers
 Imports Quanlyquanan.Core.Security
@@ -233,16 +233,19 @@ Namespace Features.Main
             CapNhatButtonActive(Nothing)
         End Sub
 
+        ''' <summary>
+        ''' Má»Ÿ trá»±c tiáº¿p mÃ n hÃ¬nh Quáº£n lÃ½ Danh sÃ¡ch NhÃ¢n sá»± (frmNhanVien - MH 6/9)
+        ''' </summary>
+        Public Sub MoQuanLyNhanVien()
+            Using fStaff As New Features.Staff.frmNhanVien()
+                fStaff.ShowDialog(Me)
+            End Using
+        End Sub
+
         Private Sub btnQuanLyNhanSu_Click(sender As Object, e As EventArgs) Handles btnQuanLyNhanSu.Click
             CapNhatButtonActive(btnQuanLyNhanSu)
-            MessageBox.Show(
-                "Phân hệ [Quản Lý Nhân Sự, Trình Độ Vi Tính & Cấp Phát Trang Phục] (Features/NhanSu)!" & vbCrLf &
-                "- Tiếp nhận hồ sơ nhân viên, chọn nhiều kỹ năng vi tính (Word, Excel, Cài phần mềm)." & vbCrLf &
-                "- Cấp phát dụng cụ, trang phục và thu hồi khi nhân viên thôi việc.",
-                "Thông Báo Phân Hệ",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            MoQuanLyNhanVien()
+            CapNhatButtonActive(Nothing)
         End Sub
 
         Private Sub btnQuanLyThucDon_Click(sender As Object, e As EventArgs) Handles btnQuanLyThucDon.Click, btnQuickThucDon.Click

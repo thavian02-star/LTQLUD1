@@ -226,21 +226,25 @@ Namespace Core.DAO
         ''' </summary>
         Public Shared Function KiemTraTrungCMND(cmnd As String, Optional maNVHienTai As Integer = 0) As Boolean
             If String.IsNullOrWhiteSpace(cmnd) Then Return False
+            Try
+                Dim sql As String = "
+                    SELECT COUNT(*) 
+                    FROM NhanVien 
+                    WHERE NV_Xoa = 0 
+                      AND NV_CMND = @CMND 
+                      AND (@MaNV = 0 OR NV_Ma <> @MaNV);"
 
-            Dim sql As String = "
-                SELECT COUNT(*) 
-                FROM NhanVien 
-                WHERE NV_Xoa = 0 
-                  AND NV_CMND = @CMND 
-                  AND (@MaNV = 0 OR NV_Ma <> @MaNV);"
+                Dim prms As SqlParameter() = {
+                    New SqlParameter("@CMND", SqlDbType.NVarChar, 20) With {.Value = cmnd.Trim()},
+                    New SqlParameter("@MaNV", SqlDbType.Int) With {.Value = maNVHienTai}
+                }
 
-            Dim prms As SqlParameter() = {
-                New SqlParameter("@CMND", SqlDbType.NVarChar, 20) With {.Value = cmnd.Trim()},
-                New SqlParameter("@MaNV", SqlDbType.Int) With {.Value = maNVHienTai}
-            }
-
-            Dim count As Object = KetNoiCSDL.ExecuteScalar(sql, prms)
-            Return (count IsNot Nothing AndAlso Convert.ToInt32(count) > 0)
+                Dim count As Object = KetNoiCSDL.ExecuteScalar(sql, prms)
+                Return (count IsNot Nothing AndAlso Convert.ToInt32(count) > 0)
+            Catch ex As Exception
+                ' Tránh văng ngoại lệ khi mất kết nối CSDL
+                Return False
+            End Try
         End Function
 
         ''' <summary>
