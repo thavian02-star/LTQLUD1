@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1739.7804999999996 517.45" width="1739.7804999999996" height="517.45" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="seq-arrow" markerWidth="8" markerHeight="5" refX="8" refY="2.5" orient="auto-start-reverse">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" />
+  </marker>
+  <marker id="seq-arrow-open" markerWidth="8" markerHeight="5" refX="8" refY="2.5" orient="auto-start-reverse">
+    <polyline points="0 0, 8 2.5, 0 5" fill="none" stroke="var(--_arrow)" stroke-width="1" />
+  </marker>
+</defs>
+<line class="lifeline" data-actor="Boss" x1="134.413" y1="92.45" x2="134.413" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Menu" x1="440.23499999999996" y1="70" x2="440.23499999999996" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Branch" x1="631.6334999999999" y1="70" x2="631.6334999999999" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Waiter" x1="827.8484999999998" y1="92.45" x2="827.8484999999998" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="POS" x1="1125.3544999999997" y1="70" x2="1125.3544999999997" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Kitchen" x1="1434.7404999999997" y1="70" x2="1434.7404999999997" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Cook" x1="1649.0864999999997" y1="92.45" x2="1649.0864999999997" y2="487.45000000000005" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<g class="message" data-from="Boss" data-to="Menu" data-label="1. Tạo Món ăn &amp; Thiết kế Bảng Thực Đơn (Buffet, Alacarte)" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="1">
+  <line x1="134.413" y1="112.45" x2="440.23499999999996" y2="112.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="139.82399999999996" y="94.3" width="295" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="287.32399999999996" y="102.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">1. Tạo Món ăn &amp; Thiết kế Bảng Thực Đơn (Buffet, Alacarte)</text>
+  <circle class="sequence-number" cx="134.413" cy="112.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="134.413" y="112.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">1</text>
+</g>
+<g class="message" data-from="Boss" data-to="Branch" data-label="2. Phân bổ Bảng Thực Đơn cho Chi nhánh Quận 1" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="2">
+  <line x1="134.413" y1="152.45" x2="631.6334999999999" y2="152.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="257.52324999999996" y="134.29999999999998" width="251" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="383.02324999999996" y="142.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">2. Phân bổ Bảng Thực Đơn cho Chi nhánh Quận 1</text>
+  <circle class="sequence-number" cx="134.413" cy="152.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="134.413" y="152.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">2</text>
+</g>
+<g class="message" data-from="Waiter" data-to="POS" data-label="3. Mở bàn trống trên [frmSoDoBan]" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="3">
+  <line x1="827.8484999999998" y1="207.45" x2="1125.3544999999997" y2="207.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="885.1014999999998" y="189.29999999999998" width="183" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="976.6014999999998" y="197.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">3. Mở bàn trống trên [frmSoDoBan]</text>
+  <circle class="sequence-number" cx="827.8484999999998" cy="207.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="827.8484999999998" y="207.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">3</text>
+</g>
+<g class="message" data-from="POS" data-to="Branch" data-label="Lấy đúng Menu được mở bán tại Chi nhánh này" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="4">
+  <line x1="1125.3544999999997" y1="247.45" x2="631.6334999999999" y2="247.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="756.4939999999998" y="229.29999999999998" width="244" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="878.4939999999998" y="237.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Lấy đúng Menu được mở bán tại Chi nhánh này</text>
+  <circle class="sequence-number" cx="1125.3544999999997" cy="247.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="1125.3544999999997" y="247.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">4</text>
+</g>
+<g class="message" data-from="Waiter" data-to="POS" data-label="4. Khách chọn món -&gt; Bấm &quot;Gửi Bếp&quot;" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="5">
+  <line x1="827.8484999999998" y1="287.45" x2="1125.3544999999997" y2="287.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="882.1014999999998" y="269.3" width="189" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="976.6014999999998" y="277.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">4. Khách chọn món -&gt; Bấm &quot;Gửi Bếp&quot;</text>
+  <circle class="sequence-number" cx="827.8484999999998" cy="287.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="827.8484999999998" y="287.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">5</text>
+</g>
+<g class="message" data-from="POS" data-to="Kitchen" data-label="5. Đẩy món vào hàng đợi [frmNhaBep] (FIFO thời gian thực)" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="6">
+  <line x1="1125.3544999999997" y1="327.45" x2="1434.7404999999997" y2="327.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="1131.0474999999997" y="309.3" width="298" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="1280.0474999999997" y="317.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">5. Đẩy món vào hàng đợi [frmNhaBep] (FIFO thời gian thực)</text>
+  <circle class="sequence-number" cx="1125.3544999999997" cy="327.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="1125.3544999999997" y="327.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">6</text>
+</g>
+<g class="message" data-from="Cook" data-to="Kitchen" data-label="6. Nấu xong -&gt; Bấm &quot;Hoàn thành món&quot;" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="7">
+  <line x1="1649.0864999999997" y1="367.45" x2="1434.7404999999997" y2="367.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="1444.9134999999997" y="349.3" width="194" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="1541.9134999999997" y="357.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">6. Nấu xong -&gt; Bấm &quot;Hoàn thành món&quot;</text>
+  <circle class="sequence-number" cx="1649.0864999999997" cy="367.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="1649.0864999999997" y="367.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">7</text>
+</g>
+<g class="message" data-from="Kitchen" data-to="POS" data-label="7. Báo chuông / Đổi màu bàn: &quot;Món đã xong - Mang ra bàn&quot;" data-line-style="dashed" data-arrow-head="filled" data-self="false" data-step="8">
+  <line x1="1434.7404999999997" y1="407.45" x2="1125.3544999999997" y2="407.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <rect x="1131.0474999999997" y="389.3" width="298" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="1280.0474999999997" y="397.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">7. Báo chuông / Đổi màu bàn: &quot;Món đã xong - Mang ra bàn&quot;</text>
+  <circle class="sequence-number" cx="1434.7404999999997" cy="407.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="1434.7404999999997" y="407.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">8</text>
+</g>
+<g class="message" data-from="Waiter" data-to="POS" data-label="8. Khách ăn xong -&gt; Bấm [frmThanhToan] -&gt; In Hóa Đơn" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="9">
+  <line x1="827.8484999999998" y1="447.45" x2="1125.3544999999997" y2="447.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="834.1014999999998" y="429.3" width="285" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="976.6014999999998" y="437.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">8. Khách ăn xong -&gt; Bấm [frmThanhToan] -&gt; In Hóa Đơn</text>
+  <circle class="sequence-number" cx="827.8484999999998" cy="447.45" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="827.8484999999998" y="447.45" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">9</text>
+</g>
+<g class="note" data-position="over" data-actors="Waiter,POS">
+  <polygon points="879.7254999999998,160.45 1067.4774999999997,160.45 1073.4774999999997,166.45 1073.4774999999997,183.45 879.7254999999998,183.45" fill="var(--bg)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <polygon points="1067.4774999999997,160.45 1073.4774999999997,166.45 1067.4774999999997,166.45" fill="var(--_inner-stroke)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="976.6014999999998" y="171.95" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Khách vào quán tại Chi nhánh Quận 1</text>
+</g>
+<g class="actor" data-id="Boss" data-label="👨‍💼 Chủ Quán / Bếp Trưởng" data-type="actor">
+  <g transform="translate(116.41300000000001,32) scale(1.5)">
+    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M5.62842 18.3563C7.08963 17.0398 9.39997 16 12 16C14.6 16 16.9104 17.0398 18.3716 18.3563" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+  </g>
+  <text x="134.413" y="84" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">👨‍💼 Chủ Quán / Bếp Trưởng</text>
+</g>
+<g class="actor" data-id="Menu" data-label="📋 Menu/ (Tầng 1 &amp; 2)" data-type="participant">
+  <rect x="363.60949999999997" y="30" width="153.251" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="440.23499999999996" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">📋 Menu/ (Tầng 1 &amp; 2)</text>
+</g>
+<g class="actor" data-id="Branch" data-label="🏢 Branch/ (Tầng 3)" data-type="participant">
+  <rect x="556.8604999999999" y="30" width="149.546" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="631.6334999999999" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">🏢 Branch/ (Tầng 3)</text>
+</g>
+<g class="actor" data-id="Waiter" data-label="💁 Nhân Viên Phục Vụ" data-type="actor">
+  <g transform="translate(809.8484999999998,32) scale(1.5)">
+    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M5.62842 18.3563C7.08963 17.0398 9.39997 16 12 16C14.6 16 16.9104 17.0398 18.3716 18.3563" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+  </g>
+  <text x="827.8484999999998" y="84" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">💁 Nhân Viên Phục Vụ</text>
+</g>
+<g class="actor" data-id="POS" data-label="🍽️ POS/ (frmSoDoBan, frmGoiMon)" data-type="participant">
+  <rect x="1005.0099999999998" y="30" width="240.68899999999994" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1125.3544999999997" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">🍽️ POS/ (frmSoDoBan, frmGoiMon)</text>
+</g>
+<g class="actor" data-id="Kitchen" data-label="🍳 Kitchen/ (frmNhaBep)" data-type="participant">
+  <rect x="1347.7409999999998" y="30" width="173.999" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1434.7404999999997" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">🍳 Kitchen/ (frmNhaBep)</text>
+</g>
+<g class="actor" data-id="Cook" data-label="👨‍🍳 Đầu Bếp" data-type="actor">
+  <g transform="translate(1631.0864999999997,32) scale(1.5)">
+    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M5.62842 18.3563C7.08963 17.0398 9.39997 16 12 16C14.6 16 16.9104 17.0398 18.3716 18.3563" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+  </g>
+  <text x="1649.0864999999997" y="84" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">👨‍🍳 Đầu Bếp</text>
+</g>
+</svg>
