@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup UI v1.0 - Quản Lý Danh Sách Nhân Sự (frmNhanVien)</title>
+    <style>
+        :root {
+            --navy: #1A5276;
+            --navy-dark: #154360;
+            --bg-body: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --border-color: #DCDFE6;
+            --text-main: #2C3E50;
+            --text-muted: #6C757D;
+            --green: #27AE60;
+            --blue: #2980B9;
+            --red: #C0392B;
+            --orange: #E67E22;
+            --purple: #8E44AD;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #E5E9F0; padding: 18px; color: var(--text-main); }
+
+        .demo-toolbar {
+            max-width: 1180px; margin: 0 auto 14px auto; background: #fff; border: 1px solid #cbd5e1;
+            border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .demo-toolbar span { font-size: 13px; font-weight: 700; color: var(--navy); }
+        .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .demo-btn {
+            border: 1px solid #cbd5e1; background: #f8fafc; color: #1e293b; padding: 6px 11px;
+            font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.15s;
+        }
+        .demo-btn:hover, .demo-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+        .winform-window {
+            max-width: 1180px; margin: 0 auto; background: var(--bg-body);
+            border: 2px solid #1A5276; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+        }
+        .titlebar {
+            background: #0f2f44; color: #fff; padding: 6px 14px; font-size: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar {
+            background: var(--navy); color: #fff; padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-bar h1 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+        .header-bar p { font-size: 12px; color: #AED6F1; }
+        .btn-close-form {
+            background: var(--red); color: #fff; border: none; padding: 8px 16px;
+            border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12.5px;
+        }
+
+        .kpi-row {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+            padding: 12px 16px 4px 16px;
+        }
+        .kpi-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 10px 14px; border-left: 5px solid var(--navy);
+        }
+        .kpi-card.green { border-left-color: var(--green); }
+        .kpi-card.orange { border-left-color: var(--orange); }
+        .kpi-card.purple { border-left-color: var(--purple); }
+        .kpi-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-val { font-size: 19px; font-weight: 800; margin-top: 3px; color: var(--navy); }
+        .kpi-card.green .kpi-val { color: var(--green); }
+        .kpi-card.orange .kpi-val { color: #D35400; }
+        .kpi-card.purple .kpi-val { color: var(--purple); }
+
+        .main-split {
+            display: grid; grid-template-columns: 42% 58%; gap: 14px;
+            padding: 10px 16px 16px 16px;
+        }
+        .panel-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 12px 14px; display: flex; flex-direction: column;
+        }
+        .panel-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1.5px solid #EAEDED; padding-bottom: 8px; margin-bottom: 10px;
+        }
+        .panel-title { font-size: 13.5px; font-weight: 700; color: var(--navy); }
+        .mode-badge {
+            font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+            background: #E8F8F5; color: var(--green); border: 1px solid #A3E4D7;
+        }
+        .mode-badge.edit { background: #FEF9E7; color: #B7950B; border-color: #F9E79F; }
+        .mode-badge.readonly { background: #FADBD8; color: var(--red); border-color: #F5B7B1; }
+
+        .msg-box {
+            padding: 7px 10px; border-radius: 4px; font-size: 12px; margin-bottom: 10px; font-weight: 600;
+            background: #EAF2F8; color: var(--navy); border: 1px solid #D4E6F1;
+        }
+
+        .form-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; font-size: 12px;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 3px; }
+        .form-group.full { grid-column: span 2; }
+        .form-label { font-weight: 600; color: #34495E; font-size: 11.5px; }
+        .form-input, .form-select {
+            padding: 5px 8px; border: 1px solid #BDC3C7; border-radius: 4px; font-size: 12px;
+            background: #fff; outline: none; transition: 0.15s;
+        }
+        .form-input:focus, .form-select:focus { border-color: var(--blue); box-shadow: 0 0 3px rgba(41,128,185,0.3); }
+        .form-input[readonly] { background: #F8F9F9; color: #7F8C8D; }
+
+        .gender-options { display: flex; gap: 14px; align-items: center; padding-top: 4px; }
+        .gender-label { font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+
+        .skills-card {
+            border: 1px solid #D6DBDF; border-radius: 4px; padding: 7px 9px; background: #FBFCFC;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 11.5px; margin-top: 2px;
+        }
+        .skill-item { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+
+        .uniform-badge {
+            background: #F4F6F7; border: 1px dashed #BDC3C7; border-radius: 4px;
+            padding: 6px 9px; font-size: 11.5px; color: #2C3E50; margin-top: 8px;
+        }
+
+        .btn-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;
+        }
+        .btn-action {
+            padding: 8px 10px; border-radius: 4px; font-weight: 700; font-size: 12px;
+            cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 5px;
+            transition: 0.15s;
+        }
+        .btn-add { background: var(--green); color: #fff; }
+        .btn-add:hover { background: #229954; }
+        .btn-update { background: var(--blue); color: #fff; }
+        .btn-update:hover { background: #2471A3; }
+        .btn-quit { background: #E67E22; color: #fff; }
+        .btn-quit:hover { background: #D35400; }
+        .btn-reset { background: #95A5A6; color: #fff; }
+        .btn-reset:hover { background: #7F8C8D; }
+        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .filter-row {
+            display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1; min-width: 150px; padding: 6px 10px; border: 1px solid #BDC3C7;
+            border-radius: 4px; font-size: 12px; outline: none;
+        }
+        .btn-refresh {
+            background: #34495E; color: #fff; border: none; padding: 6px 12px;
+            border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;
+        }
+
+        .data-table-wrap { flex: 1; overflow-y: auto; border: 1px solid #BDC3C7; border-radius: 4px; max-height: 440px; }
+        table.winform-grid { width: 100%; border-collapse: collapse; font-size: 12px; }
+        table.winform-grid th {
+            background: var(--navy); color: #fff; text-align: left; padding: 8px 10px;
+            position: sticky; top: 0; font-size: 11.5px; z-index: 1;
+        }
+        table.winform-grid td { padding: 7px 10px; border-bottom: 1px solid #EAEDED; }
+        table.winform-grid tr:hover { background: #EBF5FB; cursor: pointer; }
+        table.winform-grid tr.selected { background: #D4E6F1; font-weight: 600; }
+
+        .status-pill {
+            font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; display: inline-block;
+        }
+        .status-active { background: #D5F5E3; color: #1E8449; }
+        .status-quit { background: #FADBD8; color: #C0392B; }
+        .role-tag {
+            background: #E8F8F5; color: #117864; font-size: 10.5px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
+        }
+        .account-badge {
+            background: #EAECEE; color: #2C3E50; font-size: 10px; font-family: Consolas, monospace; padding: 2px 5px; border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH KỊCH BẢN DEMO TƯƠNG TÁC -->
+    <div class="demo-toolbar">
+        <span>🎬 KỊCH BẢN DEMO MOCKUP (PO & GIẢNG VIÊN DUYỆT):</span>
+        <div class="demo-btns">
+            <button class="demo-btn active" onclick="chuyenKichBan(1)">1. Mặc định (7 NV, 4 KPI)</button>
+            <button class="demo-btn" onclick="chuyenKichBan(2)">2. Lọc Phục vụ (3 người)</button>
+            <button class="demo-btn" onclick="chuyenKichBan(3)">3. Chi tiết NV Đã nghỉ (#7 Huy)</button>
+            <button class="demo-btn" onclick="chuyenKichBan(4)">4. Thêm mới nhân sự</button>
+            <button class="demo-btn" onclick="chuyenKichBan(5)">5. Phân quyền Chỉ xem</button>
+        </div>
+    </div>
+
+    <!-- CỬA SỔ GIẢ LẬP WINFORMS -->
+    <div class="winform-window">
+        <div class="titlebar">
+            <span>Hệ Thống Quản Lý Quán Ăn — [frmNhanVien - Quản Lý Danh Sách Nhân Sự]</span>
+            <span>- □ ✕</span>
+        </div>
+
+        <div class="header-bar">
+            <div>
+                <h1>👥 QUẢN LÝ DANH SÁCH NHÂN SỰ</h1>
+                <p>Danh mục chuẩn (6/9) • Hồ sơ nhân viên, vị trí, kỹ năng vi tính, cấp phát đồng phục &amp; tài khoản đăng nhập</p>
+            </div>
+            <button class="btn-close-form" onclick="alert('Đóng form và quay lại Dashboard!')">✖ Đóng</button>
+        </div>
+
+        <!-- 4 THẺ KPI TỔNG HỢP -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-title">Tổng nhân viên</div>
+                <div class="kpi-val" id="kpiTongNV">7 người</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-title">Đang làm việc</div>
+                <div class="kpi-val" id="kpiDangLam">6 người</div>
+            </div>
+            <div class="kpi-card orange">
+                <div class="kpi-title">Đã nghỉ việc</div>
+                <div class="kpi-val" id="kpiNghiViec">1 người</div>
+            </div>
+            <div class="kpi-card purple">
+                <div class="kpi-title">Đã cấp tài khoản</div>
+                <div class="kpi-val" id="kpiCoTK">6 người</div>
+            </div>
+        </div>
+
+        <!-- NỘI DUNG CHÍNH (SPLIT-LAYOUT 42% : 58%) -->
+        <div class="main-split">
+
+            <!-- CỘT TRÁI: FORM NHẬP LIỆU -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <span class="panel-title">📝 THÔNG TIN HỒ SƠ NHÂN SỰ</span>
+                    <span class="mode-badge" id="lblMode">CHẾ ĐỘ: CẬP NHẬT</span>
+                </div>
+
+                <div class="msg-box" id="lblMsg">
+                    💡 Chọn một nhân viên từ danh sách bên phải để xem thông tin chi tiết hoặc cập nhật.
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Mã nhân viên:</label>
+                        <input type="text" class="form-input" id="txtMaNV" value="3" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Họ và tên (*):</label>
+                        <input type="text" class="form-input" id="txtHoTen" value="Lê Minh Tuấn">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Giới tính:</label>
+                        <div class="gender-options">
+                            <label class="gender-label"><input type="radio" name="gioiTinh" id="rdoNam" checked> Nam</label>
+                            <label class="gender-label"><input type="radio" name="gioiTinh" id="rdoNu"> Nữ</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ngày sinh:</label>
+                        <input type="date" class="form-input" id="dtpNgaySinh" value="2002-11-05">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Vị trí công việc (*):</label>
+                        <select class="form-select" id="cboViTri">
+                            <option value="Chủ quán">Chủ quán</option>
+                            <option value="Quản lý">Quản lý</option>
+                            <option value="Phục vụ" selected>Phục vụ</option>
+                            <option value="Đầu bếp chính">Đầu bếp chính</option>
+                            <option value="Pha chế">Pha chế</option>
+                            <option value="Tiếp tân">Tiếp tân</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Số CCCD / CMND (*):</label>
+                        <input type="text" class="form-input" id="txtCMND" value="079202007891">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Số điện thoại (*):</label>
+                        <input type="text" class="form-input" id="txtDienThoai" value="0912334455">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <input type="email" class="form-input" id="txtEmail" value="tuan.le@gmail.com">
+                    </div>
+
+                    <div class="form-group full">
+                        <label class="form-label">Địa chỉ cư trú:</label>
+                        <input type="text" class="form-input" id="txtDiaChi" value="210 Cách Mạng Tháng 8, Quận 10, TP.HCM">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Học vấn:</label>
+                        <input type="text" class="form-input" id="txtHocVan" value="Lớp 12/12">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Trạng thái:</label>
+                        <select class="form-select" id="cboTrangThai">
+                            <option value="Đang làm việc" selected>Đang làm việc</option>
+                            <option value="Đã nghỉ việc">Đã nghỉ việc</option>
+                        </select>
+                    </div>
+
+                    <!-- KỸ NĂNG VI TÍNH -->
+                    <div class="form-group full">
+                        <label class="form-label">Trình độ vi tính (Chọn nhiều):</label>
+                        <div class="skills-card">
+                            <label class="skill-item"><input type="checkbox" id="chkWord" checked> MS Word (Soạn thảo)</label>
+                            <label class="skill-item"><input type="checkbox" id="chkExcel"> MS Excel (Bảng tính)</label>
+                            <label class="skill-item"><input type="checkbox" id="chkPOS" checked> Phần mềm POS bán hàng</label>
+                            <label class="skill-item"><input type="checkbox" id="chkKhac"> Khác (Canva / Fanpage)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BADGE ĐỒNG PHỤC & TÀI KHOẢN -->
+                <div class="uniform-badge" id="lblUniformBadge">
+                    👕 <strong>Cấp phát:</strong> 2 Áo size L, 1 Tạp dề, 1 Bảng tên &nbsp;|&nbsp; 🔐 <strong>Tài khoản:</strong> <code>phucvu1</code> (TK #3)
+                </div>
+
+                <!-- CỤM 4 NÚT CRUD -->
+                <div class="btn-grid">
+                    <button class="btn-action btn-add" id="btnThem" onclick="themNhanVien()">➕ Thêm nhân viên</button>
+                    <button class="btn-action btn-update" id="btnCapNhat" onclick="capNhatNhanVien()">💾 Lưu cập nhật</button>
+                    <button class="btn-action btn-quit" id="btnThoiViec" onclick="thoiViecNhanVien()">🛑 Cho thôi việc</button>
+                    <button class="btn-action btn-reset" id="btnLamMoi" onclick="lamMoiForm()">🔄 Làm mới</button>
+                </div>
+            </div>
+
+            <!-- CỘT PHẢI: LƯỚI DATA GRID VIEW -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <span class="panel-title">📋 DANH SÁCH NHÂN SỰ QUÁN ĂN</span>
+                    <span style="font-size: 11.5px; color: var(--text-muted);" id="lblCountGrid">Hiển thị 7 nhân viên</span>
+                </div>
+
+                <div class="filter-row">
+                    <select class="form-select" id="cboLocViTri" style="width: 140px;" onchange="locDuLieu()">
+                        <option value="">-- Tất cả vị trí --</option>
+                        <option value="Chủ quán">Chủ quán</option>
+                        <option value="Quản lý">Quản lý</option>
+                        <option value="Phục vụ">Phục vụ</option>
+                        <option value="Đầu bếp chính">Đầu bếp chính</option>
+                        <option value="Pha chế">Pha chế</option>
+                    </select>
+
+                    <select class="form-select" id="cboLocTrangThai" style="width: 150px;" onchange="locDuLieu()">
+                        <option value="">-- Tất cả trạng thái --</option>
+                        <option value="Đang làm việc">Đang làm việc</option>
+                        <option value="Đã nghỉ việc">Đã nghỉ việc</option>
+                    </select>
+
+                    <input type="text" class="search-input" id="txtTimKiem" placeholder="🔍 Tìm theo Tên, SĐT, CCCD..." oninput="locDuLieu()">
+                    <button class="btn-refresh" onclick="taiLaiTatCa()">🔄 Tải lại</button>
+                </div>
+
+                <div class="data-table-wrap">
+                    <table class="winform-grid">
+                        <thead>
+                            <tr>
+                                <th style="width: 55px;">Mã</th>
+                                <th style="width: 150px;">Họ và tên</th>
+                                <th style="width: 60px;">Phái</th>
+                                <th style="width: 95px;">Vị trí</th>
+                                <th style="width: 100px;">Điện thoại</th>
+                                <th style="width: 110px;">Số CCCD</th>
+                                <th style="width: 100px;">Trạng thái</th>
+                                <th style="width: 90px;">Tài khoản</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblStaffBody">
+                            <tr onclick="chonNhanVien(1, 'Nguyễn Hoàng Nam', 1, '1985-04-12', 'Chủ quán', '079085001234', '0903112233', 'nam.nguyen@huongviet.vn', '128 Nguyễn Thị Minh Khai, Q.3', 'Đại học Kinh tế', 'Đang làm việc', [1,2,3,4], 'chuquan')">
+                                <td>#1</td>
+                                <td><strong>Nguyễn Hoàng Nam</strong></td>
+                                <td>Nam</td>
+                                <td><span class="role-tag">Chủ quán</span></td>
+                                <td>0903112233</td>
+                                <td>079085001234</td>
+                                <td><span class="status-pill status-active">Đang làm</span></td>
+                                <td><span class="account-badge">chuquan</span></td>
+                            </tr>
+                            <tr onclick="chonNhanVien(2, 'Trần Thị Thu Thảo', 0, '1993-08-25', 'Quản lý', '079193004567', '0908445566', 'thao.tran@huongviet.vn', '45 Lê Văn Sỹ, Phú Nhuận', 'Cao đẳng QTrị', 'Đang làm việc', [1,2,3], 'quanly')">
+                                <td>#2</td>
+                                <td><strong>Trần Thị Thu Thảo</strong></td>
+                                <td>Nữ</td>
+                                <td><span class="role-tag">Quản lý</span></td>
+                                <td>0908445566</td>
+                                <td>079193004567</td>
+                                <td><span class="status-pill status-active">Đang làm</span></td>
+                                <td><span class="account-badge">quanly</span></td>
+                            </tr>
+                            <tr class="selected" onclick="chonNhanVien(3, 'Lê Minh Tuấn', 1, '2002-11-05', 'Phục vụ', '079202007891', '0912334455', 'tuan.le@gmail.com', '210 Cách Mạng Tháng 8, Q.10', 'Lớp 12/12', 'Đang làm việc', [1,3], 'phucvu1')">
+                                <td>#3</td>
+                                <td><strong>Lê Minh Tuấn</strong></td>
+                                <td>Nam</td>
+                                <td><span class="role-tag">Phục vụ</span></td>
+                                <td>0912334455</td>
+                                <td>079202007891</td>
+                                <td><span class="status-pill status-active">Đang làm</span></td>
+                                <td><span class="account-badge">phucvu1</span></td>
+                            </tr>
+                            <tr onclick="chonNhanVien(4, 'Phạm Ngọc Ánh', 0, '2003-05-19', 'Phục vụ', '079303009876', '0937667788', 'anh.pham03@gmail.com', '88 Hoàng Hoa Thám, Bình Thạnh', 'Sinh viên ĐH', 'Đang làm việc', [1,2,3], 'phucvu2')">
+                                <td>#4</td>
+                                <td><strong>Phạm Ngọc Ánh</strong></td>
+                                <td>Nữ</td>
+                                <td><span class="role-tag">Phục vụ</span></td>
+                                <td>0937667788</td>
+                                <td>079303009876</td>
+                                <td><span class="status-pill status-active">Đang làm</span></td>
+                                <td><span class="account-badge">phucvu2</span></td>
+                            </tr>
+                            <tr onclick="chonNhanVien(5, 'Võ Văn Hùng', 1, '1990-02-14', 'Đầu bếp chính', '079090003456', '0979112299', 'hung.bep@huongviet.vn', '15 Âu Cơ, Tân Bình', 'Trung cấp Nấu ăn', 'Đang làm việc', [3], 'nhabep1')">
+                                <td>#5</td>
+                                <td><strong>Võ Văn Hùng</strong></td>
+                                <td>Nam</td>
+                                <td><span class="role-tag">Đầu bếp chính</span></td>
+                                <td>0979112299</td>
+                                <td>079090003456</td>
+                                <td><span class="status-pill status-active">Đang làm</span></td>
+                                <td><span class="account-badge">nhabep1</span></td>
+                            </tr>
+                            <tr onclick="chonNhanVien(6, 'Đặng Quốc Bảo', 1, '2001-09-30', 'Pha chế', '079201006543', '0984556677', 'bao.barista@gmail.com', '302 Nguyễn Văn Đậu, Bình Thạnh', 'Chứng chỉ Pha chế', 'Đang làm việc', [3], 'phache1')">
+                                <td>#6</td>
+                                <td><strong>Đặng Quốc Bảo</strong></td>
+                                <td>Nam</td>
+                                <td><span class="role-tag">Pha chế</span></td>
+                                <td>0984556677</td>
+                                <td>079201006543</td>
+                                <td><span class="status-pill status-active">Đang làm</span></td>
+                                <td><span class="account-badge">phache1</span></td>
+                            </tr>
+                            <tr onclick="chonNhanVien(7, 'Hoàng Gia Huy', 1, '2003-12-01', 'Phục vụ', '079203001122', '0965889900', 'huy.hoang@gmail.com', '52 Thành Thái, Q.10', 'Lớp 12/12', 'Đã nghỉ việc', [], '')">
+                                <td>#7</td>
+                                <td><strong>Hoàng Gia Huy</strong></td>
+                                <td>Nam</td>
+                                <td><span class="role-tag">Phục vụ</span></td>
+                                <td>0965889900</td>
+                                <td>079203001122</td>
+                                <td><span class="status-pill status-quit">Đã nghỉ</span></td>
+                                <td><span style="color: #95A5A6; font-size: 11px;">Chưa cấp</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function chuyenKichBan(kb) {
+            document.querySelectorAll('.demo-btn').forEach((b, i) => {
+                b.classList.toggle('active', i + 1 === kb);
+            });
+
+            if (kb === 1) { // Mặc định
+                taiLaiTatCa();
+                chonNhanVien(3, 'Lê Minh Tuấn', 1, '2002-11-05', 'Phục vụ', '079202007891', '0912334455', 'tuan.le@gmail.com', '210 Cách Mạng Tháng 8, Q.10', 'Lớp 12/12', 'Đang làm việc', [1,3], 'phucvu1');
+                setMode('CHẾ ĐỘ: CẬP NHẬT', 'edit');
+                document.getElementById('lblMsg').innerHTML = '💡 Kịch bản 1: Danh sách 7 nhân viên chuẩn từ Seed Data. Đang chọn nhân viên #3 Lê Minh Tuấn.';
+            } else if (kb === 2) { // Lọc phục vụ
+                document.getElementById('cboLocViTri').value = 'Phục vụ';
+                document.getElementById('cboLocTrangThai').value = '';
+                locDuLieu();
+                document.getElementById('lblMsg').innerHTML = '🔍 Kịch bản 2: Lọc theo vị trí "Phục vụ" (Gồm 3 nhân viên: #3 Tuấn, #4 Ánh, #7 Huy).';
+            } else if (kb === 3) { // Nhân viên nghỉ việc #7 Huy
+                taiLaiTatCa();
+                chonNhanVien(7, 'Hoàng Gia Huy', 1, '2003-12-01', 'Phục vụ', '079203001122', '0965889900', 'huy.hoang@gmail.com', '52 Thành Thái, Q.10', 'Lớp 12/12', 'Đã nghỉ việc', [], '');
+                document.getElementById('lblUniformBadge').innerHTML = '⚠️ <strong>Nghỉ việc:</strong> Đã thu hồi đầy đủ 2 Áo phục vụ vào ngày 30/09/2024 &nbsp;|&nbsp; 🔐 <strong>Tài khoản:</strong> Đã khóa';
+                document.getElementById('lblMsg').innerHTML = '🛑 Kịch bản 3: Nhân viên #7 Hoàng Gia Huy đã thôi việc ngày 30/09/2024, đồng phục đã được thu hồi.';
+            } else if (kb === 4) { // Thêm mới
+                lamMoiForm();
+                document.getElementById('lblMsg').innerHTML = '➕ Kịch bản 4: Biểu mẫu sẵn sàng tiếp nhận nhân sự mới. Nhập họ tên, CCCD, SĐT và chọn kỹ năng vi tính.';
+            } else if (kb === 5) { // Chỉ xem
+                taiLaiTatCa();
+                setMode('CHẾ ĐỘ: CHỈ XEM', 'readonly');
+                document.getElementById('btnThem').disabled = true;
+                document.getElementById('btnCapNhat').disabled = true;
+                document.getElementById('btnThoiViec').disabled = true;
+                document.getElementById('lblMsg').innerHTML = '🔒 Kịch bản 5: RBAC bảo vệ — Tài khoản Phục vụ / Nhà bếp không có quyền `CQ_QUAN_LY_NHAN_SU`, toàn bộ nút sửa/xóa bị khóa.';
+            }
+        }
+
+        function setMode(text, type) {
+            const badge = document.getElementById('lblMode');
+            badge.innerText = text;
+            badge.className = 'mode-badge ' + (type || '');
+            const coQuyen = (type !== 'readonly');
+            document.getElementById('btnThem').disabled = !coQuyen;
+            document.getElementById('btnCapNhat').disabled = !coQuyen;
+            document.getElementById('btnThoiViec').disabled = !coQuyen;
+        }
+
+        function chonNhanVien(ma, ten, phai, ngaysinh, vitri, cmnd, sdt, email, diachi, hocvan, trangthai, vitinh, tk) {
+            document.getElementById('txtMaNV').value = ma;
+            document.getElementById('txtHoTen').value = ten;
+            document.getElementById('rdoNam').checked = (phai === 1);
+            document.getElementById('rdoNu').checked = (phai === 0);
+            document.getElementById('dtpNgaySinh').value = ngaysinh;
+            document.getElementById('cboViTri').value = vitri;
+            document.getElementById('txtCMND').value = cmnd;
+            document.getElementById('txtDienThoai').value = sdt;
+            document.getElementById('txtEmail').value = email;
+            document.getElementById('txtDiaChi').value = diachi;
+            document.getElementById('txtHocVan').value = hocvan;
+            document.getElementById('cboTrangThai').value = trangthai;
+
+            document.getElementById('chkWord').checked = vitinh.includes(1);
+            document.getElementById('chkExcel').checked = vitinh.includes(2);
+            document.getElementById('chkPOS').checked = vitinh.includes(3);
+            document.getElementById('chkKhac').checked = vitinh.includes(4);
+
+            if (trangthai === 'Đã nghỉ việc') {
+                document.getElementById('lblUniformBadge').innerHTML = '⚠️ <strong>Nghỉ việc:</strong> Đã thu hồi trang phục &nbsp;|&nbsp; 🔐 <strong>Tài khoản:</strong> Không hoạt động';
+            } else {
+                document.getElementById('lblUniformBadge').innerHTML = `👕 <strong>Cấp phát:</strong> Đồng phục vị trí ${vitri} &nbsp;|&nbsp; 🔐 <strong>Tài khoản:</strong> <code>${tk || 'Chưa cấp'}</code>`;
+            }
+
+            setMode('CHẾ ĐỘ: CẬP NHẬT', 'edit');
+        }
+
+        function lamMoiForm() {
+            document.getElementById('txtMaNV').value = '(Tự động sinh)';
+            document.getElementById('txtHoTen').value = '';
+            document.getElementById('rdoNam').checked = true;
+            document.getElementById('dtpNgaySinh').value = '2000-01-01';
+            document.getElementById('cboViTri').value = 'Phục vụ';
+            document.getElementById('txtCMND').value = '';
+            document.getElementById('txtDienThoai').value = '';
+            document.getElementById('txtEmail').value = '';
+            document.getElementById('txtDiaChi').value = '';
+            document.getElementById('txtHocVan').value = 'Lớp 12/12';
+            document.getElementById('cboTrangThai').value = 'Đang làm việc';
+
+            document.getElementById('chkWord').checked = true;
+            document.getElementById('chkExcel').checked = false;
+            document.getElementById('chkPOS').checked = true;
+            document.getElementById('chkKhac').checked = false;
+
+            document.getElementById('lblUniformBadge').innerHTML = '👕 <strong>Cấp phát:</strong> Mới tiếp nhận — Chưa cấp trang phục &nbsp;|&nbsp; 🔐 <strong>Tài khoản:</strong> Tự động tạo khi lưu';
+            setMode('CHẾ ĐỘ: THÊM MỚI', '');
+            document.getElementById('txtHoTen').focus();
+        }
+
+        function themNhanVien() {
+            const ten = document.getElementById('txtHoTen').value.trim();
+            if (!ten) {
+                alert('Vui lòng nhập họ và tên nhân viên!');
+                document.getElementById('txtHoTen').focus();
+                return;
+            }
+            alert(`✅ Thêm mới nhân viên [${ten}] thành công! Hệ thống đã tạo hồ sơ và tự động sinh tài khoản.`);
+        }
+
+        function capNhatNhanVien() {
+            const ma = document.getElementById('txtMaNV').value;
+            const ten = document.getElementById('txtHoTen').value.trim();
+            alert(`✅ Cập nhật hồ sơ nhân viên [${ten}] (Mã #${ma}) thành công!`);
+        }
+
+        function thoiViecNhanVien() {
+            const ma = document.getElementById('txtMaNV').value;
+            const ten = document.getElementById('txtHoTen').value.trim();
+            if (confirm(`Xác nhận cho nhân viên [${ten}] (Mã #${ma}) thôi việc? Hệ thống sẽ cập nhật trạng thái và yêu cầu thu hồi trang phục.`)) {
+                alert(`🛑 Đã cập nhật trạng thái [Đã nghỉ việc] cho nhân viên ${ten}. Vui lòng xác nhận thu hồi đồng phục!`);
+            }
+        }
+
+        function locDuLieu() {
+            const vt = document.getElementById('cboLocViTri').value.toLowerCase();
+            const tt = document.getElementById('cboLocTrangThai').value.toLowerCase();
+            const kw = document.getElementById('txtTimKiem').value.trim().toLowerCase();
+
+            const rows = document.querySelectorAll('#tblStaffBody tr');
+            let count = 0;
+            rows.forEach(r => {
+                const text = r.innerText.toLowerCase();
+                const matchVt = !vt || text.includes(vt);
+                const matchTt = !tt || text.includes(tt);
+                const matchKw = !kw || text.includes(kw);
+
+                if (matchVt && matchTt && matchKw) {
+                    r.style.display = '';
+                    count++;
+                } else {
+                    r.style.display = 'none';
+                }
+            });
+            document.getElementById('lblCountGrid').innerText = `Hiển thị ${count} nhân viên`;
+        }
+
+        function taiLaiTatCa() {
+            document.getElementById('cboLocViTri').value = '';
+            document.getElementById('cboLocTrangThai').value = '';
+            document.getElementById('txtTimKiem').value = '';
+            locDuLieu();
+        }
+    </script>
+</body>
+</html>
