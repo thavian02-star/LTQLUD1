@@ -104,8 +104,8 @@ flowchart LR
   - [x] Bổ sung bảng `Menu`, `Menu_MonAn` trong `create-database.sql` và seed data trong `seed-data.sql`.
   - [x] Tạo tài liệu đặc tả `MENU_SPRINT.md`.
   - [x] Tạo file Mockup tương tác [`frmMenu_mockup_v1_0.html`](frmMenu_mockup_v1_0.html) với đầy đủ kịch bản mô phỏng.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Menu/Catalog/frmMenu.Designer.vb`)**
-  - [ ] Xây dựng bố cục 3 tầng dọc + Split-Layout 40:60 và TabControl 2 danh sách.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Menu/Catalog/frmMenu.Designer.vb`)**
+  - [x] Xây dựng bố cục 3 tầng dọc + Split-Layout 40:60 và TabControl 2 danh sách.
 - [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
   - [ ] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb` và hoàn thiện logic trong `frmMenu.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`MenuVerifier`)**
