@@ -111,4 +111,8 @@ flowchart LR
 - [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`MenuVerifier`)**
   - [x] Tích hợp mở `frmMenu` từ `frmMain.vb`.
   - [x] Chạy bộ kiểm thử tự động Layout + CRUD + Gán món + RBAC (54/54 PASS - 100%).
-- [ ] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_9.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.9`**
+- [x] **Bước 5: Báo cáo Phát hành (`docs/release_report/report_0_2_9.html`), Đồng bộ 2 Checklist & Git Tag `v0.2.9`**
+  - [x] Tạo `docs/release_report/report_0_2_9.html` tích hợp liên kết Mockup trực quan & Demo Hub.
+  - [x] Cập nhật điều hướng trong `report_0_2_8.html` và kích hoạt màn hình 7 trong `demo_system.html`.
+  - [x] Đánh dấu hoàn thành Màn hình 7 trong `docs/CHECKLIST_UU_TIEN_DANH_MUC.md` và `docs/CHECKLIST_DO_AN.md`.
+  - [x] Gắn git tag `v0.2.9`.

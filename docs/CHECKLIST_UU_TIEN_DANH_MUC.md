@@ -18,8 +18,8 @@
 | **4** | **MH Khu vực: tầng trệt, tầng 1, ...** | `frmKhuVuc` | `KhuVuc` *(đồng bộ `Ban.B_KhuVuc`)* | `CQ_QUAN_LY_BAN` | Phân chia không gian bàn (Tầng trệt, Tầng 1, VIP, Sân vườn), Cascade Update sang Bàn. | `[x]` **Đã xong (`v0.2.6`)** |
 | **5** | **MH Bàn** | `frmBan` | `Ban`, `KhuVuc` | `CQ_QUAN_LY_BAN` | Quản lý 12 bàn ăn, số thứ tự, sức chứa (72 chỗ), trạng thái phục vụ và liên kết hóa đơn. | `[x]` **Đã xong (`v0.2.7`)** |
 | **6** | **MH Nhân viên** | `frmNhanVien` | `NhanVien`, `TrinhDoViTinh`, `DungCuTrangPhuc` | `CQ_QUAN_LY_NHAN_SU` | Quản lý hồ sơ nhân viên (SĐT, CCCD, chức vụ, trình độ vi tính, cấp phát đồng phục, tài khoản). | `[x]` **Đã xong (`v0.2.8`)** |
-| **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[ ]` **Tiếp theo (MH 7)** |
-| **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[ ]` Chờ làm (MH 8) |
+| **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[x]` **Đã xong (`v0.2.9`)** |
+| **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[ ]` **Tiếp theo (MH 8)** |
 | **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[ ]` Chờ làm (MH 9) |
 
 ---
@@ -131,24 +131,24 @@ flowchart TD
 
 ---
 
-### MÀN HÌNH 7: MH MENU — BẢNG THỰC ĐƠN KINH DOANH (`frmMenu`) — `[ ] TIẾP THEO`
+### MÀN HÌNH 7: MH MENU — BẢNG THỰC ĐƠN KINH DOANH (`frmMenu`) — `[x] ĐÃ HOÀN TẤT (v0.2.9)`
 > **Mục tiêu:** Quản lý danh sách các Bảng thực đơn bán hàng (`Menu`) và gán món ăn vào thực đơn (`Menu_MonAn`).
 
-- [ ] **Bước 1: CSDL Bổ sung `Menu`, `Menu_MonAn`, Đặc tả & Mockup HTML (`docs/features/menu/bang_menu/`)**
-  - [ ] Thêm bảng `Menu` (`MN_Ma`, `MN_Ten`, `MN_LoaiMenu`, `MN_MoTa`, `MN_TrangThai`, `MN_Xoa`).
-  - [ ] Thêm bảng `Menu_MonAn` (`MMA_Ma`, `MMA_MaMenu`, `MMA_MaMonAn`, `MMA_DonGia`, `MMA_ThuTuHienThi`, `MMA_Xoa`).
-  - [ ] Tạo tài liệu đặc tả `MENU_SPRINT.md` và file mockup `frmMenu_mockup_v1_0.html`.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/frmMenu.Designer.vb`)**
-  - [ ] Giao diện Master-Detail: Bên trái quản lý thông tin Bảng thực đơn, bên phải quản lý danh sách các món thuộc thực đơn (hỗ trợ chọn món nhanh từ kho `MonAn`, tùy chỉnh giá theo Menu).
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
-  - [ ] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb`.
-  - [ ] Nghiệp vụ: Chặn trùng tên Menu, bảo vệ xóa Menu đang được áp dụng tại Chi nhánh.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động**
-- [ ] **Bước 5: Báo cáo Phát hành (`report_0_2_9.html`) & Đồng bộ Checklist**
+- [x] **Bước 1: CSDL Bổ sung `Menu`, `Menu_MonAn`, Đặc tả & Mockup HTML (`docs/features/menu/bang_menu/`)**
+  - [x] Thêm bảng `Menu` (`MN_Ma`, `MN_Ten`, `MN_LoaiMenu`, `MN_MoTa`, `MN_TrangThai`, `MN_Xoa`).
+  - [x] Thêm bảng `Menu_MonAn` (`MMA_Ma`, `MMA_MaMenu`, `MMA_MaMonAn`, `MMA_DonGia`, `MMA_ThuTuHienThi`, `MMA_Xoa`).
+  - [x] Tạo tài liệu đặc tả `MENU_SPRINT.md` và file mockup `frmMenu_mockup_v1_0.html`.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Menu/Catalog/frmMenu.Designer.vb`)**
+  - [x] Giao diện Split-Layout 40:60: Bên trái quản lý thông tin Bảng thực đơn, bên phải quản lý danh sách các món thuộc thực đơn (TabControl 2 tab, gán món từ kho `MonAn`, tùy chỉnh giá theo Menu).
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
+  - [x] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb`.
+  - [x] Nghiệp vụ: Chặn trùng tên Menu, kiểm soát đơn giá âm, phân quyền RBAC (`CQ_QUAN_LY_THUC_DON`).
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`54/54 PASS — 100%`)**
+- [x] **Bước 5: Báo cáo Phát hành (`report_0_2_9.html`) & Đồng bộ Checklist**
 
 ---
 
-### MÀN HÌNH 8: MH CHI NHÁNH (`frmChiNhanh`) — `[ ] CHỜ LÀM`
+### MÀN HÌNH 8: MH CHI NHÁNH (`frmChiNhanh`) — `[ ] TIẾP THEO`
 > **Mục tiêu:** Quản lý danh sách các cơ sở / chi nhánh của chuỗi nhà hàng (`ChiNhanh`).
 
 - [ ] **Bước 1: CSDL Bổ sung `ChiNhanh`, Đặc tả & Mockup HTML (`docs/features/branch/chi_nhanh/`)**

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.9 — Bảng Thực Đơn Kinh Doanh (frmMenu v1.0)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #1a5276;
+      --primary-light: #2980b9;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: var(--dark); color: #fff; padding: 12px 20px; border-radius: 10px;
+      margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1; text-decoration: none; font-size: 12.5px; padding: 5px 12px;
+      border-radius: 6px; background: #334155; font-weight: 600; transition: background 0.2s;
+    }
+    .version-links a.active { background: var(--primary-light); color: #fff; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1a5276 0%, #0f172a 100%);
+      color: #fff; padding: 30px 32px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .badge.blue { background: #3b82f6; color: #fff; }
+    .badge.green { background: #22c55e; color: #052e16; }
+    .badge.amber { background: #f59e0b; color: #451a03; }
+
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 14.5px; color: #cbd5e1; max-width: 900px; line-height: 1.6; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+    .kpi-box .label { font-size: 12px; color: var(--muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+    .kpi-box .val { font-size: 26px; font-weight: 800; color: var(--primary); }
+    .kpi-box .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 26px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .section h2 {
+      font-size: 18px; margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid #f1f5f9; display: flex; align-items: center; gap: 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f8fafc; font-weight: 700; color: #475569; }
+    tr:hover td { background: #f8fafc; }
+
+    .pill-pass {
+      background: #dcfce7; color: #166534; font-weight: 700; padding: 2px 9px;
+      border-radius: 999px; font-size: 11.5px; display: inline-block;
+    }
+    code {
+      background: #f1f5f9; padding: 2px 6px; border-radius: 4px;
+      font-family: Consolas, monospace; font-size: 12.5px; color: #d97706;
+    }
+    .footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Version Navigation -->
+    <div class="version-nav">
+      <div style="font-weight: 700; font-size: 14px;">BÁO CÁO PHÁT HÀNH HỆ THỐNG</div>
+      <div class="version-links">
+        <a href="report_0_2_5.html">v0.2.5 (Ca Làm)</a>
+        <a href="report_0_2_6.html">v0.2.6 (Khu Vực)</a>
+        <a href="report_0_2_7.html">v0.2.7 (Bàn Ăn)</a>
+        <a href="report_0_2_8.html">v0.2.8 (Nhân Sự)</a>
+        <a href="report_0_2_9.html" class="active">v0.2.9 (Menu Master)</a>
+      </div>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="hero">
+      <div class="hero-badges">
+        <span class="badge blue">RELEASE V0.2.9</span>
+        <span class="badge green">ROADMAP 9 MÀN HÌNH — MÀN HÌNH 7/9 (BẢNG MENU KINH DOANH)</span>
+        <span class="badge amber">54/54 TESTS PASS (100%)</span>
+      </div>
+      <h1>📋 Màn Hình 7/9: Bảng Thực Đơn Kinh Doanh (<code>frmMenu v1.0</code>)</h1>
+      <p>
+        Hoàn tất toàn diện quy trình 5 bước phát triển màn hình thứ 7 trong <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code> và <code>CHECKLIST_DO_AN.md</code>:
+        Thiết kế bảng thực đơn thương mại (Alacarte, Buffet, SetMenu, Tiệc), gán món ăn từ kho món kèm định giá bán niêm yết theo thực đơn (<code>Menu_MonAn</code>),
+        thứ tự ưu tiên trên POS, quản lý trạng thái áp dụng, phân quyền RBAC và tích hợp trực tiếp vào <code>frmMain.vb</code>.
+      </p>
+
+      <!-- Action Bar Links -->
+      <div style="margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="../features/menu/bang_menu/frmMenu_mockup_v1_0.html" target="_blank" style="background: #22c55e; color: #052e16; font-weight: 700; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);">
+          🖥️ XEM MOCKUP TƯƠNG TÁC TRỰC QUAN (HTML) ↗
+        </a>
+        <a href="../demo_system.html?screen=frmMenu" target="_blank" style="background: #3b82f6; color: #fff; font-weight: 700; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);">
+          🚀 MỞ BẢN DEMO TOÀN HỆ THỐNG (FULL-FEATURED HUB) ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- 4 KPI Thống Kê Chính -->
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="label">Kết Quả Kiểm Thử</div>
+        <div class="val">54 / 54 PASS</div>
+        <div class="sub">Đạt 100% (16 Layout + 5 DTO + 9 BUS + 20 Grid/Form + 4 Logic)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Kiến Trúc 3 Tầng Chuẩn</div>
+        <div class="val">5 Files VB</div>
+        <div class="sub">MenuDTO, MenuDAO, MenuBUS, frmMenu (Designer & Code)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Bố Cục Giao Diện</div>
+        <div class="val">Split 40% : 60%</div>
+        <div class="sub">3 Tầng dọc (Header 68px, 4 KPI 78px, TabControl 2 danh sách)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Seed Data Chuẩn</div>
+        <div class="val">4 Menu & 14 Món</div>
+        <div class="sub">Alacarte 7 món, Buffet 5 món (0đ), Set trưa 2 món, Tiệc</div>
+      </div>
+    </div>
+
+    <!-- Chi Tiết 5 Bước Thực Hiện -->
+    <div class="section">
+      <h2>📌 Quy Trình Thực Hiện Sprint Màn Hình 7/9 (frmMenu v1.0)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bước</th>
+            <th>Nội Dung Chi Tiết</th>
+            <th>Tệp Mã Nguồn / Tài Liệu</th>
+            <th>Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Bước 1</b></td>
+            <td>Đặc tả CSDL CSDL bảng <code>Menu</code>, <code>Menu_MonAn</code>, Seed Data, Sprint Doc &amp; Interactive HTML Mockup</td>
+            <td><code>create-database.sql</code>, <code>seed-data.sql</code>, <code>MENU_SPRINT.md</code>, <code>frmMenu_mockup_v1_0.html</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 2</b></td>
+            <td>Thiết kế WinForms Designer 3 tầng dọc, 4 thẻ KPI, Split 40:60 và TabControl 2 danh sách</td>
+            <td><code>Features/Menu/Catalog/frmMenu.Designer.vb</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 3</b></td>
+            <td>Xây dựng tầng DTO, DAO, BUS và hoàn thiện xử lý sự kiện form, phân quyền RBAC</td>
+            <td><code>Core/DTO/MenuDTO.vb</code>, <code>Core/DAO/MenuDAO.vb</code>, <code>Core/BUS/MenuBUS.vb</code>, <code>frmMenu.vb</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 4</b></td>
+            <td>Tích hợp gọi mở form từ <code>frmMain.vb</code> và chạy bộ kiểm thử tự động 54 test cases</td>
+            <td><code>Features/Main/frmMain.vb</code>, <code>scratch/MenuVerifier/</code></td>
+            <td><span class="pill-pass">54/54 PASS</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 5</b></td>
+            <td>Lập Release Report v0.2.9, tích hợp vào Master Demo Hub, đồng bộ 2 checklist và gắn Git Tag v0.2.9</td>
+            <td><code>report_0_2_9.html</code>, <code>demo_system.html</code>, <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code>, <code>CHECKLIST_DO_AN.md</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Phân Biệt Kiến Trúc Thực Đơn 3 Tầng -->
+    <div class="section">
+      <h2>🍲 Kiến Trúc Phân Cấp Dữ Liệu Thực Đơn &amp; Chuỗi Chi Nhánh</h2>
+      <p style="margin-bottom: 12px; color: var(--muted); font-size: 13.5px;">
+        Hệ thống phân định rạch ròi giữa Thư viện kỹ thuật của Nhà bếp, Gói bán hàng thương mại và Phân bổ chi nhánh:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Tầng</th>
+            <th>Thực Thể &amp; Màn Hình</th>
+            <th>Vai Trò Nghiệp Vụ</th>
+            <th>Ràng Buộc &amp; Đặc Trưng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Tầng 1</b></td>
+            <td><code>DanhMuc</code> (MH 1) &amp; <code>MonAn</code> (MH 2)</td>
+            <td>Kho định nghĩa món ăn gốc (Dish Item Pool) mà nhà bếp có thể chế biến.</td>
+            <td>Không phụ thuộc vào gói khuyến mãi; lưu giá gốc tham chiếu.</td>
+          </tr>
+          <tr>
+            <td><b>Tầng 2</b></td>
+            <td><code>Menu</code> (MH 7 - Hiện tại) &amp; <code>Menu_MonAn</code></td>
+            <td>Gói bảng thực đơn bán hàng (Alacarte, Buffet, Cơm trưa, Khuyến mãi tiệc).</td>
+            <td>Gán món vào menu với đơn giá niêm yết riêng (Buffet tính 0đ), thứ tự hiển thị ưu tiên.</td>
+          </tr>
+          <tr>
+            <td><b>Tầng 3</b></td>
+            <td><code>ChiNhanh</code> (MH 8) &amp; <code>ChiNhanh_Menu</code> (MH 9)</td>
+            <td>Phân bổ áp dụng menu nào cho chi nhánh nào theo khung thời gian hiệu lực.</td>
+            <td>Chi nhánh Quận 1 có thể áp dụng cả Alacarte &amp; Buffet; chi nhánh Kiosk chỉ áp dụng Cơm trưa.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Kết Quả Kiểm Thử Tự Động -->
+    <div class="section">
+      <h2>🧪 Bảng Tổng Hợp Kiểm Thử Tự Động (54/54 PASS — 100%)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nhóm Kiểm Thử</th>
+            <th>Số Lượng Test Cases</th>
+            <th>Tỷ Lệ Đạt</th>
+            <th>Ghi Chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bố cục Form &amp; Geometry</td>
+            <td>16/16</td>
+            <td>100%</td>
+            <td>Kích thước chuẩn 1180x700, Dock Header Top, 4 thẻ KPI 78px, Split 40:60.</td>
+          </tr>
+          <tr>
+            <td>Controls Biểu mẫu &amp; Group Gán Món</td>
+            <td>12/12</td>
+            <td>100%</td>
+            <td>txtMaMenu ReadOnly, cboLoaiMenu 4 loại, grpGanMon, nudDonGiaMenu, 4 nút CRUD.</td>
+          </tr>
+          <tr>
+            <td>TabControl &amp; DataGridViews</td>
+            <td>8/8</td>
+            <td>100%</td>
+            <td>dgvMenu đủ 6 cột, dgvMenuMonAn đủ 7 cột, nút btnGoMon, tab chuyển đổi mượt mà.</td>
+          </tr>
+          <tr>
+            <td>DTO &amp; Định dạng hiển thị tiền tệ</td>
+            <td>5/5</td>
+            <td>100%</td>
+            <td>Badge trạng thái Menu, DonGiaHienThi buffet "0 đ (Trọn gói)", alacarte "65,000 đ".</td>
+          </tr>
+          <tr>
+            <td>Kiểm tra ràng buộc nghiệp vụ (MenuBUS)</td>
+            <td>9/9</td>
+            <td>100%</td>
+            <td>Chặn tên rỗng, tên quá 100 ký tự, ID sai, mã món sai, đơn giá âm.</td>
+          </tr>
+          <tr>
+            <td>Tích hợp frmMain &amp; Phân quyền RBAC</td>
+            <td>4/4</td>
+            <td>100%</td>
+            <td>Phương thức MoQuanLyMenu, phân quyền Role 1 &amp; 2, quyền CQ_QUAN_LY_THUC_DON.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      Dự án Quản Lý Quán Ăn — Release Report v0.2.9 • Hoàn tất Màn hình 7/9: Bảng Thực Đơn Kinh Doanh (frmMenu)
+    </div>
+
+  </div>
+</body>
+</html>
