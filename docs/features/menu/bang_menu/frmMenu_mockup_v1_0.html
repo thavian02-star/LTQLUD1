@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockup UI v1.0 — Quản Lý Bảng Thực Đơn Kinh Doanh (frmMenu)</title>
+  <style>
+    :root {
+      --navy: #1A5276;
+      --navy-dark: #154360;
+      --bg-body: #F5F7FA;
+      --card-bg: #FFFFFF;
+      --border-color: #DCDFE6;
+      --text-main: #2C3E50;
+      --text-muted: #6C757D;
+      --green: #27AE60;
+      --blue: #2980B9;
+      --red: #C0392B;
+      --orange: #E67E22;
+      --purple: #8E44AD;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #E5E9F0; padding: 18px; color: var(--text-main); }
+
+    /* TOOLBAR KỊCH BẢN MÔ PHỎNG */
+    .demo-toolbar {
+      max-width: 1220px; margin: 0 auto 14px auto; background: #fff; border: 1px solid #cbd5e1;
+      border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06); flex-wrap: wrap; gap: 10px;
+    }
+    .demo-toolbar span { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .demo-btn {
+      border: 1px solid #cbd5e1; background: #f8fafc; color: #1e293b; padding: 6px 11px;
+      font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.15s;
+    }
+    .demo-btn:hover, .demo-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+    /* KHUNG CỬA SỔ WINFORMS */
+    .winform-window {
+      max-width: 1220px; margin: 0 auto; background: var(--bg-body);
+      border: 2px solid #1A5276; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    .titlebar {
+      background: #0f2f44; color: #fff; padding: 6px 14px; font-size: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .header-bar {
+      background: var(--navy); color: #fff; padding: 12px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .header-bar h1 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+    .header-bar p { font-size: 12px; color: #AED6F1; }
+    .btn-close-form {
+      background: var(--red); color: #fff; border: none; padding: 8px 16px;
+      border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12.5px;
+    }
+
+    /* TẦNG 2: 4 THẺ KPI */
+    .kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      padding: 12px 16px 4px 16px;
+    }
+    .kpi-card {
+      background: #fff; border-radius: 6px; padding: 10px 14px;
+      border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex; flex-direction: column;
+    }
+    .kpi-title { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
+    .kpi-val { font-size: 22px; font-weight: 800; margin-top: 2px; }
+    .kpi-val.navy { color: var(--navy); }
+    .kpi-val.green { color: var(--green); }
+    .kpi-val.amber { color: var(--orange); }
+    .kpi-val.purple { color: var(--purple); }
+
+    /* TẦNG 3: SPLIT-LAYOUT 40% : 60% */
+    .main-content {
+      display: grid; grid-template-columns: 420px 1fr; gap: 14px; padding: 12px 16px 16px 16px;
+    }
+
+    /* CỘT TRÁI (FORM CARD) */
+    .form-card {
+      background: #fff; border: 1px solid var(--border-color); border-radius: 6px;
+      padding: 14px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .card-header-flex {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;
+    }
+    .card-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .mode-badge {
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+      background: #E8F8F5; color: var(--green); border: 1px solid #A3E4D7;
+    }
+    .alert-banner {
+      background: #EBF5FB; border-left: 4px solid var(--blue); padding: 6px 10px;
+      font-size: 11.5px; color: #1B4F72; border-radius: 2px;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 3px; }
+    .form-group label { font-size: 12px; font-weight: 600; color: #34495E; }
+    .form-control {
+      padding: 6px 9px; font-size: 12.5px; border: 1px solid #CBD5E1; border-radius: 4px; outline: none;
+    }
+    .form-control:focus { border-color: var(--blue); }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* KHUNG GÁN MÓN VÀO MENU */
+    .assign-box {
+      background: #f8fafc; border: 1px dashed #94a3b8; border-radius: 6px;
+      padding: 10px; margin-top: 4px;
+    }
+    .assign-title { font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+
+    /* 4 NÚT CRUD */
+    .button-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 8px;
+    }
+    .btn {
+      padding: 8px 12px; font-size: 12.5px; font-weight: 700; border-radius: 4px;
+      border: none; cursor: pointer; transition: 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-gray { background: #95A5A6; color: #fff; }
+    .btn:hover { opacity: 0.9; }
+
+    /* CỘT PHẢI (GRID & TABS) */
+    .grid-card {
+      background: #fff; border: 1px solid var(--border-color); border-radius: 6px;
+      padding: 14px; display: flex; flex-direction: column; gap: 10px; overflow: hidden;
+    }
+    .tabs-header {
+      display: flex; gap: 6px; border-bottom: 2px solid #E2E8F0; padding-bottom: 4px;
+    }
+    .tab-btn {
+      background: transparent; border: none; padding: 6px 14px; font-size: 13px;
+      font-weight: 700; color: #64748b; cursor: pointer; border-radius: 4px 4px 0 0;
+    }
+    .tab-btn.active {
+      color: var(--navy); border-bottom: 3px solid var(--navy);
+      background: #F1F5F9;
+    }
+
+    .filter-bar {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    }
+    .filter-bar input, .filter-bar select {
+      padding: 6px 10px; font-size: 12px; border: 1px solid #CBD5E1; border-radius: 4px; outline: none;
+    }
+
+    /* BẢNG DATAGRIDVIEW */
+    .grid-container {
+      flex: 1; border: 1px solid #E2E8F0; border-radius: 4px; overflow-y: auto; max-height: 380px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #E2E8F0; }
+    th { background: #F8FAFC; color: #475569; font-weight: 700; position: sticky; top: 0; z-index: 1; }
+    tr:hover { background: #F1F5F9; cursor: pointer; }
+    tr.selected { background: #EBF5FB !important; font-weight: 600; }
+
+    .badge-status {
+      font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; display: inline-block;
+    }
+    .badge-status.active { background: #DCFCE7; color: #166534; }
+    .badge-status.paused { background: #FEE2E2; color: #991B1B; }
+
+    .btn-action-small {
+      background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5;
+      padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;
+    }
+    .btn-action-small:hover { background: #EF4444; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- TOOLBAR CHỌN KỊCH BẢN TEST NHANH -->
+  <div class="demo-toolbar">
+    <span>💡 KỊCH BẢN MÔ PHỎNG (5 TEST SCENARIOS):</span>
+    <div class="demo-btns">
+      <button class="demo-btn active" onclick="chayKichBan(1)">1. Xem Menu Alacarte (7 món)</button>
+      <button class="demo-btn" onclick="chayKichBan(2)">2. Xem Buffet Nướng &amp; Lẩu (0đ vé)</button>
+      <button class="demo-btn" onclick="chayKichBan(3)">3. Thêm món vào Menu</button>
+      <button class="demo-btn" onclick="chayKichBan(4)">4. Gỡ món khỏi Menu</button>
+      <button class="demo-btn" onclick="chayKichBan(5)">5. Tạo mới Bảng Menu</button>
+    </div>
+  </div>
+
+  <!-- CỬA SỔ CHÍNH WINFORMS -->
+  <div class="winform-window">
+
+    <!-- Title bar giả lập WinForms -->
+    <div class="titlebar">
+      <span>Quản lý Bảng Thực Đơn Kinh Doanh (frmMenu) - Phân hệ Thực đơn &amp; Chuỗi chi nhánh</span>
+      <span>[ _  □  ✕ ]</span>
+    </div>
+
+    <!-- Tầng 1: Header Form -->
+    <div class="header-bar">
+      <div>
+        <h1>📋 QUẢN LÝ BẢNG THỰC ĐƠN KINH DOANH (MENU MASTER)</h1>
+        <p>Danh mục chuẩn (7/9) • Thiết lập các gói Menu bán hàng, gán món ăn từ kho món &amp; định giá theo thực đơn</p>
+      </div>
+      <button class="btn-close-form" onclick="alert('Đóng form!')">✖ Đóng</button>
+    </div>
+
+    <!-- Tầng 2: 4 Thẻ KPI -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <span class="kpi-title">Tổng Menu Kinh Doanh</span>
+        <span class="kpi-val navy" id="kpiTongMenu">4 menu</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">Đang Áp Dụng Bán</span>
+        <span class="kpi-val green" id="kpiDangApDung">3 menu</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">Tạm Ngưng / Dự Thảo</span>
+        <span class="kpi-val amber" id="kpiTamNgung">1 menu</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">Tổng Món Đã Gán Menu</span>
+        <span class="kpi-val purple" id="kpiTongMonGan">14 món</span>
+      </div>
+    </div>
+
+    <!-- Tầng 3: Split-Layout 40% : 60% -->
+    <div class="main-content">
+
+      <!-- CỘT TRÁI (40%): FORM CARD -->
+      <div class="form-card">
+        <div class="card-header-flex">
+          <span class="card-title">📝 THÔNG TIN BẢNG MENU</span>
+          <span class="mode-badge" id="lblModeBadge">CHẾ ĐỘ: CẬP NHẬT</span>
+        </div>
+        <div class="alert-banner" id="lblThongBao">
+          Đang xem thực đơn: Thực đơn Gọi món Tiêu chuẩn (Alacarte)
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>Mã Menu:</label>
+            <input type="text" class="form-control" id="txtMaMenu" value="MN001" readonly style="background:#F1F5F9; font-weight:700;">
+          </div>
+          <div class="form-group">
+            <label>Loại Menu (*):</label>
+            <select class="form-control" id="cboLoaiMenu">
+              <option value="Alacarte" selected>Alacarte (Gọi món lẻ)</option>
+              <option value="Buffet">Buffet (Vé trọn gói)</option>
+              <option value="SetMenu">Set cơm trưa / Combo</option>
+              <option value="SuKien">Tiệc &amp; Sự kiện</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tên Bảng Thực Đơn (*):</label>
+          <input type="text" class="form-control" id="txtTenMenu" value="Thực đơn Gọi món Tiêu chuẩn" placeholder="VD: Menu Alacarte Ngày Thường...">
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>Trạng thái (*):</label>
+            <select class="form-control" id="cboTrangThai">
+              <option value="Đang áp dụng" selected>Đang áp dụng</option>
+              <option value="Tạm ngưng">Tạm ngưng</option>
+              <option value="Dự thảo">Dự thảo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Số món gán:</label>
+            <input type="text" class="form-control" id="txtSoLuongMon" value="7 món" readonly style="background:#F1F5F9; font-weight:700; color:var(--navy);">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ghi chú / Khung giờ áp dụng:</label>
+          <input type="text" class="form-control" id="txtMoTa" value="Áp dụng gọi món alacarte hàng ngày cho toàn bộ quán">
+        </div>
+
+        <!-- Khung gán món vào Menu -->
+        <div class="assign-box">
+          <div class="assign-title">➕ GÁN MÓN ĂN VÀO MENU NÀY:</div>
+          <div class="form-group">
+            <label>Chọn món từ Kho món ăn:</label>
+            <select class="form-control" id="cboChonMon">
+              <option value="1">Gỏi cuốn tôm thịt (Khai vị - Giá gốc: 45.000đ)</option>
+              <option value="2">Chả giò hải sản (Khai vị - Giá gốc: 55.000đ)</option>
+              <option value="4">Cơm tấm sườn bì chả (Món chính - Giá gốc: 65.000đ)</option>
+              <option value="5">Phở bò đặc biệt (Món nước - Giá gốc: 75.000đ)</option>
+              <option value="9">Lẩu Thái Tomyum hải sản (Lẩu - Giá gốc: 260.000đ)</option>
+              <option value="12">Trà đào cam sả (Nước uống - Giá gốc: 39.000đ)</option>
+            </select>
+          </div>
+          <div class="form-row-2" style="margin-top:6px;">
+            <div class="form-group">
+              <label>Đơn giá theo Menu (*):</label>
+              <input type="number" class="form-control" id="nudDonGiaMenu" value="45000" step="1000">
+            </div>
+            <div class="form-group">
+              <label>Thứ tự hiển thị:</label>
+              <input type="number" class="form-control" id="nudThuTu" value="8" min="1">
+            </div>
+          </div>
+          <button class="btn btn-blue" style="width:100%; margin-top:8px;" onclick="themMonVaoMenu()">
+            ➕ Gán món vào Menu hiện tại
+          </button>
+        </div>
+
+        <!-- 4 Nút CRUD -->
+        <div class="button-grid">
+          <button class="btn btn-green" id="btnThemMenu" onclick="taoMenuMoi()">➕ Tạo Menu mới</button>
+          <button class="btn btn-blue" id="btnCapNhatMenu" onclick="capNhatMenu()">💾 Lưu cập nhật</button>
+          <button class="btn btn-red" id="btnXoaMenu" onclick="xoaMenu()">🛑 Tạm ngưng</button>
+          <button class="btn btn-gray" id="btnLamMoi" onclick="lamMoiForm()">🔄 Làm mới</button>
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI (60%): TABS & GRIDS -->
+      <div class="grid-card">
+        <!-- Tab Header -->
+        <div class="tabs-header">
+          <button class="tab-btn active" id="tabBtn1" onclick="chuyenTab(1)">
+            📋 Danh Sách Các Menu (4)
+          </button>
+          <button class="tab-btn" id="tabBtn2" onclick="chuyenTab(2)">
+            🍲 Món Trong Menu Đang Chọn (<span id="lblDishCount">7</span>)
+          </button>
+        </div>
+
+        <!-- Thanh Tìm kiếm & Lọc -->
+        <div class="filter-bar">
+          <select id="cboLocLoai" onchange="locDuLieu()">
+            <option value="">Tất cả loại thực đơn</option>
+            <option value="Alacarte">Alacarte</option>
+            <option value="Buffet">Buffet</option>
+            <option value="SetMenu">SetMenu</option>
+            <option value="SuKien">SuKien</option>
+          </select>
+          <select id="cboLocTrangThai" onchange="locDuLieu()">
+            <option value="">Tất cả trạng thái</option>
+            <option value="Đang áp dụng">Đang áp dụng</option>
+            <option value="Tạm ngưng">Tạm ngưng</option>
+          </select>
+          <input type="text" id="txtTimKiem" placeholder="Tìm kiếm tên menu, món ăn..." style="flex:1;" oninput="locDuLieu()">
+        </div>
+
+        <!-- NỘI DUNG TAB 1: DANH SÁCH MENU -->
+        <div id="tabContent1" class="grid-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:70px;">Mã</th>
+                <th>Tên Bảng Thực Đơn</th>
+                <th style="width:110px;">Loại Menu</th>
+                <th style="width:90px;">Số món</th>
+                <th style="width:120px;">Trạng thái</th>
+                <th>Mô tả áp dụng</th>
+              </tr>
+            </thead>
+            <tbody id="tblMenuBody">
+              <tr class="selected" onclick="chonMenu(1)">
+                <td><strong>MN001</strong></td>
+                <td>Thực đơn Gọi món Tiêu chuẩn</td>
+                <td><span style="color:var(--blue); font-weight:700;">Alacarte</span></td>
+                <td><strong>7 món</strong></td>
+                <td><span class="badge-status active">Đang áp dụng</span></td>
+                <td>Áp dụng gọi món alacarte hàng ngày cho toàn quán</td>
+              </tr>
+              <tr onclick="chonMenu(2)">
+                <td><strong>MN002</strong></td>
+                <td>Buffet Nướng &amp; Lẩu Hương Việt</td>
+                <td><span style="color:var(--purple); font-weight:700;">Buffet</span></td>
+                <td><strong>5 món</strong></td>
+                <td><span class="badge-status active">Đang áp dụng</span></td>
+                <td>Gói buffet tự chọn không giới hạn trưa và tối</td>
+              </tr>
+              <tr onclick="chonMenu(3)">
+                <td><strong>MN003</strong></td>
+                <td>Set Cơm Trưa Văn Phòng</td>
+                <td><span style="color:var(--orange); font-weight:700;">SetMenu</span></td>
+                <td><strong>2 món</strong></td>
+                <td><span class="badge-status active">Đang áp dụng</span></td>
+                <td>Phục vụ khung giờ 11h00 - 14h00 các ngày trong tuần</td>
+              </tr>
+              <tr onclick="chonMenu(4)">
+                <td><strong>MN004</strong></td>
+                <td>Thực Đơn Tiệc &amp; Lễ Hội</td>
+                <td><span style="color:var(--red); font-weight:700;">SuKien</span></td>
+                <td><strong>0 món</strong></td>
+                <td><span class="badge-status paused">Tạm ngưng</span></td>
+                <td>Dành riêng cho khách đoàn đặt bàn và dịp lễ Tết</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- NỘI DUNG TAB 2: CHI TIẾT MÓN TRONG MENU -->
+        <div id="tabContent2" class="grid-container" style="display:none;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:50px;">STT</th>
+                <th>Tên Món Ăn</th>
+                <th style="width:110px;">Danh Mục</th>
+                <th style="width:120px;">Giá Bán Menu</th>
+                <th style="width:80px;">Thứ tự</th>
+                <th>Ghi chú</th>
+                <th style="width:70px;">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="tblDishBody">
+              <!-- Render động theo menu đang chọn -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // DỮ LIỆU MOCKUP NỘI BỘ
+    const MENUS = [
+      {
+        id: 1, ma: "MN001", ten: "Thực đơn Gọi món Tiêu chuẩn", loai: "Alacarte",
+        trangThai: "Đang áp dụng", moTa: "Áp dụng gọi món alacarte hàng ngày cho toàn quán",
+        dishes: [
+          { maMA: 1, ten: "Gỏi cuốn tôm thịt", dm: "Khai vị", gia: 45000, stt: 1, note: "Món khai vị bán chạy" },
+          { maMA: 4, ten: "Cơm tấm sườn bì chả", dm: "Món chính", gia: 65000, stt: 2, note: "Món chính đặc sắc" },
+          { maMA: 5, ten: "Phở bò đặc biệt", dm: "Món nước", gia: 75000, stt: 3, note: "Món nước truyền thống" },
+          { maMA: 6, ten: "Bún bò Huế", dm: "Món nước", gia: 65000, stt: 4, note: "Món nước đậm đà" },
+          { maMA: 9, ten: "Lẩu Thái Tomyum hải sản", dm: "Lẩu", gia: 260000, stt: 5, note: "Dùng cho 2-3 người" },
+          { maMA: 12, ten: "Trà đào cam sả", dm: "Nước uống", gia: 39000, stt: 6, note: "Giải khát thơm mát" },
+          { maMA: 14, ten: "Cà phê sữa đá", dm: "Nước uống", gia: 29000, stt: 7, note: "Cà phê rang xay nguyên chất" }
+        ]
+      },
+      {
+        id: 2, ma: "MN002", ten: "Buffet Nướng & Lẩu Hương Việt", loai: "Buffet",
+        trangThai: "Đang áp dụng", moTa: "Gói buffet tự chọn không giới hạn trưa và tối",
+        dishes: [
+          { maMA: 1, ten: "Gỏi cuốn tôm thịt", dm: "Khai vị", gia: 0, stt: 1, note: "Khai vị trong gói vé buffet" },
+          { maMA: 7, ten: "Bò lúc lắc nướng", dm: "Món nướng", gia: 0, stt: 2, note: "Bò nướng tảng không giới hạn" },
+          { maMA: 9, ten: "Lẩu Thái Tomyum hải sản", dm: "Lẩu", gia: 0, stt: 3, note: "Nước lẩu tự chọn" },
+          { maMA: 13, ten: "Trà tắc mật ong", dm: "Nước uống", gia: 0, stt: 4, note: "Refill miễn phí" },
+          { maMA: 16, ten: "Bánh flan caramen", dm: "Tráng miệng", gia: 0, stt: 5, note: "Tráng miệng tự chọn" }
+        ]
+      },
+      {
+        id: 3, ma: "MN003", ten: "Set Cơm Trưa Văn Phòng", loai: "SetMenu",
+        trangThai: "Đang áp dụng", moTa: "Phục vụ khung giờ 11h00 - 14h00 các ngày trong tuần",
+        dishes: [
+          { maMA: 4, ten: "Cơm tấm sườn bì chả", dm: "Món chính", gia: 55000, stt: 1, note: "Giảm 10.000đ giờ trưa" },
+          { maMA: 13, ten: "Trà tắc mật ong", dm: "Nước uống", gia: 20000, stt: 2, note: "Giá ưu đãi khi gọi kèm cơm" }
+        ]
+      },
+      {
+        id: 4, ma: "MN004", ten: "Thực Đơn Tiệc & Lễ Hội", loai: "SuKien",
+        trangThai: "Tạm ngưng", moTa: "Dành riêng cho khách đoàn đặt bàn và dịp lễ Tết",
+        dishes: []
+      }
+    ];
+
+    let currentMenuId = 1;
+
+    function renderDishes(menuId) {
+      const m = MENUS.find(x => x.id === menuId);
+      const tbl = document.getElementById("tblDishBody");
+      document.getElementById("lblDishCount").innerText = m ? m.dishes.length : 0;
+      if (!m || m.dishes.length === 0) {
+        tbl.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:#94a3b8;">Chưa có món ăn nào trong thực đơn này. Hãy chọn món bên trái và bấm Gán món!</td></tr>`;
+        return;
+      }
+
+      tbl.innerHTML = m.dishes.map((d, idx) => `
+        <tr>
+          <td><strong>${idx + 1}</strong></td>
+          <td><strong>${d.ten}</strong></td>
+          <td><span style="color:#64748b;">${d.dm}</span></td>
+          <td><strong style="color:var(--green);">${d.gia.toLocaleString()} đ</strong></td>
+          <td>${d.stt}</td>
+          <td><small style="color:#64748b;">${d.note}</small></td>
+          <td>
+            <button class="btn-action-small" onclick="goMonKhoiMenu(${d.maMA})">Gỡ</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function chonMenu(id) {
+      currentMenuId = id;
+      const m = MENUS.find(x => x.id === id);
+      if (!m) return;
+
+      document.getElementById("txtMaMenu").value = m.ma;
+      document.getElementById("txtTenMenu").value = m.ten;
+      document.getElementById("cboLoaiMenu").value = m.loai;
+      document.getElementById("cboTrangThai").value = m.trangThai;
+      document.getElementById("txtMoTa").value = m.moTa;
+      document.getElementById("txtSoLuongMon").value = `${m.dishes.length} món`;
+
+      document.getElementById("lblModeBadge").innerText = `CHẾ ĐỘ: CẬP NHẬT (${m.ma})`;
+      document.getElementById("lblThongBao").innerText = `Đang xem thực đơn: ${m.ten} (${m.loai})`;
+
+      document.querySelectorAll("#tblMenuBody tr").forEach((tr, i) => {
+        tr.classList.toggle("selected", MENUS[i].id === id);
+      });
+
+      renderDishes(id);
+    }
+
+    function chuyenTab(tabIdx) {
+      document.getElementById("tabBtn1").classList.toggle("active", tabIdx === 1);
+      document.getElementById("tabBtn2").classList.toggle("active", tabIdx === 2);
+      document.getElementById("tabContent1").style.display = (tabIdx === 1) ? "block" : "none";
+      document.getElementById("tabContent2").style.display = (tabIdx === 2) ? "block" : "none";
+    }
+
+    function themMonVaoMenu() {
+      const m = MENUS.find(x => x.id === currentMenuId);
+      if (!m) return;
+      const sel = document.getElementById("cboChonMon");
+      const maMA = parseInt(sel.value);
+      const ten = sel.options[sel.selectedIndex].text.split(" (")[0];
+      const gia = parseInt(document.getElementById("nudDonGiaMenu").value) || 0;
+      const stt = parseInt(document.getElementById("nudThuTu").value) || (m.dishes.length + 1);
+
+      if (m.dishes.some(d => d.maMA === maMA)) {
+        alert(`Món '${ten}' đã có trong thực đơn này! Không thể thêm trùng lặp.`);
+        return;
+      }
+
+      m.dishes.push({ maMA, ten, dm: "Món gán", gia, stt, note: "Thêm mới qua giao diện" });
+      renderDishes(currentMenuId);
+      document.getElementById("txtSoLuongMon").value = `${m.dishes.length} món`;
+      chuyenTab(2);
+      alert(`Đã thêm món '${ten}' vào Menu với giá niêm yết ${gia.toLocaleString()} đ!`);
+    }
+
+    function goMonKhoiMenu(maMA) {
+      const m = MENUS.find(x => x.id === currentMenuId);
+      if (!m) return;
+      if (confirm("Xác nhận gỡ món này khỏi thực đơn?")) {
+        m.dishes = m.dishes.filter(d => d.maMA !== maMA);
+        renderDishes(currentMenuId);
+        document.getElementById("txtSoLuongMon").value = `${m.dishes.length} món`;
+      }
+    }
+
+    function lamMoiForm() {
+      document.getElementById("txtMaMenu").value = "(Tự động sinh)";
+      document.getElementById("txtTenMenu").value = "";
+      document.getElementById("cboLoaiMenu").value = "Alacarte";
+      document.getElementById("cboTrangThai").value = "Đang áp dụng";
+      document.getElementById("txtMoTa").value = "";
+      document.getElementById("txtSoLuongMon").value = "0 món";
+      document.getElementById("lblModeBadge").innerText = "CHẾ ĐỘ: TẠO MENU MỚI";
+      document.getElementById("lblThongBao").innerText = "Sẵn sàng tạo mới bảng thực đơn kinh doanh.";
+      document.getElementById("txtTenMenu").focus();
+    }
+
+    function taoMenuMoi() {
+      const ten = document.getElementById("txtTenMenu").value.trim();
+      if (!ten) { alert("Vui lòng nhập tên Bảng thực đơn!"); return; }
+      const newId = MENUS.length + 1;
+      const newMenu = {
+        id: newId, ma: `MN00${newId}`, ten,
+        loai: document.getElementById("cboLoaiMenu").value,
+        trangThai: document.getElementById("cboTrangThai").value,
+        moTa: document.getElementById("txtMoTa").value.trim(),
+        dishes: []
+      };
+      MENUS.push(newMenu);
+      chonMenu(newId);
+      chuyenTab(1);
+      alert(`Đã tạo thành công Menu mới '${ten}'!`);
+    }
+
+    function capNhatMenu() {
+      const m = MENUS.find(x => x.id === currentMenuId);
+      if (!m) return;
+      m.ten = document.getElementById("txtTenMenu").value.trim();
+      m.loai = document.getElementById("cboLoaiMenu").value;
+      m.trangThai = document.getElementById("cboTrangThai").value;
+      m.moTa = document.getElementById("txtMoTa").value.trim();
+      alert(`Đã lưu cập nhật cho Menu '${m.ten}'!`);
+    }
+
+    function xoaMenu() {
+      const m = MENUS.find(x => x.id === currentMenuId);
+      if (!m) return;
+      if (confirm(`Xác nhận chuyển trạng thái Menu '${m.ten}' sang 'Tạm ngưng'?`)) {
+        m.trangThai = "Tạm ngưng";
+        document.getElementById("cboTrangThai").value = "Tạm ngưng";
+        alert(`Đã tạm ngưng thực đơn '${m.ten}'!`);
+      }
+    }
+
+    function chayKichBan(k) {
+      document.querySelectorAll(".demo-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === k));
+      switch(k) {
+        case 1:
+          chonMenu(1);
+          chuyenTab(2);
+          break;
+        case 2:
+          chonMenu(2);
+          chuyenTab(2);
+          break;
+        case 3:
+          chonMenu(1);
+          document.getElementById("cboChonMon").selectedIndex = 1;
+          document.getElementById("nudDonGiaMenu").value = 55000;
+          themMonVaoMenu();
+          break;
+        case 4:
+          chonMenu(1);
+          chuyenTab(2);
+          alert("Bấm nút [Gỡ] màu đỏ trên bất kỳ dòng món nào để gỡ món khỏi Menu.");
+          break;
+        case 5:
+          lamMoiForm();
+          chuyenTab(1);
+          break;
+      }
+    }
+
+    // Khởi tạo ban đầu
+    renderDishes(1);
+  </script>
+</body>
+</html>

@@ -384,3 +384,41 @@ BEGIN
     );
 END
 GO
+
+
+-- ==============================================================
+-- NHÓM 4B: BẢNG MENU KINH DOANH & GÁN MÓN ĂN (2 BẢNG)
+-- ==============================================================
+
+-- 4.4. Bảng Menu (Bảng thực đơn kinh doanh: Alacarte, Buffet, Set cơm trưa, Menu lễ tết)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Menu')
+BEGIN
+    CREATE TABLE Menu (
+        MN_Ma INT IDENTITY(1,1) PRIMARY KEY,
+        MN_Ten NVARCHAR(100) NOT NULL,
+        MN_LoaiMenu NVARCHAR(50) NOT NULL DEFAULT N'Alacarte', -- Alacarte, Buffet, SetMenu, Combo, SuKien
+        MN_MoTa NVARCHAR(255) NULL,
+        MN_TrangThai NVARCHAR(30) NOT NULL DEFAULT N'Đang áp dụng', -- Đang áp dụng, Tạm ngưng, Dự thảo
+        MN_Xoa BIT NOT NULL DEFAULT 0
+    );
+END
+GO
+
+-- 4.5. Bảng Menu_MonAn (Chi tiết gán món ăn từ kho vào Menu kèm giá niêm yết theo menu)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Menu_MonAn')
+BEGIN
+    CREATE TABLE Menu_MonAn (
+        MMA_Ma INT IDENTITY(1,1) PRIMARY KEY,
+        MMA_MaMenu INT NOT NULL,
+        MMA_MaMonAn INT NOT NULL,
+        MMA_DonGia DECIMAL(18, 2) NOT NULL DEFAULT 0,
+        MMA_ThuTuHienThi INT NOT NULL DEFAULT 1,
+        MMA_GhiChu NVARCHAR(255) NULL,
+        MMA_Xoa BIT NOT NULL DEFAULT 0,
+        CONSTRAINT FK_MenuMonAn_Menu FOREIGN KEY (MMA_MaMenu) REFERENCES Menu(MN_Ma),
+        CONSTRAINT FK_MenuMonAn_MonAn FOREIGN KEY (MMA_MaMonAn) REFERENCES MonAn(MA_Ma),
+        CONSTRAINT UQ_Menu_MonAn UNIQUE (MMA_MaMenu, MMA_MaMonAn),
+        CONSTRAINT CK_MenuMonAn_DonGia CHECK (MMA_DonGia >= 0)
+    );
+END
+GO

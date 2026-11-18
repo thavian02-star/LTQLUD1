@@ -474,3 +474,49 @@ BEGIN
     SET IDENTITY_INSERT ChiTietHoaDon OFF;
 END
 GO
+
+
+-- ==============================================================
+-- NHÓM 4B: DỮ LIỆU BẢNG MENU & MÓN ĂN GÁN TRONG MENU
+-- ==============================================================
+
+-- 4.4. Bảng Menu (4 Bảng Thực Đơn kinh doanh chuẩn)
+IF NOT EXISTS (SELECT 1 FROM Menu)
+BEGIN
+    SET IDENTITY_INSERT Menu ON;
+    INSERT INTO Menu (MN_Ma, MN_Ten, MN_LoaiMenu, MN_MoTa, MN_TrangThai, MN_Xoa) VALUES
+        (1, N'Thực đơn Gọi món Tiêu chuẩn', N'Alacarte', N'Áp dụng gọi món alacarte hàng ngày cho toàn bộ quán', N'Đang áp dụng', 0),
+        (2, N'Buffet Nướng & Lẩu Hương Việt', N'Buffet', N'Gói buffet tự chọn không giới hạn trưa và tối', N'Đang áp dụng', 0),
+        (3, N'Set Cơm Trưa Văn Phòng', N'SetMenu', N'Phục vụ khung giờ 11h00 - 14h00 các ngày trong tuần', N'Đang áp dụng', 0),
+        (4, N'Thực Đơn Tiệc & Lễ Hội', N'SuKien', N'Dành riêng cho khách đoàn đặt bàn và các dịp lễ Tết', N'Tạm ngưng', 0);
+    SET IDENTITY_INSERT Menu OFF;
+END
+GO
+
+-- 4.5. Bảng Menu_MonAn (Gán danh sách món ăn từ kho món vào từng Menu kinh doanh)
+IF NOT EXISTS (SELECT 1 FROM Menu_MonAn)
+BEGIN
+    SET IDENTITY_INSERT Menu_MonAn ON;
+    INSERT INTO Menu_MonAn (MMA_Ma, MMA_MaMenu, MMA_MaMonAn, MMA_DonGia, MMA_ThuTuHienThi, MMA_GhiChu, MMA_Xoa) VALUES
+        -- Menu 1: Alacarte Tiêu chuẩn (Giá niêm yết theo món)
+        (1,  1, 1,  45000, 1, N'Món khai vị bán chạy', 0),
+        (2,  1, 4,  65000, 2, N'Món chính đặc sắc', 0),
+        (3,  1, 5,  75000, 3, N'Món nước truyền thống', 0),
+        (4,  1, 6,  65000, 4, N'Món nước đậm đà', 0),
+        (5,  1, 9, 260000, 5, N'Lẩu dùng cho 2-3 người', 0),
+        (6,  1, 12, 39000, 6, N'Thức uống giải khát', 0),
+        (7,  1, 14, 29000, 7, N'Cà phê rang xay nguyên chất', 0),
+
+        -- Menu 2: Buffet Nướng & Lẩu (Món trong gói buffet giá 0đ vì tính theo vé buffet)
+        (8,  2, 1,      0, 1, N'Khai vị buffet', 0),
+        (9,  2, 7,      0, 2, N'Bò lúc lắc nướng', 0),
+        (10, 2, 9,      0, 3, N'Nước lẩu tự chọn', 0),
+        (11, 2, 13,     0, 4, N'Nước uống refill', 0),
+        (12, 2, 16,     0, 5, N'Tráng miệng tự chọn', 0),
+
+        -- Menu 3: Set Cơm Trưa Văn Phòng (Giá trợ giá combo trưa)
+        (13, 3, 4,  55000, 1, N'Cơm sườn giảm giá giờ trưa', 0),
+        (14, 3, 13, 20000, 2, N'Nước uống kèm cơm trưa', 0);
+    SET IDENTITY_INSERT Menu_MonAn OFF;
+END
+GO
