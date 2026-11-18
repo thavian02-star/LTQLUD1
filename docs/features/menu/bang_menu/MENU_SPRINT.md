@@ -106,8 +106,8 @@ flowchart LR
   - [x] Tạo file Mockup tương tác [`frmMenu_mockup_v1_0.html`](frmMenu_mockup_v1_0.html) với đầy đủ kịch bản mô phỏng.
 - [x] **Bước 2: Thiết kế Giao diện WinForms (`Quanlyquanan/Features/Menu/Catalog/frmMenu.Designer.vb`)**
   - [x] Xây dựng bố cục 3 tầng dọc + Split-Layout 40:60 và TabControl 2 danh sách.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
-  - [ ] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb` và hoàn thiện logic trong `frmMenu.vb`.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenu.vb`)**
+  - [x] Tạo `MenuDTO.vb`, `MenuDAO.vb`, `MenuBUS.vb` và hoàn thiện logic trong `frmMenu.vb`.
 - [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`MenuVerifier`)**
   - [ ] Tích hợp mở `frmMenu` từ `frmMain.vb`.
   - [ ] Chạy bộ kiểm thử tự động Layout + CRUD + Gán món + RBAC.
