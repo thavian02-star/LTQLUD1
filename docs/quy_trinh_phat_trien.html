@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phần 4: Quy Trình Phát Triển & QA/QC — Quản Lý Quán Ăn</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #273549;
+      --surface-border: #334155;
+      --primary: #38bdf8;
+      --primary-dim: #0284c7;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --purple: #a855f7;
+      --indigo: #6366f1;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --code-bg: #090d16;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* TOP GLOBAL NAVIGATION */
+    .top-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+    .brand-title { font-size: 14.5px; font-weight: 700; }
+    .brand-subtitle { font-size: 11px; color: var(--text-muted); }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-tab-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+    .nav-tab-link:hover {
+      background: var(--surface-hover);
+      color: #fff;
+    }
+    .nav-tab-link.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--indigo);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    /* 2-COLUMN LAYOUT */
+    .layout-wrapper {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* STICKY SIDEBAR TABLE OF CONTENTS (DANH MỤC CON) */
+    .toc-sidebar {
+      width: 310px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      padding: 24px 16px 40px 24px;
+      border-right: 1px solid var(--surface-border);
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .toc-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .toc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--surface-border);
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--indigo);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toc-count {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--indigo);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .toc-item a {
+      display: block;
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      line-height: 1.4;
+    }
+    .toc-item a:hover {
+      background: var(--surface-hover);
+      color: #fff;
+    }
+    .toc-item a.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--indigo);
+      font-weight: 600;
+      border-left: 3px solid var(--indigo);
+      padding-left: 10px;
+    }
+    .toc-sub-list {
+      list-style: none;
+      margin-left: 12px;
+      padding-left: 8px;
+      border-left: 1px dashed var(--surface-border);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 2px;
+    }
+    .toc-sub-item a {
+      font-size: 11.5px;
+      color: var(--text-dim);
+      padding: 4px 8px;
+    }
+    .toc-sub-item a:hover { color: #fff; }
+    .toc-sub-item a.active { color: var(--indigo); font-weight: 600; }
+
+    /* MAIN CONTENT VIEWPORT */
+    .content-area {
+      flex: 1;
+      padding: 32px 40px 80px 40px;
+      min-width: 0;
+    }
+
+    /* HERO BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)), 
+                  radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.15), transparent 70%);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--indigo), var(--purple), var(--success));
+    }
+    .badge-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .badge-indigo { background: rgba(99, 102, 241, 0.15); color: var(--indigo); border: 1px solid rgba(99, 102, 241, 0.3); }
+    .badge-purple { background: rgba(168, 85, 247, 0.15); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+    .badge-primary { background: rgba(56, 189, 248, 0.15); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-accent { background: rgba(245, 158, 11, 0.15); color: var(--accent); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .hero-title { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .hero-desc { color: var(--text-muted); font-size: 13.5px; }
+
+    /* CONTENT SECTIONS */
+    .section-block {
+      margin-bottom: 44px;
+      scroll-margin-top: 80px;
+    }
+    .sub-heading {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--indigo);
+      margin: 24px 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 8px;
+    }
+
+    /* GRID & CARDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-text { font-size: 12.5px; color: var(--text-muted); }
+
+    /* CODE BOX */
+    .code-box {
+      background: var(--code-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .code-comment { color: #64748b; font-style: italic; }
+
+    /* TABLES */
+    .table-container {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+    th {
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--indigo);
+      padding: 12px 16px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--surface-border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      color: var(--text-muted);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); color: #fff; }
+
+    /* CALLOUT */
+    .callout {
+      border-left: 4px solid var(--indigo);
+      background: rgba(99, 102, 241, 0.08);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+    .callout-success { border-left-color: var(--success); background: rgba(16, 185, 129, 0.08); }
+    .callout-accent { border-left-color: var(--accent); background: rgba(245, 158, 11, 0.08); }
+    .callout-purple { border-left-color: var(--purple); background: rgba(168, 85, 247, 0.08); }
+
+    /* WINDOW MOCKUP PREVIEW */
+    .mockup-window {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .mockup-titlebar {
+      background: #1e293b;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .mockup-title { font-size: 12px; font-weight: 600; color: #cbd5e1; }
+    .mockup-body {
+      padding: 20px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    /* STEP FLOW NUMBER */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--indigo);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 8px;
+    }
+
+    /* BOTTOM NAV */
+    .page-switch-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--surface-border);
+    }
+    .btn-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .btn-switch:hover {
+      background: var(--surface-hover);
+      border-color: var(--indigo);
+      color: var(--indigo);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="top-nav">
+    <a href="tong_quan_du_an.html" class="nav-brand">
+      <div class="brand-icon">🔄</div>
+      <div>
+        <div class="brand-title">Quản Lý Quán Ăn</div>
+        <div class="brand-subtitle">Tài Liệu Tổng Quan Hệ Thống</div>
+      </div>
+    </a>
+
+    <ul class="nav-tabs">
+      <li><a href="tong_quan_du_an.html" class="nav-tab-link"><span>📌</span> Trang Chủ (Portal)</a></li>
+      <li><a href="kien_truc_du_an.html" class="nav-tab-link"><span>🏛️</span> Phần 1: Kiến Trúc & Thư Mục</a></li>
+      <li><a href="kien_truc_database.html" class="nav-tab-link"><span>🗄️</span> Phần 2: Kiến Trúc Database</a></li>
+      <li><a href="huong_dan_va_kiem_thu.html" class="nav-tab-link"><span>🧪</span> Phần 3: Hướng Dẫn & Test</a></li>
+      <li><a href="quy_trinh_phat_trien.html" class="nav-tab-link active"><span>🔄</span> Phần 4: Quy Trình SDLC & QA/QC</a></li>
+    </ul>
+  </header>
+
+  <!-- 2-COLUMN LAYOUT -->
+  <div class="layout-wrapper">
+
+    <!-- STICKY SIDEBAR TABLE OF CONTENTS (DANH MỤC CON) -->
+    <aside class="toc-sidebar">
+      <div class="toc-box">
+        <div class="toc-header">
+          <div class="toc-title">
+            <span>📑</span> Quy Trình SDLC
+          </div>
+          <span class="toc-count">7 Trụ Cột</span>
+        </div>
+
+        <ul class="toc-list">
+          <li class="toc-item">
+            <a href="#sec-sdlc-cycle" class="toc-link">🌐 1. Vòng Đời SDLC Tổng Quan</a>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-features-spec" class="toc-link">📝 2. Features & Đặc Tả (Spec)</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-spec-business" class="toc-link">Đặc tả nghiệp vụ (Use Case)</a></li>
+              <li class="toc-sub-item"><a href="#sub-spec-technical" class="toc-link">Đặc tả kỹ thuật (DAO/BUS)</a></li>
+              <li class="toc-sub-item"><a href="#sub-spec-lifecycle" class="toc-link">Vòng đời Form WinForms</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-mockup" class="toc-link">🎨 3. Mockup & Thiết Kế UI</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-mockup-colors" class="toc-link">Hệ thống màu sắc nhận diện</a></li>
+              <li class="toc-sub-item"><a href="#sub-mockup-window" class="toc-link">Mô phỏng Desktop Window</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-sprint" class="toc-link">🏃 4. Sprint & Kế Hoạch 5 Bước</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-sprint-steps" class="toc-link">Quy trình Sprint 5 bước</a></li>
+              <li class="toc-sub-item"><a href="#sub-sprint-checklist" class="toc-link">Checklist tiến độ Milestone</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-commit" class="toc-link">🌿 5. Quy Chuẩn Commit Git</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-commit-format" class="toc-link">Conventional Commits</a></li>
+              <li class="toc-sub-item"><a href="#sub-branch-strategy" class="toc-link">Chiến lược phân nhánh</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-qa-qc-testing" class="toc-link">🧪 6. Testing, Test Cases & QA/QC</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-qa-vs-qc" class="toc-link">Phân biệt QA vs QC</a></li>
+              <li class="toc-sub-item"><a href="#sub-test-cases" class="toc-link">Bảng thiết kế Test Cases</a></li>
+              <li class="toc-sub-item"><a href="#sub-test-levels" class="toc-link">3 Cấp độ kiểm thử</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-review" class="toc-link">🔍 7. Code Review & Release Report</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-review-checklist" class="toc-link">5 Tiêu chí Code Review</a></li>
+              <li class="toc-sub-item"><a href="#sub-release-report" class="toc-link">Báo cáo phát hành Before/After</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT VIEWPORT -->
+    <main class="content-area">
+
+      <!-- HERO BANNER -->
+      <div class="hero-banner">
+        <div class="badge-bar">
+          <span class="badge badge-indigo">Phần 4 Chuyên Sâu</span>
+          <span class="badge badge-purple">Agile & Sprint 5 Bước</span>
+          <span class="badge badge-success">QA & QC Testing</span>
+          <span class="badge badge-primary">Release Report Before/After</span>
+        </div>
+        <h1 class="hero-title">QUY TRÌNH PHÁT TRIỂN PHẦN MỀM (SDLC) & ĐẢM BẢO CHẤT LƯỢNG (QA/QC)</h1>
+        <p class="hero-desc">
+          Chuẩn hóa toàn diện từ khâu đặc tả tính năng (Feature Specs), phác thảo giao diện (Mockup), lập kế hoạch Sprint, quy chuẩn đặt tên Commit, ma trận Test Cases, phân định vai trò QA/QC, quy trình Code Review và xuất báo cáo phát hành (Release Report).
+        </p>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 1. VÒNG ĐỜI SDLC TỔNG QUAN                               -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-sdlc-cycle">
+        <h2 class="sub-heading"><span>🌐 1.</span> Vòng Đời Phát Triển Phần Mềm Khép Kín (SDLC Workflow)</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+          Mỗi tính năng trong đồ án Quản Lý Quán Ăn được vận hành theo chu trình khép kín 7 giai đoạn nghiêm ngặt, đảm bảo tính ổn định và tính minh bạch 100%:
+        </p>
+
+        <div class="code-box" style="font-size: 12.5px; line-height: 1.8;">
+[1. FEATURES & SPEC] ➔ Bóc tách nghiệp vụ (Use Case) + Thiết kế DTO/DAO/BUS + CSDL liên quan
+       │
+       ▼
+[2. MOCKUP & UI]     ➔ Phác thảo bố cục Form, co giãn Anchor/Dock, màu sắc nhận diện bàn ăn
+       │
+       ▼
+[3. SPRINT PLANNING] ➔ Lập kế hoạch Sprint 5 bước, định nghĩa Definition of Done (DoD)
+       │
+       ▼
+[4. CODE & COMMIT]   ➔ Lập trình theo chuẩn 3-Tier + Tuân thủ Git Conventional Commits
+       │
+       ▼
+[5. QA / QC TESTING] ➔ Viết Test Cases, chạy Unit Test, Integration Test (Order ➔ Bếp ➔ Thu ngân)
+       │
+       ▼
+[6. CODE REVIEW]     ➔ Rà soát mã nguồn (SQL Injection check, Package-by-Feature audit)
+       │
+       ▼
+[7. RELEASE REPORT]  ➔ Xuất báo cáo HTML độc lập Before/After + Nghiệm thu bàn giao
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- 2. FEATURES & SPEC                                       -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-features-spec">
+        <h2 class="sub-heading"><span>📝 2.</span> Phân Rã Features & Đặc Tả Kỹ Thuật (Spec)</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+          Toàn bộ tài liệu tính năng được đặt tại thư mục <code>docs/features/<ten_feature>/</code>. Trước khi gõ bất kỳ dòng code nào, nhà phát triển phải hoàn thành tài liệu đặc tả gồm 3 phần:
+        </p>
+
+        <div class="grid-3">
+          <div class="card" id="sub-spec-business">
+            <div class="card-title">1. Đặc Tả Nghiệp Vụ (Business)</div>
+            <p class="card-text">
+              - <strong>User Stories:</strong> "Là [Vai trò], tôi muốn [Hành động] để [Mục đích]".<br>
+              - <strong>Quy tắc kinh doanh (Rules):</strong> Ràng buộc số lượng > 0, kiểm tra tồn kho cờ <code>MA_HetMon</code>, kiểm tra trùng số bàn.<br>
+              - <strong>Ma trận phân quyền:</strong> Xác định mã <code>Q_Tag</code> tương ứng.
+            </p>
+          </div>
+
+          <div class="card" id="sub-spec-technical">
+            <div class="card-title">2. Đặc Tả Kỹ Thuật (Technical)</div>
+            <p class="card-text">
+              - <strong>DTO:</strong> Định nghĩa thuộc tính, kiểu dữ liệu khớp 100% cột CSDL.<br>
+              - <strong>DAO:</strong> Viết trước các câu truy vấn T-SQL kèm tham số <code>SqlParameter</code>.<br>
+              - <strong>BUS:</strong> Quy định các hàm kiểm tra hợp lệ và xử lý logic trước khi gọi DAO.
+            </p>
+          </div>
+
+          <div class="card" id="sub-spec-lifecycle">
+            <div class="card-title">3. Vòng Đời Form (UI Lifecycle)</div>
+            <p class="card-text">
+              - <strong>Form_Load:</strong> Gọi <code>PhanQuyenHelper.ApDungPhanQuyen(Me)</code>, nạp danh sách dữ liệu ban đầu.<br>
+              - <strong>Action Events:</strong> Bắt sự kiện Click, CellClick DataGridView.<br>
+              - <strong>Form_FormClosing:</strong> Xác nhận lưu vết hoặc dọn dẹp biến bộ nhớ.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- 3. MOCKUP & THIẾT KẾ UI                                  -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-mockup">
+        <h2 class="sub-heading"><span>🎨 3.</span> Mockup & Quy Chuẩn Thiết Kế Giao Diện WinForms</h2>
+
+        <div id="sub-mockup-colors" style="margin-bottom: 16px;">
+          <h3 style="font-size: 14px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">1</span> Hệ Thống Bảng Màu Chuẩn (Color Palette & Sơ Đồ Trạng Thái Bàn)
+          </h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🍽️ Màu Sắc Trạng Thái Bàn Ăn (Sơ đồ bàn)</div>
+              <p class="card-text">
+                - <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: var(--success);">Xanh lá (Trạng thái 0)</span>: <strong>Bàn trống</strong>, sẵn sàng đón khách mới.<br>
+                - <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: var(--danger);">Đỏ tươi (Trạng thái 1)</span>: <strong>Đang có khách</strong> ngồi ăn.<br>
+                - <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: var(--accent);">Vàng cam (Trạng thái 2)</span>: <strong>Đang chờ món</strong> từ nhà bếp chuyển lên.<br>
+                - <span class="badge" style="background: rgba(168, 85, 247, 0.2); color: var(--purple);">Tím violet (Trạng thái 3)</span>: <strong>Món đã nấu xong</strong>, phục vụ mang ra bàn.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">📐 Quy Tắc Co Giãn Responsive Control (Dock / Anchor)</div>
+              <p class="card-text">
+                - Form tuyệt đối <strong>không bị vỡ giao diện</strong> khi phóng to toàn màn hình.<br>
+                - Khung menu/công cụ bên trái: <code>Dock = Left</code>.<br>
+                - Bảng dữ liệu DataGridView chính: <code>Dock = Fill</code>.<br>
+                - Cụm nút Thêm/Sửa/Xóa/Thanh toán: <code>Anchor = Bottom, Right</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="sub-mockup-window">
+          <h3 style="font-size: 14px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">2</span> Mô Phỏng Khung Giao Diện Desktop Chuẩn (Mockup Preview)
+          </h3>
+          <div class="mockup-window">
+            <div class="mockup-titlebar">
+              <div class="mockup-dots">
+                <span class="mockup-dot dot-red"></span>
+                <span class="mockup-dot dot-yellow"></span>
+                <span class="mockup-dot dot-green"></span>
+              </div>
+              <div class="mockup-title">🍽️ HỆ THỐNG QUẢN LÝ QUÁN ĂN — [SƠ ĐỒ BÀN & GỌI MÓN]</div>
+              <div style="font-size: 11px; color: var(--text-dim);">VB.NET WinForms (.NET 10.0)</div>
+            </div>
+            <div class="mockup-body">
+              <div style="display: flex; gap: 14px;">
+                <div style="width: 200px; background: #1e293b; border-radius: 8px; padding: 12px;">
+                  <strong style="color: #fff; font-size: 12px;">DANH MỤC KHU VỰC</strong>
+                  <ul style="list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 11.5px;">
+                    <li style="color: var(--primary);">➔ Tầng Trệt (10 Bàn)</li>
+                    <li>➔ Lầu 1 (8 Bàn)</li>
+                    <li>➔ Phòng VIP (4 Bàn)</li>
+                    <li>➔ Sân Vườn (6 Bàn)</li>
+                  </ul>
+                </div>
+
+                <div style="flex: 1; background: #1e293b; border-radius: 8px; padding: 12px;">
+                  <strong style="color: #fff; font-size: 12px;">SƠ ĐỒ BÀN ĂN THỰC TẾ</strong>
+                  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 8px;">
+                    <div style="background: rgba(239, 68, 68, 0.2); border: 1px solid var(--danger); padding: 10px; border-radius: 6px; text-align: center;">
+                      <strong style="color: var(--danger);">BÀN 01</strong><br><span style="font-size: 11px;">Có khách (4 người)</span>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.2); border: 1px solid var(--success); padding: 10px; border-radius: 6px; text-align: center;">
+                      <strong style="color: var(--success);">BÀN 02</strong><br><span style="font-size: 11px;">Trống</span>
+                    </div>
+                    <div style="background: rgba(245, 158, 11, 0.2); border: 1px solid var(--accent); padding: 10px; border-radius: 6px; text-align: center;">
+                      <strong style="color: var(--accent);">BÀN 03</strong><br><span style="font-size: 11px;">Đang đợi món (Bếp)</span>
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.2); border: 1px solid var(--success); padding: 10px; border-radius: 6px; text-align: center;">
+                      <strong style="color: var(--success);">BÀN 04</strong><br><span style="font-size: 11px;">Trống</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- 4. SPRINT & KẾ HOẠCH 5 BƯỚC                             -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-sprint">
+        <h2 class="sub-heading"><span>🏃 4.</span> Lập Kế Hoạch Sprint & Quy Trình 5 Bước Chuẩn</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+          Để đảm bảo tính nhất quán của kiến trúc <strong>Package-by-Feature</strong>, mỗi Sprint triển khai tính năng bắt buộc phải trải qua đúng 5 bước tuần tự:
+        </p>
+
+        <div class="table-container" id="sub-sprint-steps">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 80px;">Bước</th>
+                <th style="width: 170px;">Tên Giai Đoạn</th>
+                <th>Công Việc Cụ Thể (Actions)</th>
+                <th style="width: 200px;">Sản Phẩm Đầu Ra (Artifacts)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="step-badge">1</span></td>
+                <td><strong>Database & DTO</strong></td>
+                <td>Kiểm tra bảng CSDL trong <code>create-database.sql</code>; tạo file <code>XxxDTO.vb</code> khai báo thuộc tính và hàm khởi tạo.</td>
+                <td><code>XxxDTO.vb</code></td>
+              </tr>
+              <tr>
+                <td><span class="step-badge">2</span></td>
+                <td><strong>Data Access (DAO)</strong></td>
+                <td>Viết các hàm gọi <code>KetNoiCSDL</code>, đóng gói 100% tham số vào <code>SqlParameter</code>; trả về <code>DataTable</code> hoặc danh sách DTO.</td>
+                <td><code>XxxDAO.vb</code></td>
+              </tr>
+              <tr>
+                <td><span class="step-badge">3</span></td>
+                <td><strong>Business Logic (BUS)</strong></td>
+                <td>Viết lớp kiểm tra dữ liệu đầu vào (không rỗng, số hợp lệ, kiểm tra trùng), xử lý tính toán tiền hoặc chuyển đổi trạng thái trước khi gọi DAO.</td>
+                <td><code>XxxBUS.vb</code></td>
+              </tr>
+              <tr>
+                <td><span class="step-badge">4</span></td>
+                <td><strong>Giao Diện GUI & Tag</strong></td>
+                <td>Kéo thả control trên Windows Forms, gắn thuộc tính <code>Tag = "Q_TAG"</code> lên các Button cần bảo vệ; gọi <code>PhanQuyenHelper</code> ở Form_Load.</td>
+                <td><code>frmXxx.vb</code>, <code>.Designer.vb</code></td>
+              </tr>
+              <tr>
+                <td><span class="step-badge">5</span></td>
+                <td><strong>Test & Tích Hợp</strong></td>
+                <td>Chạy thử nghiệm theo Test Cases, kiểm thử phân quyền 4 vai trò, kiểm thử luồng dữ liệu và nghiệm thu Sprint.</td>
+                <td>Biên bản Test & Release Report</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- 5. QUY CHUẨN COMMIT GIT                                 -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-commit">
+        <h2 class="sub-heading"><span>🌿 5.</span> Quy Chuẩn Commit Git (Git Conventional Commits)</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+          Dự án áp dụng chuẩn <strong>Conventional Commits</strong> quốc tế để lịch sử commit rõ ràng, minh bạch và tự động hóa việc xuất báo cáo phát hành:
+        </p>
+
+        <div class="code-box" id="sub-commit-format">
+<span class="code-comment"># Cú pháp thông điệp commit chuẩn:</span>
+&lt;type&gt;(&lt;scope&gt;): &lt;mô tả ngắn gọn bằng tiếng Việt có dấu hoặc tiếng Anh&gt;
+
+<span class="code-comment"># Ví dụ thực tế trong dự án:</span>
+feat(auth): thêm màn hình đổi mật khẩu và nạp danh sách quyền RBAC
+fix(pos): sửa lỗi tính sai tổng tiền khi gộp 2 hóa đơn bàn ăn
+ui(bep): làm nổi bật món ăn có ghi chú đặc biệt trên hàng đợi
+refactor(core): tách lớp PhanQuyenHelper thành tiện ích quét Control độc lập
+docs(report): thêm báo cáo phát hành phiên bản release v0.2.8
+test(staff): bổ sung test case kiểm tra nhập trùng mã căn cước công dân
+chore(docker): cập nhật script nạp dữ liệu mẫu seed-data.sql
+        </div>
+
+        <div class="table-container" id="sub-branch-strategy">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 140px;">Tiền Tố (Prefix)</th>
+                <th style="width: 140px;">Ý Nghĩa</th>
+                <th>Khi Nào Áp Dụng Trong Dự Án Quản Lý Quán Ăn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>feat</code></td>
+                <td>Tính năng mới</td>
+                <td>Thêm Form mới, thêm chức năng gọi món, chuyển bàn, chấm công, in hóa đơn...</td>
+              </tr>
+              <tr>
+                <td><code>fix</code></td>
+                <td>Sửa lỗi</td>
+                <td>Sửa lỗi văng ứng dụng (NullReference), lỗi SQL Injection, lỗi hiển thị sai màu bàn...</td>
+              </tr>
+              <tr>
+                <td><code>ui</code> / <code>style</code></td>
+                <td>Giao diện</td>
+                <td>Chỉnh sửa màu sắc, icon, font chữ, bố cục co giãn (Anchor/Dock) trên Form.</td>
+              </tr>
+              <tr>
+                <td><code>refactor</code></td>
+                <td>Tái cấu trúc</td>
+                <td>Tối ưu hóa mã nguồn, gom nhóm thư mục Package-by-Feature nhưng không đổi chức năng.</td>
+              </tr>
+              <tr>
+                <td><code>test</code></td>
+                <td>Kiểm thử</td>
+                <td>Thêm kịch bản test case, cập nhật file log kiểm thử tự động.</td>
+              </tr>
+              <tr>
+                <td><code>docs</code></td>
+                <td>Tài liệu</td>
+                <td>Cập nhật README, tài liệu kiến trúc CSDL hoặc các file HTML báo cáo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- 6. TESTING, TEST CASES & QA/QC                          -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-qa-qc-testing">
+        <h2 class="sub-heading"><span>🧪 6.</span> Đảm Bảo Chất Lượng QA/QC & Thiết Kế Test Cases</h2>
+
+        <div id="sub-qa-vs-qc" style="margin-bottom: 20px;">
+          <h3 style="font-size: 14.5px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">1</span> Phân Định Rõ Ràng Vai Trò QA vs QC Trong Dự Án
+          </h3>
+          <div class="grid-2">
+            <div class="card" style="border-color: rgba(99, 102, 241, 0.4);">
+              <div class="card-title">
+                <span>🛡️ QA (Quality Assurance) — Kiểm Soát Quy Trình</span>
+                <span class="badge badge-indigo">Process-Oriented</span>
+              </div>
+              <p class="card-text">
+                - <strong>Trọng tâm:</strong> Ngăn ngừa lỗi ngay từ đầu thông qua quy chuẩn.<br>
+                - <strong>Nhiệm vụ:</strong><br>
+                • Đảm bảo mã nguồn tuân thủ 100% kiến trúc Package-by-Feature & 3-Tier.<br>
+                • Đảm bảo 100% câu lệnh SQL có tham số phải dùng <code>SqlParameter</code>.<br>
+                • Kiểm tra mọi Form có gọi <code>PhanQuyenHelper</code> và gắn mã <code>Tag</code> hợp lệ.<br>
+                • Đảm bảo script Docker luôn có cơ chế phòng vệ <code>IF NOT EXISTS</code>.
+              </p>
+            </div>
+
+            <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+              <div class="card-title">
+                <span>🔍 QC (Quality Control) — Kiểm Thử Sản Phẩm</span>
+                <span class="badge badge-success">Product-Oriented</span>
+              </div>
+              <p class="card-text">
+                - <strong>Trọng tâm:</strong> Phát hiện lỗi trực tiếp trên phần mềm thực tế.<br>
+                - <strong>Nhiệm vụ:</strong><br>
+                • Thiết kế bộ kịch bản kiểm thử (Test Cases) chi tiết cho từng phân hệ.<br>
+                • Thực thi test: nhập dữ liệu biên, dữ liệu âm, chuỗi tiếng Việt có dấu, ký tự SQL lạ (<code>' OR '1'='1</code>).<br>
+                • Ghi nhận lỗi (Defect Log), phân loại mức độ nghiêm trọng và yêu cầu dev sửa chữa.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="sub-test-cases" style="margin-bottom: 20px;">
+          <h3 style="font-size: 14.5px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">2</span> Mẫu Thiết Kế Bảng Test Cases Chuẩn Của Dự Án
+          </h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 80px;">Mã TC</th>
+                  <th style="width: 140px;">Phân Hệ</th>
+                  <th>Mục Tiêu Kiểm Thử</th>
+                  <th>Dữ Liệu Đầu Vào (Input)</th>
+                  <th>Kết Quả Kỳ Vọng (Expected)</th>
+                  <th style="width: 100px; text-align: center;">Trạng Thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>TC_AUTH_01</code></td>
+                  <td>Auth (Đăng nhập)</td>
+                  <td>Đăng nhập sai mật khẩu</td>
+                  <td>User: <code>chuquan</code>, Pass: <code>wrongpass</code></td>
+                  <td>Báo lỗi "Tên đăng nhập hoặc mật khẩu không chính xác", không mở Form chính.</td>
+                  <td style="text-align: center;"><span class="badge badge-success">PASS</span></td>
+                </tr>
+                <tr>
+                  <td><code>TC_AUTH_02</code></td>
+                  <td>Auth (Bảo mật)</td>
+                  <td>Thử tấn công SQL Injection vào ô Username</td>
+                  <td>User: <code>admin' OR '1'='1</code>, Pass: <code>123</code></td>
+                  <td>Hệ thống không bị bypass, báo lỗi xác thực an toàn nhờ <code>SqlParameter</code>.</td>
+                  <td style="text-align: center;"><span class="badge badge-success">PASS</span></td>
+                </tr>
+                <tr>
+                  <td><code>TC_POS_01</code></td>
+                  <td>Bàn Ăn & Gọi Món</td>
+                  <td>Mở bàn ăn trống và gọi món</td>
+                  <td>Chọn Bàn 02, chọn "Phở Bò" (SL: 2)</td>
+                  <td>Tạo mới hóa đơn, đổi màu bàn sang Có Khách, chi tiết order có dòng Phở Bò.</td>
+                  <td style="text-align: center;"><span class="badge badge-success">PASS</span></td>
+                </tr>
+                <tr>
+                  <td><code>TC_POS_02</code></td>
+                  <td>Bàn Ăn & Gọi Món</td>
+                  <td>Thử gọi món đã hết hàng</td>
+                  <td>Món có cờ <code>MA_HetMon = 1</code></td>
+                  <td>Nút món báo đỏ/mờ, click vào hiện thông báo "Món này tạm thời hết nguyên liệu".</td>
+                  <td style="text-align: center;"><span class="badge badge-success">PASS</span></td>
+                </tr>
+                <tr>
+                  <td><code>TC_BEP_01</code></td>
+                  <td>Nhà Bếp (FIFO)</td>
+                  <td>Món gọi trước phải hiển thị trước</td>
+                  <td>Bàn 1 gọi lúc 10:00, Bàn 2 gọi lúc 10:05</td>
+                  <td>Hàng đợi Bếp hiển thị order Bàn 1 ở vị trí số 1 theo thứ tự thời gian gọi.</td>
+                  <td style="text-align: center;"><span class="badge badge-success">PASS</span></td>
+                </tr>
+                <tr>
+                  <td><code>TC_RBAC_01</code></td>
+                  <td>Phân Quyền WinForms</td>
+                  <td>Kiểm tra ẩn nút của Phục vụ</td>
+                  <td>Đăng nhập tài khoản <code>phucvu1</code></td>
+                  <td>Nút Báo Cáo Doanh Thu (Tag: <code>CQ_BAO_CAO_THONG_KE</code>) tự động bị ẩn.</td>
+                  <td style="text-align: center;"><span class="badge badge-success">PASS</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="sub-test-levels">
+          <h3 style="font-size: 14.5px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">3</span> Ba Cấp Độ Kiểm Thử Thực Tế (Testing Levels)
+          </h3>
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-title">1. Unit Testing (Đơn vị)</div>
+              <p class="card-text">
+                - Kiểm tra hàm băm <code>MaHoaMD5</code> có xuất đúng chuỗi hash chuẩn.<br>
+                - Kiểm tra hàm tính tiền trong <code>BanAnBUS</code> (tổng tiền = đơn giá x số lượng - giảm giá).<br>
+                - Kiểm tra kiểm tra rỗng các trường bắt buộc của <code>NhanVienBUS</code>.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">2. Integration Testing (Tích hợp)</div>
+              <p class="card-text">
+                - <strong>Luồng Order - Bếp - Thu ngân:</strong> Phục vụ gọi món ➔ Bếp nhận dữ liệu thời gian thực ➔ Bếp bấm xong ➔ Thu ngân hiển thị đúng hóa đơn và cập nhật trạng thái bàn.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">3. UI & Security Testing (UAT)</div>
+              <p class="card-text">
+                - Kiểm tra độ sắc nét giao diện trên các độ phân giải màn hình khác nhau.<br>
+                - Thử nghiệm các kịch bản phân quyền chéo để đảm bảo nhân viên không thể thao tác các chức năng của Quản lý hoặc Chủ quán.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- 7. CODE REVIEW & RELEASE REPORT                         -->
+      <!-- ======================================================== -->
+      <section class="section-block" id="sec-review">
+        <h2 class="sub-heading"><span>🔍 7.</span> Quy Trình Code Review & Báo Cáo Release Report</h2>
+
+        <div id="sub-review-checklist" style="margin-bottom: 20px;">
+          <h3 style="font-size: 14.5px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">1</span> Bảng Checklist 5 Tiêu Chí Bắt Buộc Khi Code Review
+          </h3>
+          <div class="callout callout-purple">
+            Mọi Pull Request hoặc đợt nộp code đều phải được rà soát đối chiếu với 5 tiêu chuẩn kỹ thuật sau:
+            <ol style="margin-left: 20px; margin-top: 6px;">
+              <li><strong>Kiến Trúc Package-by-Feature:</strong> File mã nguồn có nằm đúng thư mục màn hình tương ứng không?</li>
+              <li><strong>Không Viết SQL Trong Form:</strong> Có câu lệnh <code>SELECT</code>, <code>INSERT</code> nào nằm lẫn trong file GUI <code>.vb</code> không? (Nếu có ➔ Từ chối duyệt).</li>
+              <li><strong>An Toàn Tham Số (SQL Injection):</strong> Toàn bộ tham số truyền vào database có bọc trong <code>SqlParameter</code> không?</li>
+              <li><strong>Phân Quyền RBAC:</strong> Các nút chức năng mới có được gán thuộc tính <code>Tag = "Q_TAG"</code> và nạp danh sách quyền trong <code>Session</code> không?</li>
+              <li><strong>Bảo Toàn CSDL:</strong> Script CSDL mới có dùng <code>IF NOT EXISTS</code> để không làm mất dữ liệu hiện có khi khởi động Docker không?</li>
+            </ol>
+          </div>
+        </div>
+
+        <div id="sub-release-report">
+          <h3 style="font-size: 14.5px; color: #fff; margin-bottom: 8px;">
+            <span class="step-badge">2</span> Chuẩn Báo Cáo Phát Hành Trực Quan (Release Report Before/After)
+          </h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+            Mỗi khi release một phiên bản, dự án tự động sinh ra một file HTML độc lập tại <code>docs/release_report/report_&lt;version&gt;.html</code> (đã có từ bản <code>report_0_2_0.html</code> đến <code>report_0_2_8.html</code>). Báo cáo bao gồm:
+          </p>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📊 So Sánh Trực Quan Before / After</div>
+              <p class="card-text">
+                - <strong>TRƯỚC (Before):</strong> Trạng thái màn hình cũ, lỗi phát sinh hoặc chức năng chưa hỗ trợ.<br>
+                - <strong>SAU (After):</strong> Giao diện WinForms mới (mô phỏng CSS thuần), giải thuật xử lý mới và tính năng được nghiệm thu.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">💻 Code Diff Block & Số Liệu Git</div>
+              <p class="card-text">
+                - Hiển thị trực quan các dòng mã thêm mới (<span style="color: var(--success); font-weight: bold;">+ xanh</span>) và dòng loại bỏ (<span style="color: var(--danger); font-weight: bold;">- đỏ</span>).<br>
+                - Thống kê chi tiết số commit, số lượng file thay đổi và phân loại theo Badge (Feature, Fix, UI, Refactor).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHUYỂN TRANG NHANH -->
+      <div class="page-switch-bar">
+        <a href="huong_dan_va_kiem_thu.html" class="btn-switch" style="border-color: var(--success); color: var(--success);">
+          <span>⬅️</span> Về Phần 3: Hướng Dẫn & Test
+        </a>
+        <a href="tong_quan_du_an.html" class="btn-switch">
+          Về Trang Chủ Portal <span>➡️</span>
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // ScrollSpy to highlight TOC links
+    const sections = document.querySelectorAll("section.section-block, div[id]");
+    const tocLinks = document.querySelectorAll(".toc-link");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        if (window.scrollY >= top - 120) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      tocLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>

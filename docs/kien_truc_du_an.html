@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phần 1: Kiến Trúc Dự Án & Cấu Trúc Thư Mục — Quản Lý Quán Ăn</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #273549;
+      --surface-border: #334155;
+      --primary: #38bdf8;
+      --primary-dim: #0284c7;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --purple: #a855f7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --code-bg: #090d16;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* TOP GLOBAL NAVIGATION */
+    .top-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+    .brand-title { font-size: 14.5px; font-weight: 700; }
+    .brand-subtitle { font-size: 11px; color: var(--text-muted); }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-tab-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+    .nav-tab-link:hover {
+      background: var(--surface-hover);
+      color: #fff;
+    }
+    .nav-tab-link.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* 2-COLUMN LAYOUT: SIDEBAR TOC + MAIN CONTENT */
+    .layout-wrapper {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* STICKY TABLE OF CONTENTS (MỤC LỤC DANH MỤC CON) */
+    .toc-sidebar {
+      width: 290px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      padding: 24px 16px 40px 24px;
+      border-right: 1px solid var(--surface-border);
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .toc-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .toc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--surface-border);
+      margin-bottom: 12px;
+    }
+    .toc-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toc-count {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .toc-item a {
+      display: block;
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      line-height: 1.4;
+    }
+    .toc-item a:hover {
+      background: var(--surface-hover);
+      color: #fff;
+    }
+    .toc-item a.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      font-weight: 600;
+      border-left: 3px solid var(--primary);
+      padding-left: 10px;
+    }
+    .toc-sub-list {
+      list-style: none;
+      margin-left: 12px;
+      padding-left: 8px;
+      border-left: 1px dashed var(--surface-border);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 2px;
+    }
+    .toc-sub-item a {
+      font-size: 11.5px;
+      color: var(--text-dim);
+      padding: 4px 8px;
+    }
+    .toc-sub-item a:hover {
+      color: #fff;
+    }
+    .toc-sub-item a.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* MAIN CONTENT VIEWPORT */
+    .content-area {
+      flex: 1;
+      padding: 32px 40px 80px 40px;
+      min-width: 0;
+    }
+
+    /* HERO BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95)), 
+                  radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.15), transparent 70%);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--purple));
+    }
+    .badge-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .badge-primary { background: rgba(56, 189, 248, 0.15); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-accent { background: rgba(245, 158, 11, 0.15); color: var(--accent); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .hero-title { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .hero-desc { color: var(--text-muted); font-size: 13.5px; }
+
+    /* CONTENT SECTIONS */
+    .section-block {
+      margin-bottom: 44px;
+      scroll-margin-top: 80px;
+    }
+    .sub-heading {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 24px 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 8px;
+    }
+
+    /* GRID & CARDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-text { font-size: 12.5px; color: var(--text-muted); }
+
+    /* FLOW DIAGRAM */
+    .flow-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .flow-step-card {
+      flex: 1;
+      min-width: 150px;
+      background: var(--code-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .flow-step-card.active-layer {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+    }
+    .flow-arrow { color: var(--primary); font-weight: bold; font-size: 16px; }
+
+    /* CODE TREE */
+    .code-tree {
+      background: var(--code-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .tree-folder { color: #fde047; font-weight: 700; }
+    .tree-comment { color: #64748b; font-style: italic; }
+    .tree-file { color: #38bdf8; }
+
+    /* TABLES */
+    .table-container {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+    th {
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--primary);
+      padding: 12px 16px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--surface-border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      color: var(--text-muted);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); color: #fff; }
+
+    /* BOTTOM NAV */
+    .page-switch-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--surface-border);
+    }
+    .btn-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .btn-switch:hover {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="top-nav">
+    <a href="tong_quan_du_an.html" class="nav-brand">
+      <div class="brand-icon">🏛️</div>
+      <div>
+        <div class="brand-title">Quản Lý Quán Ăn</div>
+        <div class="brand-subtitle">Tài Liệu Tổng Quan Hệ Thống</div>
+      </div>
+    </a>
+
+    <ul class="nav-tabs">
+      <li><a href="tong_quan_du_an.html" class="nav-tab-link"><span>📌</span> Trang Chủ (Portal)</a></li>
+      <li><a href="kien_truc_du_an.html" class="nav-tab-link active"><span>🏛️</span> Phần 1: Kiến Trúc</a></li>
+      <li><a href="kien_truc_database.html" class="nav-tab-link"><span>🗄️</span> Phần 2: Database</a></li>
+      <li><a href="huong_dan_va_kiem_thu.html" class="nav-tab-link"><span>🧪</span> Phần 3: Hướng Dẫn & Test</a></li>
+      <li><a href="quy_trinh_phat_trien.html" class="nav-tab-link"><span>🔄</span> Phần 4: SDLC & QA/QC</a></li>
+    </ul>
+  </header>
+
+  <!-- 2-COLUMN LAYOUT -->
+  <div class="layout-wrapper">
+
+    <!-- STICKY SIDEBAR TABLE OF CONTENTS (DANH MỤC CON) -->
+    <aside class="toc-sidebar">
+      <div class="toc-box">
+        <div class="toc-header">
+          <div class="toc-title">
+            <span>📑</span> Danh Mục Nội Dung
+          </div>
+          <span class="toc-count">4 Phần</span>
+        </div>
+
+        <ul class="toc-list">
+          <li class="toc-item">
+            <a href="#sec-overview" class="toc-link">📌 1. Giới Thiệu Chung</a>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-model" class="toc-link">🏛️ 2. Mô Hình Package-by-Feature</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-compare" class="toc-link">So sánh Layer vs Feature</a></li>
+              <li class="toc-sub-item"><a href="#sub-vertical" class="toc-link">Lát cắt Vertical Slice</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-flow" class="toc-link">⚡ 3. Luồng Xử Lý 3-Tier</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#sub-diagram" class="toc-link">Sơ đồ luồng GUI-BUS-DAO</a></li>
+              <li class="toc-sub-item"><a href="#sub-rules" class="toc-link">3 Quy chuẩn bắt buộc</a></li>
+            </ul>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-tree" class="toc-link">📁 4. Cấu Trúc Cây Thư Mục</a>
+          </li>
+          <li class="toc-item">
+            <a href="#sec-roles" class="toc-link">🧩 5. Vai Trò 7 Phân Hệ & Core</a>
+            <ul class="toc-sub-list">
+              <li class="toc-sub-item"><a href="#role-core" class="toc-link">Core / Infrastructure</a></li>
+              <li class="toc-sub-item"><a href="#role-auth" class="toc-link">Phân hệ Auth</a></li>
+              <li class="toc-sub-item"><a href="#role-order" class="toc-link">Phân hệ BanAn_GoiMon</a></li>
+              <li class="toc-sub-item"><a href="#role-menu" class="toc-link">Phân hệ ThucDon</a></li>
+              <li class="toc-sub-item"><a href="#role-kitchen" class="toc-link">Phân hệ NhaBep</a></li>
+              <li class="toc-sub-item"><a href="#role-hr" class="toc-link">Phân hệ NhanSu</a></li>
+              <li class="toc-sub-item"><a href="#role-shift" class="toc-link">Phân hệ ChamCong_LichLam</a></li>
+              <li class="toc-sub-item"><a href="#role-report" class="toc-link">Phân hệ BaoCao_ThongKe</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT VIEWPORT -->
+    <main class="content-area">
+
+      <!-- HERO BANNER -->
+      <div class="hero-banner" id="sec-overview">
+        <div class="badge-bar">
+          <span class="badge badge-primary">Phần 1 Chuyên Sâu</span>
+          <span class="badge badge-accent">Package-by-Feature (Vertical Slice)</span>
+          <span class="badge badge-success">3-Tier Logic Layer</span>
+        </div>
+        <h1 class="hero-title">KIẾN TRÚC PHẦN MỀM & CẤU TRÚC THƯ MỤC</h1>
+        <p class="hero-desc">
+          Mô tả chi tiết nguyên lý tổ chức mã nguồn, luồng xử lý dữ liệu chuẩn từ giao diện Form đến cơ sở dữ liệu, sơ đồ cây thư mục toàn diện và vai trò của 7 phân hệ nghiệp vụ cùng tầng nền tảng Core.
+        </p>
+      </div>
+
+      <!-- 1.1 Mô hình -->
+      <section class="section-block" id="sec-model">
+        <h2 class="sub-heading"><span>🏛️ 1.1</span> Mô Hình Kiến Trúc Package-by-Feature (Vertical Slices)</h2>
+        <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 16px;">
+          Khác với phương pháp chia theo kỹ thuật truyền thống (Package-by-Layer: toàn bộ Form gom vào GUI, toàn bộ SQL gom vào DAO), dự án tổ chức theo <strong>Package-by-Feature</strong>. Mỗi màn hình nghiệp vụ là một gói hoàn chỉnh độc lập tự chứa: Giao diện (GUI), Xử lý nghiệp vụ (BUS), Truy xuất dữ liệu (DAO) và Thực thể dữ liệu (DTO).
+        </p>
+
+        <div class="grid-2" id="sub-compare">
+          <div class="card">
+            <div class="card-title">
+              <span>❌ Package-by-Layer (Kiểu cũ)</span>
+              <span class="badge badge-accent">Khó bảo trì</span>
+            </div>
+            <p class="card-text">
+              - Chia theo tầng kỹ thuật ngang: <code>GUI/</code>, <code>BUS/</code>, <code>DAO/</code>, <code>DTO/</code>.<br>
+              - <strong>Nhược điểm:</strong> Khi cần sửa đổi 1 tính năng (như Gọi món), lập trình viên phải nhảy qua lại giữa 4 thư mục cách xa nhau. Khi dự án lớn lên, danh sách file trong mỗi thư mục trở nên quá dài và khó tra cứu.
+            </p>
+          </div>
+
+          <div class="card" id="sub-vertical" style="border-color: rgba(56, 189, 248, 0.4);">
+            <div class="card-title">
+              <span>✅ Package-by-Feature (Kiến trúc dự án)</span>
+              <span class="badge badge-primary">Khép kín & Linh hoạt</span>
+            </div>
+            <p class="card-text">
+              - Mỗi phân hệ là một lát cắt dọc (Vertical Slice): <code>Auth/</code>, <code>BanAn_GoiMon/</code>, <code>ThucDon/</code>, <code>NhaBep/</code>...<br>
+              - Muốn đọc hiểu hoặc sửa đổi màn hình nào $\rightarrow$ chỉ cần mở đúng thư mục đó.<br>
+              - Các tài nguyên nền tảng kỹ thuật dùng chung được quy hoạch gọn gàng trong thư mục <code>Core/</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1.2 Luồng xử lý -->
+      <section class="section-block" id="sec-flow">
+        <h2 class="sub-heading"><span>⚡ 1.2</span> Luồng Xử Lý Dữ Liệu Chuẩn (3-Tier Flow) & 3 Quy Chuẩn</h2>
+        
+        <div class="flow-box" id="sub-diagram">
+          <div class="flow-steps">
+            <div class="flow-step-card">
+              <div style="font-size: 24px; margin-bottom: 6px;">👤</div>
+              <strong style="color: #fff; font-size: 13px;">Người Dùng</strong>
+              <p style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Click nút, nhập liệu</p>
+            </div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step-card active-layer">
+              <span class="badge badge-primary" style="margin-bottom: 6px;">Layer 1: GUI</span>
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">Windows Forms</div>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Bắt sự kiện, hiển thị View</p>
+            </div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step-card active-layer">
+              <span class="badge badge-accent" style="margin-bottom: 6px;">Layer 2: BUS</span>
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">Business Logic</div>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Validate dữ liệu, quy tắc kinh doanh</p>
+            </div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step-card active-layer">
+              <span class="badge badge-purple" style="margin-bottom: 6px;">Layer 3: DAO</span>
+              <div style="font-weight: 700; color: #fff; font-size: 13px;">Data Access</div>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">SqlParameter, KetNoiCSDL</p>
+            </div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step-card">
+              <div style="font-size: 24px; margin-bottom: 6px;">🐳</div>
+              <strong style="color: #fff; font-size: 13px;">SQL Server 2022</strong>
+              <p style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Port 1433 (Docker)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" id="sub-rules">
+          <div class="card">
+            <div class="card-title">🛡️ 1. Không viết SQL ở Form</div>
+            <p class="card-text">Tuyệt đối không viết câu lệnh SELECT, INSERT, UPDATE, DELETE trong code GUI. Tất cả truy vấn phải nằm trong các lớp DAO.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">🔒 2. Chống SQL Injection 100%</div>
+            <p class="card-text">Mọi truy vấn có điều kiện lọc hoặc nhập liệu người dùng bắt buộc truyền qua <code>SqlParameter</code> thông qua hàm tiện ích <code>KetNoiCSDL</code>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">🏷️ 3. Phân quyền tự động RBAC</div>
+            <p class="card-text">Gán thuộc tính <code>Tag = "Q_TENQUYEN"</code> trên các Control nhạy cảm. Hàm <code>PhanQuyenHelper</code> tự quét và ẩn/hiện theo quyền tài khoản.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1.3 Cây thư mục -->
+      <section class="section-block" id="sec-tree">
+        <h2 class="sub-heading"><span>📁 1.3</span> Sơ Đồ Cấu Trúc Thư Mục Toàn Diện</h2>
+        <div class="code-tree">
+<span class="tree-folder">DAQLUD1/</span>                                    <span class="tree-comment"># THƯ MỤC GỐC DỰ ÁN</span>
+│
+├── <span class="tree-folder">Quanlyquanan/</span>                           <span class="tree-comment"># MÃ NGUỒN CHÍNH ỨNG DỤNG VB.NET (.NET 10.0 WINDOWS FORMS)</span>
+│   ├── <span class="tree-folder">Core/</span>                               <span class="tree-comment"># NỀN TẢNG KỸ THUẬT DÙNG CHUNG (INFRASTRUCTURE)</span>
+│   │   ├── <span class="tree-folder">Database/</span>                       <span class="tree-comment"># Quản lý kết nối & thực thi SQL</span>
+│   │   │   └── <span class="tree-file">KetNoiCSDL.vb</span>               <span class="tree-comment"># Quản lý SqlConnection, ExecuteQuery, ExecuteNonQuery, ExecuteScalar</span>
+│   │   ├── <span class="tree-folder">Security/</span>                       <span class="tree-comment"># Bảo mật & Phiên làm việc</span>
+│   │   │   ├── <span class="tree-file">MaHoaMD5.vb</span>                 <span class="tree-comment"># Tiện ích băm mật khẩu MD5 (seed data: 123456)</span>
+│   │   │   └── <span class="tree-file">Session.vb</span>                  <span class="tree-comment"># Lưu thông tin tài khoản đăng nhập & danh sách mã quyền Q_Tag</span>
+│   │   └── <span class="tree-folder">Helpers/</span>                        <span class="tree-comment"># Tiện ích hỗ trợ UI</span>
+│   │       └── <span class="tree-file">PhanQuyenHelper.vb</span>          <span class="tree-comment"># Tự động quét Control.Tag trên Form để ẩn/mờ theo quyền</span>
+│   │
+│   ├── <span class="tree-folder">Features/</span>                           <span class="tree-comment"># CÁC PHÂN HỆ NGHIỆP VỤ KHÉP KÍN (VERTICAL SLICES)</span>
+│   │   ├── <span class="tree-folder">Auth/</span>                           <span class="tree-comment"># Đăng nhập, đăng xuất, đổi mật khẩu</span>
+│   │   │   ├── frmDangNhap.vb (.Designer, .resx)
+│   │   │   ├── frmDoiMatKhau.vb
+│   │   │   └── TaiKhoanDTO.vb, TaiKhoanDAO.vb, AuthBUS.vb
+│   │   │
+│   │   ├── <span class="tree-folder">BanAn_GoiMon/</span>                   <span class="tree-comment"># Sơ đồ bàn ăn, gọi món, in bill, chuyển/gộp bàn</span>
+│   │   │   ├── frmBanAn.vb                 <span class="tree-comment"># Sơ đồ trạng thái bàn thời gian thực theo màu</span>
+│   │   │   ├── frmGoiMon.vb                <span class="tree-comment"># Chọn món ăn, ghi chú món, in hóa đơn tạm tính</span>
+│   │   │   ├── BanDTO.vb, HoaDonDTO.vb, ChiTietHoaDonDTO.vb
+│   │   │   └── BanDAO.vb, HoaDonDAO.vb, BanAnBUS.vb
+│   │   │
+│   │   ├── <span class="tree-folder">ThucDon/</span>                        <span class="tree-comment"># Quản lý món ăn, nhóm món, cảnh báo hết hàng</span>
+│   │   │   ├── frmThucDon.vb, MonAnDTO.vb, DanhMucDTO.vb, MonAnDAO.vb, ThucDonBUS.vb
+│   │   │
+│   │   ├── <span class="tree-folder">NhaBep/</span>                         <span class="tree-comment"># Hàng đợi chế biến món ăn theo thứ tự thời gian thực FIFO</span>
+│   │   │   ├── frmNhaBep.vb, NhaBepDAO.vb, NhaBepBUS.vb
+│   │   │
+│   │   ├── <span class="tree-folder">NhanSu/</span>                         <span class="tree-comment"># Tuyển dụng, hồ sơ nhân sự, kỹ năng vi tính, cấp đồng phục</span>
+│   │   │   ├── frmNhanVien.vb, NhanVienDTO.vb, DungCuDTO.vb, NhanVienDAO.vb, NhanSuBUS.vb
+│   │   │
+│   │   ├── <span class="tree-folder">ChamCong_LichLam/</span>               <span class="tree-comment"># Xếp 2 ca làm việc chuẩn, chấm công & Quản lý duyệt công</span>
+│   │   │   ├── frmLichLamViec.vb, frmChamCong.vb
+│   │   │   └── CaLamViecDTO.vb, ChamCongDTO.vb, ChamCongDAO.vb, ChamCongBUS.vb
+│   │   │
+│   │   └── <span class="tree-folder">BaoCao_ThongKe/</span>                 <span class="tree-comment"># Thống kê doanh thu theo ngày/tháng/ca, tần suất món</span>
+│   │       ├── frmBaoCao.vb, BaoCaoDAO.vb, BaoCaoBUS.vb
+│   │
+│   ├── <span class="tree-file">Form1.vb</span>                            <span class="tree-comment"># Form khởi động mặc định ban đầu</span>
+│   ├── <span class="tree-file">Quanlyquanan.vbproj</span>                 <span class="tree-comment"># File cấu hình project VB.NET SDK-style</span>
+│   └── <span class="tree-file">Quanlyquanan.slnx</span>                   <span class="tree-comment"># File Solution định dạng XML hiện đại của Visual Studio</span>
+│
+├── <span class="tree-folder">database/</span>                               <span class="tree-comment"># MÔI TRƯỜNG CƠ SỞ DỮ LIỆU MICROSOFT SQL SERVER 2022</span>
+│   └── <span class="tree-folder">docker-mssql/</span>                       <span class="tree-comment"># Khởi chạy Docker Container tự động</span>
+│       ├── <span class="tree-file">Dockerfile</span>                      <span class="tree-comment"># Cấu hình image SQL Server Express</span>
+│       ├── <span class="tree-file">docker-compose.yml</span>              <span class="tree-comment"># Định nghĩa dịch vụ cổng 1433</span>
+│       ├── <span class="tree-file">start-db.bat</span>                    <span class="tree-comment"># Script 1-click khởi chạy trên Windows</span>
+│       ├── <span class="tree-file">create-database.sql</span>             <span class="tree-comment"># Kịch bản tạo 19 bảng và ràng buộc khóa ngoại</span>
+│       ├── <span class="tree-file">seed-data.sql</span>                   <span class="tree-comment"># Nạp dữ liệu mẫu thực tế, chống trùng lặp</span>
+│       ├── <span class="tree-file">entrypoint.sh</span>                   <span class="tree-comment"># File chạy khởi động dịch vụ</span>
+│       └── <span class="tree-file">run-initialization.sh</span>           <span class="tree-comment"># Nạp tự động database khi container sẵn sàng</span>
+│
+└── <span class="tree-folder">docs/</span>                                   <span class="tree-comment"># TÀI LIỆU DỰ ÁN & ĐẶC TẢ HỆ THỐNG</span>
+    ├── <span class="tree-file">tong_quan_du_an.html</span>            <span class="tree-comment"># Cổng điều hướng tổng quan (Portal)</span>
+    ├── <span class="tree-file">kien_truc_du_an.html</span>            <span class="tree-comment"># [FILE NÀY] Tài liệu kiến trúc & cấu trúc thư mục</span>
+    ├── <span class="tree-file">kien_truc_database.html</span>         <span class="tree-comment"># Tài liệu chi tiết cơ sở dữ liệu & từ điển bảng</span>
+    ├── <span class="tree-file">KIEN_TRUC_HE_THONG.md</span>           <span class="tree-comment"># File markdown đặc tả kiến trúc gốc</span>
+    ├── <span class="tree-file">DATABASE_SCHEMA.md</span>              <span class="tree-comment"># File markdown đặc tả CSDL gốc</span>
+    └── <span class="tree-folder">features/</span>                       <span class="tree-comment"># Kế hoạch chi tiết từng màn hình</span>
+        </div>
+      </section>
+
+      <!-- 1.4 Vai trò chi tiết -->
+      <section class="section-block" id="sec-roles">
+        <h2 class="sub-heading"><span>🧩 1.4</span> Vai Trò Chi Tiết Của Từng Phân Hệ (Features & Core)</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 190px;">Thành Phần / Feature</th>
+                <th style="width: 140px;">Đối Tượng (Actors)</th>
+                <th>Vai Trò & Chức Năng Nghiệp Vụ Chính</th>
+                <th style="width: 230px;">Các File Nòng Cốt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="role-core">
+                <td><strong style="color: #fff;">Core / Infrastructure</strong></td>
+                <td><span class="badge badge-purple">Toàn hệ thống</span></td>
+                <td>Cung cấp hạ tầng kỹ thuật: quản lý chuỗi kết nối SqlConnection, băm mật khẩu MD5, lưu trữ Session tài khoản đăng nhập và quét quyền Control tự động.</td>
+                <td><code>KetNoiCSDL.vb</code><br><code>Session.vb</code>, <code>MaHoaMD5.vb</code><br><code>PhanQuyenHelper.vb</code></td>
+              </tr>
+              <tr id="role-auth">
+                <td><strong style="color: #fff;">Auth</strong></td>
+                <td><span class="badge badge-primary">Tất cả nhân viên</span></td>
+                <td>Xác thực đăng nhập, kiểm tra mật khẩu đã mã hóa, nạp danh sách quyền vào phiên làm việc, hỗ trợ người dùng đổi mật khẩu bảo vệ tài khoản.</td>
+                <td><code>frmDangNhap.vb</code><br><code>frmDoiMatKhau.vb</code><br><code>AuthBUS.vb</code>, <code>TaiKhoanDAO.vb</code></td>
+              </tr>
+              <tr id="role-order">
+                <td><strong style="color: #fff;">BanAn_GoiMon</strong></td>
+                <td><span class="badge badge-accent">Phục vụ & Thu ngân</span></td>
+                <td>Hiển thị sơ đồ bàn trực quan theo khu vực và trạng thái màu; cho phép mở bàn, gọi món, in tạm tính, chuyển bàn, gộp bàn và thanh toán hóa đơn.</td>
+                <td><code>frmBanAn.vb</code>, <code>frmGoiMon.vb</code><br><code>BanAnBUS.vb</code><br><code>HoaDonDAO.vb</code>, <code>BanDAO.vb</code></td>
+              </tr>
+              <tr id="role-menu">
+                <td><strong style="color: #fff;">ThucDon</strong></td>
+                <td><span class="badge badge-success">Chủ quán, Quản lý</span></td>
+                <td>Quản lý danh mục món ăn (Khai vị, Món chính, Nước uống...); thêm, sửa, xóa món ăn, định giá bán và bật cờ báo hết món tức thời cho nhân viên order.</td>
+                <td><code>frmThucDon.vb</code><br><code>ThucDonBUS.vb</code><br><code>MonAnDAO.vb</code>, <code>DanhMucDAO.vb</code></td>
+              </tr>
+              <tr id="role-kitchen">
+                <td><strong style="color: #fff;">NhaBep</strong></td>
+                <td><span class="badge badge-purple">Đầu bếp & Pha chế</span></td>
+                <td>Theo dõi danh sách các món ăn vừa gọi theo thời gian thực (FIFO), bấm nhận nấu và cập nhật món đã nấu xong để phục vụ mang ra bàn.</td>
+                <td><code>frmNhaBep.vb</code><br><code>NhaBepBUS.vb</code><br><code>NhaBepDAO.vb</code></td>
+              </tr>
+              <tr id="role-hr">
+                <td><strong style="color: #fff;">NhanSu</strong></td>
+                <td><span class="badge badge-primary">Chủ quán, Tiếp tân</span></td>
+                <td>Quản lý hồ sơ nhân viên ứng tuyển, phân loại vị trí, theo dõi trình độ học vấn, ngoại ngữ, kỹ năng vi tính; cấp phát và thu hồi đồng phục, dụng cụ.</td>
+                <td><code>frmNhanVien.vb</code><br><code>NhanSuBUS.vb</code><br><code>NhanVienDAO.vb</code></td>
+              </tr>
+              <tr id="role-shift">
+                <td><strong style="color: #fff;">ChamCong_LichLam</strong></td>
+                <td><span class="badge badge-accent">Quản lý & Nhân viên</span></td>
+                <td>Thiết lập 2 ca làm việc chuẩn (Sáng - Tối); xếp lịch làm việc theo tháng; nhân viên check-in/out và Quản lý bấm duyệt giờ công để tính lương.</td>
+                <td><code>frmLichLamViec.vb</code><br><code>frmChamCong.vb</code><br><code>ChamCongBUS.vb</code>, <code>ChamCongDAO.vb</code></td>
+              </tr>
+              <tr id="role-report">
+                <td><strong style="color: #fff;">BaoCao_ThongKe</strong></td>
+                <td><span class="badge badge-success">Chủ quán</span></td>
+                <td>Biểu đồ và bảng thống kê doanh thu theo ngày/tháng/ca làm việc; thống kê món ăn bán chạy nhất, số lượt khách và hiệu suất nhân viên.</td>
+                <td><code>frmBaoCao.vb</code><br><code>BaoCaoBUS.vb</code><br><code>BaoCaoDAO.vb</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CHUYỂN TRANG NHANH -->
+      <div class="page-switch-bar">
+        <a href="tong_quan_du_an.html" class="btn-switch">
+          <span>⬅️</span> Về Trang Chủ Portal
+        </a>
+        <a href="kien_truc_database.html" class="btn-switch" style="border-color: var(--primary); color: var(--primary);">
+          Sang Phần 2: Kiến Trúc Database <span>➡️</span>
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // ScrollSpy to highlight TOC links
+    const sections = document.querySelectorAll("section.section-block, div[id], tr[id]");
+    const tocLinks = document.querySelectorAll(".toc-link");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        if (window.scrollY >= top - 120) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      tocLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>
