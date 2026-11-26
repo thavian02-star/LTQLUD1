@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.10 — Quản Lý Chuỗi Chi Nhánh Nhà Hàng (frmChiNhanh v1.0)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #1a5276;
+      --primary-light: #2980b9;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: var(--dark); color: #fff; padding: 12px 20px; border-radius: 10px;
+      margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1; text-decoration: none; font-size: 12.5px; padding: 5px 12px;
+      border-radius: 6px; background: #334155; font-weight: 600; transition: background 0.2s;
+    }
+    .version-links a.active { background: var(--primary-light); color: #fff; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1a5276 0%, #0f172a 100%);
+      color: #fff; padding: 30px 32px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .badge.blue { background: #3b82f6; color: #fff; }
+    .badge.green { background: #22c55e; color: #052e16; }
+    .badge.amber { background: #f59e0b; color: #451a03; }
+
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 14.5px; color: #cbd5e1; max-width: 900px; line-height: 1.6; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .kpi-box .label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .kpi-box .val { font-size: 26px; font-weight: 800; color: var(--primary); }
+    .kpi-box .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .section h2 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 16px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+    th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 700; color: #334155; border-bottom: 2px solid #cbd5e1; }
+    td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
+    tr:hover { background: #f8fafc; }
+
+    .pill-pass { background: #dcfce7; color: #166534; font-weight: 700; padding: 3px 10px; border-radius: 6px; font-size: 11.5px; }
+
+    .actions-bar {
+      display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; justify-content: flex-end;
+    }
+    .btn {
+      padding: 10px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 700;
+      text-decoration: none; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #154360; }
+    .btn-outline { background: #fff; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Version Navigator -->
+    <div class="version-nav">
+      <div style="font-size: 13px; font-weight: 700;">HỆ THỐNG QUẢN LÝ QUÁN ĂN — LỊCH SỬ PHÁT HÀNH</div>
+      <div class="version-links">
+        <a href="report_0_2_5.html">v0.2.5 (Ca làm việc)</a>
+        <a href="report_0_2_6.html">v0.2.6 (Khu vực)</a>
+        <a href="report_0_2_7.html">v0.2.7 (Bàn ăn)</a>
+        <a href="report_0_2_8.html">v0.2.8 (Nhân sự)</a>
+        <a href="report_0_2_9.html">v0.2.9 (Bảng Menu)</a>
+        <a href="report_0_2_10.html" class="active">v0.2.10 (Chi nhánh)</a>
+      </div>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="hero">
+      <div class="hero-badges">
+        <span class="badge blue">Phiên Bản v0.2.10</span>
+        <span class="badge green">Kiểm Thử 39/39 PASS</span>
+        <span class="badge amber">Màn Hình 8 / 9 Nền Tảng</span>
+      </div>
+      <h1>🏢 Báo Cáo Phát Hành: Phân Hệ Quản Lý Chuỗi Chi Nhánh Nhà Hàng (`frmChiNhanh v1.0`)</h1>
+      <p>
+        Hoàn tất toàn diện Màn hình 8/9 danh mục nền tảng: Quản lý danh sách các cơ sở, chi nhánh trực thuộc chuỗi quán ăn Hương Việt
+        (tên, địa chỉ, hotline, quản lý phụ trách cơ sở, sức chứa chỗ ngồi tối đa, khung giờ mở cửa, trạng thái hoạt động).
+        Tuân thủ nghiêm ngặt 100% quy tắc dự án: mỗi hàm không quá 40 dòng, mỗi file không quá 500 dòng.
+      </p>
+    </div>
+
+    <!-- KPI Highlights -->
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="label">Tiến Độ 9 Màn Hình</div>
+        <div class="val">8 / 9 (88.9%)</div>
+        <div class="sub">Chỉ còn MH 9 (Menu Chi Nhánh) để hoàn tất 100% Master Data</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Kiểm Thử Tự Động</div>
+        <div class="val" style="color: var(--success);">39 / 39 PASS</div>
+        <div class="sub">100% vượt qua 4 nhóm test suites (Quality, GUI, BUS, RBAC)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Chất Lượng Mã Nguồn</div>
+        <div class="val" style="color: var(--primary);">0 Vi Phạm</div>
+        <div class="sub">Mọi hàm &le; 40 dòng &bull; Mọi file &le; 500 dòng (Clean Code)</div>
+      </div>
+      <div class="kpi-box">
+        <div class="label">Seed Data Chuẩn</div>
+        <div class="val">4 Chi Nhánh</div>
+        <div class="sub">Q.1 (Trụ sở), Phú Nhuận, TP. Thủ Đức, Q.7 (Phú Mỹ Hưng)</div>
+      </div>
+    </div>
+
+    <!-- Chi Tiết 5 Bước Thực Hiện -->
+    <div class="section">
+      <h2>📌 Quy Trình Thực Hiện Sprint Màn Hình 8/9 (frmChiNhanh v1.0)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bước</th>
+            <th>Nội Dung Chi Tiết</th>
+            <th>Tệp Mã Nguồn / Tài Liệu</th>
+            <th>Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Bước 1</b></td>
+            <td>Đặc tả CSDL bảng <code>ChiNhanh</code>, quyền RBAC <code>CQ_QUAN_LY_CHI_NHANH</code>, Sprint Doc &amp; Interactive HTML Mockup</td>
+            <td><code>create-database.sql</code>, <code>seed-data.sql</code>, <code>CHI_NHANH_SPRINT.md</code>, <code>frmChiNhanh_mockup_v1_0.html</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 2</b></td>
+            <td>Thiết kế WinForms Designer 3 tầng dọc, Split-Layout 38:62, tối ưu sub-methods &le; 40 dòng</td>
+            <td><code>Features/Branch/frmChiNhanh.Designer.vb</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 3</b></td>
+            <td>Xây dựng tầng DTO, DAO, BUS và hoàn thiện xử lý sự kiện form, ràng buộc nghiệp vụ, phân quyền RBAC</td>
+            <td><code>Core/DTO/ChiNhanhDTO.vb</code>, <code>Core/DAO/ChiNhanhDAO.vb</code>, <code>Core/BUS/ChiNhanhBUS.vb</code>, <code>frmChiNhanh.vb</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 4</b></td>
+            <td>Tích hợp gọi mở form từ <code>frmMain.vb</code> và chạy bộ kiểm thử tự động 39 test cases</td>
+            <td><code>Features/Main/frmMain.vb</code>, <code>scratch/ChiNhanhVerifier.ps1</code></td>
+            <td><span class="pill-pass">39/39 PASS</span></td>
+          </tr>
+          <tr>
+            <td><b>Bước 5</b></td>
+            <td>Lập Release Report v0.2.10, đồng bộ 2 checklist và gắn Git Tag v0.2.10</td>
+            <td><code>report_0_2_10.html</code>, <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code>, <code>CHECKLIST_DO_AN.md</code></td>
+            <td><span class="pill-pass">HOÀN TẤT</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Kết Quả Kiểm Thử Tự Động -->
+    <div class="section">
+      <h2>🧪 Bảng Tổng Hợp Kiểm Thử Tự Động (39/39 PASS — 100%)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nhóm Kiểm Thử</th>
+            <th>Số Lượng Test Cases</th>
+            <th>Tỷ Lệ Đạt</th>
+            <th>Ghi Chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Nhóm 1: Code Quality Rules</b></td>
+            <td>10 test cases</td>
+            <td><span class="pill-pass">10 / 10 PASS</span></td>
+            <td>Kiểm tra toàn bộ 5 files &le; 500 dòng và 100% các hàm &le; 40 dòng</td>
+          </tr>
+          <tr>
+            <td><b>Nhóm 2: Controls &amp; WinForms Designer</b></td>
+            <td>19 test cases</td>
+            <td><span class="pill-pass">19 / 19 PASS</span></td>
+            <td>Đầy đủ 19 controls theo đặc tả Split-Layout 38:62</td>
+          </tr>
+          <tr>
+            <td><b>Nhóm 3: Validation &amp; Business Rules</b></td>
+            <td>6 test cases</td>
+            <td><span class="pill-pass">6 / 6 PASS</span></td>
+            <td>Chặn tên/địa chỉ rỗng, kiểm tra sức chứa &gt; 0, hotline 10 số, trùng tên</td>
+          </tr>
+          <tr>
+            <td><b>Nhóm 4: Integration frmMain &amp; RBAC</b></td>
+            <td>4 test cases</td>
+            <td><span class="pill-pass">4 / 4 PASS</span></td>
+            <td>Hàm <code>MoQuanLyChiNhanh()</code>, gán Tag <code>CQ_QUAN_LY_CHI_NHANH</code></td>
+          </tr>
+          <tr style="font-weight: 700; background: #f8fafc;">
+            <td>TỔNG CỘNG</td>
+            <td>39 test cases</td>
+            <td><span class="pill-pass">39 / 39 PASS (100%)</span></td>
+            <td>Hệ thống sẵn sàng vận hành sản xuất</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="actions-bar">
+      <a href="../features/branch/chi_nhanh/frmChiNhanh_mockup_v1_0.html" class="btn btn-outline" target="_blank">🌐 Mở Interactive Mockup HTML</a>
+      <a href="../CHECKLIST_UU_TIEN_DANH_MUC.md" class="btn btn-primary">📋 Xem Checklist 9 Màn Hình</a>
+    </div>
+  </div>
+</body>
+</html>

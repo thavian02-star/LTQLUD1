@@ -125,7 +125,7 @@
   - [x] Tạo & quản lý các gói thực đơn kinh doanh (Alacarte ngày, Buffet trưa, Set tiệc lễ tết...).
   - [x] Gán danh sách món ăn từ kho `MonAn` vào `Menu_MonAn` kèm đơn giá niêm yết theo menu.
 - [ ] **Quản lý Chi Nhánh & Menu Chi Nhánh (`frmChiNhanh`, `frmMenuChiNhanh` — MH 8 & MH 9 / 9):**
-  - [ ] Quản lý danh mục Chi nhánh chuỗi nhà hàng (`frmChiNhanh`): Tên, địa chỉ, hotline, người quản lý cơ sở.
+  - [x] Quản lý danh mục Chi nhánh chuỗi nhà hàng (`frmChiNhanh`): Tên, địa chỉ, hotline, người quản lý cơ sở *(Đã hoàn thành 39/39 test cases tại [`report_0_2_10.html`](release_report/report_0_2_10.html))*.
   - [ ] Phân bổ bảng thực đơn theo chi nhánh (`frmMenuChiNhanh`): Thiết lập chi nhánh nào bán menu nào, giá bán áp dụng theo khu vực chi nhánh, bật/tắt phục vụ món tại chỗ.
 - [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**
   - [x] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Đã hoàn thành 24/24 test cases tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3 & [`report_0_2_5.html`](release_report/report_0_2_5.html)*).

@@ -19,8 +19,8 @@
 | **5** | **MH Bàn** | `frmBan` | `Ban`, `KhuVuc` | `CQ_QUAN_LY_BAN` | Quản lý 12 bàn ăn, số thứ tự, sức chứa (72 chỗ), trạng thái phục vụ và liên kết hóa đơn. | `[x]` **Đã xong (`v0.2.7`)** |
 | **6** | **MH Nhân viên** | `frmNhanVien` | `NhanVien`, `TrinhDoViTinh`, `DungCuTrangPhuc` | `CQ_QUAN_LY_NHAN_SU` | Quản lý hồ sơ nhân viên (SĐT, CCCD, chức vụ, trình độ vi tính, cấp phát đồng phục, tài khoản). | `[x]` **Đã xong (`v0.2.8`)** |
 | **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[x]` **Đã xong (`v0.2.9`)** |
-| **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[ ]` **Tiếp theo (MH 8)** |
-| **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[ ]` Chờ làm (MH 9) |
+| **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[x]` **Đã xong (`v0.2.10`)** |
+| **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[ ]` **Tiếp theo (MH 9)** |
 
 ---
 
@@ -148,23 +148,23 @@ flowchart TD
 
 ---
 
-### MÀN HÌNH 8: MH CHI NHÁNH (`frmChiNhanh`) — `[ ] TIẾP THEO`
+### MÀN HÌNH 8: MH CHI NHÁNH (`frmChiNhanh`) — `[x] ĐÃ HOÀN TẤT (v0.2.10 — 39/39 PASS)`
 > **Mục tiêu:** Quản lý danh sách các cơ sở / chi nhánh của chuỗi nhà hàng (`ChiNhanh`).
 
-- [ ] **Bước 1: CSDL Bổ sung `ChiNhanh`, Đặc tả & Mockup HTML (`docs/features/branch/chi_nhanh/`)**
-  - [ ] Thêm bảng `ChiNhanh` (`CN_Ma`, `CN_Ten`, `CN_DiaChi`, `CN_SoDienThoai`, `CN_NguoiQuanLy`, `CN_TrangThai`, `CN_Xoa`).
-  - [ ] Tạo `CHI_NHANH_SPRINT.md` và file mockup `frmChiNhanh_mockup_v1_0.html`.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Branch/frmChiNhanh.Designer.vb`)**
-  - [ ] Bố cục Split-Layout 38%:62%: Mã CN, Tên CN, Địa chỉ, Hotline, ComboBox chọn Người quản lý (từ bảng `NhanVien`), Trạng thái hoạt động.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmChiNhanh.vb`)**
-  - [ ] Tạo `ChiNhanhDTO.vb`, `ChiNhanhDAO.vb`, `ChiNhanhBUS.vb`.
-  - [ ] Nghiệp vụ: Kiểm tra trùng tên/địa chỉ chi nhánh, bảo vệ xóa chi nhánh đang có nhân viên hoặc hóa đơn.
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động**
-- [ ] **Bước 5: Báo cáo Phát hành (`report_0_2_10.html`) & Đồng bộ Checklist**
+- [x] **Bước 1: CSDL Bổ sung `ChiNhanh`, Đặc tả & Mockup HTML (`docs/features/branch/chi_nhanh/`)**
+  - [x] Thêm bảng `ChiNhanh` (`CN_Ma`, `CN_Ten`, `CN_DiaChi`, `CN_SoDienThoai`, `CN_NguoiQuanLy`, `CN_TrangThai`, `CN_Xoa`).
+  - [x] Tạo `CHI_NHANH_SPRINT.md` và file mockup `frmChiNhanh_mockup_v1_0.html`.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Branch/frmChiNhanh.Designer.vb`)**
+  - [x] Bố cục Split-Layout 38%:62%: Mã CN, Tên CN, Địa chỉ, Hotline, ComboBox chọn Người quản lý (từ bảng `NhanVien`), Trạng thái hoạt động.
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmChiNhanh.vb`)**
+  - [x] Tạo `ChiNhanhDTO.vb`, `ChiNhanhDAO.vb`, `ChiNhanhBUS.vb`.
+  - [x] Nghiệp vụ: Kiểm tra trùng tên/địa chỉ chi nhánh, bảo vệ xóa chi nhánh đang có nhân viên hoặc hóa đơn.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`39/39 PASS — 100%`)**
+- [x] **Bước 5: Báo cáo Phát hành (`report_0_2_10.html`) & Đồng bộ Checklist**
 
 ---
 
-### MÀN HÌNH 9: MH MENU CHI NHÁNH (`frmMenuChiNhanh`) — `[ ] CHỜ LÀM`
+### MÀN HÌNH 9: MH MENU CHI NHÁNH (`frmMenuChiNhanh`) — `[ ] TIẾP THEO`
 > **Mục tiêu:** Phân bổ bảng thực đơn áp dụng theo từng chi nhánh (`ChiNhanh_Menu`).
 
 - [ ] **Bước 1: CSDL Bổ sung `ChiNhanh_Menu`, Đặc tả & Mockup HTML (`docs/features/branch/menu_chi_nhanh/`)**
