@@ -73,3 +73,14 @@ flowchart TD
 3. **Ngày hiệu lực:** Ngày kết thúc (nếu nhập) phải lớn hơn hoặc bằng Ngày bắt đầu.
 4. **Phân quyền RBAC:** Yêu cầu quyền `CQ_QUAN_LY_THUC_DON` (quyền quản lý thực đơn toàn hệ thống).
 5. **Clean Code Rule:** 100% hàm &le; 40 dòng, 100% file &le; 500 dòng.
+
+
+---
+
+## 5. TIẾN ĐỘ THỰC HIỆN 5 BƯỚC
+
+- [x] **Bước 1 (v0.2.11 - CSDL & Đặc tả):** CSDL bảng `ChiNhanh_Menu`, seed data, tài liệu `MENU_CHI_NHANH_SPRINT.md`, mockup HTML tương tác `frmMenuChiNhanh_mockup_v1_0.html`. *(Commit `2fbf01e`)*
+- [x] **Bước 2 (v0.2.11 - Thiết kế WinForms Designer):** Tạo giao diện `frmMenuChiNhanh.Designer.vb` (306 dòng, hàm <= 40 dòng). *(Commit `516a0c2`)*
+- [x] **Bước 3 (v0.2.11 - DTO/DAO/BUS & Code-behind):** Tạo `ChiNhanhMenuDTO.vb` (53 dòng), `ChiNhanhMenuDAO.vb` (186 dòng), `ChiNhanhMenuBUS.vb` (97 dòng), `frmMenuChiNhanh.vb` (273 dòng). *(Commit `d7b2f4e`)*
+- [x] **Bước 4 (v0.2.11 - Tích hợp frmMain & Kiểm thử tự động):** Tích hợp `frmMain.vb` (hàm `MoQuanLyMenuChiNhanh()`), kịch bản kiểm thử `scratch/MenuChiNhanhVerifier.ps1` **44/44 PASS (100%)**.
+- [ ] **Bước 5 (v0.2.11 - Release Report & Git Tag):** Báo cáo phát hành `report_0_2_11.html`, đồng bộ 2 checklist, gắn Git Tag `v0.2.11`.

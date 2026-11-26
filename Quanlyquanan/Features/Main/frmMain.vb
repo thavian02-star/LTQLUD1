@@ -260,6 +260,15 @@ Namespace Features.Main
             End Using
         End Sub
 
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Phân bổ Thực Đơn Chi Nhánh (frmMenuChiNhanh - MH 9/9)
+        ''' </summary>
+        Public Sub MoQuanLyMenuChiNhanh()
+            Using fMCN As New Features.Branch.frmMenuChiNhanh()
+                fMCN.ShowDialog(Me)
+            End Using
+        End Sub
+
         Private Sub btnQuanLyNhanSu_Click(sender As Object, e As EventArgs) Handles btnQuanLyNhanSu.Click
             CapNhatButtonActive(btnQuanLyNhanSu)
             MoQuanLyNhanVien()
