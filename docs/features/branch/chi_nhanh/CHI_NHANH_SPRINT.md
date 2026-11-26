@@ -77,3 +77,15 @@ flowchart LR
 4. **Kiểm tra trùng lặp:** Không cho phép tạo 2 chi nhánh trùng tên hoặc trùng địa chỉ.
 5. **Bảo vệ toàn vẹn dữ liệu khi xóa:** Không được xóa chi nhánh nếu đang có bàn hoặc đơn hàng hoạt động liên kết. Thực hiện xóa mềm (`CN_Xoa = 1`).
 6. **Phân quyền RBAC:** Yêu cầu quyền `CQ_QUAN_LY_CHI_NHANH` (chỉ Chủ quán và cấp quản lý được phân quyền mới có quyền Thêm/Sửa/Xóa).
+
+
+---
+
+## 5. KẾT QUẢ KIỂM THỬ TỰ ĐỘNG (AUTOMATED TEST MATRIX)
+
+* **Tổng số bài test:** 39 test cases
+* **Kết quả:** **39 / 39 PASS (100%)**
+  - Nhóm 1 (Code Quality Rules - Hàm <= 40 dòng, File <= 500 dòng): 10/10 PASS
+  - Nhóm 2 (Controls & WinForms Designer): 19/19 PASS
+  - Nhóm 3 (Validation & Business Rules): 6/6 PASS
+  - Nhóm 4 (Integration frmMain & RBAC): 4/4 PASS
