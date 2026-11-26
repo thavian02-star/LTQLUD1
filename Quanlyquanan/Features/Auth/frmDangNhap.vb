@@ -1,12 +1,31 @@
+Imports System
+Imports System.Collections.Generic
 Imports System.Windows.Forms
 Imports Quanlyquanan.Core.Security
 
 Namespace Features.Auth
+
     ''' <summary>
     ''' Màn hình Đăng nhập (Presentation / GUI Layer) cho phân hệ Xác thực.
-    ''' Đã gắn kết đầy đủ các action, sự kiện và API xử lý nghiệp vụ thông qua AuthBUS.
+    ''' Đã tích hợp sẵn bộ chọn nhanh 4 tài khoản mẫu (Chủ quán, Quản lý, Phục vụ, Nhà bếp).
     ''' </summary>
     Public Class frmDangNhap
+
+        Private Class TaiKhoanMauItem
+            Public Property DisplayText As String
+            Public Property Username As String
+            Public Property Password As String
+
+            Public Sub New(display As String, u As String, p As String)
+                DisplayText = display
+                Username = u
+                Password = p
+            End Sub
+
+            Public Overrides Function ToString() As String
+                Return DisplayText
+            End Function
+        End Class
 
         Public Sub New()
             InitializeComponent()
@@ -14,116 +33,96 @@ Namespace Features.Auth
 
         Private Sub frmDangNhap_Load(sender As Object, e As EventArgs) Handles MyBase.Load
             lblThongBaoLoi.Text = String.Empty
-            txtTenDangNhap.Focus()
+            NapDanhSachTaiKhoanMau()
         End Sub
 
-        ''' <summary>
-        ''' Xử lý sự kiện nhấn nút Đăng Nhập (hoặc nhấn phím Enter trên Form).
-        ''' Gọi API AuthBUS để kiểm tra validation, băm mật khẩu MD5 và xác thực CSDL.
-        ''' </summary>
+        Private Sub NapDanhSachTaiKhoanMau()
+            Dim ds As New List(Of TaiKhoanMauItem) From {
+                New TaiKhoanMauItem("👑 [Chủ Quán] - chuquan (Full 100% quyền hệ thống)", "chuquan", "123456"),
+                New TaiKhoanMauItem("👔 [Quản Lý] - quanly (Quản trị chi nhánh, menu, ca)", "quanly", "123456"),
+                New TaiKhoanMauItem("🍽️ [Phục Vụ] - phucvu1 (Sơ đồ bàn, gọi món POS)", "phucvu1", "123456"),
+                New TaiKhoanMauItem("🍳 [Nhà Bếp] - nhabep1 (Hàng đợi món FIFO)", "nhabep1", "123456")
+            }
+            cboTaiKhoanMau.DataSource = ds
+            cboTaiKhoanMau.DisplayMember = "DisplayText"
+            If cboTaiKhoanMau.Items.Count > 0 Then
+                cboTaiKhoanMau.SelectedIndex = 0
+            End If
+        End Sub
+
+        Private Sub cboTaiKhoanMau_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboTaiKhoanMau.SelectedIndexChanged
+            Dim item As TaiKhoanMauItem = TryCast(cboTaiKhoanMau.SelectedItem, TaiKhoanMauItem)
+            If item IsNot Nothing Then
+                txtTenDangNhap.Text = item.Username
+                txtMatKhau.Text = item.Password
+                lblThongBaoLoi.Text = String.Empty
+            End If
+        End Sub
+
         Private Sub btnDangNhap_Click(sender As Object, e As EventArgs) Handles btnDangNhap.Click
             lblThongBaoLoi.Text = String.Empty
-
             Dim tenDangNhap As String = txtTenDangNhap.Text
             Dim matKhau As String = txtMatKhau.Text
             Dim thongBaoLoi As String = String.Empty
 
-            ' 1. Tắt tạm thời nút bấm để chống double click
             btnDangNhap.Enabled = False
             Cursor = Cursors.WaitCursor
 
             Try
-                ' 2. Gọi tầng nghiệp vụ AuthBUS để xử lý xác thực
                 Dim thanhCong As Boolean = AuthBUS.DangNhap(tenDangNhap, matKhau, thongBaoLoi)
-
                 If thanhCong Then
-                    ' Đăng nhập thành công -> Hiển thị chào mừng
-                    MessageBox.Show(
-                        "Đăng nhập thành công!" & vbCrLf &
-                        "Xin chào: " & Session.HoTenNhanVien & " (" & Session.TenVaiTro & ")",
-                        "Thông báo",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    )
-
-                    ' Xóa mật khẩu cũ trên form đăng nhập để bảo mật
-                    txtMatKhau.Clear()
-                    lblThongBaoLoi.Text = String.Empty
-
-                    ' Mở Form chính (frmMain) và ẩn Form Đăng nhập
-                    Dim fMain As New Features.Main.frmMain()
-
-                    ' Đăng ký sự kiện khi fMain đóng:
-                    ' - Nếu đóng do bấm nút Đăng Xuất (DialogResult.OK) -> Hiện lại frmDangNhap
-                    ' - Nếu người dùng xác nhận thoát ứng dụng (DialogResult.Cancel) -> Đóng luôn frmDangNhap
-                    AddHandler fMain.FormClosed, Sub(s, args)
-                                                     If fMain.DialogResult = DialogResult.OK Then
-                                                         Me.Show()
-                                                         txtTenDangNhap.Focus()
-                                                         txtTenDangNhap.SelectAll()
-                                                     Else
-                                                         Me.Close()
-                                                     End If
-                                                 End Sub
-
-                    fMain.Show()
-                    Me.Hide()
+                    XuLyDangNhapThanhCong()
                 Else
-                    ' Đăng nhập thất bại -> Hiển thị lỗi cảnh báo
                     lblThongBaoLoi.Text = thongBaoLoi
-                    txtMatKhau.SelectAll()
                     txtMatKhau.Focus()
                 End If
-            Catch ex As Exception
-                lblThongBaoLoi.Text = "Lỗi hệ thống: " & ex.Message
             Finally
                 btnDangNhap.Enabled = True
                 Cursor = Cursors.Default
             End Try
         End Sub
 
-        ''' <summary>
-        ''' Ẩn / Hiện mật khẩu khi tick vào ô checkbox.
-        ''' </summary>
-        Private Sub chkHienMatKhau_CheckedChanged(sender As Object, e As EventArgs) Handles chkHienMatKhau.CheckedChanged
-            txtMatKhau.UseSystemPasswordChar = Not chkHienMatKhau.Checked
+        Private Sub XuLyDangNhapThanhCong()
+            txtMatKhau.Clear()
+            lblThongBaoLoi.Text = String.Empty
+
+            Dim fMain As New Features.Main.frmMain()
+            AddHandler fMain.FormClosed, Sub(s, args)
+                                             If fMain.DialogResult = DialogResult.OK Then
+                                                 txtTenDangNhap.Focus()
+                                                 Me.Show()
+                                             Else
+                                                 Me.Close()
+                                             End If
+                                         End Sub
+            Me.Hide()
+            fMain.Show()
         End Sub
 
-        ''' <summary>
-        ''' Xử lý sự kiện nhấn nút Thoát (hoặc phím ESC).
-        ''' </summary>
         Private Sub btnThoat_Click(sender As Object, e As EventArgs) Handles btnThoat.Click
-            Dim hoiThoat As DialogResult = MessageBox.Show(
+            Dim hoi As DialogResult = MessageBox.Show(
                 "Bạn có chắc chắn muốn thoát khỏi ứng dụng không?",
                 "Xác nhận thoát",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2
+                MessageBoxIcon.Question
             )
-
-            If hoiThoat = DialogResult.Yes Then
+            If hoi = DialogResult.Yes Then
                 Application.Exit()
             End If
         End Sub
 
-        ''' <summary>
-        ''' Khi người dùng gõ phím Enter ở ô Tên đăng nhập, tự động chuyển con trỏ sang ô Mật khẩu.
-        ''' </summary>
-        Private Sub txtTenDangNhap_KeyDown(sender As Object, e As KeyEventArgs) Handles txtTenDangNhap.KeyDown
-            If e.KeyCode = Keys.Enter Then
-                e.SuppressKeyPress = True
-                txtMatKhau.Focus()
-                txtMatKhau.SelectAll()
-            End If
+        Private Sub chkHienMatKhau_CheckedChanged(sender As Object, e As EventArgs) Handles chkHienMatKhau.CheckedChanged
+            txtMatKhau.UseSystemPasswordChar = Not chkHienMatKhau.Checked
         End Sub
 
-        ''' <summary>
-        ''' Tự động xóa thông báo lỗi khi người dùng bắt đầu nhập lại.
-        ''' </summary>
-        Private Sub txtInputs_TextChanged(sender As Object, e As EventArgs) Handles txtTenDangNhap.TextChanged, txtMatKhau.TextChanged
-            If Not String.IsNullOrEmpty(lblThongBaoLoi.Text) Then
-                lblThongBaoLoi.Text = String.Empty
-            End If
+        Private Sub txtTenDangNhap_TextChanged(sender As Object, e As EventArgs) Handles txtTenDangNhap.TextChanged
+            lblThongBaoLoi.Text = String.Empty
         End Sub
+
+        Private Sub txtMatKhau_TextChanged(sender As Object, e As EventArgs) Handles txtMatKhau.TextChanged
+            lblThongBaoLoi.Text = String.Empty
+        End Sub
+
     End Class
+
 End Namespace

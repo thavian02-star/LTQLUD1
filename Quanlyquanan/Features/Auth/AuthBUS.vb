@@ -16,22 +16,12 @@ Namespace Features.Auth
         ''' <returns>True nếu đăng nhập thành công, False nếu thất bại</returns>
         Public Shared Function DangNhap(tenDangNhap As String, matKhauRaw As String, ByRef thongBaoLoi As String) As Boolean
             thongBaoLoi = String.Empty
-
-            ' 1. Kiểm tra tính hợp lệ đầu vào (Validation)
-            If String.IsNullOrWhiteSpace(tenDangNhap) Then
-                thongBaoLoi = "Vui lòng nhập tên đăng nhập!"
+            If String.IsNullOrWhiteSpace(tenDangNhap) OrElse String.IsNullOrWhiteSpace(matKhauRaw) Then
+                thongBaoLoi = "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!"
                 Return False
             End If
 
-            If String.IsNullOrWhiteSpace(matKhauRaw) Then
-                thongBaoLoi = "Vui lòng nhập mật khẩu!"
-                Return False
-            End If
-
-            ' 2. Băm mật khẩu sang chuỗi MD5
             Dim matKhauMD5 As String = MaHoaMD5.BamMD5(matKhauRaw.Trim())
-
-            ' 3. Gọi DAO truy vấn CSDL
             Dim dto As TaiKhoanDTO = Nothing
             Try
                 dto = TaiKhoanDAO.KiemTraDangNhap(tenDangNhap.Trim(), matKhauMD5)
@@ -46,42 +36,57 @@ Namespace Features.Auth
                 Return False
             End If
 
-            ' 4. Khởi tạo phiên làm việc toàn cục (Session)
+            NapSessionNguoiDung(dto)
+            Return True
+        End Function
+
+        Private Shared Sub NapSessionNguoiDung(dto As TaiKhoanDTO)
             Session.MaTaiKhoan = dto.MaTaiKhoan
             Session.TenDangNhap = dto.TenDangNhap
             Session.MaVaiTro = dto.MaVaiTro
             Session.TenVaiTro = dto.TenVaiTro
             Session.MaNhanVien = dto.MaNhanVien
             Session.HoTenNhanVien = If(String.IsNullOrWhiteSpace(dto.HoTenNhanVien), dto.TenDangNhap, dto.HoTenNhanVien)
-
-            ' 5. Tải danh sách quyền RBAC của vai trò
             Try
                 Session.DanhSachQuyen = TaiKhoanDAO.LayDanhSachQuyen(dto.MaVaiTro)
             Catch ex As Exception
                 Session.DanhSachQuyen = New List(Of String)()
             End Try
-
-            Return True
-        End Function
+        End Sub
 
         Private Shared Function KiemTraVaCapSessionDemo(tenDangNhap As String) As Boolean
             Dim u As String = If(tenDangNhap, String.Empty).Trim().ToLower()
-            If u = "admin" OrElse u = "chuquan" Then
-                Session.MaTaiKhoan = 1
-                Session.TenDangNhap = "chuquan"
-                Session.MaVaiTro = 1
-                Session.TenVaiTro = "Chủ quán"
-                Session.MaNhanVien = 1
-                Session.HoTenNhanVien = "Trần Quản Trị"
-                Session.DanhSachQuyen = New List(Of String) From {
-                    "CQ_QUAN_LY_NHAN_SU", "CQ_XEP_LICH_LAM_VIEC", "CQ_QUAN_LY_THUC_DON",
-                    "CQ_QUAN_LY_BAN", "CQ_QUAN_LY_CHI_NHANH", "CQ_BAO_CAO_THONG_KE",
-                    "POS_SO_DO_BAN", "POS_NHA_BEP"
-                }
-                Return True
-            End If
+            Select Case u
+                Case "admin", "chuquan"
+                    CapSessionDemo(1, "chuquan", 1, "Chủ quán", "Trần Quản Trị", New List(Of String) From {
+                        "CQ_QUAN_LY_NHAN_SU", "CQ_XEP_LICH_LAM_VIEC", "CQ_QUAN_LY_THUC_DON",
+                        "CQ_QUAN_LY_BAN", "CQ_QUAN_LY_CHI_NHANH", "CQ_BAO_CAO_THONG_KE", "POS_SO_DO_BAN", "POS_NHA_BEP"
+                    })
+                    Return True
+                Case "quanly"
+                    CapSessionDemo(2, "quanly", 2, "Quản lý", "Nguyễn Văn Quản Lý", New List(Of String) From {
+                        "CQ_XEP_LICH_LAM_VIEC", "CQ_QUAN_LY_THUC_DON", "CQ_QUAN_LY_BAN", "CQ_BAO_CAO_THONG_KE", "POS_SO_DO_BAN", "POS_NHA_BEP"
+                    })
+                    Return True
+                Case "phucvu", "phucvu1"
+                    CapSessionDemo(3, "phucvu1", 3, "Phục vụ", "Lê Văn Phục Vụ 1", New List(Of String) From {"POS_SO_DO_BAN"})
+                    Return True
+                Case "nhabep", "nhabep1"
+                    CapSessionDemo(5, "nhabep1", 4, "Nhà bếp", "Hoàng Bếp Trưởng", New List(Of String) From {"POS_NHA_BEP"})
+                    Return True
+            End Select
             Return False
         End Function
+
+        Private Shared Sub CapSessionDemo(maTK As Integer, user As String, maVT As Integer, tenVT As String, hoTen As String, quyen As List(Of String))
+            Session.MaTaiKhoan = maTK
+            Session.TenDangNhap = user
+            Session.MaVaiTro = maVT
+            Session.TenVaiTro = tenVT
+            Session.MaNhanVien = maTK
+            Session.HoTenNhanVien = hoTen
+            Session.DanhSachQuyen = quyen
+        End Sub
 
         ''' <summary>
         ''' Xử lý nghiệp vụ đổi mật khẩu cho tài khoản đang đăng nhập.
@@ -92,39 +97,10 @@ Namespace Features.Auth
         ''' <param name="thongBaoLoi">Biến trả về lỗi nếu có</param>
         ''' <returns>True nếu đổi thành công, False nếu thất bại</returns>
         Public Shared Function DoiMatKhau(matKhauCuRaw As String, matKhauMoiRaw As String, xacNhanMoiRaw As String, ByRef thongBaoLoi As String) As Boolean
-            thongBaoLoi = String.Empty
-
-            If Session.MaTaiKhoan <= 0 Then
-                thongBaoLoi = "Chưa có tài khoản nào đăng nhập!"
+            If Not KiemTraHopLeDoiMatKhau(matKhauCuRaw, matKhauMoiRaw, xacNhanMoiRaw, thongBaoLoi) Then
                 Return False
             End If
 
-            If String.IsNullOrWhiteSpace(matKhauCuRaw) Then
-                thongBaoLoi = "Vui lòng nhập mật khẩu cũ!"
-                Return False
-            End If
-
-            If String.IsNullOrWhiteSpace(matKhauMoiRaw) Then
-                thongBaoLoi = "Vui lòng nhập mật khẩu mới!"
-                Return False
-            End If
-
-            If matKhauMoiRaw.Length < 6 Then
-                thongBaoLoi = "Mật khẩu mới phải có ít nhất 6 ký tự!"
-                Return False
-            End If
-
-            If matKhauMoiRaw <> xacNhanMoiRaw Then
-                thongBaoLoi = "Mật khẩu mới và xác nhận mật khẩu không khớp!"
-                Return False
-            End If
-
-            If matKhauMoiRaw.Trim() = matKhauCuRaw.Trim() Then
-                thongBaoLoi = "Mật khẩu mới không được trùng với mật khẩu cũ!"
-                Return False
-            End If
-
-            ' Xác thực mật khẩu cũ có đúng không
             Dim matKhauCuMD5 As String = MaHoaMD5.BamMD5(matKhauCuRaw.Trim())
             Dim dto As TaiKhoanDTO = TaiKhoanDAO.KiemTraDangNhap(Session.TenDangNhap, matKhauCuMD5)
             If dto Is Nothing Then
@@ -132,15 +108,37 @@ Namespace Features.Auth
                 Return False
             End If
 
-            ' Băm mật khẩu mới và lưu
             Dim matKhauMoiMD5 As String = MaHoaMD5.BamMD5(matKhauMoiRaw.Trim())
             Dim thanhCong As Boolean = TaiKhoanDAO.DoiMatKhau(Session.MaTaiKhoan, matKhauMoiMD5)
-
             If Not thanhCong Then
                 thongBaoLoi = "Có lỗi xảy ra khi cập nhật mật khẩu vào CSDL!"
                 Return False
             End If
+            Return True
+        End Function
 
+        Private Shared Function KiemTraHopLeDoiMatKhau(cu As String, moi As String, xacNhan As String, ByRef err As String) As Boolean
+            If Session.MaTaiKhoan <= 0 Then
+                err = "Chưa có tài khoản nào đăng nhập!"
+                Return False
+            End If
+            If String.IsNullOrWhiteSpace(cu) Then
+                err = "Vui lòng nhập mật khẩu cũ!"
+                Return False
+            End If
+            If String.IsNullOrWhiteSpace(moi) OrElse moi.Length < 6 Then
+                err = "Mật khẩu mới phải có ít nhất 6 ký tự!"
+                Return False
+            End If
+            If moi <> xacNhan Then
+                err = "Mật khẩu mới và xác nhận mật khẩu không khớp!"
+                Return False
+            End If
+            If moi.Trim() = cu.Trim() Then
+                err = "Mật khẩu mới không được trùng với mật khẩu cũ!"
+                Return False
+            End If
+            err = String.Empty
             Return True
         End Function
 
