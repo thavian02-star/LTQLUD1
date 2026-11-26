@@ -60,8 +60,8 @@ flowchart TD
 
 ## 4. TIẾN ĐỘ THỰC HIỆN 5 BƯỚC
 
-- [x] **Bước 1:** Đặc tả nghiệp vụ `MAIN_LAUNCHPAD_SPRINT.md` & Thiết kế Interactive Mockup HTML.
-- [ ] **Bước 2:** Xây dựng `frmMain.MenuBar.vb` (MenuStrip cấp cao + Phím tắt) & `frmMain.Launchpad.vb` (Lưới 3x3 Cards).
-- [ ] **Bước 3:** Tích hợp gọi 9 hàm mở form, nạp số liệu tóm tắt từ CSDL & Phân quyền RBAC.
-- [ ] **Bước 4:** Xây dựng kịch bản kiểm thử tự động `MasterDataHubVerifier.ps1` (Rule check, Controls check, Launchpad check, MenuStrip check).
+- [x] **Bước 1:** Đặc tả nghiệp vụ `MAIN_LAUNCHPAD_SPRINT.md` & Thiết kế Interactive Mockup HTML. *(Commit `fad8ce9`)*
+- [x] **Bước 2:** Xây dựng `frmMain.MenuBar.vb` (MenuStrip cấp cao + Phím tắt) & `frmMain.Launchpad.vb` (Lưới 3x3 Cards). *(Commit `479e183`)*
+- [x] **Bước 3:** Tích hợp gọi 9 hàm mở form, nạp số liệu tóm tắt từ CSDL & Phân quyền RBAC. *(Commit `3b10d06`)*
+- [x] **Bước 4:** Xây dựng kịch bản kiểm thử tự động `MasterDataHubVerifier.ps1` **40/40 PASS (100%)**.
 - [ ] **Bước 5:** Báo cáo phát hành `report_0_2_12.html` & Đồng bộ checklist.
