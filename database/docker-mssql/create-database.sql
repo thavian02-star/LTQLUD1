@@ -447,3 +447,23 @@ BEGIN
     );
 END
 GO
+
+
+-- 6.2. Bảng ChiNhanh_Menu (Phân bổ bảng thực đơn bán hàng áp dụng cho từng cơ sở / chi nhánh)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiNhanh_Menu')
+BEGIN
+    CREATE TABLE ChiNhanh_Menu (
+        CNM_Ma INT IDENTITY(1,1) PRIMARY KEY,
+        CNM_MaChiNhanh INT NOT NULL,
+        CNM_MaMenu INT NOT NULL,
+        CNM_NgayBatDau DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
+        CNM_NgayKetThuc DATE NULL,
+        CNM_GhiChu NVARCHAR(255) NULL,
+        CNM_TrangThai NVARCHAR(30) NOT NULL DEFAULT N'Đang áp dụng', -- Đang áp dụng, Tạm ngưng
+        CNM_Xoa BIT NOT NULL DEFAULT 0,
+        CONSTRAINT FK_ChiNhanhMenu_ChiNhanh FOREIGN KEY (CNM_MaChiNhanh) REFERENCES ChiNhanh(CN_Ma),
+        CONSTRAINT FK_ChiNhanhMenu_Menu FOREIGN KEY (CNM_MaMenu) REFERENCES Menu(MN_Ma),
+        CONSTRAINT UQ_ChiNhanh_Menu UNIQUE (CNM_MaChiNhanh, CNM_MaMenu)
+    );
+END
+GO

@@ -543,3 +543,28 @@ BEGIN
     SET IDENTITY_INSERT ChiNhanh OFF;
 END
 GO
+
+
+-- 6.2. Bảng ChiNhanh_Menu (Phân bổ bảng thực đơn bán hàng cho từng cơ sở chi nhánh)
+IF NOT EXISTS (SELECT 1 FROM ChiNhanh_Menu)
+BEGIN
+    SET IDENTITY_INSERT ChiNhanh_Menu ON;
+    INSERT INTO ChiNhanh_Menu (
+        CNM_Ma, CNM_MaChiNhanh, CNM_MaMenu, CNM_NgayBatDau, CNM_NgayKetThuc, CNM_GhiChu, CNM_TrangThai, CNM_Xoa
+    ) VALUES
+        -- Chi nhánh 1 (Quận 1): Áp dụng Menu 1 (Alacarte), Menu 2 (Buffet), Menu 3 (Cơm trưa)
+        (1, 1, 1, '2026-01-01', NULL, N'Thực đơn gọi món tiêu chuẩn phục vụ toàn thời gian', N'Đang áp dụng', 0),
+        (2, 1, 2, '2026-01-01', NULL, N'Buffet nướng lẩu phục vụ trưa & tối', N'Đang áp dụng', 0),
+        (3, 1, 3, '2026-01-01', NULL, N'Set cơm trưa văn phòng 11h-14h', N'Đang áp dụng', 0),
+        -- Chi nhánh 2 (Phú Nhuận): Áp dụng Menu 1 (Alacarte), Menu 3 (Cơm trưa)
+        (4, 2, 1, '2026-01-01', NULL, N'Thực đơn gọi món tiêu chuẩn', N'Đang áp dụng', 0),
+        (5, 2, 3, '2026-01-01', NULL, N'Set cơm trưa văn phòng khu vực Phan Xích Long', N'Đang áp dụng', 0),
+        -- Chi nhánh 3 (TP. Thủ Đức): Áp dụng Menu 1 (Alacarte), Menu 2 (Buffet), Menu 3 (Cơm trưa)
+        (6, 3, 1, '2026-01-01', NULL, N'Thực đơn gọi món tiêu chuẩn', N'Đang áp dụng', 0),
+        (7, 3, 2, '2026-01-01', NULL, N'Buffet nướng lẩu sinh viên & gia đình', N'Đang áp dụng', 0),
+        (8, 3, 3, '2026-01-01', NULL, N'Set cơm trưa văn phòng', N'Đang áp dụng', 0),
+        -- Chi nhánh 4 (Quận 7): Tạm ngưng áp dụng do đang sửa chữa
+        (9, 4, 1, '2026-01-01', NULL, N'Dự kiến mở bán khi hoàn thiện cơ sở', N'Tạm ngưng', 0);
+    SET IDENTITY_INSERT ChiNhanh_Menu OFF;
+END
+GO
