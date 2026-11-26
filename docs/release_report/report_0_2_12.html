@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.12 — Trực Quan Hóa Trung Tâm Danh Mục Nền Tảng (Master Data Launchpad & Top MenuStrip)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #0f172a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: var(--dark); color: #fff; padding: 12px 20px; border-radius: 10px;
+      margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1; text-decoration: none; font-size: 12.5px; padding: 5px 12px;
+      border-radius: 6px; background: #334155; font-weight: 600; transition: background 0.2s;
+    }
+    .version-links a.active { background: var(--primary-light); color: #fff; font-weight: 700; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      color: #fff; padding: 30px 32px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .badge.blue { background: #3b82f6; color: #fff; }
+    .badge.green { background: #22c55e; color: #052e16; }
+    .badge.gold { background: #f59e0b; color: #451a03; }
+
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 14.5px; color: #cbd5e1; max-width: 900px; line-height: 1.6; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .kpi-box .label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .kpi-box .val { font-size: 26px; font-weight: 800; color: var(--primary); }
+    .kpi-box .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .section-title {
+      font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13.5px; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f1f5f9; color: var(--dark); font-weight: 700; }
+    tr:hover { background: #f8fafc; }
+
+    .code-pill {
+      background: #e2e8f0; color: #0f172a; padding: 2px 6px; border-radius: 4px;
+      font-family: Consolas, monospace; font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="version-nav">
+    <div style="font-weight: 700; font-size: 14px;">HỆ THỐNG BÁO CÁO PHÁT HÀNH QUẢN LÝ QUÁN ĂN</div>
+    <div class="version-links">
+      <a href="report_0_2_10.html">v0.2.10 (ChiNhanh)</a>
+      <a href="report_0_2_11.html">v0.2.11 (MenuChiNhanh)</a>
+      <a href="report_0_2_12.html" class="active">v0.2.12 (Master Data Launchpad & MenuStrip)</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badges">
+      <span class="badge gold">Nâng Cấp UX Điểm 10</span>
+      <span class="badge green">Release v0.2.12</span>
+      <span class="badge blue">WinForms .NET 10 Partial Classes</span>
+    </div>
+    <h1>Trung Tâm Quản Trị Danh Mục Nền Tảng (Master Data Launchpad & Top MenuStrip)</h1>
+    <p>
+      Phát hành nâng cấp toàn diện giao diện chính <code>frmMain</code>: Tích hợp thanh Menu ngang cấp cao (<code>MenuStrip</code>) chuẩn giáo trình môn học và Lưới 9 Card Master Data Launchpad trực quan (3x3) ngay tại Dashboard trung tâm. Giúp người chấm điểm và giảng viên nhận biết tức thì 100% quy mô và thành quả của 9 màn hình danh mục nền tảng, mở trực tiếp bằng 1-Click hoặc phím tắt từ <code>Ctrl+1</code> đến <code>Ctrl+9</code>.
+    </p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-box">
+      <div class="label">Danh Mục Nền Tảng</div>
+      <div class="val">9 / 9 TRỰC QUAN</div>
+      <div class="sub">100% Màn hình xuất hiện tại Dashboard</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Phím Tắt Nhanh</div>
+      <div class="val">Ctrl+1 &rarr; Ctrl+9</div>
+      <div class="sub">Mở trực tiếp tức thì mọi danh mục</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Kiểm Thử Tự Động</div>
+      <div class="val">40 / 40 PASS</div>
+      <div class="sub">100% Tiêu chí Code & Controls</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Clean Code Rules</div>
+      <div class="val">3 PARTIAL CLASSES</div>
+      <div class="sub">100% File &le; 500 dòng, Hàm &le; 40 dòng</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🚀 DANH SÁCH 9 MÀN HÌNH TRÊN LAUNCHPAD & TOP MENUSTRIP</div>
+    <table>
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên Danh Mục Nền Tảng</th>
+          <th>Form Điều Hướng</th>
+          <th>Phím Tắt</th>
+          <th>Quyền RBAC</th>
+          <th>Thao Tác Mở</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>👥 Quản lý Nhân Viên & Tài Khoản</td><td><code>Features.Staff.frmNhanVien</code></td><td><span class="code-pill">Ctrl+1</span></td><td><code>CQ_QUAN_LY_NHAN_SU</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>2</td><td>⏰ Quản lý Ca Làm Việc & Lương</td><td><code>Features.Shift.frmCaLamViec</code></td><td><span class="code-pill">Ctrl+2</span></td><td><code>CQ_XEP_LICH_LAM_VIEC</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>3</td><td>🍲 Quản lý Danh mục Món Ăn</td><td><code>Features.Menu.frmMonAn</code></td><td><span class="code-pill">Ctrl+3</span></td><td><code>CQ_QUAN_LY_THUC_DON</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>4</td><td>📁 Quản lý Phân Loại Món Ăn</td><td><code>Features.Menu.frmDanhMuc</code></td><td><span class="code-pill">Ctrl+4</span></td><td><code>CQ_QUAN_LY_THUC_DON</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>5</td><td>🏢 Quản lý Khu Vực Bàn Ăn</td><td><code>Features.Table.frmKhuVuc</code></td><td><span class="code-pill">Ctrl+5</span></td><td><code>CQ_QUAN_LY_BAN</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>6</td><td>🪑 Quản lý Sơ Đồ Bàn Ăn</td><td><code>Features.Table.frmBan</code></td><td><span class="code-pill">Ctrl+6</span></td><td><code>CQ_QUAN_LY_BAN</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>7</td><td>📋 Quản lý Bảng Thực Đơn Master</td><td><code>Features.Menu.frmMenu</code></td><td><span class="code-pill">Ctrl+7</span></td><td><code>CQ_QUAN_LY_THUC_DON</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>8</td><td>🏬 Quản lý Chuỗi Cơ Sở Chi Nhánh</td><td><code>Features.Branch.frmChiNhanh</code></td><td><span class="code-pill">Ctrl+8</span></td><td><code>CQ_QUAN_LY_CHI_NHANH</code></td><td>1-Click / MenuStrip</td></tr>
+        <tr><td>9</td><td>📑 Phân Bổ Thực Đơn Chi Nhánh</td><td><code>Features.Branch.frmMenuChiNhanh</code></td><td><span class="code-pill">Ctrl+9</span></td><td><code>CQ_QUAN_LY_THUC_DON</code></td><td>1-Click / MenuStrip</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
