@@ -19,3 +19,7 @@
 *.accdb
 *.ldb
 *.laccdb
+
+# Media & Scratch temporary working files
+video/
+scratch/

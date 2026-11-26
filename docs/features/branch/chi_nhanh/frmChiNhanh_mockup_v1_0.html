@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockup UI v1.0 — Quản Lý Chuỗi Chi Nhánh Nhà Hàng (frmChiNhanh)</title>
+  <style>
+    :root {
+      --navy: #1A5276;
+      --navy-dark: #154360;
+      --bg-body: #F5F7FA;
+      --card-bg: #FFFFFF;
+      --border-color: #DCDFE6;
+      --text-main: #2C3E50;
+      --text-muted: #6C757D;
+      --green: #27AE60;
+      --blue: #2980B9;
+      --red: #C0392B;
+      --orange: #E67E22;
+      --purple: #8E44AD;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #E5E9F0; padding: 18px; color: var(--text-main); }
+
+    .demo-toolbar {
+      max-width: 1220px; margin: 0 auto 14px auto; background: #fff; border: 1px solid #cbd5e1;
+      border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06); flex-wrap: wrap; gap: 10px;
+    }
+    .demo-toolbar span { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .demo-btn {
+      border: 1px solid #cbd5e1; background: #f8fafc; color: #1e293b; padding: 6px 11px;
+      font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: 0.15s;
+    }
+    .demo-btn:hover, .demo-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+    .winform-window {
+      max-width: 1220px; margin: 0 auto; background: var(--bg-body);
+      border: 2px solid #1A5276; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    .titlebar {
+      background: #0f2f44; color: #fff; padding: 6px 14px; font-size: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .header-bar {
+      background: var(--navy); color: #fff; padding: 12px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .header-bar h2 { font-size: 18px; font-weight: 700; }
+    .header-bar p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+    .main-layout { display: grid; grid-template-columns: 38% 62%; gap: 16px; padding: 16px; }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px;
+      padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .card-title {
+      font-size: 14px; font-weight: 700; color: var(--navy); border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .form-group { margin-bottom: 11px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #475569; }
+    .form-control {
+      width: 100%; padding: 7px 10px; font-size: 13px; border: 1px solid var(--border-color);
+      border-radius: 4px; outline: none; transition: border-color 0.15s; background: #fff;
+    }
+    .form-control:focus { border-color: var(--navy); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .btn-group { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .btn {
+      padding: 7px 14px; font-size: 12px; font-weight: 600; border-radius: 4px; border: none;
+      cursor: pointer; transition: 0.15s; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: var(--navy-dark); }
+    .btn-success { background: var(--green); color: #fff; }
+    .btn-danger { background: var(--red); color: #fff; }
+    .btn-secondary { background: #64748b; color: #fff; }
+
+    .table-tools { display: flex; gap: 10px; margin-bottom: 12px; }
+    .table-container { border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; max-height: 480px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+    th { background: #f1f5f9; padding: 9px 12px; font-weight: 700; color: #334155; border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; }
+    td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; }
+    tr:hover { background: #f8fafc; cursor: pointer; }
+    tr.selected { background: #e0f2fe !important; }
+
+    .badge {
+      display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
+    }
+    .badge-open { background: #dcfce7; color: #166534; }
+    .badge-paused { background: #fef3c7; color: #92400e; }
+    .badge-repair { background: #fee2e2; color: #991b1b; }
+
+    .status-bar {
+      background: #f1f5f9; border-top: 1px solid #cbd5e1; padding: 6px 16px; font-size: 12px;
+      color: #64748b; display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOOLBAR KỊCH BẢN MÔ PHỎNG -->
+  <div class="demo-toolbar">
+    <span>Kịch bản tương tác (frmChiNhanh v1.0):</span>
+    <div class="demo-btns">
+      <button class="demo-btn active" onclick="loadScenario(1)">1. Xem danh sách 4 chi nhánh</button>
+      <button class="demo-btn" onclick="loadScenario(2)">2. Thêm Chi nhánh 5 - Bình Thạnh</button>
+      <button class="demo-btn" onclick="loadScenario(3)">3. Chỉnh sửa CN 4 (Phú Mỹ Hưng)</button>
+      <button class="demo-btn" onclick="loadScenario(4)">4. Lọc chi nhánh 'Đang sửa chữa'</button>
+      <button class="demo-btn" onclick="loadScenario(5)">5. Tìm kiếm 'Nguyễn Huệ'</button>
+    </div>
+  </div>
+
+  <!-- CỬA SỔ WINFORMS MOCKUP -->
+  <div class="winform-window">
+    <div class="titlebar">
+      <span>Quản lý Quán ăn Hương Việt — [frmChiNhanh - Quản lý Chuỗi Chi Nhánh]</span>
+      <span>✕</span>
+    </div>
+    <div class="header-bar">
+      <div>
+        <h2>🏢 QUẢN LÝ CHUỖI CHI NHÁNH & CƠ SỞ HOẠT ĐỘNG</h2>
+        <p>Hệ thống thiết lập cơ sở kinh doanh, sức chứa, quản lý cơ sở và trạng thái phục vụ</p>
+      </div>
+      <div>
+        <span class="badge" style="background:#fff; color:var(--navy); font-size:12px;">Quyền: CQ_QUAN_LY_CHI_NHANH</span>
+      </div>
+    </div>
+
+    <div class="main-layout">
+      <!-- CỘT TRÁI: FORM NHẬP LIỆU -->
+      <div class="card">
+        <div class="card-title">
+          <span>📝 Thông tin Cơ sở / Chi nhánh</span>
+          <span id="formMode" style="font-size:11px; background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:4px;">Chế độ: Xem / Sửa</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mã CN</label>
+            <input type="text" id="txtMa" class="form-control" value="1" readonly style="background:#f1f5f9; font-weight:700;">
+          </div>
+          <div class="form-group">
+            <label>Sức chứa (Khách) *</label>
+            <input type="number" id="txtSucChua" class="form-control" value="120" min="10">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tên Chi Nhánh *</label>
+          <input type="text" id="txtTen" class="form-control" value="Chi nhánh 1 - Quận 1 (Trụ sở chính)">
+        </div>
+
+        <div class="form-group">
+          <label>Địa Chỉ *</label>
+          <input type="text" id="txtDiaChi" class="form-control" value="125 Nguyễn Huệ, P. Bến Nghé, Quận 1, TP.HCM">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hotline / SĐT</label>
+            <input type="text" id="txtSDT" class="form-control" value="0901234561">
+          </div>
+          <div class="form-group">
+            <label>Người Quản Lý</label>
+            <select id="cboQuanLy" class="form-control">
+              <option value="1" selected>Nguyễn Văn Quản Lý (NV01)</option>
+              <option value="2">Trần Thị Thu Ngân (NV02)</option>
+              <option value="3">Lê Văn Bếp Trưởng (NV03)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Giờ Mở Cửa</label>
+            <input type="text" id="txtGioMoCua" class="form-control" value="07:00 - 23:00">
+          </div>
+          <div class="form-group">
+            <label>Trạng Thái</label>
+            <select id="cboTrangThai" class="form-control">
+              <option value="Đang mở cửa" selected>Đang mở cửa</option>
+              <option value="Tạm đóng cửa">Tạm đóng cửa</option>
+              <option value="Đang sửa chữa">Đang sửa chữa</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ghi Chú Mặt Bằng</label>
+          <input type="text" id="txtMoTa" class="form-control" value="Cơ sở trung tâm 2 tầng + Phòng VIP + Sân vườn">
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="themChiNhanhMoi()">➕ Thêm Mới</button>
+          <button class="btn btn-success" onclick="luuChiNhanh()">💾 Lưu Lại</button>
+          <button class="btn btn-danger" onclick="xoaChiNhanh()">🗑️ Xóa</button>
+          <button class="btn btn-secondary" onclick="lamMoi()">🔄 Làm Mới</button>
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI: BẢNG DANH SÁCH CHI NHÁNH -->
+      <div class="card">
+        <div class="card-title">
+          <span>📋 Danh Sách Chi Nhánh Trực Thuộc Chuỗi</span>
+          <span id="badgeCount" class="badge" style="background:#e2e8f0; color:#334155;">4 Chi nhánh</span>
+        </div>
+
+        <div class="table-tools">
+          <input type="text" id="txtSearch" class="form-control" placeholder="🔍 Tìm kiếm theo tên chi nhánh, địa chỉ, hotline..." oninput="filterTable()">
+          <select id="filterStatus" class="form-control" style="width:190px;" onchange="filterTable()">
+            <option value="">-- Tất cả trạng thái --</option>
+            <option value="Đang mở cửa">Đang mở cửa</option>
+            <option value="Tạm đóng cửa">Tạm đóng cửa</option>
+            <option value="Đang sửa chữa">Đang sửa chữa</option>
+          </select>
+        </div>
+
+        <div class="table-container">
+          <table id="tblChiNhanh">
+            <thead>
+              <tr>
+                <th style="width:40px;">Mã</th>
+                <th>Tên Chi Nhánh</th>
+                <th>Địa Chỉ</th>
+                <th>Hotline</th>
+                <th>Quản Lý</th>
+                <th style="width:60px;">Chỗ</th>
+                <th>Trạng Thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dữ liệu nạp từ JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <span id="lblStatus">Sẵn sàng | Đang hiển thị 4 chi nhánh chuỗi nhà hàng</span>
+      <span>Hệ thống Quản lý Quán ăn v0.2.10</span>
+    </div>
+  </div>
+
+  <script>
+    let branches = [
+      { id: 1, ten: "Chi nhánh 1 - Quận 1 (Trụ sở chính)", diaChi: "125 Nguyễn Huệ, P. Bến Nghé, Quận 1, TP.HCM", sdt: "0901234561", quanLyId: 1, quanLyTen: "Nguyễn Văn Quản Lý", sucChua: 120, gio: "07:00 - 23:00", moTa: "Cơ sở trung tâm 2 tầng + Phòng VIP + Sân vườn", trangThai: "Đang mở cửa" },
+      { id: 2, ten: "Chi nhánh 2 - Phú Nhuận", diaChi: "48 Phan Xích Long, P. 3, Q. Phú Nhuận, TP.HCM", sdt: "0901234562", quanLyId: 2, quanLyTen: "Trần Thị Thu Ngân", sucChua: 85, gio: "08:00 - 22:30", moTa: "Cơ sở mặt tiền khu phố ẩm thực sầm uất", trangThai: "Đang mở cửa" },
+      { id: 3, ten: "Chi nhánh 3 - TP. Thủ Đức", diaChi: "216 Võ Văn Ngân, P. Bình Thọ, TP. Thủ Đức", sdt: "0901234563", quanLyId: 2, quanLyTen: "Trần Thị Thu Ngân", sucChua: 100, gio: "07:30 - 22:00", moTa: "Cơ sở rộng rãi phục vụ gia đình và sinh viên", trangThai: "Đang mở cửa" },
+      { id: 4, ten: "Chi nhánh 4 - Quận 7 (Phú Mỹ Hưng)", diaChi: "88 Nguyễn Đức Cảnh, P. Tân Phong, Quận 7, TP.HCM", sdt: "0901234564", quanLyId: 1, quanLyTen: "Nguyễn Văn Quản Lý", sucChua: 150, gio: "10:00 - 22:00", moTa: "Cơ sở mới đang hoàn thiện nội thất khu VIP", trangThai: "Đang sửa chữa" }
+    ];
+    let selectedId = 1;
+
+    function renderTable(data = branches) {
+      const tbody = document.querySelector("#tblChiNhanh tbody");
+      tbody.innerHTML = "";
+      data.forEach(b => {
+        const tr = document.createElement("tr");
+        if (b.id === selectedId) tr.className = "selected";
+        tr.onclick = () => selectBranch(b.id);
+
+        let badgeClass = "badge-open";
+        if (b.trangThai === "Tạm đóng cửa") badgeClass = "badge-paused";
+        if (b.trangThai === "Đang sửa chữa") badgeClass = "badge-repair";
+
+        tr.innerHTML = `
+          <td><strong>${b.id}</strong></td>
+          <td><strong>${b.ten}</strong></td>
+          <td>${b.diaChi}</td>
+          <td>${b.sdt}</td>
+          <td>${b.quanLyTen}</td>
+          <td>${b.sucChua}</td>
+          <td><span class="badge ${badgeClass}">${b.trangThai}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      document.getElementById("badgeCount").innerText = `${data.length} Chi nhánh`;
+    }
+
+    function selectBranch(id) {
+      selectedId = id;
+      const b = branches.find(x => x.id === id);
+      if (!b) return;
+      document.getElementById("txtMa").value = b.id;
+      document.getElementById("txtTen").value = b.ten;
+      document.getElementById("txtDiaChi").value = b.diaChi;
+      document.getElementById("txtSDT").value = b.sdt;
+      document.getElementById("cboQuanLy").value = b.quanLyId;
+      document.getElementById("txtSucChua").value = b.sucChua;
+      document.getElementById("txtGioMoCua").value = b.gio;
+      document.getElementById("cboTrangThai").value = b.trangThai;
+      document.getElementById("txtMoTa").value = b.moTa;
+      document.getElementById("formMode").innerText = "Chế độ: Xem / Sửa";
+      renderTable();
+    }
+
+    function filterTable() {
+      const q = document.getElementById("txtSearch").value.toLowerCase();
+      const st = document.getElementById("filterStatus").value;
+      const filtered = branches.filter(b => {
+        const matchQ = b.ten.toLowerCase().includes(q) || b.diaChi.toLowerCase().includes(q) || b.sdt.includes(q);
+        const matchSt = st === "" || b.trangThai === st;
+        return matchQ && matchSt;
+      });
+      renderTable(filtered);
+    }
+
+    function lamMoi() {
+      document.getElementById("txtMa").value = "(Tự động)";
+      document.getElementById("txtTen").value = "";
+      document.getElementById("txtDiaChi").value = "";
+      document.getElementById("txtSDT").value = "";
+      document.getElementById("txtSucChua").value = "50";
+      document.getElementById("txtGioMoCua").value = "07:00 - 22:00";
+      document.getElementById("cboTrangThai").value = "Đang mở cửa";
+      document.getElementById("txtMoTa").value = "";
+      document.getElementById("formMode").innerText = "Chế độ: Thêm mới";
+      selectedId = null;
+      renderTable();
+    }
+
+    function themChiNhanhMoi() {
+      lamMoi();
+      document.getElementById("txtTen").focus();
+    }
+
+    function luuChiNhanh() {
+      const ten = document.getElementById("txtTen").value.trim();
+      const diaChi = document.getElementById("txtDiaChi").value.trim();
+      const sucChua = parseInt(document.getElementById("txtSucChua").value) || 0;
+      if (!ten || !diaChi) {
+        alert("Vui lòng nhập đầy đủ Tên chi nhánh và Địa chỉ cơ sở!");
+        return;
+      }
+      if (sucChua <= 0) {
+        alert("Sức chứa chỗ ngồi phải lớn hơn 0!");
+        return;
+      }
+
+      if (!selectedId) {
+        const newId = branches.length ? Math.max(...branches.map(x => x.id)) + 1 : 1;
+        branches.push({
+          id: newId,
+          ten: ten,
+          diaChi: diaChi,
+          sdt: document.getElementById("txtSDT").value.trim(),
+          quanLyId: parseInt(document.getElementById("cboQuanLy").value),
+          quanLyTen: document.getElementById("cboQuanLy").selectedOptions[0].text.split(" (")[0],
+          sucChua: sucChua,
+          gio: document.getElementById("txtGioMoCua").value.trim(),
+          moTa: document.getElementById("txtMoTa").value.trim(),
+          trangThai: document.getElementById("cboTrangThai").value
+        });
+        selectedId = newId;
+        alert("Thêm chi nhánh mới thành công!");
+      } else {
+        const b = branches.find(x => x.id === selectedId);
+        if (b) {
+          b.ten = ten;
+          b.diaChi = diaChi;
+          b.sdt = document.getElementById("txtSDT").value.trim();
+          b.quanLyId = parseInt(document.getElementById("cboQuanLy").value);
+          b.quanLyTen = document.getElementById("cboQuanLy").selectedOptions[0].text.split(" (")[0];
+          b.sucChua = sucChua;
+          b.gio = document.getElementById("txtGioMoCua").value.trim();
+          b.moTa = document.getElementById("txtMoTa").value.trim();
+          b.trangThai = document.getElementById("cboTrangThai").value;
+          alert("Cập nhật thông tin chi nhánh thành công!");
+        }
+      }
+      renderTable();
+      selectBranch(selectedId);
+    }
+
+    function xoaChiNhanh() {
+      if (!selectedId) return;
+      if (confirm(`Bạn có chắc chắn muốn xóa [${document.getElementById("txtTen").value}]?`)) {
+        branches = branches.filter(x => x.id !== selectedId);
+        alert("Đã xóa chi nhánh thành công!");
+        selectedId = branches.length ? branches[0].id : null;
+        if (selectedId) selectBranch(selectedId); else lamMoi();
+      }
+    }
+
+    function loadScenario(num) {
+      document.querySelectorAll(".demo-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === num));
+      document.getElementById("txtSearch").value = "";
+      document.getElementById("filterStatus").value = "";
+      if (num === 1) { selectBranch(1); }
+      else if (num === 2) {
+        lamMoi();
+        document.getElementById("txtTen").value = "Chi nhánh 5 - Bình Thạnh";
+        document.getElementById("txtDiaChi").value = "12 Bạch Đằng, P. 14, Q. Bình Thạnh, TP.HCM";
+        document.getElementById("txtSDT").value = "0901234565";
+        document.getElementById("txtSucChua").value = "90";
+      } else if (num === 3) {
+        selectBranch(4);
+      } else if (num === 4) {
+        document.getElementById("filterStatus").value = "Đang sửa chữa";
+        filterTable();
+      } else if (num === 5) {
+        document.getElementById("txtSearch").value = "Nguyễn Huệ";
+        filterTable();
+      }
+    }
+
+    renderTable();
+    selectBranch(1);
+  </script>
+</body>
+</html>

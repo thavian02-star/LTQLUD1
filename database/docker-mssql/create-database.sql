@@ -422,3 +422,28 @@ BEGIN
     );
 END
 GO
+
+
+-- ==============================================================
+-- NHÓM 6: BẢNG CHI NHÁNH CHUỖI NHÀ HÀNG (1 BẢNG)
+-- ==============================================================
+
+-- 6.1. Bảng ChiNhanh (Danh sách các cơ sở / chi nhánh trực thuộc chuỗi nhà hàng)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ChiNhanh')
+BEGIN
+    CREATE TABLE ChiNhanh (
+        CN_Ma INT IDENTITY(1,1) PRIMARY KEY,
+        CN_Ten NVARCHAR(100) NOT NULL,
+        CN_DiaChi NVARCHAR(255) NOT NULL,
+        CN_SoDienThoai NVARCHAR(20) NULL,
+        CN_NguoiQuanLy INT NULL,
+        CN_SucChua INT NOT NULL DEFAULT 50,
+        CN_GioMoCua NVARCHAR(50) NULL DEFAULT N'07:00 - 22:00',
+        CN_MoTa NVARCHAR(255) NULL,
+        CN_TrangThai NVARCHAR(30) NOT NULL DEFAULT N'Đang mở cửa', -- Đang mở cửa, Tạm đóng cửa, Đang sửa chữa
+        CN_Xoa BIT NOT NULL DEFAULT 0,
+        CONSTRAINT FK_ChiNhanh_NhanVien FOREIGN KEY (CN_NguoiQuanLy) REFERENCES NhanVien(NV_Ma),
+        CONSTRAINT CK_ChiNhanh_SucChua CHECK (CN_SucChua > 0)
+    );
+END
+GO

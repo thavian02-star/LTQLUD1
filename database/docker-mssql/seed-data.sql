@@ -1,4 +1,4 @@
--- ==============================================================
+﻿-- ==============================================================
 -- DỮ LIỆU MẪU THỰC TẾ (SEED DATA): HỆ THỐNG QUẢN LÝ QUÁN ĂN
 -- Tên mô hình quán: Quán Ăn Gia Đình Hương Việt (TP. Hồ Chí Minh)
 -- Hệ quản trị: Microsoft SQL Server 2022 Express (Docker)
@@ -68,7 +68,8 @@ BEGIN
         (9,  N'Quản lý danh mục & Thực đơn món ăn',        N'CQ_QUAN_LY_THUC_DON', 0),
         (10, N'Xếp lịch & Phân công ca làm việc',          N'CQ_XEP_LICH_LAM_VIEC', 0),
         (11, N'Xem 6 báo cáo doanh thu & Thống kê lương',  N'CQ_BAO_CAO_THONG_KE', 0),
-        (12, N'Quản trị phân quyền & Sao lưu CSDL',        N'CQ_HE_THONG_PHAN_QUYEN', 0);
+        (12, N'Quản trị phân quyền & Sao lưu CSDL',        N'CQ_HE_THONG_PHAN_QUYEN', 0),
+        (13, N'Quản lý chuỗi chi nhánh & Cơ sở',           N'CQ_QUAN_LY_CHI_NHANH', 0);
     SET IDENTITY_INSERT Quyen OFF;
 END
 GO
@@ -103,7 +104,8 @@ BEGIN
         -- Nhân viên phục vụ (Bán hàng tại bàn, Chuyển/Gộp bàn, Thanh toán, Chấm công cá nhân)
         (19, 3, 1, 0), (20, 3, 2, 0), (21, 3, 3, 0), (22, 3, 4, 0),
         -- Nhà bếp / Pha chế (Hàng đợi món chờ chế biến + Xem lịch & Chấm công cá nhân)
-        (23, 4, 4, 0), (24, 4, 5, 0);
+        (23, 4, 4, 0), (24, 4, 5, 0),
+        (25, 1, 13, 0); -- chuquan có quyền Quản lý Chi nhánh
     SET IDENTITY_INSERT VaiTro_Quyen OFF;
 END
 GO
@@ -518,5 +520,26 @@ BEGIN
         (13, 3, 4,  55000, 1, N'Cơm sườn giảm giá giờ trưa', 0),
         (14, 3, 13, 20000, 2, N'Nước uống kèm cơm trưa', 0);
     SET IDENTITY_INSERT Menu_MonAn OFF;
+END
+GO
+
+
+-- ==============================================================
+-- NHÓM 6: DỮ LIỆU CHI NHÁNH CHUỖI NHÀ HÀNG (1 BẢNG)
+-- ==============================================================
+
+-- 6.1. Bảng ChiNhanh (4 cơ sở thực tế trực thuộc chuỗi nhà hàng Hương Việt)
+IF NOT EXISTS (SELECT 1 FROM ChiNhanh)
+BEGIN
+    SET IDENTITY_INSERT ChiNhanh ON;
+    INSERT INTO ChiNhanh (
+        CN_Ma, CN_Ten, CN_DiaChi, CN_SoDienThoai,
+        CN_NguoiQuanLy, CN_SucChua, CN_GioMoCua, CN_MoTa, CN_TrangThai, CN_Xoa
+    ) VALUES
+        (1, N'Chi nhánh 1 - Quận 1 (Trụ sở chính)', N'125 Nguyễn Huệ, P. Bến Nghé, Quận 1, TP.HCM',      '0901234561', 1, 120, N'07:00 - 23:00', N'Cơ sở trung tâm 2 tầng + Phòng VIP + Sân vườn', N'Đang mở cửa',   0),
+        (2, N'Chi nhánh 2 - Phú Nhuận',              N'48 Phan Xích Long, P. 3, Q. Phú Nhuận, TP.HCM',   '0901234562', 2,  85, N'08:00 - 22:30', N'Cơ sở mặt tiền khu phố ẩm thực sầm uất',         N'Đang mở cửa',   0),
+        (3, N'Chi nhánh 3 - TP. Thủ Đức',            N'216 Võ Văn Ngân, P. Bình Thọ, TP. Thủ Đức',        '0901234563', 2, 100, N'07:30 - 22:00', N'Cơ sở rộng rãi phục vụ gia đình và sinh viên',   N'Đang mở cửa',   0),
+        (4, N'Chi nhánh 4 - Quận 7 (Phú Mỹ Hưng)',   N'88 Nguyễn Đức Cảnh, P. Tân Phong, Quận 7, TP.HCM', '0901234564', 1, 150, N'10:00 - 22:00', N'Cơ sở mới đang hoàn thiện nội thất khu VIP',    N'Đang sửa chữa', 0);
+    SET IDENTITY_INSERT ChiNhanh OFF;
 END
 GO
