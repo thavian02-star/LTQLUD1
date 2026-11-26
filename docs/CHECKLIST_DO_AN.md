@@ -48,11 +48,11 @@
   - [x] `Ban` (`B_Ma`, `B_SoThuTu`, `B_TenBan`, `B_KhuVuc`, `B_SoNguoiToiDa`, `B_TrangThai`, `B_Xoa`).
   - [x] `DanhMuc` (`DM_Ma`, `DM_Ten`, `DM_MoTa`, `DM_Xoa`).
   - [x] `MonAn` (`MA_Ma`, `MA_Ten`, `MA_DanhMuc`, `MA_DonGia`, `MA_HetMon`, `MA_MoTa`, `MA_Xoa`).
-- [ ] **Nhóm bảng Mở rộng Chuỗi Chi Nhánh & Bảng Thực Đơn:**
-  - [ ] `ChiNhanh` (`CN_Ma`, `CN_Ten`, `CN_DiaChi`, `CN_SoDienThoai`, `CN_NguoiQuanLy`, `CN_TrangThai`, `CN_Xoa`).
+- [x] **Nhóm bảng Mở rộng Chuỗi Chi Nhánh & Bảng Thực Đơn:**
+  - [x] `ChiNhanh` (`CN_Ma`, `CN_Ten`, `CN_DiaChi`, `CN_SoDienThoai`, `CN_NguoiQuanLy`, `CN_TrangThai`, `CN_Xoa`).
   - [x] `Menu` (`MN_Ma`, `MN_Ten`, `MN_LoaiMenu`, `MN_MoTa`, `MN_TrangThai`, `MN_Xoa`).
   - [x] `Menu_MonAn` (`MMA_Ma`, `MMA_MaMenu`, `MMA_MaMonAn`, `MMA_DonGia`, `MMA_ThuTuHienThi`, `MMA_Xoa`).
-  - [ ] `ChiNhanh_Menu` (`CNM_Ma`, `CNM_MaChiNhanh`, `CNM_MaMenu`, `CNM_NgayBatDau`, `CNM_NgayKetThuc`, `CNM_TrangThai`, `CNM_Xoa`).
+  - [x] `ChiNhanh_Menu` (`CNM_Ma`, `CNM_MaChiNhanh`, `CNM_MaMenu`, `CNM_NgayBatDau`, `CNM_NgayKetThuc`, `CNM_TrangThai`, `CNM_Xoa`).
 - [x] **Nhóm bảng Phục vụ, Gọi món & Hóa đơn:**
   - [x] `HoaDon` (`HD_Ma`, `HD_MaBan`, `HD_MaNVPhucVu`, `HD_SoLuongKhach`, `HD_ThoiGianVao`, `HD_ThoiGianThanhToan`, `HD_TongTien`, `HD_TrangThai`, `HD_Xoa`).
   - [x] `ChiTietHoaDon` (`CTHD_Ma`, `CTHD_MaHoaDon`, `CTHD_MaMonAn`, `CTHD_SoLuong`, `CTHD_DonGia`, `CTHD_GhiChu`, `CTHD_ThoiGianGoi`, `CTHD_TrangThaiMon`, `CTHD_Xoa`).
@@ -124,9 +124,9 @@
 - [x] **Quản lý Bảng Thực Đơn Bán Hàng (`frmMenu` — MH 7 / 9):** *(Đã hoàn thành 54/54 test cases tại [`report_0_2_9.html`](release_report/report_0_2_9.html))*
   - [x] Tạo & quản lý các gói thực đơn kinh doanh (Alacarte ngày, Buffet trưa, Set tiệc lễ tết...).
   - [x] Gán danh sách món ăn từ kho `MonAn` vào `Menu_MonAn` kèm đơn giá niêm yết theo menu.
-- [ ] **Quản lý Chi Nhánh & Menu Chi Nhánh (`frmChiNhanh`, `frmMenuChiNhanh` — MH 8 & MH 9 / 9):**
+- [x] **Quản lý Chi Nhánh & Menu Chi Nhánh (`frmChiNhanh`, `frmMenuChiNhanh` — MH 8 & MH 9 / 9):**
   - [x] Quản lý danh mục Chi nhánh chuỗi nhà hàng (`frmChiNhanh`): Tên, địa chỉ, hotline, người quản lý cơ sở *(Đã hoàn thành 39/39 test cases tại [`report_0_2_10.html`](release_report/report_0_2_10.html))*.
-  - [ ] Phân bổ bảng thực đơn theo chi nhánh (`frmMenuChiNhanh`): Thiết lập chi nhánh nào bán menu nào, giá bán áp dụng theo khu vực chi nhánh, bật/tắt phục vụ món tại chỗ.
+  - [x] Phân bổ bảng thực đơn theo chi nhánh (`frmMenuChiNhanh`): Thiết lập chi nhánh nào bán menu nào, giá bán áp dụng theo khu vực chi nhánh, bật/tắt phục vụ món tại chỗ *(Đã hoàn thành 44/44 test cases tại [`report_0_2_11.html`](release_report/report_0_2_11.html))*.
 - [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**
   - [x] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Đã hoàn thành 24/24 test cases tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3 & [`report_0_2_5.html`](release_report/report_0_2_5.html)*).
   - [ ] Xem & chỉnh sửa lịch làm việc chung của tất cả nhân viên trong tuần (7 ngày/tuần, xem ca nào trống, ca nào có bao nhiêu nhân viên, thêm/xóa nhân viên vào ca).

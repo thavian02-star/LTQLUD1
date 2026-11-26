@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Report v0.2.11 — Phân Bổ Thực Đơn Theo Chi Nhánh (frmMenuChiNhanh v1.0)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #15803d;
+      --primary-light: #22c55e;
+      --success: #16a34a;
+      --warning: #ea580c;
+      --danger: #dc2626;
+      --dark: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 28px 16px 60px; }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .version-nav {
+      background: var(--dark); color: #fff; padding: 12px 20px; border-radius: 10px;
+      margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .version-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .version-links a {
+      color: #cbd5e1; text-decoration: none; font-size: 12.5px; padding: 5px 12px;
+      border-radius: 6px; background: #334155; font-weight: 600; transition: background 0.2s;
+    }
+    .version-links a.active { background: var(--primary-light); color: #052e16; font-weight: 700; }
+    .version-links a:hover { background: #475569; color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, #14532d 0%, #0f172a 100%);
+      color: #fff; padding: 30px 32px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .badge {
+      font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .badge.blue { background: #3b82f6; color: #fff; }
+    .badge.green { background: #22c55e; color: #052e16; }
+    .badge.gold { background: #f59e0b; color: #451a03; }
+
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 14.5px; color: #cbd5e1; max-width: 900px; line-height: 1.6; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .kpi-box .label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .kpi-box .val { font-size: 26px; font-weight: 800; color: var(--primary); }
+    .kpi-box .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .section-title {
+      font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13.5px; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f1f5f9; color: var(--dark); font-weight: 700; }
+    tr:hover { background: #f8fafc; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .step-item {
+      display: flex; gap: 14px; background: #f8fafc; padding: 14px 18px; border-radius: 8px;
+      border-left: 4px solid var(--primary);
+    }
+    .step-num {
+      background: var(--primary); color: #fff; width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .step-desc h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 4px; color: var(--dark); }
+    .step-desc p { font-size: 13px; color: var(--muted); }
+
+    .code-pill {
+      background: #e2e8f0; color: #0f172a; padding: 2px 6px; border-radius: 4px;
+      font-family: Consolas, monospace; font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="version-nav">
+    <div style="font-weight: 700; font-size: 14px;">HỆ THỐNG BÁO CÁO PHÁT HÀNH QUẢN LÝ QUÁN ĂN</div>
+    <div class="version-links">
+      <a href="report_0_2_9.html">v0.2.9 (Menu)</a>
+      <a href="report_0_2_10.html">v0.2.10 (ChiNhanh)</a>
+      <a href="report_0_2_11.html" class="active">v0.2.11 (MenuChiNhanh - 100% Master Data)</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badges">
+      <span class="badge gold">Cột Mốc Lịch Sử: 9/9 Master Data (100%)</span>
+      <span class="badge green">Release v0.2.11</span>
+      <span class="badge blue">WinForms .NET 10 + MSSQL</span>
+    </div>
+    <h1>Phân Hệ Phân Bổ Thực Đơn Theo Chi Nhánh (frmMenuChiNhanh v1.0)</h1>
+    <p>
+      Phát hành chính thức màn hình thứ 9/9, đánh dấu hoàn thành trọn vẹn 100% toàn bộ 9 màn hình Danh Mục Nền Tảng (Master Data). Cho phép phân bổ các bảng thực đơn kinh doanh (Alacarte, Buffet, Set cơm trưa) theo từng cơ sở chi nhánh với ngày hiệu lực, bộ lọc trạng thái và kiểm soát độc quyền chống gán trùng.
+    </p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-box">
+      <div class="label">Tiến Độ Danh Mục</div>
+      <div class="val">9 / 9 (100%)</div>
+      <div class="sub">Hoàn thành trọn vẹn toàn bộ Master Data</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Kiểm Thử Tự Động</div>
+      <div class="val">44 / 44 PASS</div>
+      <div class="sub">100% Tiêu chí & Quy chuẩn mã nguồn</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Quy Tắc Clean Code</div>
+      <div class="val">100% TUÂN THỦ</div>
+      <div class="sub">100% File &le; 500 dòng, Hàm &le; 40 dòng</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Bảo Mật & Phân Quyền</div>
+      <div class="val">RBAC + SQL PARAM</div>
+      <div class="sub">Tag: CQ_QUAN_LY_THUC_DON, 0% SQL Injection</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🏆 TỔNG KẾT 9/9 MÀN HÌNH DANH MỤC NỀN TẢNG ĐÃ HOÀN THÀNH</div>
+    <table>
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Màn hình</th>
+          <th>Tên phân hệ</th>
+          <th>Phiên bản</th>
+          <th>Quyền RBAC</th>
+          <th>Trạng thái</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>frmNhanVien</code></td><td>Quản lý Nhân Viên & Tài Khoản</td><td>v0.2.2</td><td>CQ_QUAN_LY_NHAN_SU</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>2</td><td><code>frmCaLamViec</code></td><td>Quản lý Ca Làm Việc & Lương</td><td>v0.2.3</td><td>CQ_QUAN_LY_NHAN_SU</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>3</td><td><code>frmMonAn</code></td><td>Quản lý Danh mục Món Ăn & Giá Bán</td><td>v0.2.4</td><td>CQ_QUAN_LY_THUC_DON</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>4</td><td><code>frmDanhMuc</code></td><td>Phân Loại Món Ăn (Khai vị, Món chính...)</td><td>v0.2.5</td><td>CQ_QUAN_LY_THUC_DON</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>5</td><td><code>frmKhuVuc</code></td><td>Quản lý Khu Vực (Sảnh chính, VIP...)</td><td>v0.2.6</td><td>CQ_QUAN_LY_BAN</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>6</td><td><code>frmBan</code></td><td>Quản lý Sơ Đồ Bàn Ăn Theo Khu Vực</td><td>v0.2.7</td><td>CQ_QUAN_LY_BAN</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>7</td><td><code>frmMenu</code></td><td>Quản lý Bảng Thực Đơn Kinh Doanh Master</td><td>v0.2.9</td><td>CQ_QUAN_LY_THUC_DON</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr><td>8</td><td><code>frmChiNhanh</code></td><td>Quản lý Chuỗi Cơ Sở / Chi Nhánh Nhà Hàng</td><td>v0.2.10</td><td>CQ_QUAN_LY_CHI_NHANH</td><td><span class="code-pill">✅ Đã xong</span></td></tr>
+        <tr style="background: #f0fdf4; font-weight: bold;"><td>9</td><td><code>frmMenuChiNhanh</code></td><td>Phân Bổ Thực Đơn Theo Từng Chi Nhánh</td><td>v0.2.11</td><td>CQ_QUAN_LY_THUC_DON</td><td><span class="code-pill" style="background:#22c55e;color:#fff;">🎉 Hoàn tất 100%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📋 TIẾN TRÌNH TRIỂN KHAI 5 BƯỚC CHUẨN DỰ ÁN</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-desc">
+          <h4>Bước 1: CSDL, Đặc tả Nghiệp vụ & Interactive Mockup HTML</h4>
+          <p>Tạo bảng <code>ChiNhanh_Menu</code> với khóa duy nhất <code>UQ_ChiNhanh_Menu</code>, nạp 9 dòng seed data phân bổ mẫu, tạo tài liệu <code>MENU_CHI_NHANH_SPRINT.md</code> và mockup trực quan <code>frmMenuChiNhanh_mockup_v1_0.html</code>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-desc">
+          <h4>Bước 2: Thiết Kế Giao Diện WinForms Designer (Split-Layout 40:60)</h4>
+          <p>Tạo <code>frmMenuChiNhanh.Designer.vb</code> (306 dòng, tất cả sub-routines &le; 40 dòng) với thanh chọn cơ sở trên đỉnh, form gán Menu bên trái và DataGridView hiển thị bảng thực đơn cơ sở bên phải.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-desc">
+          <h4>Bước 3: Tầng Dữ Liệu DTO/DAO/BUS & Xử Lý Nghiệp Vụ Code-behind</h4>
+          <p>Xây dựng <code>ChiNhanhMenuDTO.vb</code> (53 dòng), <code>ChiNhanhMenuDAO.vb</code> (186 dòng, 100% Parameterized SQL), <code>ChiNhanhMenuBUS.vb</code> (97 dòng), và <code>frmMenuChiNhanh.vb</code> (273 dòng). Biên dịch thành công 0 Warning, 0 Error.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-desc">
+          <h4>Bước 4: Tích Hợp frmMain & Chạy Bộ Kiểm Thử Tự Động</h4>
+          <p>Bổ sung hàm <code>MoQuanLyMenuChiNhanh()</code> trong <code>frmMain.vb</code>. Bộ kiểm thử tự động <code>MenuChiNhanhVerifier.ps1</code> đạt kết quả hoàn hảo <b>44/44 PASS (100%)</b>.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-desc">
+          <h4>Bước 5: Báo Cáo Phát Hành v0.2.11 & Đồng Bộ Checklists Toàn Diện</h4>
+          <p>Tạo báo cáo phát hành <code>report_0_2_11.html</code>, cập nhật đánh dấu hoàn thành 100% 9/9 màn hình trong <code>CHECKLIST_UU_TIEN_DANH_MUC.md</code> và <code>CHECKLIST_DO_AN.md</code>, tạo Git Tag chính thức <code>v0.2.11</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

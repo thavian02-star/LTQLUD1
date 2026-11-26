@@ -20,7 +20,7 @@
 | **6** | **MH Nhân viên** | `frmNhanVien` | `NhanVien`, `TrinhDoViTinh`, `DungCuTrangPhuc` | `CQ_QUAN_LY_NHAN_SU` | Quản lý hồ sơ nhân viên (SĐT, CCCD, chức vụ, trình độ vi tính, cấp phát đồng phục, tài khoản). | `[x]` **Đã xong (`v0.2.8`)** |
 | **7** | **MH Menu** *(Menu Master)* | `frmMenu` | `Menu`, `Menu_MonAn`, `MonAn` | `CQ_QUAN_LY_THUC_DON` | Quản lý các Bảng Thực Đơn kinh doanh (Alacarte, Buffet, Set cơm trưa, Menu lễ tết) & gán món vào Menu. | `[x]` **Đã xong (`v0.2.9`)** |
 | **8** | **MH Chi nhánh** | `frmChiNhanh` | `ChiNhanh` | `CQ_QUAN_LY_CHI_NHANH` | Quản lý danh mục cơ sở/chi nhánh chuỗi quán (Tên, địa chỉ, hotline, quản lý chi nhánh). | `[x]` **Đã xong (`v0.2.10`)** |
-| **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[ ]` **Tiếp theo (MH 9)** |
+| **9** | **MH Menu chi nhánh** | `frmMenuChiNhanh` | `ChiNhanh_Menu`, `ChiNhanh`, `Menu` | `CQ_QUAN_LY_THUC_DON` | Phân bổ bảng thực đơn áp dụng cho từng chi nhánh (chi nhánh nào bán menu nào, giá áp dụng, thời hạn). | `[x]` **Đã xong (`v0.2.11`)** |
 
 ---
 
@@ -164,17 +164,19 @@ flowchart TD
 
 ---
 
-### MÀN HÌNH 9: MH MENU CHI NHÁNH (`frmMenuChiNhanh`) — `[ ] TIẾP THEO`
+### MÀN HÌNH 9: MH MENU CHI NHÁNH (`frmMenuChiNhanh`) — `[x] ĐÃ HOÀN TẤT (v0.2.11 — 44/44 PASS — 100% MASTER DATA)`
 > **Mục tiêu:** Phân bổ bảng thực đơn áp dụng theo từng chi nhánh (`ChiNhanh_Menu`).
 
-- [ ] **Bước 1: CSDL Bổ sung `ChiNhanh_Menu`, Đặc tả & Mockup HTML (`docs/features/branch/menu_chi_nhanh/`)**
-  - [ ] Thêm bảng `ChiNhanh_Menu` (`CNM_Ma`, `CNM_MaChiNhanh`, `CNM_MaMenu`, `CNM_NgayBatDau`, `CNM_NgayKetThuc`, `CNM_TrangThai`, `CNM_Xoa`).
-  - [ ] Tạo `MENU_CHI_NHANH_SPRINT.md` và file mockup `frmMenuChiNhanh_mockup_v1_0.html`.
-- [ ] **Bước 2: Thiết kế Giao diện WinForms (`Features/Branch/frmMenuChiNhanh.Designer.vb`)**
-  - [ ] Lưới ma trận chọn Chi nhánh $\rightarrow$ Gán Menu được áp dụng, ngày bắt đầu/kết thúc, bật/tắt phục vụ món theo chi nhánh.
-- [ ] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenuChiNhanh.vb`)**
-- [ ] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động**
-- [ ] **Bước 5: Báo cáo Phát hành (`report_0_2_11.html`) & Đồng bộ Checklist**
+- [x] **Bước 1: CSDL Bổ sung `ChiNhanh_Menu`, Đặc tả & Mockup HTML (`docs/features/branch/menu_chi_nhanh/`)**
+  - [x] Thêm bảng `ChiNhanh_Menu` (`CNM_Ma`, `CNM_MaChiNhanh`, `CNM_MaMenu`, `CNM_NgayBatDau`, `CNM_NgayKetThuc`, `CNM_TrangThai`, `CNM_Xoa`, khóa duy nhất `UQ_ChiNhanh_Menu`).
+  - [x] Tạo `MENU_CHI_NHANH_SPRINT.md` và file mockup `frmMenuChiNhanh_mockup_v1_0.html`.
+- [x] **Bước 2: Thiết kế Giao diện WinForms (`Features/Branch/frmMenuChiNhanh.Designer.vb`)**
+  - [x] Bố cục Master-Detail: Thanh chọn Chi nhánh trên cùng $\rightarrow$ Form gán Menu bên trái (40%), DataGridView danh sách thực đơn bên phải (60%).
+- [x] **Bước 3: Xây dựng Tầng Dữ liệu & Nghiệp vụ (`DTO` / `DAO` / `BUS` / `frmMenuChiNhanh.vb`)**
+  - [x] Tạo `ChiNhanhMenuDTO.vb` (53 dòng), `ChiNhanhMenuDAO.vb` (186 dòng), `ChiNhanhMenuBUS.vb` (97 dòng), `frmMenuChiNhanh.vb` (273 dòng).
+  - [x] Nghiệp vụ: Chống gán trùng Menu, kiểm tra ngày bắt đầu/kết thúc hợp lệ, khôi phục phân bổ nếu từng xóa mềm.
+- [x] **Bước 4: Kết nối `frmMain` & Kiểm thử tự động (`44/44 PASS — 100%`)**
+- [x] **Bước 5: Báo cáo Phát hành (`report_0_2_11.html`) & Hoàn tất 100% 9/9 Danh mục nền tảng**
 
 ---
 
