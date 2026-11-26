@@ -32,21 +32,25 @@ Namespace Features.Main
             ' 1. Nạp thông tin phiên đăng nhập lên thanh Header & Status Bar
             CapNhatThongTinNguoiDung()
 
-            ' 2. Cập nhật đồng hồ thời gian thực lần đầu
+            ' 2. Khởi tạo thanh Menu ngang cấp cao & Lưới 9 Card Master Data Launchpad
+            KhoiTaoThanhMenuBar()
+            KhoiTaoMasterDataLaunchpad()
+
+            ' 3. Cập nhật đồng hồ thời gian thực lần đầu
             CapNhatDongHo()
 
-            ' 3. Áp dụng phân quyền tự động theo vai trò (RBAC)
+            ' 4. Áp dụng phân quyền tự động theo vai trò (RBAC)
             ' Quét toàn bộ các control có gán thuộc tính Tag và so khớp với Session.DanhSachQuyen
             ' anControl = False: Làm mờ (Enabled = False) để thể hiện rõ quyền hạn
             PhanQuyenHelper.ApDungPhanQuyen(Me, anControl:=False)
 
-            ' 4. Điều chỉnh hiển thị KPI Doanh thu: Chỉ Chủ quán có quyền xem
+            ' 5. Điều chỉnh hiển thị KPI Doanh thu: Chỉ Chủ quán có quyền xem
             pnlKpiDoanhThu.Visible = Session.CoQuyen("CQ_BAO_CAO_THONG_KE")
 
-            ' 5. Bỏ chọn dòng mặc định trên danh sách Hoạt Động Gần Đây để tránh vệt xanh thừa
+            ' 6. Bỏ chọn dòng mặc định trên danh sách Hoạt Động Gần Đây để tránh vệt xanh thừa
             lstActivity.ClearSelected()
 
-            ' 6. Hiển thị Dashboard Home mặc định
+            ' 7. Hiển thị Dashboard Home mặc định
             QuayLaiDashboardHome()
         End Sub
 
@@ -261,11 +265,38 @@ Namespace Features.Main
         End Sub
 
         ''' <summary>
-        ''' Mở trực tiếp màn hình Phân bổ Thực Đơn Chi Nhánh (frmMenuChiNhanh - MH 9/9)
+        ''' Mở trực tiếp màn hình Quản lý Phân bổ Thực Đơn Chi Nhánh (frmMenuChiNhanh - MH 9/9)
         ''' </summary>
         Public Sub MoQuanLyMenuChiNhanh()
             Using fMCN As New Features.Branch.frmMenuChiNhanh()
                 fMCN.ShowDialog(Me)
+            End Using
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Quản lý Ca Làm Việc (frmCaLamViec - MH 2/9)
+        ''' </summary>
+        Public Sub MoQuanLyCaLamViec()
+            Using fCa As New Features.Shift.frmCaLamViec()
+                fCa.ShowDialog(Me)
+            End Using
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Quản lý Danh mục Món Ăn (frmMonAn - MH 3/9)
+        ''' </summary>
+        Public Sub MoQuanLyMonAn()
+            Using fMonAn As New Features.Menu.frmMonAn()
+                fMonAn.ShowDialog(Me)
+            End Using
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Quản lý Phân loại Món Ăn (frmDanhMuc - MH 4/9)
+        ''' </summary>
+        Public Sub MoQuanLyDanhMuc()
+            Using fDM As New Features.Menu.frmDanhMuc()
+                fDM.ShowDialog(Me)
             End Using
         End Sub
 
