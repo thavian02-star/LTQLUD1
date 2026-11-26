@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup frmMain v1.2 — Trung Tâm 9 Màn Hình Danh Mục (Master Data Launchpad)</title>
+  <style>
+    :root {
+      --primary: #1a5276;
+      --primary-dark: #154360;
+      --primary-light: #2980b9;
+      --accent: #e67e22;
+      --bg: #f4f6f9;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --muted: #7f8c8d;
+      --border: #e2e8f0;
+      --success: #27ae60;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* Top MenuStrip */
+    .menu-bar {
+      background: #ffffff; border-bottom: 1px solid var(--border); display: flex;
+      padding: 0 16px; font-size: 13px; color: #334155; user-select: none;
+    }
+    .menu-item {
+      padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 4px;
+      position: relative; transition: background 0.15s; font-weight: 500;
+    }
+    .menu-item:hover, .menu-item.active { background: #f1f5f9; color: var(--primary); }
+    .dropdown {
+      display: none; position: absolute; top: 100%; left: 0; background: #fff;
+      border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-radius: 6px; min-width: 290px; z-index: 1000; padding: 6px 0;
+    }
+    .menu-item:hover .dropdown { display: block; }
+    .dropdown a {
+      display: flex; justify-content: space-between; align-items: center; padding: 8px 16px;
+      text-decoration: none; color: #1e293b; font-size: 12.5px; transition: background 0.15s;
+    }
+    .dropdown a:hover { background: #eff6ff; color: #1d4ed8; }
+    .shortcut { color: #94a3b8; font-size: 11px; font-family: monospace; }
+    .menu-divider { height: 1px; background: #e2e8f0; margin: 4px 0; }
+
+    /* Main Header */
+    .header {
+      background: var(--primary); color: #fff; height: 56px; display: flex;
+      align-items: center; justify-content: space-between; padding: 0 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon { font-size: 24px; }
+    .brand-title { font-weight: 700; font-size: 16px; letter-spacing: 0.5px; }
+    .brand-sub { font-size: 11px; color: #d6eaf8; text-transform: uppercase; }
+    .user-info { display: flex; align-items: center; gap: 12px; }
+    .user-badge {
+      background: var(--accent); padding: 3px 10px; border-radius: 12px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+    }
+
+    /* Layout Body */
+    .body-container { display: flex; flex: 1; overflow: hidden; }
+    .sidebar {
+      width: 230px; background: #ffffff; border-right: 1px solid var(--border);
+      padding: 16px 10px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .nav-label { font-size: 10.5px; font-weight: 700; color: var(--muted); padding: 6px 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      border-radius: 8px; border: none; background: transparent; color: #475569;
+      font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: left;
+    }
+    .nav-btn:hover { background: #f8fafc; color: var(--primary); }
+    .nav-btn.active { background: #e0f2fe; color: #0369a1; }
+
+    /* Content Area */
+    .content { flex: 1; padding: 20px; overflow-y: auto; }
+    .banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%);
+      color: #fff; padding: 20px 24px; border-radius: 12px; margin-bottom: 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .banner h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .banner p { font-size: 13px; color: #cbd5e1; }
+    .banner-badge {
+      background: #22c55e; color: #052e16; font-weight: 800; font-size: 12px;
+      padding: 6px 14px; border-radius: 20px; text-transform: uppercase;
+    }
+
+    /* Launchpad Grid 3x3 */
+    .launchpad-title {
+      font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .grid-3x3 {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;
+    }
+    .card-tile {
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 18px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    .card-tile:hover {
+      transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+      border-color: var(--primary-light);
+    }
+    .card-tile::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--primary-light);
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .card-icon { font-size: 28px; }
+    .card-badge {
+      background: #f1f5f9; color: #0284c7; font-size: 10.5px; font-weight: 700;
+      padding: 3px 8px; border-radius: 6px; font-family: monospace;
+    }
+    .card-title { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+    .card-desc { font-size: 12px; color: #64748b; line-height: 1.4; margin-bottom: 12px; }
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 10px; border-top: 1px solid #f1f5f9; font-size: 12px; font-weight: 600;
+    }
+    .card-stats { color: #16a34a; font-weight: 700; }
+    .card-action { color: var(--primary); display: flex; align-items: center; gap: 4px; }
+
+    /* Footer status */
+    .status-bar {
+      height: 26px; background: #f8fafc; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+      font-size: 11.5px; color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top MenuStrip -->
+  <div class="menu-bar">
+    <div class="menu-item">
+      <span>⚙️ Hệ Thống</span>
+      <div class="dropdown">
+        <a href="#doimatkhau"><span>🔑 Đổi Mật Khẩu</span> <span class="shortcut">Ctrl+P</span></a>
+        <a href="#khoamanhinh"><span>🔒 Khóa Màn Hình</span> <span class="shortcut">Ctrl+L</span></a>
+        <div class="menu-divider"></div>
+        <a href="#dangxuat"><span>🚪 Đăng Xuất</span> <span class="shortcut">Alt+F4</span></a>
+      </div>
+    </div>
+
+    <div class="menu-item active" style="font-weight: 700; color: #0284c7;">
+      <span>📋 Danh Mục Nền Tảng (9/9)</span>
+      <div class="dropdown" style="display: block; position: absolute;">
+        <a href="#frmNhanVien"><span>👥 1. Danh Mục Nhân Viên & Tài Khoản</span> <span class="shortcut">Ctrl+1</span></a>
+        <a href="#frmCaLamViec"><span>⏰ 2. Danh Mục Ca Làm Việc & Lương</span> <span class="shortcut">Ctrl+2</span></a>
+        <a href="#frmMonAn"><span>🍲 3. Danh Mục Món Ăn & Đơn Giá</span> <span class="shortcut">Ctrl+3</span></a>
+        <a href="#frmDanhMuc"><span>📁 4. Danh Mục Phân Loại Nhóm Món</span> <span class="shortcut">Ctrl+4</span></a>
+        <a href="#frmKhuVuc"><span>🏢 5. Danh Mục Khu Vực Bàn Ăn</span> <span class="shortcut">Ctrl+5</span></a>
+        <a href="#frmBan"><span>🪑 6. Danh Mục Sơ Đồ Bàn Ăn</span> <span class="shortcut">Ctrl+6</span></a>
+        <a href="#frmMenu"><span>📋 7. Bảng Thực Đơn Kinh Doanh</span> <span class="shortcut">Ctrl+7</span></a>
+        <a href="#frmChiNhanh"><span>🏬 8. Quản Lý Chuỗi Chi Nhánh</span> <span class="shortcut">Ctrl+8</span></a>
+        <a href="#frmMenuChiNhanh"><span>📑 9. Phân Bổ Thực Đơn Chi Nhánh</span> <span class="shortcut">Ctrl+9</span></a>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <span>🍽️ Nghiệp Vụ Bán Hàng</span>
+    </div>
+    <div class="menu-item">
+      <span>📊 Báo Cáo Thống Kê</span>
+    </div>
+    <div class="menu-item">
+      <span>❓ Trợ Giúp / Demo</span>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">🏪</div>
+      <div>
+        <div class="brand-title">HỆ THỐNG QUẢN LÝ QUÁN ĂN & CHUỖI NHÀ HÀNG</div>
+        <div class="brand-sub">Phân Hệ Điều Hành & Bán Hàng Tập Trung</div>
+      </div>
+    </div>
+    <div class="user-info">
+      <div class="user-badge">Chủ Quán</div>
+      <div style="font-weight: 600; font-size: 13.5px;">Trần Quản Trị</div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body-container">
+    <div class="sidebar">
+      <div class="nav-label">Vận Hành Chính</div>
+      <button class="nav-btn active">📊 Bàn Điều Khiển</button>
+      <button class="nav-btn">🍽️ Sơ Đồ Bàn / POS</button>
+      <button class="nav-btn">🍳 Nhà Bếp (FIFO)</button>
+
+      <div class="nav-label" style="margin-top: 10px;">Quản Trị Hệ Thống</div>
+      <button class="nav-btn">🗂️ 9 Danh Mục Master</button>
+      <button class="nav-btn">📅 Xếp Lịch & Chấm Công</button>
+      <button class="nav-btn">📈 Báo Cáo Doanh Thu</button>
+    </div>
+
+    <div class="content">
+      <div class="banner">
+        <div>
+          <h2>🏆 Trung Tâm Quản Trị Danh Mục Nền Tảng (Master Data)</h2>
+          <p>Hệ thống đã hoàn tất 100% toàn bộ 9 màn hình nền tảng. Nhấp 1-Click vào từng thẻ để mở trực tiếp màn hình nghiệp vụ tương ứng.</p>
+        </div>
+        <div class="banner-badge">100% Sẵn Sàng (9/9)</div>
+      </div>
+
+      <div class="launchpad-title">
+        <span>🚀 BẢN ĐỒ 9 MÀN HÌNH DANH MỤC NỀN TẢNG (1-CLICK LAUNCHPAD)</span>
+      </div>
+
+      <!-- 9 Cards Lưới 3x3 -->
+      <div class="grid-3x3">
+        <!-- 1 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">👥</div>
+            <span class="card-badge">Ctrl+1</span>
+          </div>
+          <div class="card-title">1. Nhân Viên & Tài Khoản</div>
+          <div class="card-desc">Hồ sơ 15 nhân sự, vị trí công việc, kỹ năng vi tính và cấp phát đồng phục.</div>
+          <div class="card-footer">
+            <span class="card-stats">15 Nhân Sự</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">⏰</div>
+            <span class="card-badge">Ctrl+2</span>
+          </div>
+          <div class="card-title">2. Ca Làm Việc & Lương</div>
+          <div class="card-desc">Cấu hình khung giờ làm việc theo ca sáng, chiều, tối và định mức lương ca.</div>
+          <div class="card-footer">
+            <span class="card-stats">4 Ca Làm Việc</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">🍲</div>
+            <span class="card-badge">Ctrl+3</span>
+          </div>
+          <div class="card-title">3. Danh Mục Món Ăn</div>
+          <div class="card-desc">Kho 100+ món ăn & đồ uống, định giá niêm yết, bật/tắt trạng thái hết món.</div>
+          <div class="card-footer">
+            <span class="card-stats">100+ Món Ăn</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">📁</div>
+            <span class="card-badge">Ctrl+4</span>
+          </div>
+          <div class="card-title">4. Phân Loại Nhóm Món</div>
+          <div class="card-desc">Phân loại món ăn theo tính chất ẩm thực: Khai vị, Món nướng, Lẩu, Tráng miệng...</div>
+          <div class="card-footer">
+            <span class="card-stats">6 Danh Mục</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">🏢</div>
+            <span class="card-badge">Ctrl+5</span>
+          </div>
+          <div class="card-title">5. Khu Vực Bàn Ăn</div>
+          <div class="card-desc">Phân chia không gian nhà hàng: Sảnh trệt, Tầng lầu, Phòng VIP, Sân vườn.</div>
+          <div class="card-footer">
+            <span class="card-stats">4 Khu Vực</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">🪑</div>
+            <span class="card-badge">Ctrl+6</span>
+          </div>
+          <div class="card-title">6. Sơ Đồ Bàn Ăn</div>
+          <div class="card-desc">Quản lý danh sách bàn ăn, sức chứa từng bàn và liên kết theo từng khu vực.</div>
+          <div class="card-footer">
+            <span class="card-stats">12 Bàn Ăn</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">📋</div>
+            <span class="card-badge">Ctrl+7</span>
+          </div>
+          <div class="card-title">7. Bảng Thực Đơn Kinh Doanh</div>
+          <div class="card-desc">Thiết kế các gói menu thương mại: Alacarte, Buffet nướng, Set cơm trưa văn phòng.</div>
+          <div class="card-footer">
+            <span class="card-stats">5 Bảng Menu</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">🏬</div>
+            <span class="card-badge">Ctrl+8</span>
+          </div>
+          <div class="card-title">8. Chuỗi Cơ Sở Chi Nhánh</div>
+          <div class="card-desc">Quản lý mạng lưới chi nhánh chuỗi quán ăn, địa chỉ, hotline và quản lý cơ sở.</div>
+          <div class="card-footer">
+            <span class="card-stats">4 Chi Nhánh</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="card-tile">
+          <div class="card-header">
+            <div class="card-icon">📑</div>
+            <span class="card-badge">Ctrl+9</span>
+          </div>
+          <div class="card-title">9. Phân Bổ Menu Chi Nhánh</div>
+          <div class="card-desc">Cấu hình chi nhánh nào bán bảng menu nào, thời gian áp dụng và kiểm soát độc quyền.</div>
+          <div class="card-footer">
+            <span class="card-stats">9 Liên Kết Phân Bổ</span>
+            <span class="card-action">Mở Form &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span>🟢 CSDL: Microsoft SQL Server 2022 (Docker) • Đã kết nối</span>
+    <span>Phiên bản v0.2.12 • Antigravity VB.NET WinForms</span>
+  </div>
+
+</body>
+</html>
