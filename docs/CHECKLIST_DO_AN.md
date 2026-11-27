@@ -131,13 +131,12 @@
   - [x] **Duyệt chấm công & Bảng lương ca (`frmDuyetChamCong`):** *(Đã hoàn thành 25/25 test cases tại [`report_0_3_3.html`](release_report/report_0_3_3.html))*
     - [x] Phê duyệt công đơn lẻ và hàng loạt (Bulk Approval [F6]), kiểm tra giờ vào/ra thực tế.
     - [x] Thống kê tổng ca, số ca chờ, ca đã duyệt và tự động dự toán quỹ lương theo ca làm.
-- [ ] **Báo cáo & Thống kê (`frmBaoCao`):**
-  - [ ] Báo cáo doanh thu theo Tháng / Quý / Năm.
-  - [ ] Thống kê số lượng khách trong các ca theo Tháng / Quý / Năm.
-  - [ ] Thống kê số lượng khách mà một nhân viên phục vụ trong tuần.
-  - [ ] Thống kê số lượng khách của từng bàn theo Tháng / Quý / Năm.
-  - [ ] Thống kê số lượng bán của từng món ăn/nước uống theo Tháng / Quý / Năm.
-  - [ ] Thống kê tổng số ca làm việc của nhân viên (kèm bảng tính lương).
+- [x] **Báo cáo & Thống kê (`frmBaoCao`):** *(Đã hoàn thành 29/29 test cases tại [`report_0_3_4.html`](release_report/report_0_3_4.html))*
+  - [x] Báo cáo doanh thu theo Ngày / Tháng / Quý / Năm kèm 4 thẻ KPI trực quan.
+  - [x] Thống kê số lượng khách trong các ca và theo từng mốc thời gian.
+  - [x] Thống kê số lượng khách mà nhân viên phục vụ và năng suất ca trực.
+  - [x] Thống kê xếp hạng món ăn/nước uống bán chạy nhất (Top Sellers) theo số lượng và doanh thu.
+  - [x] Thống kê tổng số ca làm việc và quỹ lương nhân viên theo tháng (kèm bảng tính lương).
 - [ ] **Chức năng mở rộng (Tùy chọn cộng điểm):**
   - [ ] **Phân quyền người dùng (`frmPhanQuyen`):** Tạo/sửa/xóa vai trò (`VaiTro`), tích chọn thêm/xóa chức năng (`Quyen`) cho từng vai trò.
   - [ ] **Sao lưu & Phục hồi (`frmBackupRestore`):** Thực thi lệnh `BACKUP DATABASE` và `RESTORE DATABASE` của SQL Server.

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup UI/UX: Báo Cáo Doanh Thu, Năng Suất & Thống Kê — Phúc Lộc Thọ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+      --pink: #ec4899;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 16px 24px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .header-icon { font-size: 32px; }
+    .header-title h1 { font-size: 20px; font-weight: 800; color: #fbbf24; letter-spacing: 0.5px; }
+    .header-title p { font-size: 13px; color: var(--text-muted); }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* KPI Summary Cards */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .kpi-card {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 16px 20px; position: relative; overflow: hidden;
+    }
+    .kpi-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    }
+    .kpi-card.revenue::before { background: #22c55e; }
+    .kpi-card.orders::before { background: #38bdf8; }
+    .kpi-card.guests::before { background: #f59e0b; }
+    .kpi-card.salary::before { background: #a855f7; }
+    .kpi-val { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+    .kpi-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+    /* Filter Toolbar */
+    .toolbar {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 14px 20px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .filter-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+    .filter-item input {
+      background: #0f172a; border: 1px solid var(--card-border);
+      color: #fff; padding: 7px 12px; border-radius: 6px; font-size: 13px; outline: none;
+    }
+    .btn-quick {
+      background: #0f172a; border: 1px solid var(--card-border); color: #cbd5e1;
+      padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: 0.2s;
+    }
+    .btn-quick:hover, .btn-quick.active { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .btn {
+      padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+
+    /* Tabs */
+    .tab-nav { display: flex; gap: 6px; margin-bottom: 16px; }
+    .tab-btn {
+      background: var(--card); border: 1px solid var(--card-border);
+      color: var(--text-muted); padding: 10px 20px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
+    }
+    .tab-btn:hover { background: #334155; color: #fff; }
+    .tab-btn.active { background: #2563eb; color: #fff; border-color: #3b82f6; }
+
+    /* Table Section */
+    .table-wrapper {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th {
+      background: #0f172a; color: var(--text-muted); padding: 12px 16px;
+      font-weight: 700; border-bottom: 1px solid var(--card-border);
+    }
+    td { padding: 14px 16px; border-bottom: 1px solid rgba(51, 65, 85, 0.6); vertical-align: middle; }
+    tr:hover { background: rgba(51, 65, 85, 0.3); }
+    .bar-container { background: #0f172a; border-radius: 4px; height: 10px; width: 120px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 8px; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+    .rank-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%; font-weight: 800; font-size: 11px;
+    }
+    .rank-1 { background: #fbbf24; color: #000; }
+    .rank-2 { background: #94a3b8; color: #000; }
+    .rank-3 { background: #b45309; color: #fff; }
+    .rank-other { background: #334155; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="header-icon">📈</div>
+        <div class="header-title">
+          <h1>BÁO CÁO DOANH THU &amp; THỐNG KÊ HOẠT ĐỘNG</h1>
+          <p>Phân tích doanh thu, món bán chạy, số lượng khách và năng suất nhân viên • Phúc Lộc Thọ</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="exportData()">📥 Xuất Excel/PDF</button>
+        <button class="btn btn-secondary" onclick="window.close()">Đóng [Esc]</button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card revenue">
+        <div class="kpi-val" style="color: #4ade80;" id="kpiRevenue">14,850,000 đ</div>
+        <div class="kpi-lbl">Tổng Doanh Thu Hợp Lệ</div>
+      </div>
+      <div class="kpi-card orders">
+        <div class="kpi-val" style="color: #38bdf8;" id="kpiOrders">42 hóa đơn</div>
+        <div class="kpi-lbl">Hóa Đơn Đã Thanh Toán</div>
+      </div>
+      <div class="kpi-card guests">
+        <div class="kpi-val" style="color: #fbbf24;" id="kpiGuests">138 khách</div>
+        <div class="kpi-lbl">Tổng Lượng Khách Phục Vụ</div>
+      </div>
+      <div class="kpi-card salary">
+        <div class="kpi-val" style="color: #c084fc;" id="kpiSalary">2,860,000 đ</div>
+        <div class="kpi-lbl">Quỹ Lương Nhân Viên Ca</div>
+      </div>
+    </div>
+
+    <!-- Toolbar Filters -->
+    <div class="toolbar">
+      <div class="filter-group">
+        <button class="btn-quick" onclick="chonMoc('HOM_NAY', this)">Hôm nay</button>
+        <button class="btn-quick active" onclick="chonMoc('7_NGAY', this)">7 ngày qua</button>
+        <button class="btn-quick" onclick="chonMoc('THANG_NAY', this)">Tháng này</button>
+        <button class="btn-quick" onclick="chonMoc('NAM_NAY', this)">Năm nay</button>
+        <div class="filter-item" style="margin-left: 10px;">
+          <span>Từ:</span>
+          <input type="date" id="txtTuNgay" value="2026-11-21" />
+        </div>
+        <div class="filter-item">
+          <span>Đến:</span>
+          <input type="date" id="txtDenNgay" value="2026-11-27" />
+        </div>
+        <button class="btn btn-primary" onclick="locBaoCao()">🔍 Lọc Báo Cáo</button>
+      </div>
+      <div>
+        <button class="btn btn-secondary" onclick="locBaoCao()">🔄 Làm mới [F5]</button>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" id="tabBtn1" onclick="chuyenTab(1)">📊 Doanh Thu Theo Mốc Thời Gian</button>
+      <button class="tab-btn" id="tabBtn2" onclick="chuyenTab(2)">🍲 Top Món Ăn Bán Chạy (Best Sellers)</button>
+      <button class="tab-btn" id="tabBtn3" onclick="chuyenTab(3)">👥 Năng Suất &amp; Quỹ Lương Nhân Viên</button>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div class="table-wrapper" id="contentArea">
+      <!-- Will be populated by JS based on selected tab -->
+    </div>
+  </div>
+
+  <script>
+    let currentTab = 1;
+
+    const dataDoanhThu = [
+      { ngay: "27/11/2026 (Hôm nay)", soHD: 12, soKhach: 38, doanhThu: 4250000, trungBinh: 354167 },
+      { ngay: "26/11/2026", soHD: 8, soKhach: 26, doanhThu: 2890000, trungBinh: 361250 },
+      { ngay: "25/11/2026", soHD: 6, soKhach: 20, doanhThu: 2150000, trungBinh: 358333 },
+      { ngay: "24/11/2026", soHD: 9, soKhach: 31, doanhThu: 3180000, trungBinh: 353333 },
+      { ngay: "23/11/2026", soHD: 7, soKhach: 23, doanhThu: 2380000, trungBinh: 340000 }
+    ];
+
+    const dataMonBanChay = [
+      { hang: 1, ten: "Cơm Tấm Sườn Bì Chả", loai: "Món chính", sl: 86, gia: 65000, tongTien: 5590000, pct: 100 },
+      { hang: 2, ten: "Cơm Tấm Sườn Nướng", loai: "Món chính", sl: 64, gia: 55000, tongTien: 3520000, pct: 74 },
+      { hang: 3, ten: "Canh Khổ Qua Nhồi Thịt", loai: "Canh / Súp", sl: 52, gia: 25000, tongTien: 1300000, pct: 60 },
+      { hang: 4, ten: "Trà Đào Cam Sả", loai: "Đồ uống", sl: 48, gia: 28000, tongTien: 1344000, pct: 55 },
+      { hang: 5, ten: "Cà Phê Sữa Đá Sài Gòn", loai: "Đồ uống", sl: 45, gia: 22000, tongTien: 990000, pct: 52 }
+    ];
+
+    const dataNhanVien = [
+      { maNV: 1, hoTen: "Nguyễn Văn A", vaiTro: "Phục vụ bàn", soCa: 6, soGio: 48.5, soKhach: 72, tienLuong: 1200000 },
+      { maNV: 2, hoTen: "Trần Thị B", vaiTro: "Phục vụ bàn", soCa: 5, soGio: 40.2, soKhach: 66, tienLuong: 1000000 },
+      { maNV: 3, hoTen: "Lê Hoàng C", vaiTro: "Nhà bếp", soCa: 6, soGio: 49.0, soKhach: "--", tienLuong: 1320000 },
+      { maNV: 4, hoTen: "Phạm Hải D", vaiTro: "Nhà bếp", soCa: 5, soGio: 41.5, soKhach: "--", tienLuong: 1100000 }
+    ];
+
+    function chuyenTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll(".tab-btn").forEach((btn, idx) => {
+        btn.classList.toggle("active", idx + 1 === tab);
+      });
+      renderTab();
+    }
+
+    function renderTab() {
+      const area = document.getElementById("contentArea");
+      if (currentTab === 1) {
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr><th>Mốc Thời Gian</th><th>Số Lượng Hóa Đơn</th><th>Số Lượng Khách</th><th>Doanh Thu Thu Được</th><th>Doanh Thu TB / Hóa Đơn</th></tr>
+            </thead>
+            <tbody>
+              ${dataDoanhThu.map(r => `
+                <tr>
+                  <td><b>${r.ngay}</b></td>
+                  <td><b>${r.soHD}</b> hóa đơn</td>
+                  <td>${r.soKhach} khách</td>
+                  <td style="color:#4ade80; font-weight:700;">${r.doanhThu.toLocaleString('vi-VN')} đ</td>
+                  <td style="color:#38bdf8;">${r.trungBinh.toLocaleString('vi-VN')} đ</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } else if (currentTab === 2) {
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr><th width="60">Hạng</th><th>Tên Món Ăn / Đồ Uống</th><th>Phân Loại</th><th>Đơn Giá</th><th>Số Lượng Đã Bán</th><th>Doanh Thu Đóng Góp</th><th>Tỷ Lệ Bán Chạy</th></tr>
+            </thead>
+            <tbody>
+              ${dataMonBanChay.map(r => `
+                <tr>
+                  <td><span class="rank-badge rank-${r.hang <= 3 ? r.hang : 'other'}">${r.hang}</span></td>
+                  <td><b>${r.ten}</b></td>
+                  <td>${r.loai}</td>
+                  <td>${r.gia.toLocaleString('vi-VN')} đ</td>
+                  <td><b>${r.sl} phần</b></td>
+                  <td style="color:#fbbf24; font-weight:700;">${r.tongTien.toLocaleString('vi-VN')} đ</td>
+                  <td>
+                    <div class="bar-container"><div class="bar-fill" style="width:${r.pct}%; background:#2563eb;"></div></div>
+                    <span>${r.pct}%</span>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } else if (currentTab === 3) {
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr><th>Mã NV</th><th>Họ Tên Nhân Viên</th><th>Bộ Phận</th><th>Số Ca Hoàn Thành</th><th>Tổng Giờ Trực</th><th>Khách Đã Phục Vụ</th><th>Tổng Lương Ca (Dự Kiến)</th></tr>
+            </thead>
+            <tbody>
+              ${dataNhanVien.map(r => `
+                <tr>
+                  <td><b>#NV${r.maNV}</b></td>
+                  <td><b>${r.hoTen}</b></td>
+                  <td>${r.vaiTro}</td>
+                  <td><b>${r.soCa} ca</b></td>
+                  <td>${r.soGio} giờ</td>
+                  <td>${r.soKhach !== '--' ? r.soKhach + ' khách' : '—'}</td>
+                  <td style="color:#c084fc; font-weight:700;">${r.tienLuong.toLocaleString('vi-VN')} đ</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    function chonMoc(loai, btn) {
+      document.querySelectorAll(".btn-quick").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const d = new Date();
+      const txtDen = document.getElementById("txtDenNgay");
+      const txtTu = document.getElementById("txtTuNgay");
+      txtDen.value = d.toISOString().split('T')[0];
+
+      if (loai === 'HOM_NAY') {
+        txtTu.value = d.toISOString().split('T')[0];
+      } else if (loai === '7_NGAY') {
+        d.setDate(d.getDate() - 6);
+        txtTu.value = d.toISOString().split('T')[0];
+      } else if (loai === 'THANG_NAY') {
+        txtTu.value = new Date(d.getFullYear(), d.getMonth(), 1).toISOString().split('T')[0];
+      } else if (loai === 'NAM_NAY') {
+        txtTu.value = new Date(d.getFullYear(), 0, 1).toISOString().split('T')[0];
+      }
+      locBaoCao();
+    }
+
+    function locBaoCao() {
+      renderTab();
+    }
+
+    function exportData() {
+      alert("Đã tạo lệnh xuất báo cáo tổng hợp ra định dạng Excel / PDF!");
+    }
+
+    renderTab();
+  </script>
+</body>
+</html>

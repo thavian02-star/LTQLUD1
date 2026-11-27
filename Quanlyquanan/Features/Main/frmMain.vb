@@ -333,14 +333,17 @@ Namespace Features.Main
 
         Private Sub btnBaoCao_Click(sender As Object, e As EventArgs) Handles btnBaoCao.Click, btnQuickBaoCao.Click
             CapNhatButtonActive(btnBaoCao)
-            MessageBox.Show(
-                "Phân hệ [Báo Cáo Doanh Thu, Số Khách & Món Ăn Bán Chạy] (Features/BaoCao)!" & vbCrLf &
-                "- Thống kê doanh thu theo ngày, tháng, quý, năm." & vbCrLf &
-                "- Thống kê năng suất phục vụ của từng nhân viên.",
-                "Thông Báo Phân Hệ",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            MoBaoCaoThongKe()
+            CapNhatButtonActive(Nothing)
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Báo Cáo Doanh Thu & Thống Kê (frmBaoCao)
+        ''' </summary>
+        Public Sub MoBaoCaoThongKe()
+            Using fBaoCao As New Features.Analytics.frmBaoCao()
+                fBaoCao.ShowDialog(Me)
+            End Using
         End Sub
 
         Private Sub btnChamCongCaNhan_Click(sender As Object, e As EventArgs) Handles btnChamCongCaNhan.Click, btnQuickChamCong.Click
