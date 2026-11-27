@@ -74,6 +74,7 @@ Namespace Features.Main
             mnuBanHang = New ToolStripMenuItem("🍽️ &Bán Hàng POS")
             mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("🪑 Điểm Bán Hàng & Sơ Đồ Bàn POS", Nothing, Sub() MoSoDoBanPOS(), Keys.F2))
             mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("🍳 Hàng Đợi Nhà Bếp (FIFO)", Nothing, Sub() MoHangDoiNhaBepKDS(), Keys.F3))
+            mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("⏱️ Chấm Công & Lịch Trực Cá Nhân", Nothing, Sub() MoChamCongCaNhan(), Keys.F4))
             msMainMenu.Items.Add(mnuBanHang)
 
             mnuBaoCao = New ToolStripMenuItem("📊 Báo &Cáo")

@@ -338,14 +338,17 @@ Namespace Features.Main
 
         Private Sub btnChamCongCaNhan_Click(sender As Object, e As EventArgs) Handles btnChamCongCaNhan.Click, btnQuickChamCong.Click
             CapNhatButtonActive(btnChamCongCaNhan)
-            MessageBox.Show(
-                "Chức năng [Chấm Công Cá Nhân]:" & vbCrLf &
-                "- Cho phép nhân viên check-in vào ca và check-out kết thúc ca làm." & vbCrLf &
-                "- Xem lịch làm việc phân công trong tuần.",
-                "Thông Báo Cá Nhân",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            MoChamCongCaNhan()
+            CapNhatButtonActive(Nothing)
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Chấm Công & Lịch Trực Cá Nhân (frmChamCongCaNhan)
+        ''' </summary>
+        Public Sub MoChamCongCaNhan()
+            Using fChamCong As New Features.Staff.frmChamCongCaNhan()
+                fChamCong.ShowDialog(Me)
+            End Using
         End Sub
 
         ''' <summary>

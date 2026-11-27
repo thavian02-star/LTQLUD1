@@ -78,9 +78,10 @@
 - [x] **Màn hình Đăng nhập (`frmDangNhap`):** Đăng nhập, kiểm tra tài khoản, tải quyền theo vai trò (hoàn thành 5 bước theo `docs/features/AUTH_DANG_NHAP.md`).
 - [x] **Màn hình Chính (`frmMain`):** Thanh điều hướng (Menu/Sidebar) hiển thị các chức năng được phép truy cập theo vai trò (đã nghiệm thu 64/64 test cases RBAC).
 - [x] **Màn hình Đổi mật khẩu (`frmDoiMatKhau`):** Xác nhận mật khẩu cũ và cập nhật mật khẩu mới (băm MD5) — Đã nghiệm thu 48/48 test cases trên 4 vai trò.
-- [ ] **Màn hình Cá nhân & Chấm công (`frmChamCongCaNhan`):**
-  - [ ] Xem lịch làm việc của bản thân theo tuần.
-  - [ ] Nút **Bắt đầu làm** (Check-in) và **Kết thúc làm** (Check-out) cho ca hiện tại.
+- [x] **Màn hình Cá nhân & Chấm công (`frmChamCongCaNhan`):** *(Đã hoàn thành 29/29 test cases tại [`report_0_3_2.html`](release_report/report_0_3_2.html))*
+  - [x] Xem lịch làm việc của bản thân theo tuần (ma trận 7 ngày trực quan, chuyển tuần trước/sau).
+  - [x] Nút **Bắt đầu làm** (Check-in) và **Kết thúc làm** (Check-out) cho ca hiện tại 1-Click.
+  - [x] Xem lịch sử chấm công gần đây và trạng thái quản lý duyệt công thời gian thực.
 
 ### 3.3. Phân hệ Nhân viên phục vụ (Bán hàng & Quản lý bàn) — `[x] HOÀN TẤT (v0.3.0)`
 - [x] **Màn hình Sơ đồ bàn & Phục vụ (`frmSoDoBan`):** *(Đã hoàn thành 32/32 test cases tại [`report_0_3_0.html`](release_report/report_0_3_0.html))*

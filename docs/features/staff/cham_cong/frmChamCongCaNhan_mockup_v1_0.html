@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup frmChamCongCaNhan v1.0 — Bàn Chấm Công & Lịch Trực Cá Nhân</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --navy: #0f172a;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --text: #0f172a;
+      --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    body { background: #f1f5f9; color: var(--text); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* Top Bar */
+    .top-bar {
+      height: 54px; background: #0f172a; color: #fff; display: flex;
+      align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 2px solid #3b82f6;
+    }
+    .user-info { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; }
+    .user-badge { background: #1e293b; border: 1px solid #334155; padding: 3px 10px; border-radius: 20px; font-size: 11px; color: #fbbf24; }
+    .clock-live { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #38bdf8; font-weight: 700; }
+
+    /* Workspace */
+    .workspace { flex: 1; padding: 16px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+
+    /* Clock-in Hero Card */
+    .clockin-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%);
+      color: #fff; border-radius: 12px; padding: 20px 24px; display: flex;
+      justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .hero-left h2 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .hero-left p { font-size: 12.5px; color: #cbd5e1; }
+    .current-status {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px;
+      border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 10px;
+    }
+    .status-off { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+    .status-on { background: rgba(34, 197, 94, 0.2); color: #86efac; }
+
+    .hero-actions { display: flex; gap: 12px; }
+    .btn-clock {
+      height: 48px; padding: 0 24px; border-radius: 10px; border: none; font-size: 13.5px;
+      font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.15s;
+    }
+    .btn-in { background: #16a34a; color: #fff; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4); }
+    .btn-in:hover { background: #15803d; }
+    .btn-out { background: #dc2626; color: #fff; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4); }
+    .btn-out:hover { background: #b91c1c; }
+    .btn-clock:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+    /* Weekly Schedule Row */
+    .section-title { font-size: 13.5px; font-weight: 800; color: #1e293b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .schedule-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+    .day-card {
+      background: #ffffff; border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+      display: flex; flex-direction: column; gap: 6px; text-align: center;
+    }
+    .day-card.today { border-color: #3b82f6; background: #eff6ff; }
+    .day-title { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+    .day-date { font-size: 14px; font-weight: 800; color: #0f172a; }
+    .shift-tag {
+      font-size: 11px; font-weight: 700; padding: 4px; border-radius: 6px; margin-top: 4px;
+    }
+    .shift-morning { background: #fef3c7; color: #92400e; }
+    .shift-evening { background: #e0e7ff; color: #3730a3; }
+    .shift-off { background: #f1f5f9; color: #94a3b8; }
+
+    /* History Table */
+    .history-card {
+      background: #ffffff; border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; flex: 1; display: flex; flex-direction: column;
+    }
+    .history-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 8px; }
+    .history-table th { background: #f8fafc; padding: 8px 12px; text-align: left; font-weight: 700; color: #475569; border-bottom: 1px solid var(--border); }
+    .history-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b; }
+    .badge-approved { background: #dcfce7; color: #166534; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+    .badge-pending { background: #fef3c7; color: #92400e; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="user-info">
+      <span>👤 Nhân Sự: Trần Văn Quán</span>
+      <span class="user-badge">Chủ Chuỗi / Quản Trị</span>
+      <span style="color:#94a3b8; font-weight:normal;">| Mã NV: NV001</span>
+    </div>
+    <div class="clock-live" id="lblClock">12:00:00 PM</div>
+  </header>
+
+  <!-- Workspace -->
+  <main class="workspace">
+    <!-- Clock-in Hero Card -->
+    <div class="clockin-hero">
+      <div class="hero-left">
+        <h2>Bàn Điểm Danh Ca Làm Việc</h2>
+        <p>Ghi nhận chính xác thời gian bắt đầu và kết thúc ca trực làm căn cứ duyệt công tính lương.</p>
+        <div class="current-status status-on" id="statusBadge">
+          <span>●</span> <span id="statusText">Đang trong ca làm việc (Vào lúc: 08:00 AM)</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-clock btn-in" id="btnClockIn" disabled onclick="doClockIn()">
+          <span>🟢</span> BẮT ĐẦU VÀO CA
+        </button>
+        <button class="btn-clock btn-out" id="btnClockOut" onclick="doClockOut()">
+          <span>🔴</span> KẾT THÚC CA LÀM
+        </button>
+      </div>
+    </div>
+
+    <!-- Weekly Schedule -->
+    <div>
+      <div class="section-title">📅 Lịch Phân Công Ca Làm Việc Trong Tuần (Tuần Hiện Tại)</div>
+      <div class="schedule-grid">
+        <div class="day-card">
+          <div class="day-title">Thứ Hai</div>
+          <div class="day-date">24/11</div>
+          <div class="shift-tag shift-morning">Ca Sáng<br>06:00 - 14:00</div>
+        </div>
+        <div class="day-card">
+          <div class="day-title">Thứ Ba</div>
+          <div class="day-date">25/11</div>
+          <div class="shift-tag shift-evening">Ca Chiều<br>14:00 - 22:00</div>
+        </div>
+        <div class="day-card">
+          <div class="day-title">Thứ Tư</div>
+          <div class="day-date">26/11</div>
+          <div class="shift-tag shift-morning">Ca Sáng<br>06:00 - 14:00</div>
+        </div>
+        <div class="day-card today">
+          <div class="day-title" style="color:#2563eb;">Hôm Nay</div>
+          <div class="day-date">27/11</div>
+          <div class="shift-tag shift-morning" style="background:#dbeafe; color:#1e40af;">Ca Sáng<br>06:00 - 14:00</div>
+        </div>
+        <div class="day-card">
+          <div class="day-title">Thứ Sáu</div>
+          <div class="day-date">28/11</div>
+          <div class="shift-tag shift-evening">Ca Chiều<br>14:00 - 22:00</div>
+        </div>
+        <div class="day-card">
+          <div class="day-title">Thứ Bảy</div>
+          <div class="day-date">29/11</div>
+          <div class="shift-tag shift-morning">Ca Sáng<br>06:00 - 14:00</div>
+        </div>
+        <div class="day-card">
+          <div class="day-title">Chủ Nhật</div>
+          <div class="day-date">30/11</div>
+          <div class="shift-tag shift-off">Nghỉ Ca</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Table -->
+    <div class="history-card">
+      <div class="section-title">🕒 Lịch Sử Chấm Công Gần Đây Của Bản Thân</div>
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Ngày Làm Việc</th>
+            <th>Ca Trực</th>
+            <th>Giờ Vào Thực Tế</th>
+            <th>Giờ Ra Thực Tế</th>
+            <th>Thời Lượng</th>
+            <th>Tình Trạng Duyệt</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody">
+          <tr>
+            <td>27/11/2026</td>
+            <td>Ca Sáng (06:00 - 14:00)</td>
+            <td>08:00:15</td>
+            <td>Đang làm việc...</td>
+            <td>--</td>
+            <td><span class="badge-pending">Chờ hết ca</span></td>
+          </tr>
+          <tr>
+            <td>26/11/2026</td>
+            <td>Ca Sáng (06:00 - 14:00)</td>
+            <td>06:02:10</td>
+            <td>14:05:30</td>
+            <td>8 giờ 3 phút</td>
+            <td><span class="badge-approved">Đã duyệt công</span></td>
+          </tr>
+          <tr>
+            <td>25/11/2026</td>
+            <td>Ca Chiều (14:00 - 22:00)</td>
+            <td>13:55:00</td>
+            <td>22:10:45</td>
+            <td>8 giờ 15 phút</td>
+            <td><span class="badge-approved">Đã duyệt công</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    let isWorking = true;
+
+    function doClockIn() {
+      isWorking = true;
+      updateUI();
+      alert("Điểm danh VÀO CA thành công lúc: " + new Date().toLocaleTimeString());
+    }
+
+    function doClockOut() {
+      if (confirm("Xác nhận KẾT THÚC CA LÀM và ghi nhận giờ ra?")) {
+        isWorking = false;
+        updateUI();
+        alert("Điểm danh HẾT CA thành công! Giờ công đã gửi quản lý duyệt.");
+      }
+    }
+
+    function updateUI() {
+      const badge = document.getElementById("statusBadge");
+      const text = document.getElementById("statusText");
+      const btnIn = document.getElementById("btnClockIn");
+      const btnOut = document.getElementById("btnClockOut");
+
+      if (isWorking) {
+        badge.className = "current-status status-on";
+        text.innerText = "Đang trong ca làm việc";
+        btnIn.disabled = true;
+        btnOut.disabled = false;
+      } else {
+        badge.className = "current-status status-off";
+        text.innerText = "Chưa vào ca / Đã kết thúc ca";
+        btnIn.disabled = false;
+        btnOut.disabled = true;
+      }
+    }
+
+    function updateClock() {
+      document.getElementById("lblClock").innerText = new Date().toLocaleTimeString('vi-VN');
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
