@@ -137,9 +137,11 @@
   - [x] Thống kê số lượng khách mà nhân viên phục vụ và năng suất ca trực.
   - [x] Thống kê xếp hạng món ăn/nước uống bán chạy nhất (Top Sellers) theo số lượng và doanh thu.
   - [x] Thống kê tổng số ca làm việc và quỹ lương nhân viên theo tháng (kèm bảng tính lương).
-- [ ] **Chức năng mở rộng (Tùy chọn cộng điểm):**
-  - [ ] **Phân quyền người dùng (`frmPhanQuyen`):** Tạo/sửa/xóa vai trò (`VaiTro`), tích chọn thêm/xóa chức năng (`Quyen`) cho từng vai trò.
-  - [ ] **Sao lưu & Phục hồi (`frmBackupRestore`):** Thực thi lệnh `BACKUP DATABASE` và `RESTORE DATABASE` của SQL Server.
+- [x] **Chức năng mở rộng (Tùy chọn cộng điểm):**
+  - [x] **Phân quyền người dùng (`frmPhanQuyen`):** *(Đã hoàn thành 28/28 test cases tại [`report_0_3_6.html`](release_report/report_0_3_6.html))*
+    - [x] Tạo/sửa/xóa vai trò chức danh (`VaiTro`).
+    - [x] Tích chọn thêm/xóa phân bổ chức năng (`Quyen`) theo 5 phân hệ nghiệp vụ cho từng vai trò.
+  - [-] **Sao lưu & Phục hồi (`frmBackupRestore`):** *(Bỏ qua theo chỉ định của đề bài)*
 
 ---
 

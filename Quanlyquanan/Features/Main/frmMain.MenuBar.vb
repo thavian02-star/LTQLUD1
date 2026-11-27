@@ -36,10 +36,12 @@ Namespace Features.Main
         Private Sub TaoMenuHeThong()
             mnuHeThong = New ToolStripMenuItem("⚙️ &Hệ Thống")
             Dim itemDoiMK As New ToolStripMenuItem("🔑 &Đổi Mật Khẩu", Nothing, AddressOf MenuDoiMatKhau_Click, Keys.Control Or Keys.P)
+            Dim itemPhanQuyen As New ToolStripMenuItem("🛡️ &Phân Quyền Người Dùng", Nothing, Sub() MoPhanQuyen(), Keys.Control Or Keys.R)
             Dim itemDangXuat As New ToolStripMenuItem("🚪 Đăng &Xuất", Nothing, AddressOf MenuDangXuat_Click, Keys.Alt Or Keys.F4)
             Dim itemThoat As New ToolStripMenuItem("❌ &Thoát Ứng Dụng", Nothing, Sub() Application.Exit())
 
             mnuHeThong.DropDownItems.Add(itemDoiMK)
+            mnuHeThong.DropDownItems.Add(itemPhanQuyen)
             mnuHeThong.DropDownItems.Add(New ToolStripSeparator())
             mnuHeThong.DropDownItems.Add(itemDangXuat)
             mnuHeThong.DropDownItems.Add(itemThoat)

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup UI/UX: Quản Lý Vai Trò & Phân Quyền Người Dùng — Phúc Lộc Thọ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 16px 24px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .header-icon { font-size: 32px; }
+    .header-title h1 { font-size: 20px; font-weight: 800; color: #a855f7; letter-spacing: 0.5px; }
+    .header-title p { font-size: 13px; color: var(--text-muted); }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* Main Split Layout */
+    .main-layout { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
+
+    /* Left Card: Roles List */
+    .panel-box {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 18px; display: flex; flex-direction: column;
+    }
+    .panel-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border);
+    }
+    .panel-header h2 { font-size: 15px; font-weight: 700; color: #cbd5e1; }
+
+    .role-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .role-item {
+      background: #0f172a; border: 1px solid var(--card-border); border-radius: 8px;
+      padding: 12px 16px; cursor: pointer; transition: 0.2s; display: flex;
+      justify-content: space-between; align-items: center;
+    }
+    .role-item:hover { border-color: var(--blue); }
+    .role-item.active { background: rgba(168, 85, 247, 0.15); border-color: #a855f7; }
+    .role-name { font-weight: 700; color: #fff; font-size: 14px; }
+    .role-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .badge-count {
+      background: #334155; padding: 3px 8px; border-radius: 12px;
+      font-size: 11px; font-weight: 700; color: #38bdf8;
+    }
+
+    /* Right Panel: Permissions Tree */
+    .perm-toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap; gap: 10px;
+    }
+    .perm-group { margin-bottom: 16px; }
+    .group-title {
+      font-size: 13px; font-weight: 800; color: #fbbf24; background: #0f172a;
+      padding: 8px 14px; border-radius: 6px; margin-bottom: 10px; display: flex;
+      align-items: center; gap: 8px; border: 1px solid var(--card-border);
+    }
+    .group-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .perm-item {
+      background: #0f172a; border: 1px solid var(--card-border); border-radius: 6px;
+      padding: 10px 12px; display: flex; align-items: flex-start; gap: 10px;
+      cursor: pointer; transition: 0.2s;
+    }
+    .perm-item:hover { background: rgba(51, 65, 85, 0.4); }
+    .perm-item input { margin-top: 3px; cursor: pointer; }
+    .perm-text h4 { font-size: 13px; font-weight: 600; color: #f8fafc; }
+    .perm-text p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    .btn {
+      padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-success { background: #16a34a; color: #fff; }
+    .btn-success:hover { background: #15803d; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #16a34a;
+      color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 13px;
+      font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      display: none; align-items: center; gap: 8px; z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="header-icon">🛡️</div>
+        <div class="header-title">
+          <h1>QUẢN LÝ VAI TRÒ &amp; PHÂN QUYỀN NGƯỜI DÙNG ĐỘNG</h1>
+          <p>Thiết lập danh mục vai trò chức danh và phân bổ quyền truy cập chức năng hệ thống • Phúc Lộc Thọ</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-success" onclick="luuPhanQuyen()">💾 Lưu Phân Quyền [F2]</button>
+        <button class="btn btn-secondary" onclick="window.close()">Đóng [Esc]</button>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- Left: Role List -->
+      <div class="panel-box">
+        <div class="panel-header">
+          <h2>DANH SÁCH VAI TRÒ (ROLES)</h2>
+          <button class="btn btn-primary" style="font-size:12px; padding:5px 10px;" onclick="themVaiTro()">➕ Thêm</button>
+        </div>
+
+        <div class="role-list" id="roleListContainer">
+          <!-- Populated by JS -->
+        </div>
+
+        <div style="font-size:12px; color:var(--text-muted); line-height:1.6; margin-top:auto; padding-top:14px; border-top:1px solid var(--card-border);">
+          💡 <b>Ghi chú bảo mật:</b> Vai trò <i>Chủ quán / Giám đốc</i> luôn mặc định sở hữu toàn quyền cao nhất trên toàn hệ thống.
+        </div>
+      </div>
+
+      <!-- Right: Permissions Matrix -->
+      <div class="panel-box">
+        <div class="perm-toolbar">
+          <div style="font-size:14px; font-weight:700; color:#c084fc;" id="lblSelectedRole">
+            Đang cấu hình: Quản Lý Cơ Sở (#VT2)
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-secondary" style="font-size:12px; padding:5px 10px;" onclick="chonTatCa(true)">✔ Chọn tất cả</button>
+            <button class="btn btn-secondary" style="font-size:12px; padding:5px 10px;" onclick="chonTatCa(false)">✖ Bỏ chọn tất cả</button>
+          </div>
+        </div>
+
+        <div id="permGroupsContainer">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toastMsg">✅ Thao tác thành công!</div>
+
+  <script>
+    let vaiTroList = [
+      { id: 1, ten: "Chủ Quán / Giám Đốc", desc: "Toàn quyền quản trị cao nhất", quyenCount: 18, isSystem: true },
+      { id: 2, ten: "Quản Lý Cơ Sở", desc: "Điều hành ca, duyệt công, báo cáo doanh thu", quyenCount: 14, isSystem: true },
+      { id: 3, ten: "Nhân Viên Phục Vụ", desc: "Xem sơ đồ bàn, mở bàn, gọi món, thanh toán", quyenCount: 6, isSystem: true },
+      { id: 4, ten: "Nhân Viên Nhà Bếp", desc: "Tiếp nhận hàng đợi KDS, báo xong món", quyenCount: 4, isSystem: true },
+      { id: 5, ten: "Thu Ngân Cơ Sở", desc: "Thanh toán hóa đơn, in phiếu tạm tính", quyenCount: 5, isSystem: false }
+    ];
+
+    let currentRoleId = 2;
+
+    const nhomQuyenList = [
+      {
+        nhom: "🍽️ PHÂN HỆ ĐIỂM BÁN HÀNG & PHỤC VỤ BÀN (POS)",
+        items: [
+          { tag: "POS_XEM_SO_DO_BAN", ten: "Xem Sơ Đồ Bàn & Trạng Thái", desc: "Tra cứu danh sách bàn trống, đang phục vụ, đặt trước" },
+          { tag: "POS_MO_BAN_GOI_MON", ten: "Mở Bàn & Thêm Món Ăn", desc: "Tạo đơn gọi món và gửi lệnh chế biến xuống bếp" },
+          { tag: "POS_HUY_MON", ten: "Hủy Món Chưa Nấu", desc: "Hủy món khi bếp chưa bắt đầu chế biến" },
+          { tag: "POS_CHUYEN_BAN", ten: "Chuyển Bàn Phục Vụ", desc: "Chuyển toàn bộ món từ bàn này sang bàn khác" },
+          { tag: "POS_THANH_TOAN", ten: "Thanh Toán & Xuất Hóa Đơn", desc: "Chốt tiền bàn, ghi nhận doanh thu và trả bàn về trống" }
+        ]
+      },
+      {
+        nhom: "🍳 PHÂN HỆ HÀNG ĐỢI NHÀ BẾP / PHA CHẾ (KDS)",
+        items: [
+          { tag: "KDS_XEM_HANG_DOI", ten: "Xem Hàng Đợi Chế Biến FIFO", desc: "Tiếp nhận danh sách món ăn/thức uống theo thứ tự thời gian gọi" },
+          { tag: "KDS_BAO_XONG_MON", ten: "Báo Nấu Xong Món", desc: "Xác nhận món đã hoàn thành và đồng bộ sang phục vụ" }
+        ]
+      },
+      {
+        nhom: "⏱️ PHÂN HỆ NHÂN SỰ, CHẤM CÔNG & LỊCH TRỰC",
+        items: [
+          { tag: "STAFF_CHAM_CONG_CA_NHAN", ten: "Điểm Danh Vào/Ra Ca Cá Nhân", desc: "Check-in bắt đầu làm và check-out kết thúc ca 1-Click" },
+          { tag: "STAFF_DUYET_CHAM_CONG", ten: "Duyệt Chấm Công Nhân Sự", desc: "Quản lý duyệt công thực tế và dự toán quỹ lương ca" },
+          { tag: "STAFF_XEP_LICH_TUAN", ten: "Quản Lý Phân Ca & Xếp Lịch Tuần", desc: "Ma trận xếp ca 7 ngày cho toàn bộ nhân viên" }
+        ]
+      },
+      {
+        nhom: "📊 PHÂN HỆ BÁO CÁO DOANH THU & THỐNG KÊ",
+        items: [
+          { tag: "RPT_DOANH_THU", ten: "Xem Báo Cáo Doanh Thu Đa Chiều", desc: "Thống kê doanh thu theo ngày, tháng, quý, năm" },
+          { tag: "RPT_MON_BAN_CHAY", ten: "Xem Báo Cáo Top Món Bán Chạy", desc: "Thống kê sản lượng và doanh thu từng món ăn/nước uống" },
+          { tag: "RPT_NANG_SUAT_LUONG", ten: "Xem Năng Suất & Quỹ Lương", desc: "Thống kê giờ trực và thù lao ca nhân viên" }
+        ]
+      },
+      {
+        nhom: "⚙️ PHÂN HỆ QUẢN TRỊ DANH MỤC NỀN TẢNG (MASTER DATA)",
+        items: [
+          { tag: "MASTER_DANH_MUC_MON", ten: "Quản Lý Món Ăn & Bảng Menu", desc: "Thêm sửa xóa danh mục món và bảng thực đơn chi nhánh" },
+          { tag: "MASTER_BAN_KHU_VUC", ten: "Quản Lý Bàn Ăn & Khu Vực", desc: "Thiết lập cấu trúc sảnh trệt, tầng lầu, phòng VIP" },
+          { tag: "MASTER_CA_LAM_VIEC", ten: "Quản Lý Ca Làm Việc & Tiền Lương", desc: "Thiết lập khung giờ và đơn giá mỗi ca trực" },
+          { tag: "ADMIN_PHAN_QUYEN", ten: "Quản Lý Vai Trò & Phân Quyền", desc: "Cấp quyền cho các tài khoản người dùng" }
+        ]
+      }
+    ];
+
+    function renderRoles() {
+      const c = document.getElementById("roleListContainer");
+      c.innerHTML = "";
+      vaiTroList.forEach(r => {
+        const d = document.createElement("div");
+        d.className = `role-item ${r.id === currentRoleId ? 'active' : ''}`;
+        d.onclick = () => chonVaiTro(r.id);
+        d.innerHTML = `
+          <div>
+            <div class="role-name">${r.ten}</div>
+            <div class="role-desc">${r.desc}</div>
+          </div>
+          <span class="badge-count">${r.id === 1 ? 'ALL' : r.quyenCount + ' quyền'}</span>
+        `;
+        c.appendChild(d);
+      });
+    }
+
+    function renderPermissions() {
+      const c = document.getElementById("permGroupsContainer");
+      const role = vaiTroList.find(x => x.id === currentRoleId);
+      document.getElementById("lblSelectedRole").innerText = `Đang cấu hình: ${role.ten} (#VT${role.id})`;
+
+      c.innerHTML = "";
+      nhomQuyenList.forEach(g => {
+        const gDiv = document.createElement("div");
+        gDiv.className = "perm-group";
+        gDiv.innerHTML = `
+          <div class="group-title">${g.nhom}</div>
+          <div class="group-grid">
+            ${g.items.map(p => `
+              <label class="perm-item">
+                <input type="checkbox" class="chk-perm" data-tag="${p.tag}" ${role.id === 1 || (role.id === 2 && !p.tag.includes("ADMIN")) || (role.id === 3 && p.tag.includes("POS")) || (role.id === 4 && p.tag.includes("KDS")) ? 'checked' : ''} />
+                <div class="perm-text">
+                  <h4>${p.ten}</h4>
+                  <p>${p.desc}</p>
+                </div>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        c.appendChild(gDiv);
+      });
+    }
+
+    function chonVaiTro(id) {
+      currentRoleId = id;
+      renderRoles();
+      renderPermissions();
+    }
+
+    function chonTatCa(checked) {
+      document.querySelectorAll(".chk-perm").forEach(chk => chk.checked = checked);
+    }
+
+    function luuPhanQuyen() {
+      const count = document.querySelectorAll(".chk-perm:checked").length;
+      showToast(`Đã lưu thành công ${count} quyền hạn cho vai trò hiện tại!`);
+    }
+
+    function themVaiTro() {
+      const ten = prompt("Nhập tên vai trò mới:");
+      if (ten) {
+        vaiTroList.push({ id: vaiTroList.length + 1, ten: ten, desc: "Vai trò tùy chỉnh mới", quyenCount: 0, isSystem: false });
+        currentRoleId = vaiTroList.length;
+        renderRoles();
+        renderPermissions();
+        showToast("Đã thêm vai trò mới thành công!");
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toastMsg");
+      t.innerText = msg;
+      t.style.display = "flex";
+      setTimeout(() => { t.style.display = "none"; }, 3000);
+    }
+
+    renderRoles();
+    renderPermissions();
+  </script>
+</body>
+</html>

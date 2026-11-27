@@ -264,6 +264,15 @@ Namespace Features.Main
         End Sub
 
         ''' <summary>
+        ''' Mở trực tiếp màn hình Quản Lý Vai Trò & Phân Quyền (frmPhanQuyen)
+        ''' </summary>
+        Public Sub MoPhanQuyen()
+            Using fPQ As New Features.Security.frmPhanQuyen()
+                fPQ.ShowDialog(Me)
+            End Using
+        End Sub
+
+        ''' <summary>
         ''' Má»Ÿ trá»±c tiáº¿p mÃ n hÃ¬nh Quáº£n lÃ½ Danh sÃ¡ch NhÃ¢n sá»± (frmNhanVien - MH 6/9)
         ''' </summary>
         Public Sub MoQuanLyNhanVien()
