@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup UI/UX: Quản Lý Duyệt Chấm Công & Bảng Lương Ca — Phúc Lộc Thọ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 16px 24px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .header-icon { font-size: 32px; }
+    .header-title h1 { font-size: 20px; font-weight: 800; color: var(--blue); letter-spacing: 0.5px; }
+    .header-title p { font-size: 13px; color: var(--text-muted); }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .badge-role {
+      background: rgba(56, 189, 248, 0.15); color: var(--blue);
+      border: 1px solid rgba(56, 189, 248, 0.3); padding: 6px 12px;
+      border-radius: 8px; font-size: 12px; font-weight: 700;
+    }
+
+    /* KPI Summary Cards */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .kpi-card {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 16px 20px; position: relative; overflow: hidden;
+    }
+    .kpi-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    }
+    .kpi-card.pending::before { background: var(--amber); }
+    .kpi-card.approved::before { background: var(--green); }
+    .kpi-card.total::before { background: var(--blue); }
+    .kpi-card.salary::before { background: var(--purple); }
+    .kpi-val { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+    .kpi-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+    /* Filter Toolbar */
+    .toolbar {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 14px 20px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .filter-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .filter-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+    .filter-item select, .filter-item input {
+      background: #0f172a; border: 1px solid var(--card-border);
+      color: #fff; padding: 7px 12px; border-radius: 6px; font-size: 13px; outline: none;
+    }
+    .btn {
+      padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-success { background: #16a34a; color: #fff; }
+    .btn-success:hover { background: #15803d; }
+    .btn-warning { background: #d97706; color: #fff; }
+    .btn-warning:hover { background: #b45309; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+
+    /* Table Section */
+    .table-wrapper {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th {
+      background: #0f172a; color: var(--text-muted); padding: 12px 16px;
+      font-weight: 700; border-bottom: 1px solid var(--card-border);
+    }
+    td { padding: 14px 16px; border-bottom: 1px solid rgba(51, 65, 85, 0.6); vertical-align: middle; }
+    tr:hover { background: rgba(51, 65, 85, 0.3); }
+    .badge {
+      display: inline-block; padding: 4px 10px; border-radius: 6px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+    }
+    .badge-pending { background: rgba(245, 158, 11, 0.2); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-approved { background: rgba(34, 197, 94, 0.2); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.4); }
+    .emp-name { font-weight: 700; color: #fff; }
+    .emp-role { font-size: 11px; color: var(--text-muted); }
+    .time-val { font-family: 'Consolas', monospace; font-weight: 600; color: #38bdf8; }
+
+    /* Alert Banner */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #16a34a;
+      color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 13px;
+      font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      display: none; align-items: center; gap: 8px; z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="header-icon">📋</div>
+        <div class="header-title">
+          <h1>DUYỆT CHẤM CÔNG &amp; BẢNG CÔNG NHÂN SỰ</h1>
+          <p>Kiểm tra giờ vào/ra thực tế, phê duyệt bảng chấm công ca và dự toán quỹ lương • Phúc Lộc Thọ</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="badge-role">👤 Quản Lý: Nguyễn Văn Quản Trị</span>
+        <button class="btn btn-secondary" onclick="window.close()">Đóng [Esc]</button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card total">
+        <div class="kpi-val" id="kpiTotal">12 ca</div>
+        <div class="kpi-lbl">Tổng ca làm việc hôm nay</div>
+      </div>
+      <div class="kpi-card pending">
+        <div class="kpi-val" style="color: var(--amber);" id="kpiPending">4 ca</div>
+        <div class="kpi-lbl">Chờ quản lý phê duyệt</div>
+      </div>
+      <div class="kpi-card approved">
+        <div class="kpi-val" style="color: var(--green);" id="kpiApproved">8 ca</div>
+        <div class="kpi-lbl">Đã được phê duyệt</div>
+      </div>
+      <div class="kpi-card salary">
+        <div class="kpi-val" style="color: var(--purple);" id="kpiSalary">2,450,000 đ</div>
+        <div class="kpi-lbl">Dự toán lương ca tương ứng</div>
+      </div>
+    </div>
+
+    <!-- Toolbar Filters & Actions -->
+    <div class="toolbar">
+      <div class="filter-group">
+        <div class="filter-item">
+          <span>Ngày:</span>
+          <input type="date" id="filterDate" value="2026-11-27" onchange="locDuLieu()" />
+        </div>
+        <div class="filter-item">
+          <span>Trạng thái:</span>
+          <select id="filterStatus" onchange="locDuLieu()">
+            <option value="ALL">Tất cả trạng thái</option>
+            <option value="PENDING" selected>⏳ Chờ phê duyệt (4)</option>
+            <option value="APPROVED">✅ Đã phê duyệt (8)</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <span>Bộ phận:</span>
+          <select id="filterRole" onchange="locDuLieu()">
+            <option value="ALL">Tất cả bộ phận</option>
+            <option value="PHUC_VU">Phục vụ bàn</option>
+            <option value="NHA_BEP">Nhà bếp / Pha chế</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <button class="btn btn-success" onclick="duyetTatCa()">⚡ Duyệt tất cả ca chờ [F6]</button>
+        <button class="btn btn-secondary" onclick="locDuLieu()">🔄 Làm mới</button>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th width="40"><input type="checkbox" id="chkAll" onchange="toggleSelectAll(this)" /></th>
+            <th>Mã CC</th>
+            <th>Nhân Viên</th>
+            <th>Bộ Phận</th>
+            <th>Ca Trực</th>
+            <th>Giờ Vào</th>
+            <th>Giờ Ra</th>
+            <th>Tổng Giờ</th>
+            <th>Lương Dự Kiến</th>
+            <th>Trạng Thái</th>
+            <th width="150" style="text-align: right;">Thao Tác</th>
+          </tr>
+        </thead>
+        <tbody id="tblBody">
+          <!-- Rows will be dynamically rendered -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="toast" id="toastMsg">✅ Thao tác thành công!</div>
+
+  <script>
+    let danhSach = [
+      { id: 201, maNV: 1, hoTen: "Nguyễn Văn A", vaiTro: "Phục vụ bàn", ca: "Ca Sáng (06:00 - 14:00)", vao: "05:55", ra: "14:05", thoiLuong: 8.2, luong: 200000, daDuyet: false },
+      { id: 202, maNV: 2, hoTen: "Trần Thị B", vaiTro: "Phục vụ bàn", ca: "Ca Sáng (06:00 - 14:00)", vao: "06:02", ra: "14:10", thoiLuong: 8.1, luong: 200000, daDuyet: false },
+      { id: 203, maNV: 3, hoTen: "Lê Hoàng C", vaiTro: "Nhà bếp", ca: "Ca Sáng (06:00 - 14:00)", vao: "05:48", ra: "14:00", thoiLuong: 8.2, luong: 220000, daDuyet: false },
+      { id: 204, maNV: 4, hoTen: "Phạm Hải D", vaiTro: "Nhà bếp", ca: "Ca Chiều (14:00 - 22:00)", vao: "13:50", ra: "22:15", thoiLuong: 8.4, luong: 220000, daDuyet: false },
+      { id: 198, maNV: 1, hoTen: "Nguyễn Văn A", vaiTro: "Phục vụ bàn", ca: "Ca Sáng Hôm Qua", vao: "05:58", ra: "14:02", thoiLuong: 8.1, luong: 200000, daDuyet: true },
+      { id: 199, maNV: 2, hoTen: "Trần Thị B", vaiTro: "Phục vụ bàn", ca: "Ca Sáng Hôm Qua", vao: "06:00", ra: "14:00", thoiLuong: 8.0, luong: 200000, daDuyet: true },
+      { id: 200, maNV: 3, hoTen: "Lê Hoàng C", vaiTro: "Nhà bếp", ca: "Ca Sáng Hôm Qua", vao: "05:50", ra: "14:05", thoiLuong: 8.2, luong: 220000, daDuyet: true }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById("tblBody");
+      const filterStatus = document.getElementById("filterStatus").value;
+      const filterRole = document.getElementById("filterRole").value;
+
+      tbody.innerHTML = "";
+      let countPending = 0;
+      let countApproved = 0;
+      let totalSalary = 0;
+
+      danhSach.forEach(item => {
+        if (item.daDuyet) countApproved++;
+        else countPending++;
+        totalSalary += item.luong;
+
+        if (filterStatus === "PENDING" && item.daDuyet) return;
+        if (filterStatus === "APPROVED" && !item.daDuyet) return;
+        if (filterRole === "PHUC_VU" && !item.vaiTro.includes("Phục vụ")) return;
+        if (filterRole === "NHA_BEP" && !item.vaiTro.includes("bếp")) return;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><input type="checkbox" class="row-chk" data-id="${item.id}" /></td>
+          <td><b>#${item.id}</b></td>
+          <td><div class="emp-name">${item.hoTen}</div><div class="emp-role">NV${item.maNV}</div></td>
+          <td>${item.vaiTro}</td>
+          <td>${item.ca}</td>
+          <td class="time-val">${item.vao}</td>
+          <td class="time-val">${item.ra}</td>
+          <td><b>${item.thoiLuong} giờ</b></td>
+          <td style="color:#a855f7; font-weight:700;">${item.luong.toLocaleString('vi-VN')} đ</td>
+          <td>
+            <span class="badge ${item.daDuyet ? 'badge-approved' : 'badge-pending'}">
+              ${item.daDuyet ? '✅ Đã duyệt' : '⏳ Chờ duyệt'}
+            </span>
+          </td>
+          <td style="text-align: right;">
+            ${item.daDuyet
+              ? `<button class="btn btn-secondary" style="font-size:11px; padding:4px 8px;" onclick="huyDuyet(${item.id})">↩️ Hoàn tác</button>`
+              : `<button class="btn btn-success" style="font-size:11px; padding:4px 10px;" onclick="duyetMotCa(${item.id})">✅ Duyệt</button>`
+            }
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("kpiTotal").innerText = danhSach.length + " ca";
+      document.getElementById("kpiPending").innerText = countPending + " ca";
+      document.getElementById("kpiApproved").innerText = countApproved + " ca";
+      document.getElementById("kpiSalary").innerText = totalSalary.toLocaleString('vi-VN') + " đ";
+    }
+
+    function duyetMotCa(id) {
+      const itm = danhSach.find(x => x.id === id);
+      if (itm) {
+        itm.daDuyet = true;
+        showToast("Đã duyệt ca trực #" + id + " của " + itm.hoTen);
+        renderTable();
+      }
+    }
+
+    function huyDuyet(id) {
+      const itm = danhSach.find(x => x.id === id);
+      if (itm) {
+        itm.daDuyet = false;
+        showToast("Đã hoàn tác duyệt ca #" + id);
+        renderTable();
+      }
+    }
+
+    function duyetTatCa() {
+      let count = 0;
+      danhSach.forEach(x => {
+        if (!x.daDuyet) { x.daDuyet = true; count++; }
+      });
+      showToast("Đã duyệt thành công tất cả " + count + " ca chờ!");
+      renderTable();
+    }
+
+    function locDuLieu() { renderTable(); }
+
+    function toggleSelectAll(master) {
+      document.querySelectorAll(".row-chk").forEach(chk => chk.checked = master.checked);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toastMsg");
+      t.innerText = msg;
+      t.style.display = "flex";
+      setTimeout(() => { t.style.display = "none"; }, 3000);
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>

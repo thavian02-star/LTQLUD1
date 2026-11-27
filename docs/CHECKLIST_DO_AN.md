@@ -128,7 +128,9 @@
   - [x] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Đã hoàn thành 24/24 test cases tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3 & [`report_0_2_5.html`](release_report/report_0_2_5.html)*).
   - [ ] Xem & chỉnh sửa lịch làm việc chung của tất cả nhân viên trong tuần (7 ngày/tuần, xem ca nào trống, ca nào có bao nhiêu nhân viên, thêm/xóa nhân viên vào ca).
   - [ ] Xem & chỉnh sửa lịch làm việc riêng của 1 nhân viên được chọn (thay đổi trạng thái ca).
-  - [ ] **Duyệt chấm công** (dành cho Quản lý) & Tổng hợp số ca làm việc trong tháng để **Tính lương nhân viên**.
+  - [x] **Duyệt chấm công & Bảng lương ca (`frmDuyetChamCong`):** *(Đã hoàn thành 25/25 test cases tại [`report_0_3_3.html`](release_report/report_0_3_3.html))*
+    - [x] Phê duyệt công đơn lẻ và hàng loạt (Bulk Approval [F6]), kiểm tra giờ vào/ra thực tế.
+    - [x] Thống kê tổng ca, số ca chờ, ca đã duyệt và tự động dự toán quỹ lương theo ca làm.
 - [ ] **Báo cáo & Thống kê (`frmBaoCao`):**
   - [ ] Báo cáo doanh thu theo Tháng / Quý / Năm.
   - [ ] Thống kê số lượng khách trong các ca theo Tháng / Quý / Năm.

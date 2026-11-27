@@ -241,10 +241,17 @@ Namespace Features.Main
 
         Private Sub btnDuyetChamCong_Click(sender As Object, e As EventArgs) Handles btnDuyetChamCong.Click, btnQuickDuyetCong.Click
             CapNhatButtonActive(btnDuyetChamCong)
-            Using fCa As New Features.Shift.frmCaLamViec()
-                fCa.ShowDialog(Me)
-            End Using
+            MoDuyetChamCong()
             CapNhatButtonActive(Nothing)
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Quản Lý Duyệt Chấm Công (frmDuyetChamCong)
+        ''' </summary>
+        Public Sub MoDuyetChamCong()
+            Using fDuyet As New Features.Staff.frmDuyetChamCong()
+                fDuyet.ShowDialog(Me)
+            End Using
         End Sub
 
         ''' <summary>
