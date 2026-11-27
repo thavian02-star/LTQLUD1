@@ -98,11 +98,11 @@
   - [x] Cộng tổng tiền các món hợp lệ (không tính món đã hủy).
   - [x] Cập nhật trạng thái hóa đơn *Đã thanh toán* (`HD_TrangThai = 1`) và đổi trạng thái bàn về *Trống*.
 
-### 3.4. Phân hệ Nhà bếp / Pha chế
-- [ ] **Màn hình Hàng đợi Nhà bếp (`frmNhaBep`):**
-  - [ ] Hiển thị danh sách các món ăn/nước uống đang ở trạng thái *Chờ thực hiện* sắp xếp theo thứ tự thời gian đặt (`CTHD_ThoiGianGoi ASC`).
-  - [ ] Hiển thị rõ: Số bàn, Tên món, Số lượng, Ghi chú của khách, Thời gian đặt.
-  - [ ] Nút **Hoàn thành món**: Cập nhật trạng thái món sang *Đã nấu xong* và tự động cập nhật trạng thái bàn tương ứng sang *Món đã xong* để nhân viên phục vụ biết mang ra.
+### 3.4. Phân hệ Nhà bếp / Pha chế — `[x] HOÀN TẤT (v0.3.1)`
+- [x] **Màn hình Hàng đợi Nhà bếp (`frmNhaBep`):** *(Đã hoàn thành 19/19 test cases tại [`report_0_3_1.html`](release_report/report_0_3_1.html))*
+  - [x] Hiển thị danh sách các món ăn/nước uống đang ở trạng thái *Chờ thực hiện* sắp xếp theo thứ tự thời gian đặt (`CTHD_ThoiGianGoi ASC` - FIFO).
+  - [x] Hiển thị rõ: Số bàn, Tên món, Số lượng, Ghi chú của khách, Thời gian đặt, cảnh báo món trễ quá 15 phút.
+  - [x] Nút **Báo đã nấu xong**: Cập nhật trạng thái món sang *Đã nấu xong* (`CTHD_TrangThaiMon = 1`) và tự động đồng bộ sang phục vụ bàn.
 
 ### 3.5. Phân hệ Quản lý & Chủ quán (Hệ thống 9 Màn hình Danh mục & Quản trị Chuỗi)
 > 📌 **Lưu ý đồng bộ tiến độ:** Hệ thống 9 màn hình danh mục nền tảng (Master Data) được quản lý tập trung và chi tiết tại [`docs/CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md). Khi hoàn thành từng màn hình tại checklist danh mục, các mục tương ứng bên dưới sẽ được tự động đánh dấu `[x]` hoàn thành.

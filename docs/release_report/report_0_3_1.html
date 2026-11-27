@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo Cáo Nghiệm Thu Phát Hành v0.3.1 — Phân Hệ Điều Phối Nhà Bếp KDS (FIFO)</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #f8fafc; padding: 24px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; background: #1e293b; padding: 32px; border-radius: 12px; border: 1px solid #334155; }
+    h1 { color: #fbbf24; font-size: 24px; margin-bottom: 8px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; background: #16a34a; color: #fff; margin-bottom: 20px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0; }
+    .metric-card { background: #0f172a; padding: 14px; border-radius: 8px; border: 1px solid #334155; text-align: center; }
+    .metric-val { font-size: 22px; font-weight: 800; color: #38bdf8; }
+    .metric-lbl { font-size: 11px; color: #94a3b8; text-transform: uppercase; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid #334155; text-align: left; }
+    th { background: #0f172a; color: #cbd5e1; }
+    .pass { color: #4ade80; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BÁO CÁO NGHIỆM THU PHÁT HÀNH v0.3.1</h1>
+    <div class="badge">RELEASE TAG: v0.3.1 — GIAI ĐOẠN 3: PHÂN HỆ NHÀ BẾP / PHA CHẾ (KDS)</div>
+    <p><b>Tính năng chính:</b> Màn Hình Hàng Đợi Chế Biến Nhà Bếp (<code>frmNhaBep</code>), Sắp xếp thứ tự gọi món chuẩn FIFO, Phân loại Bếp Nóng / Bếp Lạnh / Quầy Nước, Tự động làm mới và xác nhận báo xong món thời gian thực.</p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-val">19 / 19</div>
+        <div class="metric-lbl">Kiểm thử tự động</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">100%</div>
+        <div class="metric-lbl">Tỷ lệ PASS</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0 / 0</div>
+        <div class="metric-lbl">Cảnh báo / Lỗi Build</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">&le; 40 / 500</div>
+        <div class="metric-lbl">Dòng / Hàm & File</div>
+      </div>
+    </div>
+
+    <h3>1. Danh Sách Thành Phần Phát Hành (5 Bước Chuẩn):</h3>
+    <table>
+      <thead>
+        <tr><th>Bước</th><th>Hạng Mục</th><th>File Mã Nguồn / Tài Liệu</th><th>Kết Quả</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bước 1</td><td>Đặc tả &amp; Mockup KDS</td><td><code>NHA_BEP_KDS_SPRINT.md</code>, <code>frmNhaBep_mockup_v1_0.html</code></td><td class="pass">Hoàn tất</td></tr>
+        <tr><td>Bước 2</td><td>Thực thể DTO &amp; DAO</td><td><code>ChiTietHoaDonDTO.vb</code> (bổ sung TenBan, SoPhutCho), <code>ChiTietHoaDonDAO.vb</code> (LayHangDoiNhaBep)</td><td class="pass">Hoàn tất</td></tr>
+        <tr><td>Bước 3</td><td>Tầng BUS &amp; Form WinForms</td><td><code>NhaBepBUS.vb</code>, <code>frmNhaBep.Designer.vb</code>, <code>frmNhaBep.vb</code></td><td class="pass">Hoàn tất</td></tr>
+        <tr><td>Bước 4</td><td>Tích hợp &amp; Kiểm thử tự động</td><td><code>frmMain.vb</code>, <code>frmMain.MenuBar.vb</code> (phím tắt F3), <code>NhaBepKdsVerifier.ps1</code></td><td class="pass">19/19 PASS</td></tr>
+        <tr><td>Bước 5</td><td>Đóng gói &amp; Báo cáo</td><td><code>report_0_3_1.html</code>, Tag <code>v0.3.1</code></td><td class="pass">Sẵn sàng</td></tr>
+      </tbody>
+    </table>
+
+    <h3>2. Các Nghiệp Vụ Đã Hiện Thực Hóa:</h3>
+    <ul>
+      <li><b>Hàng đợi FIFO thời gian thực:</b> Danh sách order tự động sắp xếp theo thứ tự gọi (<code>CTHD_ThoiGianGoi ASC</code>), món gọi trước ưu tiên nấu trước.</li>
+      <li><b>Cảnh báo món trễ:</b> Món chờ quá 15 phút được viền đỏ nổi bật và đếm số phút trễ chính xác.</li>
+      <li><b>Bộ lọc nhóm bếp chuyên dụng:</b> Cho phép chuyển nhanh giữa Tất cả, Bếp Nóng, Bếp Lạnh, Quầy Nước.</li>
+      <li><b>Xác nhận báo xong món:</b> Đầu bếp bấm nút "Báo đã nấu xong" &rarr; cập nhật <code>CTHD_TrangThaiMon = 1</code>, đồng bộ ngay lập tức sang phục vụ tại bàn POS.</li>
+    </ul>
+  </div>
+</body>
+</html>

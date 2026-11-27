@@ -17,10 +17,18 @@ Namespace Core.DTO
         Public Property TenMonAn As String
         Public Property DonViTinh As String
         Public Property TenDanhMuc As String
+        Public Property TenBan As String
 
         Public ReadOnly Property ThanhTien As Decimal
             Get
                 Return CTHD_SoLuong * CTHD_DonGia
+            End Get
+        End Property
+
+        Public ReadOnly Property SoPhutCho As Integer
+            Get
+                Dim diff As TimeSpan = DateTime.Now - CTHD_ThoiGianGoi
+                Return Math.Max(0, CInt(diff.TotalMinutes))
             End Get
         End Property
 

@@ -17,10 +17,12 @@ Namespace Core.DAO
         Public Shared Function LayDanhSachTheoHoaDon(maHD As Integer) As List(Of ChiTietHoaDonDTO)
             Dim ds As New List(Of ChiTietHoaDonDTO)()
             Dim sql As String = "
-                SELECT cthd.*, ma.MA_Ten AS TenMonAn, dm.DM_Ten AS TenDanhMuc
+                SELECT cthd.*, ma.MA_Ten AS TenMonAn, dm.DM_Ten AS TenDanhMuc, b.B_TenBan AS TenBan
                 FROM ChiTietHoaDon cthd
                 INNER JOIN MonAn ma ON ma.MA_Ma = cthd.CTHD_MaMonAn
                 LEFT JOIN DanhMuc dm ON dm.DM_Ma = ma.MA_DanhMuc
+                INNER JOIN HoaDon hd ON hd.HD_Ma = cthd.CTHD_MaHoaDon
+                INNER JOIN Ban b ON b.B_Ma = hd.HD_MaBan
                 WHERE cthd.CTHD_Xoa = 0 
                   AND cthd.CTHD_TrangThaiMon <> 3
                   AND cthd.CTHD_MaHoaDon = @MaHD
@@ -38,7 +40,45 @@ Namespace Core.DAO
         End Function
 
         ''' <summary>
-        ''' Thêm món vào hóa đơn: Nếu món chưa làm đã tồn tại cùng ghi chú thì cộng dồn số lượng, ngược lại thêm dòng mới.
+        ''' Lấy danh sách hàng đợi nhà bếp theo nguyên tắc FIFO (món nào gọi trước nấu trước).
+        ''' </summary>
+        Public Shared Function LayHangDoiNhaBep(Optional loaiBep As String = "all") As List(Of ChiTietHoaDonDTO)
+            Dim ds As New List(Of ChiTietHoaDonDTO)()
+            Dim sql As String = "
+                SELECT cthd.*, ma.MA_Ten AS TenMonAn, dm.DM_Ten AS TenDanhMuc, b.B_TenBan AS TenBan
+                FROM ChiTietHoaDon cthd
+                INNER JOIN MonAn ma ON ma.MA_Ma = cthd.CTHD_MaMonAn
+                LEFT JOIN DanhMuc dm ON dm.DM_Ma = ma.MA_DanhMuc
+                INNER JOIN HoaDon hd ON hd.HD_Ma = cthd.CTHD_MaHoaDon
+                INNER JOIN Ban b ON b.B_Ma = hd.HD_MaBan
+                WHERE cthd.CTHD_Xoa = 0 
+                  AND cthd.CTHD_TrangThaiMon = 0
+                  AND hd.HD_TrangThai = 0
+                ORDER BY cthd.CTHD_ThoiGianGoi ASC, cthd.CTHD_Ma ASC;"
+
+            Dim dt As DataTable = KetNoiCSDL.ExecuteQuery(sql)
+            For Each row As DataRow In dt.Rows
+                Dim dto = ChuyenDataRowThanhDTO(row)
+                If loaiBep = "all" OrElse KiemTraThuocLoaiBep(dto.TenDanhMuc, loaiBep) Then
+                    ds.Add(dto)
+                End If
+            Next
+            Return ds
+        End Function
+
+        Private Shared Function KiemTraThuocLoaiBep(tenDanhMuc As String, loaiBep As String) As Boolean
+            If String.IsNullOrEmpty(tenDanhMuc) Then Return True
+            Dim lower = tenDanhMuc.ToLower()
+            Select Case loaiBep
+                Case "hot" : Return lower.Contains("chính") OrElse lower.Contains("lẩu") OrElse lower.Contains("nướng") OrElse lower.Contains("cơm") OrElse lower.Contains("phở")
+                Case "cold" : Return lower.Contains("khai") OrElse lower.Contains("gỏi") OrElse lower.Contains("tráng") OrElse lower.Contains("salad")
+                Case "bar" : Return lower.Contains("uống") OrElse lower.Contains("nước") OrElse lower.Contains("trà") OrElse lower.Contains("cà phê")
+                Case Else : Return True
+            End Select
+        End Function
+
+        ''' <summary>
+        ''' Thêm món vào hóa đơn: Thêm dòng mới vào ChiTietHoaDon.
         ''' </summary>
         Public Shared Function ThemMon(maHD As Integer, maMonAn As Integer, soLuong As Integer,
                                        donGia As Decimal, ghiChu As String) As Integer
@@ -105,6 +145,9 @@ Namespace Core.DAO
             End If
             If row.Table.Columns.Contains("TenDanhMuc") AndAlso Not IsDBNull(row("TenDanhMuc")) Then
                 dto.TenDanhMuc = row("TenDanhMuc").ToString()
+            End If
+            If row.Table.Columns.Contains("TenBan") AndAlso Not IsDBNull(row("TenBan")) Then
+                dto.TenBan = row("TenBan").ToString()
             End If
             Return dto
         End Function

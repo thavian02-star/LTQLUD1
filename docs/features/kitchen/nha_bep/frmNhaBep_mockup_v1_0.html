@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup frmNhaBep v1.0 — Màn Hình Điều Phối Chế Biến Nhà Bếp (KDS FIFO)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --success: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* Top Bar */
+    .kds-header {
+      height: 56px; background: #0f172a; border-bottom: 2px solid #ea580c;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    }
+    .kds-brand { display: flex; align-items: center; gap: 12px; }
+    .kds-logo { font-size: 22px; }
+    .kds-title h2 { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.2px; }
+    .kds-title p { font-size: 11px; color: var(--text-muted); }
+
+    .kds-kpis { display: flex; gap: 14px; }
+    .kpi-badge {
+      padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+    }
+    .kpi-pending { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; }
+    .kpi-late { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; }
+    .kpi-done { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; }
+    .kds-clock { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #38bdf8; font-weight: 700; }
+
+    /* Filter Toolbar */
+    .kds-toolbar {
+      height: 48px; background: #131b2e; border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    }
+    .filter-group { display: flex; gap: 8px; }
+    .filter-btn {
+      background: transparent; border: 1px solid var(--card-border); color: #cbd5e1;
+      padding: 5px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover { background: rgba(255,255,255,0.06); }
+    .filter-btn.active { background: #ea580c; border-color: #f97316; color: #fff; font-weight: 700; }
+
+    /* Orders Board (FIFO Grid) */
+    .kds-board {
+      flex: 1; padding: 20px; overflow-y: auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+    }
+
+    /* Ticket Card */
+    .ticket-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+      display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.15s; position: relative;
+    }
+    .ticket-card:hover { transform: translateY(-3px); }
+    .ticket-card.urgent { border-color: var(--danger); }
+    .ticket-card.urgent .ticket-top { background: linear-gradient(135deg, #7f1d1d, #450a0a); }
+
+    .ticket-top {
+      background: #0f172a; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ticket-table { font-size: 15px; font-weight: 800; color: #fff; }
+    .ticket-timer {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+      padding: 2px 8px; border-radius: 4px; background: rgba(245, 158, 11, 0.2); color: #fbbf24;
+    }
+    .ticket-timer.danger { background: rgba(239, 68, 68, 0.3); color: #f87171; animation: blink 1s infinite alternate; }
+    @keyframes blink { from { opacity: 1; } to { opacity: 0.6; } }
+
+    .ticket-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .dish-name-row { display: flex; justify-content: space-between; align-items: flex-start; }
+    .dish-name { font-size: 16px; font-weight: 800; color: #f8fafc; line-height: 1.3; }
+    .dish-qty {
+      font-size: 18px; font-weight: 900; color: #ea580c; background: rgba(234, 88, 12, 0.15);
+      padding: 2px 8px; border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+    }
+    .dish-category { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .dish-note {
+      background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b;
+      padding: 6px 10px; border-radius: 0 4px 4px 0; font-size: 12px; color: #fde68a; font-style: italic; margin-top: 4px;
+    }
+
+    .ticket-foot { padding: 12px 14px; background: #0f172a; border-top: 1px solid var(--card-border); }
+    .btn-done-dish {
+      width: 100%; height: 42px; background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff; border: none; border-radius: 8px; font-size: 13.5px; font-weight: 800;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn-done-dish:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-done-dish:active { transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="kds-header">
+    <div class="kds-brand">
+      <span class="kds-logo">👨‍🍳</span>
+      <div class="kds-title">
+        <h2>HÀNG ĐỢI CHẾ BIẾN NHÀ BẾP (KDS FIFO)</h2>
+        <p>Chi Nhánh Quận 1 • Màn Hình Bếp Trưởng Điều Phối</p>
+      </div>
+    </div>
+
+    <div class="kds-kpis">
+      <div class="kpi-badge kpi-pending">🍳 Đang Chờ Nấu: <span id="lblCountPending">5 món</span></div>
+      <div class="kpi-badge kpi-late">⚠️ Chờ Quá 15p: <span id="lblCountLate">1 món</span></div>
+      <div class="kpi-badge kpi-done">✅ Đã Nấu Xong Ca: <span id="lblCountDone">28 món</span></div>
+    </div>
+
+    <div class="kds-clock" id="kdsClock">12:35:40 PM</div>
+  </header>
+
+  <!-- Toolbar Filters -->
+  <div class="kds-toolbar">
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterKitchen('all')">Tất Cả Món (5)</button>
+      <button class="filter-btn" onclick="filterKitchen('hot')">🔥 Bếp Nóng (3)</button>
+      <button class="filter-btn" onclick="filterKitchen('cold')">🥗 Bếp Lạnh / Khai Vị (1)</button>
+      <button class="filter-btn" onclick="filterKitchen('bar')">🍹 Quầy Pha Chế (1)</button>
+    </div>
+    <div style="font-size:12px; color:#94a3b8;">
+      🔄 Tự động cập nhật mỗi 5 giây • Sắp xếp theo thứ tự gọi món (FIFO)
+    </div>
+  </div>
+
+  <!-- Orders Grid -->
+  <main class="kds-board" id="kdsBoard">
+    <!-- Generated dynamically -->
+  </main>
+
+  <script>
+    const SAMPLE_KDS_ORDERS = [
+      { id: 101, table: "Bàn 02", area: "hot", category: "Món Chính", name: "Cơm Tấm Sườn Bì Chả", qty: 2, note: "Thêm chả cua đặc biệt, 1 dĩa không ớt", orderTime: "11:20", elapsedMin: 16, urgent: true },
+      { id: 102, table: "Bàn 04", area: "hot", category: "Món Chính", name: "Phở Bò Tái Nạm Cung Đình", qty: 1, note: "Không hành lá, nước trong", orderTime: "11:28", elapsedMin: 8, urgent: false },
+      { id: 103, table: "Phòng VIP 1", area: "cold", category: "Khai Vị", name: "Gỏi Cuốn Tôm Thịt Ngũ Sắc", qty: 3, note: "Làm nước mắm chua ngọt riêng", orderTime: "11:31", elapsedMin: 5, urgent: false },
+      { id: 104, table: "Bàn 02", area: "bar", category: "Đồ Uống", name: "Trà Đào Cam Sả Tươi", qty: 2, note: "Ít ngọt, đá riêng", orderTime: "11:33", elapsedMin: 3, urgent: false },
+      { id: 105, table: "Bàn 05", area: "hot", category: "Món Chính", name: "Bò Lúc Lắc Khoai Tây", qty: 1, note: "Bò chín vừa (Medium)", orderTime: "11:34", elapsedMin: 2, urgent: false }
+    ];
+
+    let currentFilter = 'all';
+
+    function renderKdsBoard() {
+      const board = document.getElementById("kdsBoard");
+      board.innerHTML = "";
+
+      const filtered = SAMPLE_KDS_ORDERS.filter(o => currentFilter === 'all' || o.area === currentFilter);
+
+      filtered.forEach(order => {
+        const card = document.createElement("div");
+        card.className = `ticket-card ${order.urgent ? 'urgent' : ''}`;
+        card.id = `ticket-${order.id}`;
+
+        card.innerHTML = `
+          <div class="ticket-top">
+            <span class="ticket-table">🪑 ${order.table}</span>
+            <span class="ticket-timer ${order.urgent ? 'danger' : ''}">
+              ⏱️ ${order.elapsedMin} phút trước (${order.orderTime})
+            </span>
+          </div>
+          <div class="ticket-body">
+            <div class="dish-category">${order.category}</div>
+            <div class="dish-name-row">
+              <div class="dish-name">${order.name}</div>
+              <div class="dish-qty">x${order.qty}</div>
+            </div>
+            ${order.note ? `<div class="dish-note">📝 ${order.note}</div>` : ''}
+          </div>
+          <div class="ticket-foot">
+            <button class="btn-done-dish" onclick="completeDish(${order.id}, '${order.name}', '${order.table}')">
+              <span>✓</span> BÁO ĐÃ NẤU XONG
+            </button>
+          </div>
+        `;
+
+        board.appendChild(card);
+      });
+    }
+
+    function completeDish(id, dishName, tableName) {
+      if (confirm(`Xác nhận đã chế biến xong [${dishName}] cho [${tableName}]?`)) {
+        const idx = SAMPLE_KDS_ORDERS.findIndex(o => o.id === id);
+        if (idx !== -1) {
+          SAMPLE_KDS_ORDERS.splice(idx, 1);
+          renderKdsBoard();
+          document.getElementById("lblCountPending").innerText = `${SAMPLE_KDS_ORDERS.length} món`;
+          alert(`Đã thông báo [${dishName}] xong lên quầy phục vụ!`);
+        }
+      }
+    }
+
+    function filterKitchen(area) {
+      currentFilter = area;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      event.currentTarget.classList.add("active");
+      renderKdsBoard();
+    }
+
+    // Digital Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("kdsClock").innerText = now.toLocaleTimeString('en-US');
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    renderKdsBoard();
+  </script>
+</body>
+</html>

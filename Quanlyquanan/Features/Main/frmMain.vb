@@ -226,14 +226,17 @@ Namespace Features.Main
 
         Private Sub btnNhaBep_Click(sender As Object, e As EventArgs) Handles btnNhaBep.Click, btnQuickNhaBep.Click
             CapNhatButtonActive(btnNhaBep)
-            MessageBox.Show(
-                "Phân hệ [Hàng Đợi Nhà Bếp & Pha Chế] (Features/NhaBep)!" & vbCrLf &
-                "- Hiển thị danh sách món cần nấu theo thứ tự thời gian thực (FIFO)." & vbCrLf &
-                "- Đầu bếp bấm xác nhận món đã nấu xong để phục vụ bưng lên bàn.",
-                "Thông Báo Phân Hệ",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            )
+            MoHangDoiNhaBepKDS()
+            CapNhatButtonActive(Nothing)
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Hàng Đợi Chế Biến Nhà Bếp KDS (frmNhaBep)
+        ''' </summary>
+        Public Sub MoHangDoiNhaBepKDS()
+            Using fKds As New Features.Kitchen.frmNhaBep()
+                fKds.ShowDialog(Me)
+            End Using
         End Sub
 
         Private Sub btnDuyetChamCong_Click(sender As Object, e As EventArgs) Handles btnDuyetChamCong.Click, btnQuickDuyetCong.Click
