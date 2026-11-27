@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup frmSoDoBan v1.0 — Điểm Bán Hàng & Sơ Đồ Bàn POS Trực Quan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #d97706;
+      --navy: #0f172a;
+      --navy-card: #1e293b;
+      --bg: #f8fafc;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --table-empty: #22c55e;
+      --table-serving: #ef4444;
+      --table-booked: #f59e0b;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    body { background: #0f172a; color: var(--text-main); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* Top Bar */
+    .top-bar {
+      height: 48px; background: #090d16; border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 16px; color: #fff;
+    }
+    .top-title { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; }
+    .top-title span { color: #fbbf24; }
+    .top-stats { display: flex; gap: 16px; font-size: 12px; }
+    .stat-badge { display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-weight: 600; }
+    .stat-empty { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+    .stat-serving { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .stat-booked { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+
+    /* Main Container (3 Panels) */
+    .pos-workspace { flex: 1; display: flex; overflow: hidden; background: #f1f5f9; }
+
+    /* Panel 1: Khu Vuc Filter (220px) */
+    .area-sidebar {
+      width: 220px; background: #ffffff; border-right: 1px solid var(--border);
+      padding: 14px 10px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .area-title { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; padding: 4px 10px; letter-spacing: 0.5px; }
+    .area-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-radius: 8px; border: none; background: transparent;
+      color: #334155; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+    }
+    .area-btn:hover { background: #f8fafc; color: #0f172a; }
+    .area-btn.active { background: #fef3c7; color: #b45309; font-weight: 700; }
+    .area-btn .count { font-size: 11px; background: #e2e8f0; padding: 2px 7px; border-radius: 10px; }
+
+    /* Panel 2: Table Grid (Center) */
+    .table-center { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; }
+    .table-toolbar {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+    }
+    .table-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px;
+    }
+    .table-card {
+      background: #ffffff; border-radius: 12px; border: 2px solid transparent;
+      padding: 14px; display: flex; flex-direction: column; cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: all 0.2s; position: relative;
+    }
+    .table-card:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+    .table-card.selected { border-color: #2563eb; background: #eff6ff; }
+    
+    .table-status-bar {
+      height: 4px; border-radius: 2px; width: 100%; margin-bottom: 10px;
+    }
+    .status-empty { background: var(--table-empty); }
+    .status-serving { background: var(--table-serving); }
+    .status-booked { background: var(--table-booked); }
+
+    .table-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .table-name { font-size: 14px; font-weight: 800; color: #0f172a; }
+    .table-capacity { font-size: 11px; color: #64748b; font-weight: 600; }
+    .table-info-row { font-size: 11.5px; color: #475569; margin-top: 4px; display: flex; justify-content: space-between; }
+    .table-amount { font-size: 13px; font-weight: 800; color: #b45309; margin-top: 8px; text-align: right; }
+
+    /* Panel 3: Order & Bill Details (380px) */
+    .bill-panel {
+      width: 400px; background: #ffffff; border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .bill-header {
+      padding: 14px 16px; background: #0f172a; color: #fff; display: flex;
+      justify-content: space-between; align-items: center;
+    }
+    .bill-title h3 { font-size: 14px; font-weight: 800; color: #f8fafc; }
+    .bill-title p { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+    
+    /* Bill Items List */
+    .bill-items-area { flex: 1; overflow-y: auto; padding: 12px; }
+    .bill-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 12.5px;
+    }
+    .item-left h5 { font-size: 13px; font-weight: 700; color: #0f172a; }
+    .item-left p { font-size: 11px; color: #64748b; }
+    .item-right { text-align: right; }
+    .item-price { font-weight: 700; color: #0f172a; }
+    .item-status { font-size: 10.5px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    .status-wait { background: #fef3c7; color: #b45309; }
+    .status-done { background: #dcfce7; color: #166534; }
+
+    /* Bill Summary & Actions */
+    .bill-footer {
+      padding: 14px 16px; background: #f8fafc; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .summary-row { display: flex; justify-content: space-between; font-size: 13px; color: #475569; }
+    .summary-row.total { font-size: 16px; font-weight: 800; color: #0f172a; border-top: 1px solid var(--border); padding-top: 8px; }
+    .total-price { color: #dc2626; font-size: 18px; }
+
+    .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .btn-pos {
+      height: 38px; border-radius: 8px; border: 1px solid var(--border); background: #ffffff;
+      color: #334155; font-size: 12px; font-weight: 700; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; gap: 6px; transition: all 0.15s;
+    }
+    .btn-pos:hover { background: #f1f5f9; }
+    .btn-pos.primary { background: #2563eb; color: #fff; border-color: #1d4ed8; }
+    .btn-pos.primary:hover { background: #1d4ed8; }
+    .btn-pos.success { background: #16a34a; color: #fff; border-color: #15803d; grid-column: span 2; height: 42px; font-size: 13px; }
+    .btn-pos.success:hover { background: #15803d; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="top-title">
+      <span>⚡ ĐIỂM BÁN HÀNG &amp; SƠ ĐỒ BÀN (POS)</span>
+      <span style="color:#94a3b8; font-weight:normal;">| Cơ sở: Chi Nhánh Quận 1</span>
+    </div>
+    <div class="top-stats">
+      <div class="stat-badge stat-empty">🟢 Bàn Trống: 18</div>
+      <div class="stat-badge stat-serving">🔴 Đang Phục Vụ: 4</div>
+      <div class="stat-badge stat-booked">🟡 Đã Đặt Trước: 2</div>
+    </div>
+  </header>
+
+  <!-- Workspace -->
+  <main class="pos-workspace">
+    <!-- Area Sidebar -->
+    <aside class="area-sidebar">
+      <div class="area-title">Khu Vực Phục Vụ</div>
+      <button class="area-btn active" onclick="filterArea('all')">
+        <span>Tất Cả Các Bàn</span> <span class="count">24</span>
+      </button>
+      <button class="area-btn" onclick="filterArea('KV01')">
+        <span>Sảnh Chính Tầng 1</span> <span class="count">10</span>
+      </button>
+      <button class="area-btn" onclick="filterArea('KV02')">
+        <span>Sân Vườn Tầng 2</span> <span class="count">8</span>
+      </button>
+      <button class="area-btn" onclick="filterArea('KV03')">
+        <span>Phòng VIP Máy Lạnh</span> <span class="count">6</span>
+      </button>
+    </aside>
+
+    <!-- Table Center -->
+    <section class="table-center">
+      <div class="table-toolbar">
+        <h4 style="font-size:14px; font-weight:800; color:#0f172a;">Sơ Đồ Phục Vụ Trực Quan</h4>
+        <span style="font-size:12px; color:#64748b;">Chọn 1 bàn để mở bàn, gọi món hoặc thanh toán</span>
+      </div>
+
+      <div class="table-grid" id="posTableGrid">
+        <!-- Tables generated dynamically -->
+      </div>
+    </section>
+
+    <!-- Bill Details Panel -->
+    <aside class="bill-panel">
+      <div class="bill-header">
+        <div class="bill-title">
+          <h3 id="lblSelectedTableName">Bàn 02 (Sảnh Tầng 1)</h3>
+          <p id="lblSelectedTableInfo">Hóa đơn: #HD102 • Khách: 3 người • Vào lúc: 11:30</p>
+        </div>
+      </div>
+
+      <div class="bill-items-area" id="billItemsList">
+        <!-- Bill items -->
+      </div>
+
+      <div class="bill-footer">
+        <div class="summary-row">
+          <span>Tiền món ẩm thực:</span>
+          <span id="lblFoodSubtotal" style="font-weight:600;">200,000 đ</span>
+        </div>
+        <div class="summary-row">
+          <span>Phụ thu khu vực:</span>
+          <span id="lblSurcharge">0 đ</span>
+        </div>
+        <div class="summary-row total">
+          <span>TỔNG THANH TOÁN:</span>
+          <span class="total-price" id="lblGrandTotal">200,000 đ</span>
+        </div>
+
+        <div class="action-grid">
+          <button class="btn-pos primary" onclick="alert('Đang mở quầy thực đơn để gọi thêm món...')">➕ Thêm Món</button>
+          <button class="btn-pos" onclick="alert('Chức năng Chuyển bàn: Chọn bàn trống đích...')">🔁 Chuyển Bàn</button>
+          <button class="btn-pos" onclick="alert('Chức năng Gộp bàn: Chọn bàn cùng thanh toán...')">🔗 Gộp Bàn</button>
+          <button class="btn-pos" onclick="alert('Đang xuất hóa đơn xem trước...')">🖨️ In Hóa Đơn</button>
+          <button class="btn-pos success" onclick="alert('Xác nhận thanh toán 200,000 đ và đóng bàn thành công!')">💳 Thanh Toán &amp; Trả Bàn</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const SAMPLE_TABLES = [
+      { id: "B101", name: "Bàn 01", area: "KV01", capacity: 4, status: 0, guest: 0, time: "", total: 0 },
+      { id: "B102", name: "Bàn 02", area: "KV01", capacity: 4, status: 1, guest: 3, time: "11:30", total: 200000 },
+      { id: "B103", name: "Bàn 03", area: "KV01", capacity: 6, status: 0, guest: 0, time: "", total: 0 },
+      { id: "B104", name: "Bàn 04", area: "KV01", capacity: 4, status: 1, guest: 2, time: "11:45", total: 110000 },
+      { id: "B105", name: "Bàn 05", area: "KV01", capacity: 4, status: 0, guest: 0, time: "", total: 0 },
+      { id: "B201", name: "Phòng VIP 1", area: "KV03", capacity: 10, status: 2, guest: 8, time: "19:00", total: 0 },
+      { id: "B202", name: "Phòng VIP 2", area: "KV03", capacity: 12, status: 0, guest: 0, time: "", total: 0 },
+      { id: "B301", name: "Sân Vườn 01", area: "KV02", capacity: 4, status: 1, guest: 4, time: "12:00", total: 320000 },
+      { id: "B302", name: "Sân Vườn 02", area: "KV02", capacity: 6, status: 0, guest: 0, time: "", total: 0 }
+    ];
+
+    const SAMPLE_BILL_ITEMS = [
+      { name: "Phở Bò Tái Nạm Cung Đình", qty: 2, price: 65000, note: "Không hành lá", status: "Đã nấu xong" },
+      { name: "Cơm Tấm Sườn Bì Chả", qty: 1, price: 55000, note: "Thêm chả cua", status: "Chờ bếp làm" },
+      { name: "Trà Đào Cam Sả Tươi", qty: 1, price: 35000, note: "Ít đường", status: "Đã nấu xong" }
+    ];
+
+    function renderTables(areaFilter = 'all') {
+      const container = document.getElementById("posTableGrid");
+      container.innerHTML = "";
+
+      SAMPLE_TABLES.forEach((t, idx) => {
+        if (areaFilter !== 'all' && t.area !== areaFilter) return;
+
+        const card = document.createElement("div");
+        card.className = `table-card ${t.id === 'B102' ? 'selected' : ''}`;
+        
+        let statusClass = "status-empty";
+        let statusText = "🟢 Bàn Trống";
+        if (t.status === 1) { statusClass = "status-serving"; statusText = "🔴 Đang Phục Vụ"; }
+        else if (t.status === 2) { statusClass = "status-booked"; statusText = "🟡 Đã Đặt Trước"; }
+
+        card.innerHTML = `
+          <div class="table-status-bar ${statusClass}"></div>
+          <div class="table-card-top">
+            <span class="table-name">${t.name}</span>
+            <span class="table-capacity">${t.capacity} chỗ</span>
+          </div>
+          <div class="table-info-row">
+            <span>Trạng thái:</span>
+            <span style="font-weight:700;">${statusText}</span>
+          </div>
+          ${t.status === 1 ? `
+            <div class="table-info-row">
+              <span>Khách: ${t.guest} người</span>
+              <span>Vào: ${t.time}</span>
+            </div>
+            <div class="table-amount">${t.total.toLocaleString('vi-VN')} đ</div>
+          ` : `
+            <div class="table-info-row" style="margin-top:20px; color:#94a3b8;">
+              <span>Sẵn sàng đón khách</span>
+            </div>
+          `}
+        `;
+
+        card.onclick = () => {
+          document.querySelectorAll(".table-card").forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          selectTable(t);
+        };
+
+        container.appendChild(card);
+      });
+    }
+
+    function selectTable(table) {
+      document.getElementById("lblSelectedTableName").innerText = `${table.name}`;
+      if (table.status === 1) {
+        document.getElementById("lblSelectedTableInfo").innerText = `Hóa đơn: #HD102 • Khách: ${table.guest} người • Vào lúc: ${table.time}`;
+        renderBillItems();
+      } else {
+        document.getElementById("lblSelectedTableInfo").innerText = `Bàn trống • Sức chứa tối đa: ${table.capacity} người`;
+        document.getElementById("billItemsList").innerHTML = `
+          <div style="padding: 40px 20px; text-align: center; color: #94a3b8; font-size: 13px;">
+            Bàn đang trống.<br>Nhấn <b>"Mở Bàn Mới"</b> để tiếp nhận khách.
+          </div>
+        `;
+      }
+    }
+
+    function renderBillItems() {
+      const container = document.getElementById("billItemsList");
+      let html = "";
+      SAMPLE_BILL_ITEMS.forEach(item => {
+        html += `
+          <div class="bill-item">
+            <div class="item-left">
+              <h5>${item.name}</h5>
+              <p>${item.qty} x ${item.price.toLocaleString('vi-VN')} đ • ${item.note}</p>
+            </div>
+            <div class="item-right">
+              <div class="item-price">${(item.qty * item.price).toLocaleString('vi-VN')} đ</div>
+              <span class="item-status ${item.status === 'Đã nấu xong' ? 'status-done' : 'status-wait'}">${item.status}</span>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function filterArea(area) {
+      document.querySelectorAll(".area-btn").forEach(b => b.classList.remove("active"));
+      event.currentTarget.classList.add("active");
+      renderTables(area);
+    }
+
+    renderTables();
+    renderBillItems();
+  </script>
+</body>
+</html>

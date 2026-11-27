@@ -193,10 +193,17 @@ Namespace Features.Main
 
         Private Sub btnSoDoBan_Click(sender As Object, e As EventArgs) Handles btnSoDoBan.Click, btnQuickDatBan.Click, btnQuickOpenSoDoBan.Click
             CapNhatButtonActive(btnSoDoBan)
-            Using fBan As New Features.Table.frmBan()
-                fBan.ShowDialog(Me)
-            End Using
+            MoSoDoBanPOS()
             CapNhatButtonActive(Nothing)
+        End Sub
+
+        ''' <summary>
+        ''' Mở trực tiếp màn hình Điểm Bán Hàng & Sơ Đồ Bàn POS (frmSoDoBan)
+        ''' </summary>
+        Public Sub MoSoDoBanPOS()
+            Using fPOS As New Features.POS.frmSoDoBan()
+                fPOS.ShowDialog(Me)
+            End Using
         End Sub
 
         ''' <summary>

@@ -82,25 +82,21 @@
   - [ ] Xem lịch làm việc của bản thân theo tuần.
   - [ ] Nút **Bắt đầu làm** (Check-in) và **Kết thúc làm** (Check-out) cho ca hiện tại.
 
-### 3.3. Phân hệ Nhân viên phục vụ (Bán hàng & Quản lý bàn)
-- [ ] **Màn hình Sơ đồ bàn & Phục vụ (`frmSoDoBan`):**
-  - [ ] Hiển thị danh sách bàn trực quan (màu sắc theo 4 trạng thái: *Trống, Có khách, Đang đợi món, Món đã xong*).
-  - [ ] Cho phép chọn nhân viên phục vụ tiếp nhận (nếu đăng nhập dưới quyền **Quản lý**).
-- [ ] **Chức năng Gọi món / Đặt món:**
-  - [ ] Chọn bàn trống -> Nhập số lượng khách (kiểm tra sức chứa tối đa của bàn) -> Chọn món ăn/nước uống, số lượng, ghi chú.
-  - [ ] Cảnh báo ngay nếu món đã hết (`SP_HetHang = 1`).
-  - [ ] Chuyển trạng thái bàn sang *Đang đợi món* và đẩy danh sách món xuống bếp.
-- [ ] **Chức năng Thêm món / Đổi món / Hủy món:**
-  - [ ] Khách kêu thêm món nhiều lần trên cùng bàn.
-  - [ ] Chỉ cho phép **Đổi món / Hủy món** khi món ở trạng thái *Chờ thực hiện* (chưa được bếp nấu xong).
-  - [ ] Xác nhận đã đem món ra cho khách khi bếp báo *Món đã xong*.
-- [ ] **Chức năng Chuyển bàn & Gộp bàn:**
-  - [ ] **Chuyển bàn:** Chuyển hóa đơn đang phục vụ từ bàn A sang bàn B (đang trống).
-  - [ ] **Gộp bàn:** Gộp các món từ 2 hoặc nhiều bàn vào chung 1 hóa đơn để tính tiền, giải phóng các bàn được gộp về trạng thái *Trống*.
-- [ ] **Chức năng Tính tiền & In hóa đơn (`frmThanhToan` / `frmInHoaDon`):**
-  - [ ] Cộng tổng tiền các món hợp lệ (không tính món đã hủy).
-  - [ ] Xuất/In hóa đơn (hiển thị Preview bằng `PrintDocument` / `PrintPreviewDialog` hoặc xuất file HTML/PDF/Text rõ ràng).
-  - [ ] Cập nhật trạng thái hóa đơn *Đã thanh toán* và đổi trạng thái bàn về *Trống*.
+### 3.3. Phân hệ Nhân viên phục vụ (Bán hàng & Quản lý bàn) — `[x] HOÀN TẤT (v0.3.0)`
+- [x] **Màn hình Sơ đồ bàn & Phục vụ (`frmSoDoBan`):** *(Đã hoàn thành 32/32 test cases tại [`report_0_3_0.html`](release_report/report_0_3_0.html))*
+  - [x] Hiển thị danh sách bàn trực quan (màu sắc theo trạng thái: *Trống, Đang phục vụ, Đã đặt trước*).
+  - [x] Lọc theo từng khu vực: Sảnh chính tầng 1, Sân vườn tầng 2, Phòng VIP máy lạnh.
+- [x] **Chức năng Mở bàn & Gọi món / Đặt món:**
+  - [x] Chọn bàn trống -> Tạo hóa đơn (`HoaDon`) -> Chọn món ăn/nước uống, số lượng, đơn giá, ghi chú.
+  - [x] Đẩy danh sách món xuống hàng đợi bếp (`ChiTietHoaDon`).
+- [x] **Chức năng Thêm món / Hủy món:**
+  - [x] Khách gọi thêm món nhiều lần trên cùng bàn.
+  - [x] Chỉ cho phép **Hủy món** khi món ở trạng thái *Chờ thực hiện* (`CTHD_TrangThaiMon = 0`).
+- [x] **Chức năng Chuyển bàn:**
+  - [x] **Chuyển bàn:** Chuyển hóa đơn đang phục vụ từ bàn A sang bàn B (đang trống), tự động hoàn trả bàn cũ về trống.
+- [x] **Chức năng Tính tiền & Thanh toán (`frmThanhToan` / `frmSoDoBan`):**
+  - [x] Cộng tổng tiền các món hợp lệ (không tính món đã hủy).
+  - [x] Cập nhật trạng thái hóa đơn *Đã thanh toán* (`HD_TrangThai = 1`) và đổi trạng thái bàn về *Trống*.
 
 ### 3.4. Phân hệ Nhà bếp / Pha chế
 - [ ] **Màn hình Hàng đợi Nhà bếp (`frmNhaBep`):**

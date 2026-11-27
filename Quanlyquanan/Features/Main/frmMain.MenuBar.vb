@@ -72,7 +72,7 @@ Namespace Features.Main
 
         Private Sub TaoMenuNghiepVuVaBaoCao()
             mnuBanHang = New ToolStripMenuItem("🍽️ &Bán Hàng POS")
-            mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("🪑 Sơ Đồ Bàn / Đặt Món", Nothing, Sub() MoQuanLyBan(), Keys.F2))
+            mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("🪑 Điểm Bán Hàng & Sơ Đồ Bàn POS", Nothing, Sub() MoSoDoBanPOS(), Keys.F2))
             mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("🍳 Hàng Đợi Nhà Bếp (FIFO)", Nothing, Sub() btnNhaBep.PerformClick(), Keys.F3))
             msMainMenu.Items.Add(mnuBanHang)
 
