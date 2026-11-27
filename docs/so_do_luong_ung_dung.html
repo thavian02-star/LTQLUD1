@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sơ Đồ Luồng Hoạt Động Hệ Thống — Phúc Lộc Thọ F&B Management</title>
+  <!-- Mermaid.js CDN for interactive diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0f172a',
+        primaryColor: '#1e293b',
+        primaryBorderColor: '#38bdf8',
+        primaryTextColor: '#f8fafc',
+        lineColor: '#64748b',
+        secondaryColor: '#334155',
+        tertiaryColor: '#1e293b'
+      }
+    });
+  </script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --amber: #fbbf24;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; line-height: 1.6; }
+    .container { max-width: 1380px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 20px 28px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .header-icon { font-size: 36px; }
+    .header-title h1 { font-size: 22px; font-weight: 800; color: #38bdf8; letter-spacing: 0.5px; }
+    .header-title p { font-size: 13px; color: var(--text-muted); }
+    .header-actions { display: flex; gap: 10px; }
+
+    .btn {
+      padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.2s; text-decoration: none;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+
+    /* Tabs */
+    .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-item {
+      background: var(--card); border: 1px solid var(--card-border);
+      color: var(--text-muted); padding: 10px 18px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
+    }
+    .tab-item:hover { background: #334155; color: #fff; }
+    .tab-item.active { background: #2563eb; color: #fff; border-color: #3b82f6; box-shadow: 0 2px 8px rgba(37,99,235,0.4); }
+
+    /* Content Cards */
+    .view-card {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 24px; margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .view-header {
+      margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--card-border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .view-header h2 { font-size: 16px; font-weight: 800; color: #fbbf24; }
+    .view-desc { font-size: 13px; color: var(--text-muted); }
+
+    /* Diagram wrapper */
+    .diagram-box {
+      background: #0f172a; border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 24px; overflow-x: auto;
+      display: flex; justify-content: center;
+    }
+
+    /* Sitemap Grid */
+    .sitemap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .sitemap-card {
+      background: #0f172a; border: 1px solid var(--card-border);
+      border-radius: 8px; padding: 14px 18px;
+    }
+    .sitemap-card h3 { font-size: 13px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; }
+    .sitemap-card ul { list-style: none; font-size: 12px; }
+    .sitemap-card li { padding: 4px 0; color: #cbd5e1; display: flex; align-items: center; gap: 6px; }
+    .sitemap-card li::before { content: '•'; color: #22c55e; font-weight: bold; }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .header, .tab-bar { display: none; }
+      .view-card { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-icon">🗺️</div>
+        <div class="header-title">
+          <h1>SƠ ĐỒ LUỒNG HOẠT ĐỘNG HỆ THỐNG (APPLICATION FLOWCHARTS)</h1>
+          <p>Hệ Thống Quản Lý Chuỗi Nhà Hàng &amp; Quán Ăn Phúc Lộc Thọ • Visual Basic .NET 10.0 + SQL Server</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-secondary" href="demo_system.html" target="_blank">🖥️ Demo Hub</a>
+        <a class="btn btn-secondary" href="mockup_ui_ux_v2.html" target="_blank">🌟 UI/UX v2.0</a>
+        <a class="btn btn-secondary" href="SO_DO_LUONG_UNG_DUNG.md" target="_blank">📄 Markdown Docs</a>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ In / Xuất PDF</button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-bar">
+      <button class="tab-item active" onclick="chuyenTab(1)">🌐 1. Luồng Tổng Thể Toàn Hệ Thống</button>
+      <button class="tab-item" onclick="chuyenTab(2)">🍽️ 2. Chu Trình Bán Hàng, Bếp KDS &amp; Thanh Toán</button>
+      <button class="tab-item" onclick="chuyenTab(3)">⏱️ 3. Chu Trình Nhân Sự, Chấm Công &amp; Tính Lương</button>
+      <button class="tab-item" onclick="chuyenTab(4)">🏛️ 4. Kiến Trúc 3 Lớp &amp; Luân Chuyển Dữ Liệu</button>
+      <button class="tab-item" onclick="chuyenTab(5)">📋 5. Bản Đồ 19 Màn Hình Ứng Dụng</button>
+    </div>
+
+    <!-- TAB 1: Master System Flow -->
+    <section class="view-card" id="tabContent1">
+      <div class="view-header">
+        <div>
+          <h2>1. SƠ ĐỒ LUỒNG TỔNG THỂ TOÀN HỆ THỐNG (MASTER SYSTEM FLOW)</h2>
+          <p class="view-desc">Luồng điều hướng từ lúc mở ứng dụng, xác thực phân quyền (RBAC) đến khi điều phối các phân hệ.</p>
+        </div>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+flowchart TD
+    Start(["Khởi động ứng dụng"]) --> Login["Màn hình Đăng Nhập (frmDangNhap)"]
+    Login --> AuthCheck{"Xác thực tài khoản & Vai trò"}
+
+    AuthCheck -- "Sai thông tin" --> Login
+    AuthCheck -- "Thành công" --> SessionInit["Khởi tạo Session & Nạp quyền (Q_Tag)"]
+    SessionInit --> MainHub["Trung tâm Điều Hành Launchpad 3x3 (frmMain)"]
+
+    MainHub --> NavPOS["🍽️ Điểm Bán Hàng & POS (frmSoDoBan)"]
+    MainHub --> NavKDS["🍳 Hàng Đợi Bếp KDS (frmNhaBep)"]
+    MainHub --> NavStaff["⏱️ Nhân Sự & Ca Trực"]
+    MainHub --> NavMaster["📋 Danh Mục Master (9/9)"]
+    MainHub --> NavReport["📊 Báo Cáo Doanh Thu (frmBaoCao)"]
+    MainHub --> NavSecurity["🛡️ Phân Quyền Động (frmPhanQuyen)"]
+
+    subgraph StaffGroup ["Phân Hệ Nhân Sự & Lịch Làm"]
+        NavStaff --> StaffCheckIn["Chấm Công Cá Nhân (frmChamCongCaNhan)"]
+        NavStaff --> StaffApproval["Quản Lý Duyệt Công (frmDuyetChamCong)"]
+        NavStaff --> StaffRoster["Xếp Lịch Tuần (frmQuanLyLichLamViec)"]
+    end
+
+    subgraph MasterGroup ["9 Màn Hình Danh Mục Master"]
+        NavMaster --> M1["Món Ăn & Phân Loại (frmMonAn, frmDanhMuc)"]
+        NavMaster --> M2["Bàn Ăn & Khu Vực (frmBan, frmKhuVuc)"]
+        NavMaster --> M3["Ca Làm Việc & Lương (frmCaLamViec)"]
+        NavMaster --> M4["Hồ Sơ Nhân Sự (frmNhanVien)"]
+        NavMaster --> M5["Thực Đơn & Chi Nhánh (frmMenu, frmChiNhanh, frmMenuChiNhanh)"]
+    end
+        </pre>
+      </div>
+    </section>
+
+    <!-- TAB 2: POS Order to Pay Flow -->
+    <section class="view-card" id="tabContent2" style="display: none;">
+      <div class="view-header">
+        <div>
+          <h2>2. SƠ ĐỒ CHU TRÌNH VẬN HÀNH BÁN HÀNG, BẾP KDS &amp; THANH TOÁN (ORDER-TO-PAY)</h2>
+          <p class="view-desc">Quy trình nghiệp vụ thực tế tại cơ sở: Mở bàn &rarr; Gọi món &rarr; Hàng đợi KDS &rarr; Chế biến &rarr; Thanh toán.</p>
+        </div>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+flowchart TD
+    KhachDen["Khách đến nhà hàng"] --> ChonBan["Phục vụ chọn bàn trên Sơ đồ (frmSoDoBan)"]
+    ChonBan --> MoBan["Mở bàn & Tạo Hóa đơn mới (HoaDon)"]
+    MoBan --> GoiMon["Chọn món ăn, thức uống, số lượng & ghi chú"]
+    GoiMon --> GuiLenh["Bấm 'Gửi Bếp Chế Biến'"]
+
+    GuiLenh --> KDSQueue["Đẩy vào Hàng đợi KDS (CTHD_TrangThaiMon = 0)"]
+    KDSQueue --> HienThiKDS["Màn hình Bếp KDS hiển thị thứ tự FIFO (frmNhaBep)"]
+    HienThiKDS --> CheBien["Đầu bếp chế biến theo thứ tự"]
+    CheBien --> BaoXong["Bếp bấm 'Báo Đã Nấu Xong' (CTHD_TrangThaiMon = 1)"]
+    BaoXong --> PhucVuMon["Đồng bộ trạng thái -> Phục vụ mang món ra bàn"]
+
+    PhucVuMon --> KhachDungBua{"Khách đang dùng bữa"}
+    KhachDungBua -- "Gọi thêm món" --> GoiMon
+    KhachDungBua -- "Chuyển bàn" --> ChuyenBan["Chuyển bàn sang bàn trống (Cập nhật HD_MaBan)"]
+    ChuyenBan --> KhachDungBua
+
+    KhachDungBua -- "Yêu cầu thanh toán" --> TinhTien["Bấm 'Thanh Toán' trên frmSoDoBan"]
+    TinhTien --> InHoaDon["Cộng tổng tiền món hợp lệ -> Xuất phiếu thanh toán"]
+    InHoaDon --> KetThucDon["Cập nhật HD_TrangThai = 1, Đổi bàn về 'Trống'"]
+    KetThucDon --> DoanhThu["Hóa đơn tự động cập nhật vào Báo Cáo Doanh Thu (frmBaoCao)"]
+        </pre>
+      </div>
+    </section>
+
+    <!-- TAB 3: Staff Lifecycle -->
+    <section class="view-card" id="tabContent3" style="display: none;">
+      <div class="view-header">
+        <div>
+          <h2>3. SƠ ĐỒ CHU TRÌNH QUẢN TRỊ NHÂN SỰ, CHẤM CÔNG &amp; TÍNH LƯƠNG</h2>
+          <p class="view-desc">Quy trình khép kín: Xếp lịch tuần &rarr; Điểm danh 1-Click &rarr; Quản lý duyệt công &rarr; Chốt bảng lương.</p>
+        </div>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+flowchart LR
+    Step1["1. Xếp Lịch Tuần<br><b>(frmQuanLyLichLamViec)</b><br>Quản lý phân ca 7 ngày"] --> Step2["2. Điểm Danh Vào Ca<br><b>(frmChamCongCaNhan)</b><br>Check-in 1-Click"]
+    Step2 --> Step3["3. Làm Việc & Hết Ca<br><b>(frmChamCongCaNhan)</b><br>Check-out ghi nhận giờ"]
+    Step3 --> Step4["4. Duyệt Chấm Công<br><b>(frmDuyetChamCong)</b><br>Quản lý duyệt hàng loạt [F6]"]
+    Step4 --> Step5["5. Báo Cáo & Tính Lương<br><b>(frmBaoCao Tab 3)</b><br>Tổng hợp công & quỹ lương"]
+        </pre>
+      </div>
+    </section>
+
+    <!-- TAB 4: 3-Tier Architecture -->
+    <section class="view-card" id="tabContent4" style="display: none;">
+      <div class="view-header">
+        <div>
+          <h2>4. SƠ ĐỒ KIẾN TRÚC 3 LỚP &amp; LUÂN CHUYỂN DỮ LIỆU (3-TIER ARCHITECTURE)</h2>
+          <p class="view-desc">Phân tách trách nhiệm tuyệt đối giữa Giao diện (GUI), Nghiệp vụ (BUS), Truy cập dữ liệu (DAO) và CSDL (MSSQL).</p>
+        </div>
+      </div>
+      <div class="diagram-box">
+        <pre class="mermaid">
+flowchart TD
+    subgraph PresentationLayer ["1. Tầng Giao Diện (Presentation Layer - WinForms)"]
+        UI1["19 Màn Hình Giao Diện: frmMain, frmSoDoBan, frmNhaBep, frmBaoCao..."]
+    end
+
+    subgraph BusinessLayer ["2. Tầng Nghiệp Vụ (Business Logic Layer - BUS)"]
+        BUS1["HoaDonBUS, NhaBepBUS, ChamCongBUS, LichLamViecBUS, BaoCaoBUS..."]
+        BUS2["Xử lý kiểm tra ràng buộc, tính toán doanh thu, fallback offline mock"]
+    end
+
+    subgraph DataAccessLayer ["3. Tầng Truy Cập Dữ Liệu (Data Access Layer - DAO)"]
+        DAO1["HoaDonDAO, ChiTietHoaDonDAO, ChamCongDAO, BaoCaoDAO..."]
+        DAO2["KetNoiCSDL.vb (SqlConnection, ExecuteQuery, ExecuteNonQuery)"]
+    end
+
+    subgraph DataTransferLayer ["Tầng Thực Thể Vận Chuyển (DTO)"]
+        DTO["HoaDonDTO, ChiTietHoaDonDTO, ChamCongDTO, BaoCaoDoanhThuDTO..."]
+    end
+
+    subgraph DatabaseLayer ["4. Cơ Sở Dữ Liệu (Database - SQL Server)"]
+        DB[("Hệ Quản Trị CSDL SQL Server (15 Bảng Quan Hệ)")]
+    end
+
+    UI1 --> BUS1
+    BUS1 --> DAO1
+    DAO1 --> DB
+    DTO -. "Vận chuyển xuyên suốt" .-> UI1
+    DTO -. "Vận chuyển xuyên suốt" .-> BUS1
+    DTO -. "Vận chuyển xuyên suốt" .-> DAO1
+        </pre>
+      </div>
+    </section>
+
+    <!-- TAB 5: 19 Screens Sitemap -->
+    <section class="view-card" id="tabContent5" style="display: none;">
+      <div class="view-header">
+        <div>
+          <h2>5. BẢN ĐỒ 19 MÀN HÌNH HOÀN THIỆN TRONG HỆ THỐNG</h2>
+          <p class="view-desc">Toàn bộ 19 màn hình đã được xây dựng, kiểm thử 100% PASS và tích hợp trên giải pháp WinForms .NET 10.0.</p>
+        </div>
+      </div>
+      <div class="sitemap-grid">
+        <div class="sitemap-card">
+          <h3>🔐 I. HỆ THỐNG &amp; XÁC THỰC</h3>
+          <ul>
+            <li>frmDangNhap — Đăng nhập &amp; RBAC</li>
+            <li>frmMain — Điều hành Launchpad 3x3</li>
+            <li>frmDoiMatKhau — Đổi mật khẩu MD5</li>
+          </ul>
+        </div>
+        <div class="sitemap-card">
+          <h3>📋 II. DANH MỤC NỀN TẢNG (9/9)</h3>
+          <ul>
+            <li>frmDanhMuc — Phân loại món ăn</li>
+            <li>frmMonAn — Món ăn &amp; Đồ uống</li>
+            <li>frmCaLamViec — Ca làm việc &amp; Lương</li>
+            <li>frmKhuVuc — Khu vực phòng bàn</li>
+            <li>frmBan — Tổ chức sơ đồ bàn ghế</li>
+            <li>frmNhanVien — Nhân sự, vi tính, đồ nghề</li>
+            <li>frmMenu — Bảng thực đơn Master</li>
+            <li>frmChiNhanh — Chuỗi chi nhánh cơ sở</li>
+            <li>frmMenuChiNhanh — Thực đơn chi nhánh</li>
+          </ul>
+        </div>
+        <div class="sitemap-card">
+          <h3>🍽️ III. VẬN HÀNH POS &amp; BẾP KDS</h3>
+          <ul>
+            <li>frmSoDoBan — Điểm bán hàng POS</li>
+            <li>frmNhaBep — Hàng đợi bếp KDS (FIFO)</li>
+          </ul>
+        </div>
+        <div class="sitemap-card">
+          <h3>⏱️ IV. NHÂN SỰ &amp; CHẤM CÔNG</h3>
+          <ul>
+            <li>frmChamCongCaNhan — Điểm danh 1-Click</li>
+            <li>frmDuyetChamCong — Duyệt công &amp; Lương ca</li>
+            <li>frmQuanLyLichLamViec — Xếp lịch tuần</li>
+          </ul>
+        </div>
+        <div class="sitemap-card">
+          <h3>📊 V. BÁO CÁO &amp; QUẢN TRỊ</h3>
+          <ul>
+            <li>frmBaoCao — Doanh thu &amp; Thống kê</li>
+            <li>frmPhanQuyen — Quản lý vai trò &amp; Quyền</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function chuyenTab(tabIndex) {
+      document.querySelectorAll(".tab-item").forEach((btn, idx) => {
+        btn.classList.toggle("active", idx + 1 === tabIndex);
+      });
+      for (let i = 1; i <= 5; i++) {
+        const el = document.getElementById("tabContent" + i);
+        if (el) el.style.display = (i === tabIndex) ? "block" : "none";
+      }
+      // Re-trigger mermaid rendering if any diagram wasn't rendered due to display:none
+      if (window.mermaid) {
+        try {
+          mermaid.run();
+        } catch (e) {
+          console.warn("Mermaid re-render:", e);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
