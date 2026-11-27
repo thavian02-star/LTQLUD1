@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F&B Restaurant Management System — UI/UX Interactive Showcase v2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #d97706; /* Amber-600 F&B Warm Primary */
+      --primary-dark: #b45309;
+      --primary-light: #fef3c7;
+      --accent: #2563eb; /* Navy / Blue Accent */
+      --navy: #0f172a;
+      --navy-card: #1e293b;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #f59e0b;
+      --radius: 12px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    body { background: #0f172a; color: var(--text-main); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* Top Showcase Bar */
+    .showcase-header {
+      background: #090d16;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 52px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      z-index: 100;
+    }
+    .showcase-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .showcase-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+    }
+    .showcase-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+    .showcase-title span {
+      color: #fbbf24;
+      font-weight: 800;
+    }
+    .showcase-tag {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      color: #cbd5e1;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Role Quick Bar */
+    .role-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      padding: 4px 6px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .role-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin: 0 6px 0 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .role-chip {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .role-chip:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .role-chip.active {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0f172a;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+    }
+
+    /* View Switcher */
+    .view-toggles {
+      display: flex;
+      gap: 8px;
+    }
+    .view-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .view-btn:hover { background: rgba(255,255,255,0.16); }
+    .view-btn.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Main Window Simulation Workspace */
+    .viewport {
+      flex: 1;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Simulated WinForms Application Window */
+    .winforms-window {
+      width: 100%;
+      max-width: 1320px;
+      height: 94%;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Window Title Bar */
+    .window-titlebar {
+      height: 38px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1e293b;
+      user-select: none;
+    }
+    .window-caption {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    .window-caption-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+    }
+    .window-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .win-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .win-close { background: #ef4444; }
+    .win-min { background: #f59e0b; }
+    .win-max { background: #10b981; }
+
+    /* Window Canvas */
+    .window-canvas {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f8fafc;
+      position: relative;
+    }
+
+    /* ============================================================== */
+    /* SCREEN 1: LOGIN (frmDangNhap v1.2) */
+    /* ============================================================== */
+    .screen-login {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .screen-login.active { display: flex; }
+
+    .login-container {
+      width: 900px;
+      height: 540px;
+      background: #ffffff;
+      border-radius: 16px;
+      display: flex;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .login-hero {
+      width: 45%;
+      background: linear-gradient(135deg, #d97706 0%, #b45309 60%, #78350f 100%);
+      color: #ffffff;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-hero::after {
+      content: '🍽️';
+      position: absolute;
+      font-size: 200px;
+      opacity: 0.08;
+      right: -40px;
+      bottom: -40px;
+      transform: rotate(-15deg);
+    }
+    .hero-top h3 { font-size: 24px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .hero-top p { font-size: 13px; color: #fef3c7; line-height: 1.5; }
+    .hero-features { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 30px; }
+    .hero-features li { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; }
+    .hero-features li .ico {
+      width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 12px;
+    }
+    .hero-foot { font-size: 11px; color: #fde68a; font-family: 'JetBrains Mono', monospace; }
+
+    .login-form-area {
+      flex: 1;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #ffffff;
+    }
+    .form-header { margin-bottom: 24px; }
+    .form-header h2 { font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+    .form-header p { font-size: 13px; color: #64748b; }
+
+    /* Quick Preset Selector */
+    .preset-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    .preset-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .preset-chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .chip-item {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .chip-item:hover { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
+    .chip-item.active { border-color: #d97706; background: #fef3c7; color: #92400e; font-weight: 700; }
+    .chip-role { font-size: 10px; color: #64748b; margin-left: auto; }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+    .input-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .input-field-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-icon {
+      position: absolute;
+      left: 12px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    .input-field {
+      width: 100%;
+      height: 40px;
+      padding: 0 40px 0 36px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #0f172a;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .input-field:focus {
+      border-color: #d97706;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+    }
+    .toggle-pass-btn {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .login-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn-login-submit {
+      flex: 1;
+      height: 42px;
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+      transition: transform 0.1s, opacity 0.15s;
+    }
+    .btn-login-submit:hover { opacity: 0.95; transform: translateY(-1px); }
+    .btn-login-submit:active { transform: translateY(0); }
+
+    .btn-change-pass {
+      padding: 0 16px;
+      height: 42px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-change-pass:hover { background: #e2e8f0; color: #1e293b; }
+
+    /* ============================================================== */
+    /* SCREEN 2: MAIN FORM (frmMain v1.2) */
+    /* ============================================================== */
+    .screen-main {
+      display: none;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+    }
+    .screen-main.active { display: flex; }
+
+    /* Top WinForms MenuStrip */
+    .menu-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #334155;
+      user-select: none;
+      position: relative;
+      z-index: 50;
+    }
+    .menu-item {
+      padding: 8px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .menu-item:hover, .menu-item.active {
+      background: #f8fafc;
+      color: #d97706;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      min-width: 290px;
+      z-index: 100;
+      padding: 6px 0;
+    }
+    .menu-item:hover .dropdown { display: block; }
+    .dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 12.5px;
+      transition: background 0.15s;
+    }
+    .dropdown a:hover {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .dropdown a.disabled {
+      opacity: 0.45;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+    .shortcut {
+      color: #94a3b8;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .menu-divider {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 4px 0;
+    }
+
+    /* Main Branding Header */
+    .main-header {
+      background: #0f172a;
+      color: #ffffff;
+      height: 54px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #f59e0b;
+    }
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo-sq {
+      width: 32px;
+      height: 32px;
+      background: #f59e0b;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .brand-text h1 {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+    .brand-text p {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+    .brand-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .branch-selector {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .active-user-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e293b;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #334155;
+    }
+    .user-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #d97706;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .user-name-role {
+      display: flex;
+      flex-direction: column;
+    }
+    .user-name { font-size: 11.5px; font-weight: 700; color: #f8fafc; }
+    .user-role-label { font-size: 9.5px; color: #fbbf24; text-transform: uppercase; font-weight: 700; }
+    .logout-btn {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .logout-btn:hover { background: #ef4444; color: #fff; }
+
+    /* Layout: Sidebar + Main Content */
+    .app-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    .app-sidebar {
+      width: 240px;
+      background: #ffffff;
+      border-right: 1px solid #e2e8f0;
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .sidebar-nav-btn:hover { background: #f8fafc; color: #0f172a; }
+    .sidebar-nav-btn.active { background: #fef3c7; color: #b45309; font-weight: 700; }
+    .sidebar-nav-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+    .sidebar-nav-btn .badge-count {
+      margin-left: auto;
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* Content Area */
+    .app-content {
+      flex: 1;
+      padding: 20px 24px;
+      overflow-y: auto;
+      background: #f8fafc;
+    }
+
+    /* Banner Launchpad */
+    .hub-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+      color: #ffffff;
+      padding: 20px 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-md);
+    }
+    .banner-text h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .banner-text p {
+      font-size: 12.5px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .banner-badge-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-pill {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    /* 9 Cards Master Data Grid (3x3) */
+    .grid-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .grid-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grid-hint {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .grid-9-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .master-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .master-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -5px rgba(0,0,0,0.08);
+      border-color: #f59e0b;
+    }
+    .master-card.locked {
+      opacity: 0.55;
+      background: #f1f5f9;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+    .master-card.locked:hover {
+      transform: none;
+      box-shadow: var(--shadow-sm);
+      border-color: #cbd5e1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .card-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .card-hotkey {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.4;
+      flex: 1;
+      margin-bottom: 12px;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .card-stat {
+      font-size: 11px;
+      font-weight: 700;
+      color: #3b82f6;
+      background: #eff6ff;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+    .card-open-arrow {
+      font-size: 12px;
+      font-weight: 700;
+      color: #d97706;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Icon Colors */
+    .bg-blue { background: #dbeafe; color: #1e40af; }
+    .bg-amber { background: #fef3c7; color: #92400e; }
+    .bg-green { background: #dcfce7; color: #166534; }
+    .bg-purple { background: #f3e8ff; color: #6b21a8; }
+    .bg-rose { background: #ffe4e6; color: #9f1239; }
+    .bg-teal { background: #ccfbf1; color: #115e59; }
+    .bg-orange { background: #ffedd5; color: #9a3412; }
+    .bg-indigo { background: #e0e7ff; color: #3730a3; }
+    .bg-emerald { background: #d1fae5; color: #065f46; }
+
+    /* Bottom Quick Overview Modules */
+    .roadmap-section {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .roadmap-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .roadmap-header h3 { font-size: 14px; font-weight: 800; color: #0f172a; }
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .roadmap-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .roadmap-icon { font-size: 24px; }
+    .roadmap-info h4 { font-size: 12.5px; font-weight: 700; color: #1e293b; }
+    .roadmap-info p { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+    /* Status Bar Footer */
+    .main-statusbar {
+      background: #f1f5f9;
+      border-top: 1px solid #cbd5e1;
+      height: 26px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #475569;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* ============================================================== */
+    /* MODAL: INTERACTIVE FORM PREVIEW */
+    /* ============================================================== */
+    .modal-backdrop {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-backdrop.active { display: flex; }
+
+    .modal-window {
+      width: 100%;
+      max-width: 1100px;
+      height: 90%;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalSlide 0.25s ease;
+    }
+    @keyframes modalSlide {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-titlebar {
+      height: 44px;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+    }
+    .modal-title-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-open-external {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-open-external:hover { background: rgba(255,255,255,0.25); }
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 18px;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+    .btn-close-modal:hover { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+    /* Modal Form Content */
+    .modal-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    /* WinForms ToolStrip simulation inside form */
+    .win-toolstrip {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tool-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tool-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+    .tool-btn.primary {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #1d4ed8;
+    }
+    .tool-btn.primary:hover { background: #1d4ed8; }
+    .tool-btn.danger { color: #dc2626; border-color: #fca5a5; }
+    .tool-btn.danger:hover { background: #fee2e2; }
+    .tool-search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tool-search input {
+      height: 32px;
+      width: 220px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 12px;
+    }
+
+    /* Modal Main Layout (Split DataGridView and Detail Panel) */
+    .form-workspace {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      padding: 16px;
+      gap: 16px;
+    }
+    .grid-container {
+      flex: 1.6;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .grid-header-title {
+      padding: 10px 14px;
+      background: #f1f5f9;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      justify-content: space-between;
+    }
+    .datagridview {
+      flex: 1;
+      overflow-y: auto;
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 12px;
+    }
+    .datagridview th {
+      position: sticky;
+      top: 0;
+      background: #e2e8f0;
+      color: #334155;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 700;
+      border-bottom: 2px solid #cbd5e1;
+      font-size: 11.5px;
+    }
+    .datagridview td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+    .datagridview tr:hover td {
+      background: #fffbeb;
+      cursor: pointer;
+    }
+    .datagridview tr.selected td {
+      background: #fef3c7;
+      font-weight: 600;
+      border-bottom-color: #fde68a;
+    }
+
+    .detail-card {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .detail-header {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .detail-form-group {
+      margin-bottom: 12px;
+    }
+    .detail-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .detail-input {
+      width: 100%;
+      height: 34px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 12.5px;
+      outline: none;
+    }
+    .detail-input:focus { border-color: #2563eb; }
+    .detail-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+      padding-top: 14px;
+      border-top: 1px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Showcase Bar -->
+  <header class="showcase-header">
+    <div class="showcase-brand">
+      <div class="showcase-logo">🍲</div>
+      <div class="showcase-title">Hệ Thống Quản Lý F&B <span>v2.0</span></div>
+      <div class="showcase-tag">.NET 10 WinForms UI-UX Master Hub</div>
+    </div>
+
+    <!-- Quick Role Switcher -->
+    <div class="role-bar">
+      <span class="role-label">Chọn Vai Trò (RBAC Demo):</span>
+      <button class="role-chip active" onclick="switchRole('chuquan', 'Chủ Quán')">👑 Chủ Quán</button>
+      <button class="role-chip" onclick="switchRole('quanly', 'Quản Lý')">💼 Quản Lý</button>
+      <button class="role-chip" onclick="switchRole('phucvu1', 'Phục Vụ')">🍽️ Phục Vụ</button>
+      <button class="role-chip" onclick="switchRole('nhabep1', 'Nhà Bếp')">👨‍🍳 Nhà Bếp</button>
+    </div>
+
+    <!-- View Toggles -->
+    <div class="view-toggles">
+      <button class="view-btn" id="btnViewLogin" onclick="showScreen('login')">
+        🔐 Màn Hình Đăng Nhập (v1.2)
+      </button>
+      <button class="view-btn active" id="btnViewMain" onclick="showScreen('main')">
+        🏢 Màn Hình Chính & Launchpad (v1.2)
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Simulation Viewport -->
+  <main class="viewport">
+    <div class="winforms-window">
+      <!-- Simulated Title Bar -->
+      <div class="window-titlebar">
+        <div class="window-caption">
+          <span class="window-caption-dot"></span>
+          <span id="windowTitleText">Nhà Hàng Phúc Lộc Thọ — Trung Tâm Quản Lý Hệ Thống [frmMain v1.2]</span>
+        </div>
+        <div class="window-actions">
+          <span class="win-btn win-min"></span>
+          <span class="win-btn win-max"></span>
+          <span class="win-btn win-close"></span>
+        </div>
+      </div>
+
+      <div class="window-canvas">
+
+        <!-- ========================================================== -->
+        <!-- SCREEN 1: LOGIN (frmDangNhap v1.2) -->
+        <!-- ========================================================== -->
+        <div class="screen-login" id="screenLogin">
+          <div class="login-container">
+            <div class="login-hero">
+              <div class="hero-top">
+                <h3>PHÚC LỘC THỌ F&B</h3>
+                <p>Nền tảng quản lý nhà hàng chuỗi đa chi nhánh chuyên nghiệp, hiện đại và chuẩn mực.</p>
+                <ul class="hero-features">
+                  <li><span class="ico">✓</span> 9 Màn hình danh mục nền tảng đầy đủ</li>
+                  <li><span class="ico">✓</span> Phân quyền 4 cấp độ: Chủ quán, Quản lý, Phục vụ, Bếp</li>
+                  <li><span class="ico">✓</span> Hỗ trợ POS gọi món & KDS hàng đợi bếp FIFO</li>
+                  <li><span class="ico">✓</span> Kiến trúc chuẩn 3 lớp: DTO - DAO - BUS</li>
+                </ul>
+              </div>
+              <div class="hero-foot">
+                Dự án LTQLUD1 — Phiên bản v0.2.12 (.NET 10.0)
+              </div>
+            </div>
+
+            <div class="login-form-area">
+              <div class="form-header">
+                <h2>Đăng Nhập Hệ Thống</h2>
+                <p>Chọn tài khoản mẫu để trải nghiệm nhanh không cần nhớ mật khẩu</p>
+              </div>
+
+              <!-- Quick Account Picker -->
+              <div class="preset-box">
+                <div class="preset-title">
+                  <span>Tài Khoản Mẫu (1-Click Auto Fill):</span>
+                  <span style="color:#d97706; font-size:10px;">Mặc định: 123456</span>
+                </div>
+                <div class="preset-chips">
+                  <div class="chip-item active" onclick="pickAccount('chuquan', '123456', 'Chủ Quán', this)">
+                    👑 <span>chuquan</span>
+                    <span class="chip-role">Chủ Quán</span>
+                  </div>
+                  <div class="chip-item" onclick="pickAccount('quanly', '123456', 'Quản Lý', this)">
+                    💼 <span>quanly</span>
+                    <span class="chip-role">Quản Lý</span>
+                  </div>
+                  <div class="chip-item" onclick="pickAccount('phucvu1', '123456', 'Phục Vụ', this)">
+                    🍽️ <span>phucvu1</span>
+                    <span class="chip-role">Phục Vụ</span>
+                  </div>
+                  <div class="chip-item" onclick="pickAccount('nhabep1', '123456', 'Nhà Bếp', this)">
+                    👨‍🍳 <span>nhabep1</span>
+                    <span class="chip-role">Nhà Bếp</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Tên Đăng Nhập</label>
+                <div class="input-field-wrap">
+                  <span class="input-icon">👤</span>
+                  <input type="text" id="txtUsername" class="input-field" value="chuquan" placeholder="Nhập tên đăng nhập..." />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Mật Khẩu</label>
+                <div class="input-field-wrap">
+                  <span class="input-icon">🔒</span>
+                  <input type="password" id="txtPassword" class="input-field" value="123456" placeholder="Nhập mật khẩu..." />
+                  <button type="button" class="toggle-pass-btn" onclick="togglePassword()">👁️</button>
+                </div>
+              </div>
+
+              <div class="login-actions">
+                <button type="button" class="btn-login-submit" onclick="submitLogin()">
+                  <span>🚀</span> Đăng Nhập Vào Hệ Thống
+                </button>
+                <button type="button" class="btn-change-pass" onclick="openModal('doimatkhau')">
+                  Đổi MK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SCREEN 2: MAIN LAUNCHPAD (frmMain v1.2) -->
+        <!-- ========================================================== -->
+        <div class="screen-main active" id="screenMain">
+          <!-- Top MenuStrip -->
+          <nav class="menu-bar">
+            <div class="menu-item">
+              <span>Hệ Thống (S)</span>
+              <div class="dropdown">
+                <a href="javascript:void(0)" onclick="openModal('doimatkhau')">Đổi Mật Khẩu <span class="shortcut">Ctrl+P</span></a>
+                <a href="javascript:void(0)" onclick="showScreen('login')">Đăng Xuất <span class="shortcut">Ctrl+L</span></a>
+                <div class="menu-divider"></div>
+                <a href="javascript:void(0)" onclick="alert('Đã thoát ứng dụng!')">Thoát Ứng Dụng <span class="shortcut">Alt+F4</span></a>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <span>Danh Mục (M)</span>
+              <div class="dropdown">
+                <a href="javascript:void(0)" onclick="openModal('nhanvien')" id="mnuNhanVien">1. Quản lý Nhân Viên <span class="shortcut">Ctrl+1</span></a>
+                <a href="javascript:void(0)" onclick="openModal('calamviec')" id="mnuCaLamViec">2. Quản lý Ca Làm Việc <span class="shortcut">Ctrl+2</span></a>
+                <div class="menu-divider"></div>
+                <a href="javascript:void(0)" onclick="openModal('monan')" id="mnuMonAn">3. Danh Mục Món Ăn <span class="shortcut">Ctrl+3</span></a>
+                <a href="javascript:void(0)" onclick="openModal('danhmuc')" id="mnuDanhMuc">4. Phân Loại Nhóm Món <span class="shortcut">Ctrl+4</span></a>
+                <div class="menu-divider"></div>
+                <a href="javascript:void(0)" onclick="openModal('khuvuc')" id="mnuKhuVuc">5. Quản lý Khu Vực Bàn <span class="shortcut">Ctrl+5</span></a>
+                <a href="javascript:void(0)" onclick="openModal('ban')" id="mnuBan">6. Sơ Đồ Bàn Ăn <span class="shortcut">Ctrl+6</span></a>
+                <div class="menu-divider"></div>
+                <a href="javascript:void(0)" onclick="openModal('menu')" id="mnuMenu">7. Bảng Thực Đơn Master <span class="shortcut">Ctrl+7</span></a>
+                <a href="javascript:void(0)" onclick="openModal('chinhanh')" id="mnuChiNhanh">8. Quản lý Chuỗi Chi Nhánh <span class="shortcut">Ctrl+8</span></a>
+                <a href="javascript:void(0)" onclick="openModal('menuchinhanh')" id="mnuMenuChiNhanh">9. Thực Đơn Chi Nhánh <span class="shortcut">Ctrl+9</span></a>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <span>Nghiệp Vụ Bán Hàng (O)</span>
+              <div class="dropdown">
+                <a href="javascript:void(0)" onclick="alert('Module POS Bán Hàng & Gọi Món Bàn sắp ra mắt ở Sprint tiếp theo!')">⚡ POS Gọi Món & Sơ Đồ Bàn <span class="shortcut">F2</span></a>
+                <a href="javascript:void(0)" onclick="alert('Module Hàng Đợi Bếp KDS sắp ra mắt ở Sprint tiếp theo!')">🍳 Màn Hình Bếp (KDS FIFO) <span class="shortcut">F3</span></a>
+                <a href="javascript:void(0)" onclick="alert('Module Tính Tiền & In Hóa Đơn sắp ra mắt ở Sprint tiếp theo!')">💳 Thanh Toán & Hóa Đơn <span class="shortcut">F4</span></a>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <span>Báo Cáo - Thống Kê (R)</span>
+              <div class="dropdown">
+                <a href="javascript:void(0)" onclick="alert('Báo cáo Doanh thu theo ngày/tháng sắp ra mắt!')">📊 Doanh Thu Chi Nhánh</a>
+                <a href="javascript:void(0)" onclick="alert('Báo cáo Top món bán chạy sắp ra mắt!')">🏆 Top Món Ăn Bán Chạy</a>
+                <a href="javascript:void(0)" onclick="alert('Báo cáo Chấm công & Giờ làm nhân viên sắp ra mắt!')">📅 Thống Kê Giờ Công Nhân Viên</a>
+              </div>
+            </div>
+
+            <div class="menu-item">
+              <span>Trợ Giúp (H)</span>
+              <div class="dropdown">
+                <a href="../demo_system.html" target="_blank">📖 Mở Demo Hub Toàn Diện</a>
+                <a href="javascript:void(0)" onclick="alert('Phúc Lộc Thọ F&B Management System v0.2.12\nKiến trúc VB.NET WinForms .NET 10.0\nNhóm phát triển: LTQLUD1')">ℹ️ Thông Tin Phiên Bản</a>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Main Header -->
+          <header class="main-header">
+            <div class="brand-left">
+              <div class="brand-logo-sq">PLT</div>
+              <div class="brand-text">
+                <h1>NHÀ HÀNG PHÚC LỘC THỌ — HỆ THỐNG QUẢN TRỊ F&B</h1>
+                <p>Nền Tảng Dữ Liệu Nền Tảng (Master Data Launchpad 3x3) & Nghiệp Vụ Bán Hàng</p>
+              </div>
+            </div>
+
+            <div class="brand-right">
+              <select class="branch-selector" id="cboBranch">
+                <option value="CN001">Chi Nhánh Quận 1 (Trung Tâm)</option>
+                <option value="CN002">Chi Nhánh Cầu Giấy (Hà Nội)</option>
+                <option value="CN003">Chi Nhánh Hải Châu (Đà Nẵng)</option>
+              </select>
+
+              <div class="active-user-badge">
+                <div class="user-avatar" id="lblUserAvatar">CQ</div>
+                <div class="user-name-role">
+                  <span class="user-name" id="lblCurrentUserName">Trần Văn Quán (chuquan)</span>
+                  <span class="user-role-label" id="lblCurrentUserRole">CHỦ QUÁN</span>
+                </div>
+              </div>
+
+              <button class="logout-btn" onclick="showScreen('login')">Đăng Xuất</button>
+            </div>
+          </header>
+
+          <!-- Main Workspace -->
+          <div class="app-body">
+            <!-- Sidebar -->
+            <aside class="app-sidebar">
+              <div class="sidebar-section-title">Danh Mục Nền Tảng</div>
+              <button class="sidebar-nav-btn active" onclick="filterLaunchpad('all')">
+                <span>🗂️</span> Toàn Bộ 9 Danh Mục <span class="badge-count">9</span>
+              </button>
+              <button class="sidebar-nav-btn" onclick="filterLaunchpad('staff')">
+                <span>👥</span> Nhân Sự & Ca Làm <span class="badge-count">2</span>
+              </button>
+              <button class="sidebar-nav-btn" onclick="filterLaunchpad('menu')">
+                <span>🍽️</span> Thực Đơn & Nhóm Món <span class="badge-count">2</span>
+              </button>
+              <button class="sidebar-nav-btn" onclick="filterLaunchpad('table')">
+                <span>🪑</span> Bàn Ăn & Khu Vực <span class="badge-count">2</span>
+              </button>
+              <button class="sidebar-nav-btn" onclick="filterLaunchpad('chain')">
+                <span>🏬</span> Chuỗi & Menu Chi Nhánh <span class="badge-count">3</span>
+              </button>
+
+              <div class="sidebar-section-title" style="margin-top: 14px;">Nghiệp Vụ Sắp Tới</div>
+              <button class="sidebar-nav-btn" onclick="alert('POS Bán hàng & Gọi món sẽ ra mắt ở Sprint tiếp theo!')">
+                <span>⚡</span> POS Bán Hàng
+              </button>
+              <button class="sidebar-nav-btn" onclick="alert('KDS Màn hình bếp sẽ ra mắt ở Sprint tiếp theo!')">
+                <span>🍳</span> Hàng Đợi Bếp
+              </button>
+              <button class="sidebar-nav-btn" onclick="alert('Báo cáo thống kê sẽ ra mắt ở Sprint tiếp theo!')">
+                <span>📊</span> Báo Cáo Doanh Thu
+              </button>
+            </aside>
+
+            <!-- Content Hub -->
+            <main class="app-content">
+              <!-- Banner -->
+              <div class="hub-banner">
+                <div class="banner-text">
+                  <h2>🎯 Trung Tâm 9 Màn Hình Danh Mục Nền Tảng (Master Data Launchpad)</h2>
+                  <p>Mỗi ô đại diện cho một phân hệ độc lập. Nhấn vào thẻ để mở xem trước biểu mẫu chi tiết hoặc dùng phím tắt tương ứng.</p>
+                </div>
+                <div class="banner-badge-group">
+                  <div class="status-pill">
+                    <span class="status-dot-pulse"></span>
+                    <span>9/9 Danh Mục Hoàn Thành 100%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 9 Cards Grid (3x3) -->
+              <div class="grid-title-row">
+                <div class="grid-title">
+                  <span>⚡ Lưới 9 Thẻ Điều Hướng Trực Quan (3x3 Grid)</span>
+                </div>
+                <div class="grid-hint">Nhấn vào thẻ bất kỳ để mở Form tương tác</div>
+              </div>
+
+              <div class="grid-9-cards" id="launchpadGrid">
+                <!-- Card 1 -->
+                <div class="master-card" id="cardNhanVien" data-category="staff" data-rbac="chuquan,quanly" onclick="openModal('nhanvien')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-blue">👥</div>
+                    <span class="card-hotkey">Ctrl + 1</span>
+                  </div>
+                  <div class="card-name">1. Quản Lý Nhân Viên</div>
+                  <div class="card-desc">Quản lý hồ sơ nhân sự, phân quyền 4 vai trò, số điện thoại, mật khẩu đăng nhập.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">12 Nhân viên</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="master-card" id="cardCaLamViec" data-category="staff" data-rbac="chuquan,quanly" onclick="openModal('calamviec')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-amber">⏰</div>
+                    <span class="card-hotkey">Ctrl + 2</span>
+                  </div>
+                  <div class="card-name">2. Quản Lý Ca Làm Việc</div>
+                  <div class="card-desc">Thiết lập các ca sáng, ca chiều, ca tối, giờ check-in/out và hệ số lương ca.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">3 Ca chuẩn</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="master-card" id="cardMonAn" data-category="menu" data-rbac="chuquan,quanly" onclick="openModal('monan')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-green">🍽️</div>
+                    <span class="card-hotkey">Ctrl + 3</span>
+                  </div>
+                  <div class="card-name">3. Danh Mục Món Ăn</div>
+                  <div class="card-desc">Quản lý kho món, đơn giá bán, đơn vị tính, hình ảnh món và trạng thái phục vụ.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">28 Món ăn</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="master-card" id="cardDanhMuc" data-category="menu" data-rbac="chuquan,quanly" onclick="openModal('danhmuc')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-purple">📁</div>
+                    <span class="card-hotkey">Ctrl + 4</span>
+                  </div>
+                  <div class="card-name">4. Phân Loại Nhóm Món</div>
+                  <div class="card-desc">Phân loại món: Khai vị, Món chính, Đồ uống, Tráng miệng phục vụ POS lọc nhanh.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">6 Nhóm món</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="master-card" id="cardKhuVuc" data-category="table" data-rbac="chuquan,quanly" onclick="openModal('khuvuc')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-rose">🏢</div>
+                    <span class="card-hotkey">Ctrl + 5</span>
+                  </div>
+                  <div class="card-name">5. Khu Vực Bàn Ăn</div>
+                  <div class="card-desc">Phân chia không gian nhà hàng: Tầng 1 (Sảnh), Tầng 2, Phòng VIP máy lạnh.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">3 Khu vực</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="master-card" id="cardBan" data-category="table" data-rbac="chuquan,quanly,phucvu1" onclick="openModal('ban')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-teal">🪑</div>
+                    <span class="card-hotkey">Ctrl + 6</span>
+                  </div>
+                  <div class="card-name">6. Sơ Đồ Bàn Ăn</div>
+                  <div class="card-desc">Quản lý số lượng bàn, sức chứa người ngồi, trạng thái bàn Trống/Có khách.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">24 Bàn ăn</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="master-card" id="cardMenu" data-category="chain" data-rbac="chuquan,quanly" onclick="openModal('menu')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-orange">📋</div>
+                    <span class="card-hotkey">Ctrl + 7</span>
+                  </div>
+                  <div class="card-name">7. Bảng Thực Đơn Master</div>
+                  <div class="card-desc">Tạo lập các bộ menu tổng: Thực đơn Mùa Hè, Thực đơn Tết, Thực đơn Buffet tiệc.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">2 Menu tổng</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="master-card" id="cardChiNhanh" data-category="chain" data-rbac="chuquan" onclick="openModal('chinhanh')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-indigo">🏬</div>
+                    <span class="card-hotkey">Ctrl + 8</span>
+                  </div>
+                  <div class="card-name">8. Quản Lý Chuỗi Chi Nhánh</div>
+                  <div class="card-desc">Theo dõi thông tin chi nhánh toàn quốc, địa chỉ, hotline, quản lý chi nhánh trưởng.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">3 Chi nhánh</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="master-card" id="cardMenuChiNhanh" data-category="chain" data-rbac="chuquan,quanly" onclick="openModal('menuchinhanh')">
+                  <div class="card-top">
+                    <div class="card-icon-box bg-emerald">🎯</div>
+                    <span class="card-hotkey">Ctrl + 9</span>
+                  </div>
+                  <div class="card-name">9. Thực Đơn Chi Nhánh</div>
+                  <div class="card-desc">Gán menu tổng và giá bán đặc thù linh hoạt cho từng chi nhánh độc lập.</div>
+                  <div class="card-footer">
+                    <span class="card-stat">Đang kích hoạt</span>
+                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Roadmap Section -->
+              <div class="roadmap-section">
+                <div class="roadmap-header">
+                  <h3>🚀 Phân Hệ Nghiệp Vụ Vận Hành Sắp Tới (Next Sprints)</h3>
+                  <span style="font-size:11.5px; color:#64748b; font-weight:600;">Giai đoạn 2: Bán Hàng & Chế Biến</span>
+                </div>
+                <div class="roadmap-grid">
+                  <div class="roadmap-card">
+                    <div class="roadmap-icon">⚡</div>
+                    <div class="roadmap-info">
+                      <h4>POS Gọi Món Bàn</h4>
+                      <p>Sơ đồ bàn trực quan, chọn món cảm ứng, tách gộp bàn.</p>
+                    </div>
+                  </div>
+                  <div class="roadmap-card">
+                    <div class="roadmap-icon">🍳</div>
+                    <div class="roadmap-info">
+                      <h4>Hàng Đợi Bếp KDS</h4>
+                      <p>Nhận order real-time, đổi trạng thái chế biến FIFO.</p>
+                    </div>
+                  </div>
+                  <div class="roadmap-card">
+                    <div class="roadmap-icon">📅</div>
+                    <div class="roadmap-info">
+                      <h4>Lịch Ca & Chấm Công</h4>
+                      <p>Phân ca nhân viên, check-in, tính công tự động.</p>
+                    </div>
+                  </div>
+                  <div class="roadmap-card">
+                    <div class="roadmap-icon">📊</div>
+                    <div class="roadmap-info">
+                      <h4>Báo Cáo Doanh Thu</h4>
+                      <p>Biểu đồ doanh thu ngày, tháng, tỷ trọng lãi gộp.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+
+          <!-- Bottom Status Strip -->
+          <footer class="main-statusbar">
+            <div class="status-left">
+              <span>Trạng thái: 🟢 Đã sẵn sàng kết nối CSDL</span>
+              <span>Chi nhánh: CN001 - Quận 1</span>
+              <span>Phiên bản: v0.2.12</span>
+            </div>
+            <div class="status-right">
+              <span id="clockDisplay">12:00:00 AM</span>
+              <span>Bản quyền: LTQLUD1 © 2026</span>
+            </div>
+          </footer>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: INTERACTIVE FORM PREVIEW -->
+  <!-- ============================================================== -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-window">
+      <div class="modal-titlebar">
+        <div class="modal-title-left">
+          <span id="modalFormIcon">👥</span>
+          <span id="modalFormTitle">Quản Lý Nhân Viên [frmNhanVien]</span>
+        </div>
+        <div class="modal-actions">
+          <a href="#" target="_blank" id="modalExternalLink" class="btn-open-external">
+            Mở Mockup Chi Tiết ↗
+          </a>
+          <button class="btn-close-modal" onclick="closeModal()">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <!-- WinForms ToolStrip -->
+        <div class="win-toolstrip">
+          <button class="tool-btn primary" onclick="alert('Đã kích hoạt chế độ THÊM MỚI!')">➕ Thêm Mới</button>
+          <button class="tool-btn" onclick="alert('Đã kích hoạt chế độ CHỈNH SỬA!')">✏️ Sửa</button>
+          <button class="tool-btn danger" onclick="alert('Xác nhận XÓA bản ghi đang chọn?')">🗑️ Xóa</button>
+          <button class="tool-btn" onclick="alert('Đã LƯU thay đổi vào cơ sở dữ liệu!')">💾 Lưu</button>
+          <button class="tool-btn" onclick="alert('Đã HỦY thao tác!')">✖️ Hủy</button>
+          <button class="tool-btn" onclick="alert('Đã LÀM MỚI danh sách!')">🔄 Tải Lại</button>
+
+          <div class="tool-search">
+            <input type="text" id="modalSearchInput" placeholder="Tìm kiếm nhanh..." onkeyup="filterModalTable(this.value)" />
+          </div>
+        </div>
+
+        <!-- Form Workspace (Grid + Detail) -->
+        <div class="form-workspace">
+          <div class="grid-container">
+            <div class="grid-header-title">
+              <span id="modalGridTitle">Danh Sách Bản Ghi (12 dòng)</span>
+              <span style="font-weight: normal; color:#64748b;">Click 1 dòng để xem chi tiết bên phải</span>
+            </div>
+            <table class="datagridview" id="modalTable">
+              <thead id="modalTableHead">
+                <!-- Dynamic Header -->
+              </thead>
+              <tbody id="modalTableBody">
+                <!-- Dynamic Rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="detail-card" id="modalDetailCard">
+            <!-- Dynamic Detail Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // System Data Store
+    const FORM_DATA = {
+      nhanvien: {
+        title: "Quản Lý Nhân Viên [frmNhanVien]",
+        icon: "👥",
+        link: "features/staff/nhan_vien/frmNhanVien_mockup_v1_0.html",
+        count: "12 nhân viên",
+        headers: ["Mã NV", "Họ Tên", "Tên Đăng Nhập", "Vai Trò", "SĐT", "Trạng Thái"],
+        rows: [
+          ["NV001", "Trần Văn Quán", "chuquan", "Chủ Quán", "0901234567", "Đang làm việc"],
+          ["NV002", "Nguyễn Văn Quản", "quanly", "Quản Lý", "0902345678", "Đang làm việc"],
+          ["NV003", "Lê Thị Phục Vụ 1", "phucvu1", "Phục Vụ", "0903456789", "Đang làm việc"],
+          ["NV004", "Phạm Văn Bếp 1", "nhabep1", "Nhà Bếp", "0904567890", "Đang làm việc"],
+          ["NV005", "Vũ Thị Lan", "phucvu2", "Phục Vụ", "0905678901", "Đang làm việc"],
+          ["NV006", "Đặng Đình Bếp", "nhabep2", "Nhà Bếp", "0906789012", "Đang làm việc"]
+        ],
+        fields: [
+          { label: "Mã Nhân Viên", key: 0 },
+          { label: "Họ Và Tên", key: 1 },
+          { label: "Tên Đăng Nhập", key: 2 },
+          { label: "Vai Trò", key: 3 },
+          { label: "Số Điện Thoại", key: 4 },
+          { label: "Trạng Thái", key: 5 }
+        ]
+      },
+      calamviec: {
+        title: "Quản Lý Ca Làm Việc [frmCaLamViec]",
+        icon: "⏰",
+        link: "features/shift/ca_lam_viec/frmCaLamViec_mockup_v1_0.html",
+        count: "3 ca làm việc",
+        headers: ["Mã Ca", "Tên Ca", "Bắt Đầu", "Kết Thúc", "Hệ Số Lương", "Ghi Chú"],
+        rows: [
+          ["CA01", "Ca Sáng", "06:00", "14:00", "1.0", "Phục vụ bữa sáng và trưa"],
+          ["CA02", "Ca Chiều", "14:00", "22:00", "1.0", "Phục vụ bữa tối (Cao điểm)"],
+          ["CA03", "Ca Đêm", "22:00", "06:00", "1.5", "Dọn dẹp và chuẩn bị nguyên liệu"]
+        ],
+        fields: [
+          { label: "Mã Ca Làm", key: 0 },
+          { label: "Tên Ca", key: 1 },
+          { label: "Giờ Bắt Đầu", key: 2 },
+          { label: "Giờ Kết Thúc", key: 3 },
+          { label: "Hệ Số Lương", key: 4 },
+          { label: "Ghi Chú", key: 5 }
+        ]
+      },
+      monan: {
+        title: "Danh Mục Món Ăn [frmMonAn]",
+        icon: "🍽️",
+        link: "features/menu/mon_an/frmMonAn_mockup_v1_0.html",
+        count: "28 món ăn",
+        headers: ["Mã Món", "Tên Món Ăn", "Nhóm Món", "Đơn Giá (VNĐ)", "ĐVT", "Trạng Thái"],
+        rows: [
+          ["MON01", "Phở Bò Tái Nạm", "Món Chính", "65,000", "Tô", "Đang phục vụ"],
+          ["MON02", "Cơm Tấm Sườn Bì Chả", "Món Chính", "55,000", "Dĩa", "Đang phục vụ"],
+          ["MON03", "Gỏi Cuốn Tôm Thịt", "Khai Vị", "45,000", "Phần", "Đang phục vụ"],
+          ["MON04", "Trà Đào Cam Sả", "Đồ Uống", "35,000", "Ly", "Đang phục vụ"],
+          ["MON05", "Cà Phê Sữa Đá", "Đồ Uống", "25,000", "Ly", "Đang phục vụ"],
+          ["MON06", "Chè Hạt Sen Long Nhãn", "Tráng Miệng", "30,000", "Chén", "Đang phục vụ"]
+        ],
+        fields: [
+          { label: "Mã Món Ăn", key: 0 },
+          { label: "Tên Món Ăn", key: 1 },
+          { label: "Nhóm Món", key: 2 },
+          { label: "Đơn Giá Bán", key: 3 },
+          { label: "Đơn Vị Tính", key: 4 },
+          { label: "Trạng Thái Phục Vụ", key: 5 }
+        ]
+      },
+      danhmuc: {
+        title: "Phân Loại Nhóm Món [frmDanhMuc]",
+        icon: "📁",
+        link: "features/menu/danh_muc/frmDanhMuc_mockup_v1_0.html",
+        count: "6 nhóm danh mục",
+        headers: ["Mã Nhóm", "Tên Nhóm", "Thứ Tự", "Ghi Chú", "Số Món"],
+        rows: [
+          ["DM01", "Khai Vị", "1", "Các món gỏi, súp, chả giò", "6"],
+          ["DM02", "Món Chính", "2", "Cơm, phở, lẩu, nướng", "12"],
+          ["DM03", "Đồ Uống", "3", "Trà sữa, cà phê, nước ngọt", "8"],
+          ["DM04", "Tráng Miệng", "4", "Chè, trái cây, bánh ngọt", "4"],
+          ["DM05", "Combo Tiết Kiệm", "5", "Set tiệc 2-4 người", "3"]
+        ],
+        fields: [
+          { label: "Mã Nhóm Món", key: 0 },
+          { label: "Tên Nhóm", key: 1 },
+          { label: "Thứ Tự Hiển Thị", key: 2 },
+          { label: "Ghi Chú", key: 3 },
+          { label: "Số Lượng Món", key: 4 }
+        ]
+      },
+      khuvuc: {
+        title: "Quản Lý Khu Vực Bàn [frmKhuVuc]",
+        icon: "🏢",
+        link: "features/table/khu_vuc/frmKhuVuc_mockup_v1_0.html",
+        count: "3 khu vực",
+        headers: ["Mã KV", "Tên Khu Vực", "Số Lượng Bàn", "Phụ Thu (%)", "Trạng Thái"],
+        rows: [
+          ["KV01", "Tầng 1 (Sảnh Chính)", "10", "0%", "Đang hoạt động"],
+          ["KV02", "Tầng 2 (Sân Vườn)", "8", "0%", "Đang hoạt động"],
+          ["KV03", "Phòng VIP (Máy Lạnh)", "6", "10%", "Đang hoạt động"]
+        ],
+        fields: [
+          { label: "Mã Khu Vực", key: 0 },
+          { label: "Tên Khu Vực", key: 1 },
+          { label: "Tổng Số Bàn", key: 2 },
+          { label: "Phụ Thu Giá (%)", key: 3 },
+          { label: "Trạng Thái", key: 4 }
+        ]
+      },
+      ban: {
+        title: "Sơ Đồ Bàn Ăn [frmBan]",
+        icon: "🪑",
+        link: "features/table/ban/frmBan_mockup_v1_0.html",
+        count: "24 bàn ăn",
+        headers: ["Mã Bàn", "Tên Bàn", "Khu Vực", "Số Chỗ", "Trạng Thái", "Khách Hiện Tại"],
+        rows: [
+          ["B101", "Bàn 01", "Tầng 1 (Sảnh)", "4", "🟢 Trống", "Chưa có"],
+          ["B102", "Bàn 02", "Tầng 1 (Sảnh)", "4", "🔴 Có Khách", "3 Khách (Hóa đơn #HD102)"],
+          ["B103", "Bàn 03", "Tầng 1 (Sảnh)", "6", "🟢 Trống", "Chưa có"],
+          ["B201", "Bàn VIP 1", "Phòng VIP", "10", "🟡 Đã Đặt", "Đặt lúc 19:00"],
+          ["B202", "Bàn VIP 2", "Phòng VIP", "12", "🟢 Trống", "Chưa có"]
+        ],
+        fields: [
+          { label: "Mã Bàn Ăn", key: 0 },
+          { label: "Tên Bàn", key: 1 },
+          { label: "Thuộc Khu Vực", key: 2 },
+          { label: "Sức Chứa (Người)", key: 3 },
+          { label: "Tình Trạng Bàn", key: 4 },
+          { label: "Ghi Chú Đơn Khách", key: 5 }
+        ]
+      },
+      menu: {
+        title: "Bảng Thực Đơn Master [frmMenu]",
+        icon: "📋",
+        link: "features/menu/bang_menu/frmMenu_mockup_v1_0.html",
+        count: "2 menu tổng",
+        headers: ["Mã Menu", "Tên Thực Đơn", "Ngày Áp Dụng", "Ngày Hết Hạn", "Trạng Thái"],
+        rows: [
+          ["MENU_STD", "Thực Đơn Chuẩn Toàn Hệ Thống", "01/01/2026", "Không thời hạn", "Đang áp dụng"],
+          ["MENU_TET", "Thực Đơn Lễ Hội & Mùa Tết", "15/01/2026", "28/02/2026", "Hết hạn"]
+        ],
+        fields: [
+          { label: "Mã Thực Đơn", key: 0 },
+          { label: "Tên Thực Đơn", key: 1 },
+          { label: "Ngày Bắt Đầu Áp Dụng", key: 2 },
+          { label: "Ngày Kết Thúc", key: 3 },
+          { label: "Trạng Thái", key: 4 }
+        ]
+      },
+      chinhanh: {
+        title: "Quản Lý Chuỗi Chi Nhánh [frmChiNhanh]",
+        icon: "🏬",
+        link: "features/branch/chi_nhanh/frmChiNhanh_mockup_v1_0.html",
+        count: "3 chi nhánh",
+        headers: ["Mã CN", "Tên Chi Nhánh", "Địa Chỉ", "Hotline", "Quản Lý Trưởng"],
+        rows: [
+          ["CN001", "Chi Nhánh Quận 1", "123 Lê Lợi, P. Bến Thành, Q.1, TP.HCM", "028 3822 1111", "Nguyễn Văn Quản"],
+          ["CN002", "Chi Nhánh Cầu Giấy", "88 Cầu Giấy, Q. Cầu Giấy, Hà Nội", "024 3766 2222", "Lê Văn Đức"],
+          ["CN003", "Chi Nhánh Hải Châu", "45 Nguyễn Văn Linh, Q. Hải Châu, Đà Nẵng", "0236 388 3333", "Trần Thị Mai"]
+        ],
+        fields: [
+          { label: "Mã Chi Nhánh", key: 0 },
+          { label: "Tên Chi Nhánh", key: 1 },
+          { label: "Địa Chỉ Trụ Sở", key: 2 },
+          { label: "Hotline Liên Hệ", key: 3 },
+          { label: "Người Phụ Trách Quản Lý", key: 4 }
+        ]
+      },
+      menuchinhanh: {
+        title: "Thực Đơn Áp Dụng Chi Nhánh [frmMenuChiNhanh]",
+        icon: "🎯",
+        link: "features/branch/menu_chi_nhanh/frmMenuChiNhanh_mockup_v1_0.html",
+        count: "3 cấu hình chi nhánh",
+        headers: ["Mã CN", "Tên Chi Nhánh", "Menu Đang Dùng", "Số Món Phục Vụ", "Trạng Thái"],
+        rows: [
+          ["CN001", "Chi Nhánh Quận 1", "MENU_STD (Chuẩn)", "28 Món", "🟢 Đang Kích Hoạt"],
+          ["CN002", "Chi Nhánh Cầu Giấy", "MENU_STD (Chuẩn)", "26 Món", "🟢 Đang Kích Hoạt"],
+          ["CN003", "Chi Nhánh Hải Châu", "MENU_STD (Chuẩn)", "24 Món", "🟢 Đang Kích Hoạt"]
+        ],
+        fields: [
+          { label: "Mã Chi Nhánh", key: 0 },
+          { label: "Tên Chi Nhánh", key: 1 },
+          { label: "Thực Đơn Đang Chọn", key: 2 },
+          { label: "Tổng Số Món Áp Dụng", key: 3 },
+          { label: "Trạng Thái Áp Dụng", key: 4 }
+        ]
+      },
+      doimatkhau: {
+        title: "Đổi Mật Khẩu Người Dùng [frmDoiMatKhau]",
+        icon: "🔒",
+        link: "features/doi_mat_khau/frmDoiMatKhau_mockup.html",
+        count: "Bảo mật tài khoản",
+        headers: ["Thông Tin", "Giá Trị"],
+        rows: [
+          ["Tài khoản", "chuquan"],
+          ["Mật khẩu hiện tại", "******"],
+          ["Yêu cầu", "Tối thiểu 6 ký tự"]
+        ],
+        fields: [
+          { label: "Tên Đăng Nhập", key: 0 },
+          { label: "Mật Khẩu Cũ", key: 1 },
+          { label: "Mật Khẩu Mới", key: 2 },
+          { label: "Nhập Lại Mật Khẩu Mới", key: 2 }
+        ]
+      }
+    };
+
+    // State Variables
+    let currentRole = "chuquan";
+    let currentRoleName = "Chủ Quán";
+    let currentUsername = "chuquan";
+
+    // Switch between Login and Main screens
+    function showScreen(screen) {
+      const scrLogin = document.getElementById("screenLogin");
+      const scrMain = document.getElementById("screenMain");
+      const btnViewLogin = document.getElementById("btnViewLogin");
+      const btnViewMain = document.getElementById("btnViewMain");
+      const windowTitleText = document.getElementById("windowTitleText");
+
+      if (screen === 'login') {
+        scrLogin.classList.add("active");
+        scrMain.classList.remove("active");
+        btnViewLogin.classList.add("active");
+        btnViewMain.classList.remove("active");
+        windowTitleText.innerText = "Đăng Nhập Hệ Thống Quản Lý F&B [frmDangNhap v1.2]";
+      } else {
+        scrLogin.classList.remove("active");
+        scrMain.classList.add("active");
+        btnViewLogin.classList.remove("active");
+        btnViewMain.classList.add("active");
+        windowTitleText.innerText = "Nhà Hàng Phúc Lộc Thọ — Trung Tâm Quản Lý Hệ Thống [frmMain v1.2]";
+      }
+    }
+
+    // Role Switcher (RBAC Real-time Demo)
+    function switchRole(role, roleName) {
+      currentRole = role;
+      currentRoleName = roleName;
+      currentUsername = role;
+
+      // Update role chips in top showcase bar
+      document.querySelectorAll(".role-chip").forEach(chip => {
+        if (chip.innerText.includes(roleName)) {
+          chip.classList.add("active");
+        } else {
+          chip.classList.remove("active");
+        }
+      });
+
+      // Update Login screen presets
+      document.querySelectorAll(".chip-item").forEach(item => {
+        if (item.innerText.includes(role)) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+
+      // Update Login input values
+      document.getElementById("txtUsername").value = role;
+      document.getElementById("txtPassword").value = "123456";
+
+      // Update Main header user info
+      document.getElementById("lblCurrentUserName").innerText = `${roleName} (${role})`;
+      document.getElementById("lblCurrentUserRole").innerText = roleName.toUpperCase();
+      document.getElementById("lblUserAvatar").innerText = role.substring(0, 2).toUpperCase();
+
+      // Apply RBAC filters on cards & menus
+      applyRBAC(role);
+    }
+
+    // Apply RBAC permissions to cards and menu items
+    function applyRBAC(role) {
+      const cards = document.querySelectorAll(".master-card");
+      cards.forEach(card => {
+        const allowed = card.getAttribute("data-rbac").split(",");
+        if (allowed.includes(role)) {
+          card.classList.remove("locked");
+          card.onclick = () => openModal(card.id.replace("card", "").toLowerCase());
+        } else {
+          card.classList.add("locked");
+          card.onclick = () => alert(`⚠️ Quyền hạn hạn chế: Vai trò [${currentRoleName}] không có quyền truy cập màn hình này!`);
+        }
+      });
+
+      // Update MenuStrip items
+      const menuPerms = {
+        chuquan: ['nhanvien', 'calamviec', 'monan', 'danhmuc', 'khuvuc', 'ban', 'menu', 'chinhanh', 'menuchinhanh'],
+        quanly: ['nhanvien', 'calamviec', 'monan', 'danhmuc', 'khuvuc', 'ban', 'menu', 'menuchinhanh'],
+        phucvu1: ['ban'],
+        nhabep1: []
+      };
+
+      const allowedList = menuPerms[role] || [];
+      document.querySelectorAll(".dropdown a[id^='mnu']").forEach(a => {
+        const key = a.id.replace("mnu", "").toLowerCase();
+        if (allowedList.includes(key)) {
+          a.classList.remove("disabled");
+        } else {
+          a.classList.add("disabled");
+        }
+      });
+    }
+
+    // Login screen quick preset click
+    function pickAccount(uname, pwd, roleName, el) {
+      document.querySelectorAll(".chip-item").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      document.getElementById("txtUsername").value = uname;
+      document.getElementById("txtPassword").value = pwd;
+      switchRole(uname, roleName);
+    }
+
+    // Toggle password visibility
+    function togglePassword() {
+      const txt = document.getElementById("txtPassword");
+      txt.type = txt.type === "password" ? "text" : "password";
+    }
+
+    // Submit login button
+    function submitLogin() {
+      const uname = document.getElementById("txtUsername").value.trim();
+      const pwd = document.getElementById("txtPassword").value;
+      if (!uname) {
+        alert("Vui lòng nhập tên đăng nhập!");
+        return;
+      }
+      // Demo successful login
+      showScreen('main');
+    }
+
+    // Filter Launchpad by category
+    function filterLaunchpad(category) {
+      document.querySelectorAll(".sidebar-nav-btn").forEach(btn => btn.classList.remove("active"));
+      event.currentTarget.classList.add("active");
+
+      const cards = document.querySelectorAll(".master-card");
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute("data-category") === category) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Modal Form Viewer Functions
+    function openModal(formKey) {
+      const data = FORM_DATA[formKey];
+      if (!data) return;
+
+      document.getElementById("modalFormTitle").innerText = data.title;
+      document.getElementById("modalFormIcon").innerText = data.icon;
+      document.getElementById("modalGridTitle").innerText = `Danh Sách Bản Ghi (${data.count})`;
+      document.getElementById("modalExternalLink").href = data.link;
+
+      // Render Table Head
+      const thead = document.getElementById("modalTableHead");
+      let headHtml = "<tr>";
+      data.headers.forEach(h => { headHtml += `<th>${h}</th>`; });
+      headHtml += "</tr>";
+      thead.innerHTML = headHtml;
+
+      // Render Table Body
+      const tbody = document.getElementById("modalTableBody");
+      let bodyHtml = "";
+      data.rows.forEach((r, idx) => {
+        bodyHtml += `<tr class="${idx === 0 ? 'selected' : ''}" onclick="selectRow('${formKey}', ${idx}, this)">`;
+        r.forEach(cell => { bodyHtml += `<td>${cell}</td>`; });
+        bodyHtml += "</tr>";
+      });
+      tbody.innerHTML = bodyHtml;
+
+      // Render Detail Form for 1st row
+      renderDetail(formKey, 0);
+
+      document.getElementById("modalBackdrop").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modalBackdrop").classList.remove("active");
+    }
+
+    function selectRow(formKey, rowIndex, trEl) {
+      document.querySelectorAll("#modalTable tbody tr").forEach(tr => tr.classList.remove("selected"));
+      trEl.classList.add("selected");
+      renderDetail(formKey, rowIndex);
+    }
+
+    function renderDetail(formKey, rowIndex) {
+      const data = FORM_DATA[formKey];
+      if (!data) return;
+      const row = data.rows[rowIndex] || data.rows[0];
+
+      const container = document.getElementById("modalDetailCard");
+      let html = `<div class="detail-header">📝 Chi Tiết Bản Ghi: ${row[1] || row[0]}</div>`;
+
+      data.fields.forEach(f => {
+        const val = row[f.key] !== undefined ? row[f.key] : "";
+        html += `
+          <div class="detail-form-group">
+            <label class="detail-label">${f.label}</label>
+            <input type="text" class="detail-input" value="${val}" />
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="detail-actions">
+          <button class="tool-btn primary" style="flex:1; justify-content:center;" onclick="alert('Đã cập nhật thay đổi chi tiết!')">💾 Cập Nhật</button>
+          <button class="tool-btn" style="flex:1; justify-content:center;" onclick="renderDetail('${formKey}', ${rowIndex})">↺ Phục Hồi</button>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    function filterModalTable(query) {
+      const q = query.toLowerCase();
+      document.querySelectorAll("#modalTable tbody tr").forEach(tr => {
+        const text = tr.innerText.toLowerCase();
+        tr.style.display = text.includes(q) ? "" : "none";
+      });
+    }
+
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clockDisplay").innerText = now.toLocaleTimeString('vi-VN');
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Init RBAC
+    applyRBAC('chuquan');
+  </script>
+</body>
+</html>
