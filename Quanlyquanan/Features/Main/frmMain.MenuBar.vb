@@ -76,6 +76,7 @@ Namespace Features.Main
             mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("🍳 Hàng Đợi Nhà Bếp (FIFO)", Nothing, Sub() MoHangDoiNhaBepKDS(), Keys.F3))
             mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("⏱️ Chấm Công & Lịch Trực Cá Nhân", Nothing, Sub() MoChamCongCaNhan(), Keys.F4))
             mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("📋 Duyệt Chấm Công & Bảng Lương Ca", Nothing, Sub() MoDuyetChamCong(), Keys.Control Or Keys.F4))
+            mnuBanHang.DropDownItems.Add(New ToolStripMenuItem("📅 Quản Lý Phân Ca & Xếp Lịch Tuần", Nothing, Sub() MoQuanLyLichLamViec(), Keys.Control Or Keys.L))
             msMainMenu.Items.Add(mnuBanHang)
 
             mnuBaoCao = New ToolStripMenuItem("📊 Báo &Cáo")

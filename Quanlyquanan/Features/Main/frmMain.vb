@@ -255,6 +255,15 @@ Namespace Features.Main
         End Sub
 
         ''' <summary>
+        ''' Mở trực tiếp màn hình Quản Lý Phân Ca & Xếp Lịch Tuần (frmQuanLyLichLamViec)
+        ''' </summary>
+        Public Sub MoQuanLyLichLamViec()
+            Using fLich As New Features.Staff.frmQuanLyLichLamViec()
+                fLich.ShowDialog(Me)
+            End Using
+        End Sub
+
+        ''' <summary>
         ''' Má»Ÿ trá»±c tiáº¿p mÃ n hÃ¬nh Quáº£n lÃ½ Danh sÃ¡ch NhÃ¢n sá»± (frmNhanVien - MH 6/9)
         ''' </summary>
         Public Sub MoQuanLyNhanVien()

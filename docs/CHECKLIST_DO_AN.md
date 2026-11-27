@@ -124,10 +124,10 @@
 - [x] **Quản lý Chi Nhánh & Menu Chi Nhánh (`frmChiNhanh`, `frmMenuChiNhanh` — MH 8 & MH 9 / 9):**
   - [x] Quản lý danh mục Chi nhánh chuỗi nhà hàng (`frmChiNhanh`): Tên, địa chỉ, hotline, người quản lý cơ sở *(Đã hoàn thành 39/39 test cases tại [`report_0_2_10.html`](release_report/report_0_2_10.html))*.
   - [x] Phân bổ bảng thực đơn theo chi nhánh (`frmMenuChiNhanh`): Thiết lập chi nhánh nào bán menu nào, giá bán áp dụng theo khu vực chi nhánh, bật/tắt phục vụ món tại chỗ *(Đã hoàn thành 44/44 test cases tại [`report_0_2_11.html`](release_report/report_0_2_11.html))*.
-- [ ] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):**
+- [x] **Quản lý Lịch làm việc & Chấm công (`frmQuanLyLichLamViec`, `frmDuyetChamCong`):** *(Đã hoàn thành 25/25 test cases tại [`report_0_3_5.html`](release_report/report_0_3_5.html))*
   - [x] Hiển thị & cấu hình danh sách ca và khung giờ làm việc (`frmCaLamViec` — *Đã hoàn thành 24/24 test cases tại [`CHECKLIST_UU_TIEN_DANH_MUC.md`](CHECKLIST_UU_TIEN_DANH_MUC.md) — MH 3 & [`report_0_2_5.html`](release_report/report_0_2_5.html)*).
-  - [ ] Xem & chỉnh sửa lịch làm việc chung của tất cả nhân viên trong tuần (7 ngày/tuần, xem ca nào trống, ca nào có bao nhiêu nhân viên, thêm/xóa nhân viên vào ca).
-  - [ ] Xem & chỉnh sửa lịch làm việc riêng của 1 nhân viên được chọn (thay đổi trạng thái ca).
+  - [x] Xem & chỉnh sửa lịch làm việc chung của tất cả nhân viên trong tuần (ma trận 7 ngày/tuần, xem quân số ca, thêm/xóa nhân viên vào ca trực).
+  - [x] Xem & chỉnh sửa lịch làm việc riêng của từng nhân viên trên ma trận tuần.
   - [x] **Duyệt chấm công & Bảng lương ca (`frmDuyetChamCong`):** *(Đã hoàn thành 25/25 test cases tại [`report_0_3_3.html`](release_report/report_0_3_3.html))*
     - [x] Phê duyệt công đơn lẻ và hàng loạt (Bulk Approval [F6]), kiểm tra giờ vào/ra thực tế.
     - [x] Thống kê tổng ca, số ca chờ, ca đã duyệt và tự động dự toán quỹ lương theo ca làm.

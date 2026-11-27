@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup UI/UX: Quản Lý Phân Ca & Lịch Làm Việc Tuần — Phúc Lộc Thọ</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+    .container { max-width: 1320px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 16px 24px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .header-icon { font-size: 32px; }
+    .header-title h1 { font-size: 20px; font-weight: 800; color: #38bdf8; letter-spacing: 0.5px; }
+    .header-title p { font-size: 13px; color: var(--text-muted); }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* KPI Summary Cards */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .kpi-card {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 14px 20px; position: relative; overflow: hidden;
+    }
+    .kpi-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+    .kpi-card.blue::before { background: var(--blue); }
+    .kpi-card.green::before { background: var(--green); }
+    .kpi-card.amber::before { background: var(--amber); }
+    .kpi-card.purple::before { background: var(--purple); }
+    .kpi-val { font-size: 24px; font-weight: 800; margin-bottom: 2px; }
+    .kpi-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+    /* Week Navigation & Assign Toolbar */
+    .toolbar {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 14px 20px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .toolbar-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-success { background: #16a34a; color: #fff; }
+    .btn-success:hover { background: #15803d; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+    .btn-danger { background: #dc2626; color: #fff; }
+
+    .week-indicator {
+      font-size: 14px; font-weight: 800; color: #fbbf24;
+      background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 6px 14px; border-radius: 6px;
+    }
+
+    /* Assign Form Panel */
+    .assign-panel {
+      background: rgba(30, 41, 59, 0.7); border: 1px dashed var(--card-border);
+      border-radius: 10px; padding: 14px 20px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .form-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+    .form-item select, .form-item input {
+      background: #0f172a; border: 1px solid var(--card-border);
+      color: #fff; padding: 7px 12px; border-radius: 6px; font-size: 13px; outline: none;
+    }
+
+    /* Roster Table */
+    .table-wrapper {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 10px; overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th {
+      background: #0f172a; color: var(--text-muted); padding: 12px 14px;
+      font-weight: 700; border-bottom: 1px solid var(--card-border); text-align: center;
+    }
+    th:first-child { text-align: left; }
+    td {
+      padding: 12px 10px; border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+      vertical-align: middle; text-align: center;
+    }
+    td:first-child { text-align: left; }
+    tr:hover { background: rgba(51, 65, 85, 0.25); }
+
+    .emp-info { display: flex; flex-direction: column; }
+    .emp-name { font-weight: 700; color: #fff; }
+    .emp-role { font-size: 11px; color: var(--text-muted); }
+
+    .shift-tag {
+      display: block; padding: 6px 8px; border-radius: 6px; font-size: 11px;
+      font-weight: 700; cursor: pointer; transition: 0.2s; position: relative;
+    }
+    .shift-tag:hover { filter: brightness(1.2); }
+    .shift-morning { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .shift-afternoon { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .shift-evening { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .shift-off { background: rgba(51, 65, 85, 0.4); color: #64748b; border: 1px solid transparent; font-weight: normal; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #16a34a;
+      color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 13px;
+      font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      display: none; align-items: center; gap: 8px; z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="header-icon">📅</div>
+        <div class="header-title">
+          <h1>QUẢN LÝ PHÂN CA &amp; XẾP LỊCH LÀM VIỆC TUẦN</h1>
+          <p>Điều phối quân số 7 ngày trong tuần, phân bổ ca trực cho nhân viên phục vụ &amp; đầu bếp • Phúc Lộc Thọ</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="window.close()">Đóng [Esc]</button>
+      </div>
+    </div>
+
+    <!-- KPI Summary -->
+    <div class="kpi-grid">
+      <div class="kpi-card blue">
+        <div class="kpi-val" style="color:#38bdf8;" id="kpiTongCa">26 lượt</div>
+        <div class="kpi-lbl">Tổng ca đã xếp tuần này</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-val" style="color:#4ade80;">14 ca</div>
+        <div class="kpi-lbl">Nhân sự Phục vụ bàn</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-val" style="color:#fbbf24;">12 ca</div>
+        <div class="kpi-lbl">Nhân sự Nhà bếp / Pha chế</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-val" style="color:#c084fc;">100%</div>
+        <div class="kpi-lbl">Độ phủ quân số chuẩn</div>
+      </div>
+    </div>
+
+    <!-- Week Navigation -->
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="btn btn-secondary" onclick="doiTuan(-1)">◀ Tuần trước</button>
+        <button class="btn btn-primary" onclick="veTuanNay()">Tuần hiện tại</button>
+        <button class="btn btn-secondary" onclick="doiTuan(1)">Tuần sau ▶</button>
+        <div class="week-indicator" id="lblWeek">Tuần từ 24/11/2026 đến 30/11/2026</div>
+      </div>
+      <div>
+        <button class="btn btn-secondary" onclick="renderTable()">🔄 Làm mới [F5]</button>
+      </div>
+    </div>
+
+    <!-- Quick Assign Box -->
+    <div class="assign-panel">
+      <div style="font-weight:700; color:#38bdf8; display:flex; align-items:center; gap:6px;">
+        <span>➕</span> <span>Phân Công Ca Nhanh:</span>
+      </div>
+      <div class="form-item">
+        <span>Nhân viên:</span>
+        <select id="selNhanVien">
+          <option value="1">Nguyễn Văn A (Phục vụ)</option>
+          <option value="2">Trần Thị B (Phục vụ)</option>
+          <option value="3">Lê Hoàng C (Nhà bếp)</option>
+          <option value="4">Phạm Hải D (Nhà bếp)</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <span>Ngày làm:</span>
+        <input type="date" id="txtNgayLam" value="2026-11-27" />
+      </div>
+      <div class="form-item">
+        <span>Ca trực:</span>
+        <select id="selCa">
+          <option value="1">Ca Sáng (06:00 - 14:00)</option>
+          <option value="2">Ca Chiều (14:00 - 22:00)</option>
+        </select>
+      </div>
+      <button class="btn btn-success" onclick="phanCongCa()">✔ Xác Nhận Phân Ca</button>
+    </div>
+
+    <!-- Roster Grid -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th width="220">Họ Tên Nhân Viên</th>
+            <th width="140">Thứ Hai<br><small style="color:#64748b;">24/11</small></th>
+            <th width="140">Thứ Ba<br><small style="color:#64748b;">25/11</small></th>
+            <th width="140">Thứ Tư<br><small style="color:#64748b;">26/11</small></th>
+            <th width="140">Thứ Năm<br><small style="color:#64748b;">27/11</small></th>
+            <th width="140">Thứ Sáu<br><small style="color:#64748b;">28/11</small></th>
+            <th width="140">Thứ Bảy<br><small style="color:#64748b;">29/11</small></th>
+            <th width="140">Chủ Nhật<br><small style="color:#64748b;">30/11</small></th>
+          </tr>
+        </thead>
+        <tbody id="tblBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="toast" id="toastMsg">✅ Thao tác thành công!</div>
+
+  <script>
+    let nhanVienList = [
+      {
+        maNV: 1, hoTen: "Nguyễn Văn A", vaiTro: "Phục vụ bàn",
+        lich: ["Ca Sáng", "Ca Sáng", "Nghỉ", "Ca Sáng", "Ca Sáng", "Ca Chiều", "Nghỉ"]
+      },
+      {
+        maNV: 2, hoTen: "Trần Thị B", vaiTro: "Phục vụ bàn",
+        lich: ["Ca Chiều", "Ca Chiều", "Ca Sáng", "Ca Chiều", "Nghỉ", "Ca Sáng", "Ca Sáng"]
+      },
+      {
+        maNV: 3, hoTen: "Lê Hoàng C", vaiTro: "Nhà bếp",
+        lich: ["Ca Sáng", "Ca Sáng", "Ca Chiều", "Nghỉ", "Ca Sáng", "Ca Sáng", "Ca Chiều"]
+      },
+      {
+        maNV: 4, hoTen: "Phạm Hải D", vaiTro: "Nhà bếp",
+        lich: ["Ca Chiều", "Nghỉ", "Ca Sáng", "Ca Sáng", "Ca Chiều", "Ca Chiều", "Ca Sáng"]
+      }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById("tblBody");
+      tbody.innerHTML = "";
+
+      let countTotal = 0;
+      nhanVienList.forEach(nv => {
+        const tr = document.createElement("tr");
+        let tds = `
+          <td>
+            <div class="emp-info">
+              <span class="emp-name">${nv.hoTen}</span>
+              <span class="emp-role">${nv.vaiTro} • #NV${nv.maNV}</span>
+            </div>
+          </td>
+        `;
+
+        nv.lich.forEach((ca, dayIdx) => {
+          let cls = "shift-off";
+          if (ca === "Ca Sáng") { cls = "shift-morning"; countTotal++; }
+          else if (ca === "Ca Chiều") { cls = "shift-afternoon"; countTotal++; }
+
+          tds += `
+            <td>
+              <span class="shift-tag ${cls}" onclick="doiCa(${nv.maNV}, ${dayIdx})">
+                ${ca === "Nghỉ" ? "— Nghỉ —" : ca}
+              </span>
+            </td>
+          `;
+        });
+
+        tr.innerHTML = tds;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("kpiTongCa").innerText = countTotal + " lượt";
+    }
+
+    function doiCa(maNV, dayIdx) {
+      const nv = nhanVienList.find(x => x.maNV === maNV);
+      if (!nv) return;
+
+      const current = nv.lich[dayIdx];
+      if (current === "Ca Sáng") nv.lich[dayIdx] = "Ca Chiều";
+      else if (current === "Ca Chiều") nv.lich[dayIdx] = "Nghỉ";
+      else nv.lich[dayIdx] = "Ca Sáng";
+
+      showToast(`Đã cập nhật ca của ${nv.hoTen} sang: ${nv.lich[dayIdx]}`);
+      renderTable();
+    }
+
+    function phanCongCa() {
+      const maNV = parseInt(document.getElementById("selNhanVien").value);
+      const caVal = document.getElementById("selCa").value === "1" ? "Ca Sáng" : "Ca Chiều";
+      const nv = nhanVienList.find(x => x.maNV === maNV);
+      if (nv) {
+        nv.lich[3] = caVal; // Giả lập hôm nay là thứ Năm (index 3)
+        showToast(`Đã phân ca '${caVal}' cho nhân viên ${nv.hoTen}!`);
+        renderTable();
+      }
+    }
+
+    function doiTuan(offset) {
+      showToast(offset > 0 ? "Đã chuyển sang tuần sau!" : "Đã chuyển về tuần trước!");
+    }
+
+    function veTuanNay() {
+      showToast("Đang hiển thị tuần làm việc hiện tại!");
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toastMsg");
+      t.innerText = msg;
+      t.style.display = "flex";
+      setTimeout(() => { t.style.display = "none"; }, 3000);
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>
