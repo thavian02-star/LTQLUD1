@@ -1144,26 +1144,26 @@
   <header class="showcase-header">
     <div class="showcase-brand">
       <div class="showcase-logo">🍲</div>
-      <div class="showcase-title">Hệ Thống Quản Lý F&B <span>v2.0</span></div>
-      <div class="showcase-tag">.NET 10 WinForms UI-UX Master Hub</div>
+      <div class="showcase-title">Hệ Thống Quản Trị Nhà Hàng Chuỗi <span>Phúc Lộc Thọ</span></div>
+      <div class="showcase-tag">Enterprise F&B Solution</div>
     </div>
 
     <!-- Quick Role Switcher -->
     <div class="role-bar">
-      <span class="role-label">Chọn Vai Trò (RBAC Demo):</span>
-      <button class="role-chip active" onclick="switchRole('chuquan', 'Chủ Quán')">👑 Chủ Quán</button>
-      <button class="role-chip" onclick="switchRole('quanly', 'Quản Lý')">💼 Quản Lý</button>
-      <button class="role-chip" onclick="switchRole('phucvu1', 'Phục Vụ')">🍽️ Phục Vụ</button>
-      <button class="role-chip" onclick="switchRole('nhabep1', 'Nhà Bếp')">👨‍🍳 Nhà Bếp</button>
+      <span class="role-label">Phân Quyền Vận Hành:</span>
+      <button class="role-chip active" onclick="switchRole('chuquan', 'Tổng Quản Trị')">👑 Tổng Quản Trị (Chủ Chuỗi)</button>
+      <button class="role-chip" onclick="switchRole('quanly', 'Quản Lý Chi Nhánh')">💼 Quản Lý Chi Nhánh</button>
+      <button class="role-chip" onclick="switchRole('phucvu1', 'Tổ Trưởng Phục Vụ')">🍽️ Phục Vụ & Thu Ngân</button>
+      <button class="role-chip" onclick="switchRole('nhabep1', 'Bếp Trưởng')">👨‍🍳 Bếp Trưởng Điều Phối</button>
     </div>
 
     <!-- View Toggles -->
     <div class="view-toggles">
       <button class="view-btn" id="btnViewLogin" onclick="showScreen('login')">
-        🔐 Màn Hình Đăng Nhập (v1.2)
+        🔐 Bàn Giao Ca & Đăng Nhập
       </button>
       <button class="view-btn active" id="btnViewMain" onclick="showScreen('main')">
-        🏢 Màn Hình Chính & Launchpad (v1.2)
+        🏢 Trung Tâm Điều Hành Toàn Chuỗi
       </button>
     </div>
   </header>
@@ -1175,7 +1175,7 @@
       <div class="window-titlebar">
         <div class="window-caption">
           <span class="window-caption-dot"></span>
-          <span id="windowTitleText">Nhà Hàng Phúc Lộc Thọ — Trung Tâm Quản Lý Hệ Thống [frmMain v1.2]</span>
+          <span id="windowTitleText">Nhà Hàng Phúc Lộc Thọ — Hệ Thống Điều Hành &amp; Quản Trị Chuỗi F&amp;B Enterprise</span>
         </div>
         <div class="window-actions">
           <span class="win-btn win-min"></span>
@@ -1187,81 +1187,81 @@
       <div class="window-canvas">
 
         <!-- ========================================================== -->
-        <!-- SCREEN 1: LOGIN (frmDangNhap v1.2) -->
+        <!-- SCREEN 1: LOGIN (BÀN GIAO CA & ĐĂNG NHẬP) -->
         <!-- ========================================================== -->
         <div class="screen-login" id="screenLogin">
           <div class="login-container">
             <div class="login-hero">
               <div class="hero-top">
                 <h3>PHÚC LỘC THỌ F&B</h3>
-                <p>Nền tảng quản lý nhà hàng chuỗi đa chi nhánh chuyên nghiệp, hiện đại và chuẩn mực.</p>
+                <p>Nền tảng quản trị chuỗi nhà hàng chuyên nghiệp, đồng bộ dữ liệu thời gian thực giữa điểm bán và khối điều hành.</p>
                 <ul class="hero-features">
-                  <li><span class="ico">✓</span> 9 Màn hình danh mục nền tảng đầy đủ</li>
-                  <li><span class="ico">✓</span> Phân quyền 4 cấp độ: Chủ quán, Quản lý, Phục vụ, Bếp</li>
-                  <li><span class="ico">✓</span> Hỗ trợ POS gọi món & KDS hàng đợi bếp FIFO</li>
-                  <li><span class="ico">✓</span> Kiến trúc chuẩn 3 lớp: DTO - DAO - BUS</li>
+                  <li><span class="ico">✓</span> Quản trị hồ sơ nhân sự, phân ca và định mức tính công</li>
+                  <li><span class="ico">✓</span> Quản lý thực đơn ẩm thực, định lượng và bảng giá niêm yết</li>
+                  <li><span class="ico">✓</span> Thiết lập quy hoạch sơ đồ bàn và khu vực phục vụ</li>
+                  <li><span class="ico">✓</span> Điều hành chuỗi chi nhánh và chính sách giá theo cơ sở</li>
                 </ul>
               </div>
               <div class="hero-foot">
-                Dự án LTQLUD1 — Phiên bản v0.2.12 (.NET 10.0)
+                Phúc Lộc Thọ F&amp;B Solution — Phiên Bản Doanh Nghiệp (Enterprise Edition)
               </div>
             </div>
 
             <div class="login-form-area">
               <div class="form-header">
-                <h2>Đăng Nhập Hệ Thống</h2>
-                <p>Chọn tài khoản mẫu để trải nghiệm nhanh không cần nhớ mật khẩu</p>
+                <h2>Bàn Giao Ca &amp; Đăng Nhập</h2>
+                <p>Chọn hồ sơ nhân sự theo vị trí công tác để vào ca trực</p>
               </div>
 
               <!-- Quick Account Picker -->
               <div class="preset-box">
                 <div class="preset-title">
-                  <span>Tài Khoản Mẫu (1-Click Auto Fill):</span>
-                  <span style="color:#d97706; font-size:10px;">Mặc định: 123456</span>
+                  <span>Hồ Sơ Đăng Nhập Theo Ca Trực:</span>
+                  <span style="color:#d97706; font-size:10px;">Mã xác thực: 123456</span>
                 </div>
                 <div class="preset-chips">
-                  <div class="chip-item active" onclick="pickAccount('chuquan', '123456', 'Chủ Quán', this)">
+                  <div class="chip-item active" onclick="pickAccount('chuquan', '123456', 'Tổng Quản Trị', this)">
                     👑 <span>chuquan</span>
-                    <span class="chip-role">Chủ Quán</span>
+                    <span class="chip-role">Chủ Chuỗi</span>
                   </div>
-                  <div class="chip-item" onclick="pickAccount('quanly', '123456', 'Quản Lý', this)">
+                  <div class="chip-item" onclick="pickAccount('quanly', '123456', 'Quản Lý Chi Nhánh', this)">
                     💼 <span>quanly</span>
                     <span class="chip-role">Quản Lý</span>
                   </div>
-                  <div class="chip-item" onclick="pickAccount('phucvu1', '123456', 'Phục Vụ', this)">
+                  <div class="chip-item" onclick="pickAccount('phucvu1', '123456', 'Tổ Trưởng Phục Vụ', this)">
                     🍽️ <span>phucvu1</span>
-                    <span class="chip-role">Phục Vụ</span>
+                    <span class="chip-role">Thu Ngân / PV</span>
                   </div>
-                  <div class="chip-item" onclick="pickAccount('nhabep1', '123456', 'Nhà Bếp', this)">
+                  <div class="chip-item" onclick="pickAccount('nhabep1', '123456', 'Bếp Trưởng', this)">
                     👨‍🍳 <span>nhabep1</span>
-                    <span class="chip-role">Nhà Bếp</span>
+                    <span class="chip-role">Bếp Trưởng</span>
                   </div>
                 </div>
               </div>
 
               <div class="input-group">
-                <label class="input-label">Tên Đăng Nhập</label>
+                <label class="input-label">Mã Nhân Viên / Tên Đăng Nhập</label>
                 <div class="input-field-wrap">
                   <span class="input-icon">👤</span>
-                  <input type="text" id="txtUsername" class="input-field" value="chuquan" placeholder="Nhập tên đăng nhập..." />
+                  <input type="text" id="txtUsername" class="input-field" value="chuquan" placeholder="Nhập mã nhân viên hoặc tên đăng nhập..." />
                 </div>
               </div>
 
               <div class="input-group">
-                <label class="input-label">Mật Khẩu</label>
+                <label class="input-label">Mật Khẩu Xác Thực</label>
                 <div class="input-field-wrap">
                   <span class="input-icon">🔒</span>
-                  <input type="password" id="txtPassword" class="input-field" value="123456" placeholder="Nhập mật khẩu..." />
+                  <input type="password" id="txtPassword" class="input-field" value="123456" placeholder="Nhập mật khẩu xác thực..." />
                   <button type="button" class="toggle-pass-btn" onclick="togglePassword()">👁️</button>
                 </div>
               </div>
 
               <div class="login-actions">
                 <button type="button" class="btn-login-submit" onclick="submitLogin()">
-                  <span>🚀</span> Đăng Nhập Vào Hệ Thống
+                  <span>🚀</span> Xác Nhận Đăng Nhập Ca Trực
                 </button>
                 <button type="button" class="btn-change-pass" onclick="openModal('doimatkhau')">
-                  Đổi MK
+                  Đổi Mật Khẩu
                 </button>
               </div>
             </div>
@@ -1269,7 +1269,7 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- SCREEN 2: MAIN LAUNCHPAD (frmMain v1.2) -->
+        <!-- SCREEN 2: MAIN LAUNCHPAD (TRUNG TÂM ĐIỀU HÀNH) -->
         <!-- ========================================================== -->
         <div class="screen-main active" id="screenMain">
           <!-- Top MenuStrip -->
@@ -1277,54 +1277,54 @@
             <div class="menu-item">
               <span>Hệ Thống (S)</span>
               <div class="dropdown">
-                <a href="javascript:void(0)" onclick="openModal('doimatkhau')">Đổi Mật Khẩu <span class="shortcut">Ctrl+P</span></a>
-                <a href="javascript:void(0)" onclick="showScreen('login')">Đăng Xuất <span class="shortcut">Ctrl+L</span></a>
+                <a href="javascript:void(0)" onclick="openModal('doimatkhau')">Đổi Mật Khẩu Cá Nhân <span class="shortcut">Ctrl+P</span></a>
+                <a href="javascript:void(0)" onclick="showScreen('login')">Bàn Giao Ca / Đăng Xuất <span class="shortcut">Ctrl+L</span></a>
                 <div class="menu-divider"></div>
-                <a href="javascript:void(0)" onclick="alert('Đã thoát ứng dụng!')">Thoát Ứng Dụng <span class="shortcut">Alt+F4</span></a>
+                <a href="javascript:void(0)" onclick="alert('Đã đóng phiên làm việc an toàn!')">Đóng Hệ Thống <span class="shortcut">Alt+F4</span></a>
               </div>
             </div>
 
             <div class="menu-item">
-              <span>Danh Mục (M)</span>
+              <span>Danh Mục Thiết Lập (M)</span>
               <div class="dropdown">
-                <a href="javascript:void(0)" onclick="openModal('nhanvien')" id="mnuNhanVien">1. Quản lý Nhân Viên <span class="shortcut">Ctrl+1</span></a>
-                <a href="javascript:void(0)" onclick="openModal('calamviec')" id="mnuCaLamViec">2. Quản lý Ca Làm Việc <span class="shortcut">Ctrl+2</span></a>
+                <a href="javascript:void(0)" onclick="openModal('nhanvien')" id="mnuNhanVien">1. Hồ Sơ Nhân Sự &amp; Phân Quyền <span class="shortcut">Ctrl+1</span></a>
+                <a href="javascript:void(0)" onclick="openModal('calamviec')" id="mnuCaLamViec">2. Khung Ca Làm Việc &amp; Định Mức <span class="shortcut">Ctrl+2</span></a>
                 <div class="menu-divider"></div>
-                <a href="javascript:void(0)" onclick="openModal('monan')" id="mnuMonAn">3. Danh Mục Món Ăn <span class="shortcut">Ctrl+3</span></a>
-                <a href="javascript:void(0)" onclick="openModal('danhmuc')" id="mnuDanhMuc">4. Phân Loại Nhóm Món <span class="shortcut">Ctrl+4</span></a>
+                <a href="javascript:void(0)" onclick="openModal('monan')" id="mnuMonAn">3. Thực Đơn Ẩm Thực &amp; Đơn Giá <span class="shortcut">Ctrl+3</span></a>
+                <a href="javascript:void(0)" onclick="openModal('danhmuc')" id="mnuDanhMuc">4. Phân Nhóm Món &amp; Chế Biến <span class="shortcut">Ctrl+4</span></a>
                 <div class="menu-divider"></div>
-                <a href="javascript:void(0)" onclick="openModal('khuvuc')" id="mnuKhuVuc">5. Quản lý Khu Vực Bàn <span class="shortcut">Ctrl+5</span></a>
-                <a href="javascript:void(0)" onclick="openModal('ban')" id="mnuBan">6. Sơ Đồ Bàn Ăn <span class="shortcut">Ctrl+6</span></a>
+                <a href="javascript:void(0)" onclick="openModal('khuvuc')" id="mnuKhuVuc">5. Quy Hoạch Khu Vực Phục Vụ <span class="shortcut">Ctrl+5</span></a>
+                <a href="javascript:void(0)" onclick="openModal('ban')" id="mnuBan">6. Sơ Đồ Bàn &amp; Chỗ Ngồi <span class="shortcut">Ctrl+6</span></a>
                 <div class="menu-divider"></div>
-                <a href="javascript:void(0)" onclick="openModal('menu')" id="mnuMenu">7. Bảng Thực Đơn Master <span class="shortcut">Ctrl+7</span></a>
-                <a href="javascript:void(0)" onclick="openModal('chinhanh')" id="mnuChiNhanh">8. Quản lý Chuỗi Chi Nhánh <span class="shortcut">Ctrl+8</span></a>
-                <a href="javascript:void(0)" onclick="openModal('menuchinhanh')" id="mnuMenuChiNhanh">9. Thực Đơn Chi Nhánh <span class="shortcut">Ctrl+9</span></a>
+                <a href="javascript:void(0)" onclick="openModal('menu')" id="mnuMenu">7. Bộ Thực Đơn Chuẩn Toàn Chuỗi <span class="shortcut">Ctrl+7</span></a>
+                <a href="javascript:void(0)" onclick="openModal('chinhanh')" id="mnuChiNhanh">8. Mạng Lưới Chi Nhánh Kinh Doanh <span class="shortcut">Ctrl+8</span></a>
+                <a href="javascript:void(0)" onclick="openModal('menuchinhanh')" id="mnuMenuChiNhanh">9. Chính Sách Thực Đơn Chi Nhánh <span class="shortcut">Ctrl+9</span></a>
               </div>
             </div>
 
             <div class="menu-item">
-              <span>Nghiệp Vụ Bán Hàng (O)</span>
+              <span>Vận Hành Bán Hàng (O)</span>
               <div class="dropdown">
-                <a href="javascript:void(0)" onclick="alert('Module POS Bán Hàng & Gọi Món Bàn sắp ra mắt ở Sprint tiếp theo!')">⚡ POS Gọi Món & Sơ Đồ Bàn <span class="shortcut">F2</span></a>
-                <a href="javascript:void(0)" onclick="alert('Module Hàng Đợi Bếp KDS sắp ra mắt ở Sprint tiếp theo!')">🍳 Màn Hình Bếp (KDS FIFO) <span class="shortcut">F3</span></a>
-                <a href="javascript:void(0)" onclick="alert('Module Tính Tiền & In Hóa Đơn sắp ra mắt ở Sprint tiếp theo!')">💳 Thanh Toán & Hóa Đơn <span class="shortcut">F4</span></a>
+                <a href="javascript:void(0)" onclick="alert('Module Điểm Bán Hàng & Gọi Món Tại Bàn (POS) chuẩn bị mở phiên!')">⚡ Điểm Bán Hàng &amp; Gọi Món Bàn (POS) <span class="shortcut">F2</span></a>
+                <a href="javascript:void(0)" onclick="alert('Module Điều Phối Món Bếp (KDS FIFO) chuẩn bị mở phiên!')">🍳 Điều Phối Chế Biến Nhà Bếp (KDS) <span class="shortcut">F3</span></a>
+                <a href="javascript:void(0)" onclick="alert('Module Sổ Hóa Đơn & Thanh Toán chuẩn bị mở phiên!')">💳 Sổ Hóa Đơn &amp; Thanh Toán Ca <span class="shortcut">F4</span></a>
               </div>
             </div>
 
             <div class="menu-item">
-              <span>Báo Cáo - Thống Kê (R)</span>
+              <span>Báo Cáo Quản Trị (R)</span>
               <div class="dropdown">
-                <a href="javascript:void(0)" onclick="alert('Báo cáo Doanh thu theo ngày/tháng sắp ra mắt!')">📊 Doanh Thu Chi Nhánh</a>
-                <a href="javascript:void(0)" onclick="alert('Báo cáo Top món bán chạy sắp ra mắt!')">🏆 Top Món Ăn Bán Chạy</a>
-                <a href="javascript:void(0)" onclick="alert('Báo cáo Chấm công & Giờ làm nhân viên sắp ra mắt!')">📅 Thống Kê Giờ Công Nhân Viên</a>
+                <a href="javascript:void(0)" onclick="alert('Đang tổng hợp báo cáo doanh thu chuỗi...')">📊 Doanh Thu &amp; Hiệu Quả Cơ Sở</a>
+                <a href="javascript:void(0)" onclick="alert('Đang trích xuất dữ liệu món bán chạy...')">🏆 Phân Tích Món Ăn Bán Chạy</a>
+                <a href="javascript:void(0)" onclick="alert('Đang tính toán bảng tổng hợp giờ công...')">📅 Bảng Tổng Hợp Công &amp; Năng Suất</a>
               </div>
             </div>
 
             <div class="menu-item">
-              <span>Trợ Giúp (H)</span>
+              <span>Tiện Ích &amp; Trợ Giúp (H)</span>
               <div class="dropdown">
-                <a href="../demo_system.html" target="_blank">📖 Mở Demo Hub Toàn Diện</a>
-                <a href="javascript:void(0)" onclick="alert('Phúc Lộc Thọ F&B Management System v0.2.12\nKiến trúc VB.NET WinForms .NET 10.0\nNhóm phát triển: LTQLUD1')">ℹ️ Thông Tin Phiên Bản</a>
+                <a href="../demo_system.html" target="_blank">📖 Sổ Tay Quy Trình Vận Hành Nhà Hàng</a>
+                <a href="javascript:void(0)" onclick="alert('Hệ Thống Quản Trị Chuỗi Nhà Hàng Phúc Lộc Thọ F&B Enterprise\nCông nghệ: .NET 10.0 WinForms Enterprise Framework\nBản quyền © 2026 Phúc Lộc Thọ Solutions.')">ℹ️ Thông Tin Bản Quyền &amp; Phiên Bản</a>
               </div>
             </div>
           </nav>
@@ -1334,27 +1334,27 @@
             <div class="brand-left">
               <div class="brand-logo-sq">PLT</div>
               <div class="brand-text">
-                <h1>NHÀ HÀNG PHÚC LỘC THỌ — HỆ THỐNG QUẢN TRỊ F&B</h1>
-                <p>Nền Tảng Dữ Liệu Nền Tảng (Master Data Launchpad 3x3) & Nghiệp Vụ Bán Hàng</p>
+                <h1>HỆ THỐNG QUẢN TRỊ NHÀ HÀNG PHÚC LỘC THỌ</h1>
+                <p>Trung Tâm Thiết Lập Cấu Hình &amp; Điều Hành Chuỗi Chi Nhánh Toàn Diện</p>
               </div>
             </div>
 
             <div class="brand-right">
               <select class="branch-selector" id="cboBranch">
-                <option value="CN001">Chi Nhánh Quận 1 (Trung Tâm)</option>
-                <option value="CN002">Chi Nhánh Cầu Giấy (Hà Nội)</option>
-                <option value="CN003">Chi Nhánh Hải Châu (Đà Nẵng)</option>
+                <option value="CN001">Cơ sở: Chi Nhánh Quận 1 (Trung Tâm)</option>
+                <option value="CN002">Cơ sở: Chi Nhánh Cầu Giấy (Hà Nội)</option>
+                <option value="CN003">Cơ sở: Chi Nhánh Hải Châu (Đà Nẵng)</option>
               </select>
 
               <div class="active-user-badge">
                 <div class="user-avatar" id="lblUserAvatar">CQ</div>
                 <div class="user-name-role">
                   <span class="user-name" id="lblCurrentUserName">Trần Văn Quán (chuquan)</span>
-                  <span class="user-role-label" id="lblCurrentUserRole">CHỦ QUÁN</span>
+                  <span class="user-role-label" id="lblCurrentUserRole">TỔNG QUẢN TRỊ</span>
                 </div>
               </div>
 
-              <button class="logout-btn" onclick="showScreen('login')">Đăng Xuất</button>
+              <button class="logout-btn" onclick="showScreen('login')">Bàn Giao Ca</button>
             </div>
           </header>
 
@@ -1362,31 +1362,31 @@
           <div class="app-body">
             <!-- Sidebar -->
             <aside class="app-sidebar">
-              <div class="sidebar-section-title">Danh Mục Nền Tảng</div>
+              <div class="sidebar-section-title">Danh Mục Thiết Lập</div>
               <button class="sidebar-nav-btn active" onclick="filterLaunchpad('all')">
-                <span>🗂️</span> Toàn Bộ 9 Danh Mục <span class="badge-count">9</span>
+                <span>🗂️</span> Toàn Bộ Cấu Hình <span class="badge-count">9</span>
               </button>
               <button class="sidebar-nav-btn" onclick="filterLaunchpad('staff')">
-                <span>👥</span> Nhân Sự & Ca Làm <span class="badge-count">2</span>
+                <span>👥</span> Nhân Sự &amp; Ca Trực <span class="badge-count">2</span>
               </button>
               <button class="sidebar-nav-btn" onclick="filterLaunchpad('menu')">
-                <span>🍽️</span> Thực Đơn & Nhóm Món <span class="badge-count">2</span>
+                <span>🍽️</span> Thực Đơn &amp; Nhóm Món <span class="badge-count">2</span>
               </button>
               <button class="sidebar-nav-btn" onclick="filterLaunchpad('table')">
-                <span>🪑</span> Bàn Ăn & Khu Vực <span class="badge-count">2</span>
+                <span>🪑</span> Sơ Đồ Bàn &amp; Không Gian <span class="badge-count">2</span>
               </button>
               <button class="sidebar-nav-btn" onclick="filterLaunchpad('chain')">
-                <span>🏬</span> Chuỗi & Menu Chi Nhánh <span class="badge-count">3</span>
+                <span>🏬</span> Chuỗi &amp; Giá Chi Nhánh <span class="badge-count">3</span>
               </button>
 
-              <div class="sidebar-section-title" style="margin-top: 14px;">Nghiệp Vụ Sắp Tới</div>
-              <button class="sidebar-nav-btn" onclick="alert('POS Bán hàng & Gọi món sẽ ra mắt ở Sprint tiếp theo!')">
-                <span>⚡</span> POS Bán Hàng
+              <div class="sidebar-section-title" style="margin-top: 14px;">Phân Hệ Tác Nghiệp</div>
+              <button class="sidebar-nav-btn" onclick="alert('Đang mở màn hình POS Điểm Bán Hàng...')">
+                <span>⚡</span> Điểm Bán Hàng (POS)
               </button>
-              <button class="sidebar-nav-btn" onclick="alert('KDS Màn hình bếp sẽ ra mắt ở Sprint tiếp theo!')">
-                <span>🍳</span> Hàng Đợi Bếp
+              <button class="sidebar-nav-btn" onclick="alert('Đang mở màn hình Điều Phối Bếp KDS...')">
+                <span>🍳</span> Điều Phối Bếp (KDS)
               </button>
-              <button class="sidebar-nav-btn" onclick="alert('Báo cáo thống kê sẽ ra mắt ở Sprint tiếp theo!')">
+              <button class="sidebar-nav-btn" onclick="alert('Đang mở Trung tâm Báo Cáo Doanh Thu...')">
                 <span>📊</span> Báo Cáo Doanh Thu
               </button>
             </aside>
@@ -1396,13 +1396,13 @@
               <!-- Banner -->
               <div class="hub-banner">
                 <div class="banner-text">
-                  <h2>🎯 Trung Tâm 9 Màn Hình Danh Mục Nền Tảng (Master Data Launchpad)</h2>
-                  <p>Mỗi ô đại diện cho một phân hệ độc lập. Nhấn vào thẻ để mở xem trước biểu mẫu chi tiết hoặc dùng phím tắt tương ứng.</p>
+                  <h2>🎯 Trung Tâm Thiết Lập Cấu Hình &amp; Dữ Liệu Vận Hành Chuỗi</h2>
+                  <p>Quản lý tập trung hồ sơ nhân sự, bảng giá ẩm thực, sơ đồ phục vụ và chính sách phân bổ cho toàn bộ chuỗi nhà hàng.</p>
                 </div>
                 <div class="banner-badge-group">
                   <div class="status-pill">
                     <span class="status-dot-pulse"></span>
-                    <span>9/9 Danh Mục Hoàn Thành 100%</span>
+                    <span>Dữ Liệu Đồng Bộ &amp; Sẵn Sàng Vận Hành</span>
                   </div>
                 </div>
               </div>
@@ -1410,9 +1410,9 @@
               <!-- 9 Cards Grid (3x3) -->
               <div class="grid-title-row">
                 <div class="grid-title">
-                  <span>⚡ Lưới 9 Thẻ Điều Hướng Trực Quan (3x3 Grid)</span>
+                  <span>⚡ Danh Mục Dữ Liệu Cấu Hình Nền Tảng</span>
                 </div>
-                <div class="grid-hint">Nhấn vào thẻ bất kỳ để mở Form tương tác</div>
+                <div class="grid-hint">Chọn danh mục để quản lý hồ sơ chi tiết hoặc nhấn phím tắt tương ứng</div>
               </div>
 
               <div class="grid-9-cards" id="launchpadGrid">
@@ -1422,11 +1422,11 @@
                     <div class="card-icon-box bg-blue">👥</div>
                     <span class="card-hotkey">Ctrl + 1</span>
                   </div>
-                  <div class="card-name">1. Quản Lý Nhân Viên</div>
-                  <div class="card-desc">Quản lý hồ sơ nhân sự, phân quyền 4 vai trò, số điện thoại, mật khẩu đăng nhập.</div>
+                  <div class="card-name">1. Hồ Sơ Nhân Sự &amp; Tài Khoản</div>
+                  <div class="card-desc">Quản lý danh sách cán bộ nhân viên, chức danh công tác, thông tin liên lạc và cấp quyền tác nghiệp.</div>
                   <div class="card-footer">
-                    <span class="card-stat">12 Nhân viên</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">12 Cán bộ nhân viên</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1436,11 +1436,11 @@
                     <div class="card-icon-box bg-amber">⏰</div>
                     <span class="card-hotkey">Ctrl + 2</span>
                   </div>
-                  <div class="card-name">2. Quản Lý Ca Làm Việc</div>
-                  <div class="card-desc">Thiết lập các ca sáng, ca chiều, ca tối, giờ check-in/out và hệ số lương ca.</div>
+                  <div class="card-name">2. Khung Ca Làm Việc &amp; Định Mức</div>
+                  <div class="card-desc">Thiết lập các khung ca sáng, ca chiều, ca tối, quy định giờ check-in và hệ số tính công lao động.</div>
                   <div class="card-footer">
-                    <span class="card-stat">3 Ca chuẩn</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">3 Ca tiêu chuẩn</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1450,11 +1450,11 @@
                     <div class="card-icon-box bg-green">🍽️</div>
                     <span class="card-hotkey">Ctrl + 3</span>
                   </div>
-                  <div class="card-name">3. Danh Mục Món Ăn</div>
-                  <div class="card-desc">Quản lý kho món, đơn giá bán, đơn vị tính, hình ảnh món và trạng thái phục vụ.</div>
+                  <div class="card-name">3. Thực Đơn Ẩm Thực &amp; Đơn Giá</div>
+                  <div class="card-desc">Danh mục món ăn, đồ uống, đơn vị tính, đơn giá niêm yết và tình trạng nguyên liệu phục vụ tại bếp.</div>
                   <div class="card-footer">
-                    <span class="card-stat">28 Món ăn</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">28 Món ẩm thực</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1464,11 +1464,11 @@
                     <div class="card-icon-box bg-purple">📁</div>
                     <span class="card-hotkey">Ctrl + 4</span>
                   </div>
-                  <div class="card-name">4. Phân Loại Nhóm Món</div>
-                  <div class="card-desc">Phân loại món: Khai vị, Món chính, Đồ uống, Tráng miệng phục vụ POS lọc nhanh.</div>
+                  <div class="card-name">4. Phân Nhóm Món &amp; Chế Biến</div>
+                  <div class="card-desc">Phân loại món khai vị, món chính, lẩu nướng, đồ uống, tráng miệng giúp tối ưu tốc độ gọi món tại bàn.</div>
                   <div class="card-footer">
-                    <span class="card-stat">6 Nhóm món</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">6 Nhóm phân loại</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1478,11 +1478,11 @@
                     <div class="card-icon-box bg-rose">🏢</div>
                     <span class="card-hotkey">Ctrl + 5</span>
                   </div>
-                  <div class="card-name">5. Khu Vực Bàn Ăn</div>
-                  <div class="card-desc">Phân chia không gian nhà hàng: Tầng 1 (Sảnh), Tầng 2, Phòng VIP máy lạnh.</div>
+                  <div class="card-name">5. Quy Hoạch Không Gian &amp; Khu Vực</div>
+                  <div class="card-desc">Phân định các khu vực đón tiếp: Sảnh chính tầng 1, không gian sân vườn ngoài trời, phòng VIP máy lạnh.</div>
                   <div class="card-footer">
-                    <span class="card-stat">3 Khu vực</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">3 Khu vực phục vụ</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1492,11 +1492,11 @@
                     <div class="card-icon-box bg-teal">🪑</div>
                     <span class="card-hotkey">Ctrl + 6</span>
                   </div>
-                  <div class="card-name">6. Sơ Đồ Bàn Ăn</div>
-                  <div class="card-desc">Quản lý số lượng bàn, sức chứa người ngồi, trạng thái bàn Trống/Có khách.</div>
+                  <div class="card-name">6. Sơ Đồ Bàn &amp; Trạng Thái Chỗ Ngồi</div>
+                  <div class="card-desc">Quản lý định danh số bàn, sức chứa khách, giám sát tình trạng bàn trống, đang dùng bữa hoặc đặt trước.</div>
                   <div class="card-footer">
-                    <span class="card-stat">24 Bàn ăn</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">24 Bàn hoạt động</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1506,11 +1506,11 @@
                     <div class="card-icon-box bg-orange">📋</div>
                     <span class="card-hotkey">Ctrl + 7</span>
                   </div>
-                  <div class="card-name">7. Bảng Thực Đơn Master</div>
-                  <div class="card-desc">Tạo lập các bộ menu tổng: Thực đơn Mùa Hè, Thực đơn Tết, Thực đơn Buffet tiệc.</div>
+                  <div class="card-name">7. Bộ Thực Đơn Chuẩn Toàn Chuỗi</div>
+                  <div class="card-desc">Thiết lập các bộ thực đơn chuẩn áp dụng chung, menu sự kiện mùa lễ hội và set menu tiệc hội nghị.</div>
                   <div class="card-footer">
-                    <span class="card-stat">2 Menu tổng</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">2 Bộ thực đơn</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1520,11 +1520,11 @@
                     <div class="card-icon-box bg-indigo">🏬</div>
                     <span class="card-hotkey">Ctrl + 8</span>
                   </div>
-                  <div class="card-name">8. Quản Lý Chuỗi Chi Nhánh</div>
-                  <div class="card-desc">Theo dõi thông tin chi nhánh toàn quốc, địa chỉ, hotline, quản lý chi nhánh trưởng.</div>
+                  <div class="card-name">8. Mạng Lưới Chi Nhánh Kinh Doanh</div>
+                  <div class="card-desc">Quản lý danh sách các cơ sở nhà hàng, địa chỉ, đường dây nóng và phân công nhân sự quản lý cơ sở.</div>
                   <div class="card-footer">
-                    <span class="card-stat">3 Chi nhánh</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-stat">3 Cơ sở kinh doanh</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
 
@@ -1534,11 +1534,11 @@
                     <div class="card-icon-box bg-emerald">🎯</div>
                     <span class="card-hotkey">Ctrl + 9</span>
                   </div>
-                  <div class="card-name">9. Thực Đơn Chi Nhánh</div>
-                  <div class="card-desc">Gán menu tổng và giá bán đặc thù linh hoạt cho từng chi nhánh độc lập.</div>
+                  <div class="card-name">9. Chính Sách Thực Đơn Chi Nhánh</div>
+                  <div class="card-desc">Phân bổ thực đơn tương ứng và áp dụng chính sách giá bán linh hoạt phù hợp từng địa bàn kinh doanh.</div>
                   <div class="card-footer">
                     <span class="card-stat">Đang kích hoạt</span>
-                    <span class="card-open-arrow">Mở Form &rarr;</span>
+                    <span class="card-open-arrow">Xem Danh Sách &rarr;</span>
                   </div>
                 </div>
               </div>
@@ -1546,36 +1546,36 @@
               <!-- Roadmap Section -->
               <div class="roadmap-section">
                 <div class="roadmap-header">
-                  <h3>🚀 Phân Hệ Nghiệp Vụ Vận Hành Sắp Tới (Next Sprints)</h3>
-                  <span style="font-size:11.5px; color:#64748b; font-weight:600;">Giai đoạn 2: Bán Hàng & Chế Biến</span>
+                  <h3>🚀 Trung Tâm Tác Nghiệp Bán Hàng Trực Tiếp (POS &amp; Kitchen Operations)</h3>
+                  <span style="font-size:11.5px; color:#16a34a; font-weight:700;">● Sẵn sàng kết nối ca trực</span>
                 </div>
                 <div class="roadmap-grid">
                   <div class="roadmap-card">
                     <div class="roadmap-icon">⚡</div>
                     <div class="roadmap-info">
-                      <h4>POS Gọi Món Bàn</h4>
-                      <p>Sơ đồ bàn trực quan, chọn món cảm ứng, tách gộp bàn.</p>
+                      <h4>Điểm Bán Hàng (POS)</h4>
+                      <p>Sơ đồ bàn trực quan, order cảm ứng, in phiếu bếp tức thì.</p>
                     </div>
                   </div>
                   <div class="roadmap-card">
                     <div class="roadmap-icon">🍳</div>
                     <div class="roadmap-info">
-                      <h4>Hàng Đợi Bếp KDS</h4>
-                      <p>Nhận order real-time, đổi trạng thái chế biến FIFO.</p>
+                      <h4>Điều Phối Bếp (KDS)</h4>
+                      <p>Tiếp nhận món gọi tự động, hiển thị thứ tự chế biến FIFO.</p>
                     </div>
                   </div>
                   <div class="roadmap-card">
                     <div class="roadmap-icon">📅</div>
                     <div class="roadmap-info">
-                      <h4>Lịch Ca & Chấm Công</h4>
-                      <p>Phân ca nhân viên, check-in, tính công tự động.</p>
+                      <h4>Chấm Công &amp; Ca Trực</h4>
+                      <p>Điểm danh nhân sự đầu ca, giám sát quân số làm việc.</p>
                     </div>
                   </div>
                   <div class="roadmap-card">
                     <div class="roadmap-icon">📊</div>
                     <div class="roadmap-info">
                       <h4>Báo Cáo Doanh Thu</h4>
-                      <p>Biểu đồ doanh thu ngày, tháng, tỷ trọng lãi gộp.</p>
+                      <p>Tổng hợp doanh thu ca trực, biểu đồ tăng trưởng cơ sở.</p>
                     </div>
                   </div>
                 </div>
@@ -1586,13 +1586,13 @@
           <!-- Bottom Status Strip -->
           <footer class="main-statusbar">
             <div class="status-left">
-              <span>Trạng thái: 🟢 Đã sẵn sàng kết nối CSDL</span>
-              <span>Chi nhánh: CN001 - Quận 1</span>
-              <span>Phiên bản: v0.2.12</span>
+              <span>Hệ thống: 🟢 Cơ sở dữ liệu trực tuyến (Độ trễ: 12ms)</span>
+              <span>Cơ sở: CN001 - Trung Tâm Quận 1</span>
+              <span>Phiên bản: Enterprise Solution v2.0</span>
             </div>
             <div class="status-right">
               <span id="clockDisplay">12:00:00 AM</span>
-              <span>Bản quyền: LTQLUD1 © 2026</span>
+              <span>Phúc Lộc Thọ F&amp;B Management System © 2026</span>
             </div>
           </footer>
         </div>
@@ -1663,194 +1663,194 @@
     // System Data Store
     const FORM_DATA = {
       nhanvien: {
-        title: "Quản Lý Nhân Viên [frmNhanVien]",
+        title: "Hồ Sơ Nhân Sự & Phân Quyền Vận Hành [frmNhanVien]",
         icon: "👥",
         link: "features/staff/nhan_vien/frmNhanVien_mockup_v1_0.html",
-        count: "12 nhân viên",
-        headers: ["Mã NV", "Họ Tên", "Tên Đăng Nhập", "Vai Trò", "SĐT", "Trạng Thái"],
+        count: "12 cán bộ nhân viên",
+        headers: ["Mã NV", "Họ Tên", "Tài Khoản", "Chức Danh", "Số Điện Thoại", "Trạng Thái"],
         rows: [
-          ["NV001", "Trần Văn Quán", "chuquan", "Chủ Quán", "0901234567", "Đang làm việc"],
-          ["NV002", "Nguyễn Văn Quản", "quanly", "Quản Lý", "0902345678", "Đang làm việc"],
-          ["NV003", "Lê Thị Phục Vụ 1", "phucvu1", "Phục Vụ", "0903456789", "Đang làm việc"],
-          ["NV004", "Phạm Văn Bếp 1", "nhabep1", "Nhà Bếp", "0904567890", "Đang làm việc"],
-          ["NV005", "Vũ Thị Lan", "phucvu2", "Phục Vụ", "0905678901", "Đang làm việc"],
-          ["NV006", "Đặng Đình Bếp", "nhabep2", "Nhà Bếp", "0906789012", "Đang làm việc"]
+          ["NV001", "Trần Văn Quán", "chuquan", "Tổng Quản Trị (Chủ Chuỗi)", "0901234567", "Đang trực ca"],
+          ["NV002", "Nguyễn Văn Quản", "quanly", "Quản Lý Chi Nhánh", "0902345678", "Đang trực ca"],
+          ["NV003", "Lê Thị Phục Vụ 1", "phucvu1", "Tổ Trưởng Thu Ngân", "0903456789", "Đang trực ca"],
+          ["NV004", "Phạm Văn Bếp 1", "nhabep1", "Bếp Trưởng Điều Phối", "0904567890", "Đang trực ca"],
+          ["NV005", "Vũ Thị Lan", "phucvu2", "Nhân Viên Order", "0905678901", "Đang trực ca"],
+          ["NV006", "Đặng Đình Bếp", "nhabep2", "Đầu Bếp Chính", "0906789012", "Đang trực ca"]
         ],
         fields: [
-          { label: "Mã Nhân Viên", key: 0 },
+          { label: "Mã Cán Bộ", key: 0 },
           { label: "Họ Và Tên", key: 1 },
-          { label: "Tên Đăng Nhập", key: 2 },
-          { label: "Vai Trò", key: 3 },
+          { label: "Tài Khoản Đăng Nhập", key: 2 },
+          { label: "Chức Danh Công Tác", key: 3 },
           { label: "Số Điện Thoại", key: 4 },
-          { label: "Trạng Thái", key: 5 }
+          { label: "Tình Trạng Trực Ca", key: 5 }
         ]
       },
       calamviec: {
-        title: "Quản Lý Ca Làm Việc [frmCaLamViec]",
+        title: "Khung Ca Làm Việc & Định Mức Giờ Công [frmCaLamViec]",
         icon: "⏰",
         link: "features/shift/ca_lam_viec/frmCaLamViec_mockup_v1_0.html",
-        count: "3 ca làm việc",
-        headers: ["Mã Ca", "Tên Ca", "Bắt Đầu", "Kết Thúc", "Hệ Số Lương", "Ghi Chú"],
+        count: "3 ca làm việc tiêu chuẩn",
+        headers: ["Mã Ca", "Tên Ca Trực", "Giờ Bắt Đầu", "Giờ Kết Thúc", "Hệ Số Lương", "Đặc Thù Ca"],
         rows: [
-          ["CA01", "Ca Sáng", "06:00", "14:00", "1.0", "Phục vụ bữa sáng và trưa"],
-          ["CA02", "Ca Chiều", "14:00", "22:00", "1.0", "Phục vụ bữa tối (Cao điểm)"],
-          ["CA03", "Ca Đêm", "22:00", "06:00", "1.5", "Dọn dẹp và chuẩn bị nguyên liệu"]
+          ["CA01", "Ca Sáng (Khai Vị & Trưa)", "06:00", "14:00", "1.0", "Phục vụ điểm tâm sáng và ăn trưa"],
+          ["CA02", "Ca Chiều (Cao Điểm Tối)", "14:00", "22:00", "1.0", "Phục vụ bữa tối tiệc đoàn (Cao điểm)"],
+          ["CA03", "Ca Đêm (Tiếp Nhận Thực Phẩm)", "22:00", "06:00", "1.5", "Kiểm kê kho lạnh và vệ sinh bếp"]
         ],
         fields: [
-          { label: "Mã Ca Làm", key: 0 },
-          { label: "Tên Ca", key: 1 },
+          { label: "Mã Khung Ca", key: 0 },
+          { label: "Tên Ca Trực", key: 1 },
           { label: "Giờ Bắt Đầu", key: 2 },
           { label: "Giờ Kết Thúc", key: 3 },
-          { label: "Hệ Số Lương", key: 4 },
-          { label: "Ghi Chú", key: 5 }
+          { label: "Hệ Số Tính Công", key: 4 },
+          { label: "Mô Tả Nhiệm Vụ", key: 5 }
         ]
       },
       monan: {
-        title: "Danh Mục Món Ăn [frmMonAn]",
+        title: "Thực Đơn Ẩm Thực & Bảng Đơn Giá [frmMonAn]",
         icon: "🍽️",
         link: "features/menu/mon_an/frmMonAn_mockup_v1_0.html",
-        count: "28 món ăn",
-        headers: ["Mã Món", "Tên Món Ăn", "Nhóm Món", "Đơn Giá (VNĐ)", "ĐVT", "Trạng Thái"],
+        count: "28 món ăn & đồ uống",
+        headers: ["Mã Món", "Tên Món Ẩm Thực", "Nhóm Chế Biến", "Đơn Giá Niêm Yết", "ĐVT", "Tình Trạng Phục Vụ"],
         rows: [
-          ["MON01", "Phở Bò Tái Nạm", "Món Chính", "65,000", "Tô", "Đang phục vụ"],
-          ["MON02", "Cơm Tấm Sườn Bì Chả", "Món Chính", "55,000", "Dĩa", "Đang phục vụ"],
-          ["MON03", "Gỏi Cuốn Tôm Thịt", "Khai Vị", "45,000", "Phần", "Đang phục vụ"],
-          ["MON04", "Trà Đào Cam Sả", "Đồ Uống", "35,000", "Ly", "Đang phục vụ"],
-          ["MON05", "Cà Phê Sữa Đá", "Đồ Uống", "25,000", "Ly", "Đang phục vụ"],
-          ["MON06", "Chè Hạt Sen Long Nhãn", "Tráng Miệng", "30,000", "Chén", "Đang phục vụ"]
+          ["MON01", "Phở Bò Tái Nạm Cung Đình", "Món Chính", "65,000 đ", "Tô", "Sẵn sàng phục vụ"],
+          ["MON02", "Cơm Tấm Sườn Bì Chả Đặc Biệt", "Món Chính", "55,000 đ", "Dĩa", "Sẵn sàng phục vụ"],
+          ["MON03", "Gỏi Cuốn Tôm Thịt Ngũ Sắc", "Khai Vị", "45,000 đ", "Phần", "Sẵn sàng phục vụ"],
+          ["MON04", "Trà Đào Cam Sả Tươi", "Đồ Uống", "35,000 đ", "Ly", "Sẵn sàng phục vụ"],
+          ["MON05", "Cà Phê Phin Sữa Đá Đậm Đà", "Đồ Uống", "25,000 đ", "Ly", "Sẵn sàng phục vụ"],
+          ["MON06", "Chè Hạt Sen Long Nhãn", "Tráng Miệng", "30,000 đ", "Chén", "Sẵn sàng phục vụ"]
         ],
         fields: [
-          { label: "Mã Món Ăn", key: 0 },
-          { label: "Tên Món Ăn", key: 1 },
-          { label: "Nhóm Món", key: 2 },
+          { label: "Mã Món", key: 0 },
+          { label: "Tên Món Ẩm Thực", key: 1 },
+          { label: "Phân Nhóm Chế Biến", key: 2 },
           { label: "Đơn Giá Bán", key: 3 },
           { label: "Đơn Vị Tính", key: 4 },
-          { label: "Trạng Thái Phục Vụ", key: 5 }
+          { label: "Tình Trạng Phục Vụ", key: 5 }
         ]
       },
       danhmuc: {
-        title: "Phân Loại Nhóm Món [frmDanhMuc]",
+        title: "Phân Nhóm Món & Nhóm Chế Biến [frmDanhMuc]",
         icon: "📁",
         link: "features/menu/danh_muc/frmDanhMuc_mockup_v1_0.html",
-        count: "6 nhóm danh mục",
-        headers: ["Mã Nhóm", "Tên Nhóm", "Thứ Tự", "Ghi Chú", "Số Món"],
+        count: "6 nhóm phân loại",
+        headers: ["Mã Nhóm", "Tên Nhóm Ẩm Thực", "Thứ Tự POS", "Mô Tả Tác Nghiệp", "Số Lượng Món"],
         rows: [
-          ["DM01", "Khai Vị", "1", "Các món gỏi, súp, chả giò", "6"],
-          ["DM02", "Món Chính", "2", "Cơm, phở, lẩu, nướng", "12"],
-          ["DM03", "Đồ Uống", "3", "Trà sữa, cà phê, nước ngọt", "8"],
-          ["DM04", "Tráng Miệng", "4", "Chè, trái cây, bánh ngọt", "4"],
-          ["DM05", "Combo Tiết Kiệm", "5", "Set tiệc 2-4 người", "3"]
+          ["DM01", "Khai Vị & Khởi Vị", "1", "Các món gỏi, súp, chả giò khai tiệc", "6"],
+          ["DM02", "Món Chính & Đặc Sản", "2", "Cơm, phở truyền thống, lẩu nướng", "12"],
+          ["DM03", "Đồ Uống & Pha Chế", "3", "Trà hoa quả tươi, cà phê, nước giải khát", "8"],
+          ["DM04", "Tráng Miệng & Bánh Ngọt", "4", "Chè truyền thống, trái cây tươi", "4"],
+          ["DM05", "Set Menu Đoàn Tiết Kiệm", "5", "Combo ẩm thực dành cho nhóm 2-6 người", "3"]
         ],
         fields: [
           { label: "Mã Nhóm Món", key: 0 },
-          { label: "Tên Nhóm", key: 1 },
-          { label: "Thứ Tự Hiển Thị", key: 2 },
-          { label: "Ghi Chú", key: 3 },
-          { label: "Số Lượng Món", key: 4 }
+          { label: "Tên Nhóm Ẩm Thực", key: 1 },
+          { label: "Thứ Tự Ưu Tiên POS", key: 2 },
+          { label: "Mô Tả Định Hướng", key: 3 },
+          { label: "Tổng Món Áp Dụng", key: 4 }
         ]
       },
       khuvuc: {
-        title: "Quản Lý Khu Vực Bàn [frmKhuVuc]",
+        title: "Quy Hoạch Không Gian & Khu Vực Phục Vụ [frmKhuVuc]",
         icon: "🏢",
         link: "features/table/khu_vuc/frmKhuVuc_mockup_v1_0.html",
-        count: "3 khu vực",
-        headers: ["Mã KV", "Tên Khu Vực", "Số Lượng Bàn", "Phụ Thu (%)", "Trạng Thái"],
+        count: "3 khu vực phục vụ",
+        headers: ["Mã KV", "Tên Khu Vực", "Số Lượng Bàn", "Phụ Thu Dịch Vụ", "Tình Trạng Vận Hành"],
         rows: [
-          ["KV01", "Tầng 1 (Sảnh Chính)", "10", "0%", "Đang hoạt động"],
-          ["KV02", "Tầng 2 (Sân Vườn)", "8", "0%", "Đang hoạt động"],
-          ["KV03", "Phòng VIP (Máy Lạnh)", "6", "10%", "Đang hoạt động"]
+          ["KV01", "Sảnh Chính Tầng 1", "10 bàn", "0%", "🟢 Đang mở cửa đón khách"],
+          ["KV02", "Không Gian Sân Vườn Tầng 2", "8 bàn", "0%", "🟢 Đang mở cửa đón khách"],
+          ["KV03", "Phòng VIP Cao Cấp", "6 bàn", "10%", "🟢 Sẵn sàng phục vụ"]
         ],
         fields: [
           { label: "Mã Khu Vực", key: 0 },
           { label: "Tên Khu Vực", key: 1 },
-          { label: "Tổng Số Bàn", key: 2 },
-          { label: "Phụ Thu Giá (%)", key: 3 },
-          { label: "Trạng Thái", key: 4 }
+          { label: "Quy Mô Bàn", key: 2 },
+          { label: "Chính Sách Phụ Thu", key: 3 },
+          { label: "Tình Trạng Vận Hành", key: 4 }
         ]
       },
       ban: {
-        title: "Sơ Đồ Bàn Ăn [frmBan]",
+        title: "Sơ Đồ Bàn & Trạng Thái Chỗ Ngồi [frmBan]",
         icon: "🪑",
         link: "features/table/ban/frmBan_mockup_v1_0.html",
-        count: "24 bàn ăn",
-        headers: ["Mã Bàn", "Tên Bàn", "Khu Vực", "Số Chỗ", "Trạng Thái", "Khách Hiện Tại"],
+        count: "24 bàn hoạt động",
+        headers: ["Mã Bàn", "Tên Bàn", "Khu Vực", "Sức Chứa", "Trạng Thái Phục Vụ", "Thông Tin Khách Hàng"],
         rows: [
-          ["B101", "Bàn 01", "Tầng 1 (Sảnh)", "4", "🟢 Trống", "Chưa có"],
-          ["B102", "Bàn 02", "Tầng 1 (Sảnh)", "4", "🔴 Có Khách", "3 Khách (Hóa đơn #HD102)"],
-          ["B103", "Bàn 03", "Tầng 1 (Sảnh)", "6", "🟢 Trống", "Chưa có"],
-          ["B201", "Bàn VIP 1", "Phòng VIP", "10", "🟡 Đã Đặt", "Đặt lúc 19:00"],
-          ["B202", "Bàn VIP 2", "Phòng VIP", "12", "🟢 Trống", "Chưa có"]
+          ["B101", "Bàn Số 01", "Sảnh Tầng 1", "4 Chỗ", "🟢 Bàn Trống", "Chưa có khách ngồi"],
+          ["B102", "Bàn Số 02", "Sảnh Tầng 1", "4 Chỗ", "🔴 Đang Dùng Bữa", "3 Khách (Hóa đơn #HD102)"],
+          ["B103", "Bàn Số 03", "Sảnh Tầng 1", "6 Chỗ", "🟢 Bàn Trống", "Chưa có khách ngồi"],
+          ["B201", "Phòng VIP 1", "Khu Vực VIP", "10 Chỗ", "🟡 Đã Đặt Trước", "Khách VIP anh Dũng (19:00)"],
+          ["B202", "Phòng VIP 2", "Khu Vực VIP", "12 Chỗ", "🟢 Bàn Trống", "Chưa có khách ngồi"]
         ],
         fields: [
-          { label: "Mã Bàn Ăn", key: 0 },
-          { label: "Tên Bàn", key: 1 },
-          { label: "Thuộc Khu Vực", key: 2 },
-          { label: "Sức Chứa (Người)", key: 3 },
-          { label: "Tình Trạng Bàn", key: 4 },
-          { label: "Ghi Chú Đơn Khách", key: 5 }
+          { label: "Mã Định Danh Bàn", key: 0 },
+          { label: "Tên Hiển Thị", key: 1 },
+          { label: "Khu Vực Quy Hoạch", key: 2 },
+          { label: "Sức Chứa Tiêu Chuẩn", key: 3 },
+          { label: "Trạng Thái Phục Vụ", key: 4 },
+          { label: "Ghi Chú Đơn Hàng / Đặt Chỗ", key: 5 }
         ]
       },
       menu: {
-        title: "Bảng Thực Đơn Master [frmMenu]",
+        title: "Bộ Thực Đơn Chuẩn Toàn Chuỗi [frmMenu]",
         icon: "📋",
         link: "features/menu/bang_menu/frmMenu_mockup_v1_0.html",
-        count: "2 menu tổng",
-        headers: ["Mã Menu", "Tên Thực Đơn", "Ngày Áp Dụng", "Ngày Hết Hạn", "Trạng Thái"],
+        count: "2 bộ thực đơn chuẩn",
+        headers: ["Mã Thực Đơn", "Tên Bộ Thực Đơn", "Ngày Kích Hoạt", "Hiệu Lực Đến", "Trạng Thái"],
         rows: [
-          ["MENU_STD", "Thực Đơn Chuẩn Toàn Hệ Thống", "01/01/2026", "Không thời hạn", "Đang áp dụng"],
-          ["MENU_TET", "Thực Đơn Lễ Hội & Mùa Tết", "15/01/2026", "28/02/2026", "Hết hạn"]
+          ["MENU_STD", "Thực Đơn Chuẩn Toàn Hệ Thống", "01/01/2026", "Vô thời hạn", "Đang áp dụng chính thức"],
+          ["MENU_TET", "Bộ Thực Đơn Mùa Lễ Hội & Tết", "15/01/2026", "28/02/2026", "Đã kết thúc chiến dịch"]
         ],
         fields: [
           { label: "Mã Thực Đơn", key: 0 },
-          { label: "Tên Thực Đơn", key: 1 },
+          { label: "Tên Bộ Thực Đơn", key: 1 },
           { label: "Ngày Bắt Đầu Áp Dụng", key: 2 },
-          { label: "Ngày Kết Thúc", key: 3 },
-          { label: "Trạng Thái", key: 4 }
+          { label: "Thời Hạn Áp Dụng", key: 3 },
+          { label: "Trạng Thái Khai Thác", key: 4 }
         ]
       },
       chinhanh: {
-        title: "Quản Lý Chuỗi Chi Nhánh [frmChiNhanh]",
+        title: "Mạng Lưới Chi Nhánh Kinh Doanh [frmChiNhanh]",
         icon: "🏬",
         link: "features/branch/chi_nhanh/frmChiNhanh_mockup_v1_0.html",
-        count: "3 chi nhánh",
-        headers: ["Mã CN", "Tên Chi Nhánh", "Địa Chỉ", "Hotline", "Quản Lý Trưởng"],
+        count: "3 cơ sở kinh doanh",
+        headers: ["Mã Cơ Sở", "Tên Cơ Sở Kinh Doanh", "Địa Chỉ Trụ Sở", "Hotline Liên Hệ", "Giám Đốc Cơ Sở"],
         rows: [
-          ["CN001", "Chi Nhánh Quận 1", "123 Lê Lợi, P. Bến Thành, Q.1, TP.HCM", "028 3822 1111", "Nguyễn Văn Quản"],
-          ["CN002", "Chi Nhánh Cầu Giấy", "88 Cầu Giấy, Q. Cầu Giấy, Hà Nội", "024 3766 2222", "Lê Văn Đức"],
-          ["CN003", "Chi Nhánh Hải Châu", "45 Nguyễn Văn Linh, Q. Hải Châu, Đà Nẵng", "0236 388 3333", "Trần Thị Mai"]
+          ["CN001", "Cơ Sở Quận 1 (Trung Tâm)", "123 Lê Lợi, P. Bến Thành, Q.1, TP.HCM", "028 3822 1111", "Nguyễn Văn Quản"],
+          ["CN002", "Cơ Sở Cầu Giấy (Hà Nội)", "88 Cầu Giấy, Q. Cầu Giấy, Hà Nội", "024 3766 2222", "Lê Văn Đức"],
+          ["CN003", "Cơ Sở Hải Châu (Đà Nẵng)", "45 Nguyễn Văn Linh, Q. Hải Châu, Đà Nẵng", "0236 388 3333", "Trần Thị Mai"]
         ],
         fields: [
-          { label: "Mã Chi Nhánh", key: 0 },
-          { label: "Tên Chi Nhánh", key: 1 },
-          { label: "Địa Chỉ Trụ Sở", key: 2 },
-          { label: "Hotline Liên Hệ", key: 3 },
-          { label: "Người Phụ Trách Quản Lý", key: 4 }
+          { label: "Mã Cơ Sở", key: 0 },
+          { label: "Tên Cơ Sở", key: 1 },
+          { label: "Địa Chỉ Cơ Sở", key: 2 },
+          { label: "Đường Dây Nóng", key: 3 },
+          { label: "Cán Bộ Quản Lý Cơ Sở", key: 4 }
         ]
       },
       menuchinhanh: {
-        title: "Thực Đơn Áp Dụng Chi Nhánh [frmMenuChiNhanh]",
+        title: "Chính Sách Thực Đơn Chi Nhánh [frmMenuChiNhanh]",
         icon: "🎯",
         link: "features/branch/menu_chi_nhanh/frmMenuChiNhanh_mockup_v1_0.html",
-        count: "3 cấu hình chi nhánh",
-        headers: ["Mã CN", "Tên Chi Nhánh", "Menu Đang Dùng", "Số Món Phục Vụ", "Trạng Thái"],
+        count: "3 cấu hình cơ sở",
+        headers: ["Mã Cơ Sở", "Tên Cơ Sở", "Bộ Thực Đơn Áp Dụng", "Quy Mô Món", "Tình Trạng Hoạt Động"],
         rows: [
-          ["CN001", "Chi Nhánh Quận 1", "MENU_STD (Chuẩn)", "28 Món", "🟢 Đang Kích Hoạt"],
-          ["CN002", "Chi Nhánh Cầu Giấy", "MENU_STD (Chuẩn)", "26 Món", "🟢 Đang Kích Hoạt"],
-          ["CN003", "Chi Nhánh Hải Châu", "MENU_STD (Chuẩn)", "24 Món", "🟢 Đang Kích Hoạt"]
+          ["CN001", "Cơ Sở Quận 1", "MENU_STD (Chuẩn Hệ Thống)", "28 Món ẩm thực", "🟢 Đang áp dụng"],
+          ["CN002", "Cơ Sở Cầu Giấy", "MENU_STD (Chuẩn Hệ Thống)", "26 Món ẩm thực", "🟢 Đang áp dụng"],
+          ["CN003", "Cơ Sở Hải Châu", "MENU_STD (Chuẩn Hệ Thống)", "24 Món ẩm thực", "🟢 Đang áp dụng"]
         ],
         fields: [
-          { label: "Mã Chi Nhánh", key: 0 },
-          { label: "Tên Chi Nhánh", key: 1 },
-          { label: "Thực Đơn Đang Chọn", key: 2 },
+          { label: "Mã Cơ Sở", key: 0 },
+          { label: "Tên Cơ Sở", key: 1 },
+          { label: "Thực Đơn Đang Phục Vụ", key: 2 },
           { label: "Tổng Số Món Áp Dụng", key: 3 },
-          { label: "Trạng Thái Áp Dụng", key: 4 }
+          { label: "Tình Trạng Hiệu Lực", key: 4 }
         ]
       },
       doimatkhau: {
-        title: "Đổi Mật Khẩu Người Dùng [frmDoiMatKhau]",
+        title: "Đổi Mật Khẩu Xác Thực Cá Nhân [frmDoiMatKhau]",
         icon: "🔒",
         link: "features/doi_mat_khau/frmDoiMatKhau_mockup.html",
-        count: "Bảo mật tài khoản",
+        count: "Bảo mật tài khoản ca trực",
         headers: ["Thông Tin", "Giá Trị"],
         rows: [
           ["Tài khoản", "chuquan"],
@@ -1868,7 +1868,7 @@
 
     // State Variables
     let currentRole = "chuquan";
-    let currentRoleName = "Chủ Quán";
+    let currentRoleName = "Tổng Quản Trị";
     let currentUsername = "chuquan";
 
     // Switch between Login and Main screens
@@ -1884,13 +1884,13 @@
         scrMain.classList.remove("active");
         btnViewLogin.classList.add("active");
         btnViewMain.classList.remove("active");
-        windowTitleText.innerText = "Đăng Nhập Hệ Thống Quản Lý F&B [frmDangNhap v1.2]";
+        windowTitleText.innerText = "Bàn Giao Ca & Đăng Nhập Hệ Thống [Phúc Lộc Thọ F&B Solution]";
       } else {
         scrLogin.classList.remove("active");
         scrMain.classList.add("active");
         btnViewLogin.classList.remove("active");
         btnViewMain.classList.add("active");
-        windowTitleText.innerText = "Nhà Hàng Phúc Lộc Thọ — Trung Tâm Quản Lý Hệ Thống [frmMain v1.2]";
+        windowTitleText.innerText = "Nhà Hàng Phúc Lộc Thọ — Hệ Thống Điều Hành & Quản Trị Chuỗi F&B Enterprise";
       }
     }
 
